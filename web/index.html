@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    IMPORTANT: No analytics scripts loaded here!
+    Analytics are dynamically injected AFTER user consent.
+    See lib/services/consent_manager.dart
+  -->
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Integrity Studio | AI Observability Platform</title>
+  <meta name="title" content="Integrity Studio | AI Observability Platform">
+  <meta name="description" content="Enterprise-grade observability for LLM applications. Monitor performance, track costs, and debug issues with comprehensive tracing and analytics.">
+  <meta name="keywords" content="AI observability, LLM monitoring, AI debugging, machine learning ops, MLOps, AI analytics">
+  <meta name="author" content="Integrity Studio">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://integritystudio.ai/">
+  <meta property="og:title" content="Integrity Studio | AI Observability Platform">
+  <meta property="og:description" content="Enterprise-grade observability for LLM applications. Monitor performance, track costs, and debug issues.">
+  <meta property="og:image" content="https://integritystudio.ai/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Integrity Studio">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://integritystudio.ai/">
+  <meta property="twitter:title" content="Integrity Studio | AI Observability Platform">
+  <meta property="twitter:description" content="Enterprise-grade observability for LLM applications. Monitor performance, track costs, and debug issues.">
+  <meta property="twitter:image" content="https://integritystudio.ai/images/og-image.png">
+  <meta property="twitter:site" content="@integritystudio">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://integritystudio.ai/">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0F172A">
+  <meta name="msapplication-TileColor" content="#0F172A">
+
+  <!-- Preconnect to required origins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Integrity Studio",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "description": "Enterprise-grade AI observability platform for LLM applications. Monitor performance, track costs, and debug issues with comprehensive tracing and analytics.",
+    "url": "https://integritystudio.ai",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "0",
+      "highPrice": "99",
+      "offerCount": "3"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Integrity Studio",
+      "url": "https://integritystudio.ai",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://integritystudio.ai/images/logo.png"
+      },
+      "sameAs": [
+        "https://twitter.com/integritystudio",
+        "https://linkedin.com/company/integritystudio",
+        "https://github.com/integritystudio"
+      ]
+    },
+    "featureList": [
+      "LLM Monitoring",
+      "Distributed Tracing",
+      "Cost Attribution",
+      "Performance Analytics",
+      "Anomaly Detection",
+      "PII Redaction"
+    ]
+  }
+  </script>
+
+  <!-- Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Integrity Studio",
+    "url": "https://integritystudio.ai",
+    "logo": "https://integritystudio.ai/images/logo.png",
+    "description": "Enterprise-grade AI observability platform",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "sales@integritystudio.ai"
+    }
+  }
+  </script>
+
+  <!-- Critical CSS for initial paint -->
+  <style>
+    :root {
+      --gray-950: #0F172A;
+      --gray-900: #1E293B;
+      --blue-500: #3B82F6;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background-color: var(--gray-950);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Loading spinner */
+    .loading-container {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--gray-950);
+    }
+
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 3px solid var(--gray-900);
+      border-top-color: var(--blue-500);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .loading-text {
+      margin-top: 16px;
+      color: #94A3B8;
+      font-size: 14px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Hide loading on Flutter ready */
+    .flutter-ready .loading-container {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading State (shown until Flutter initializes) -->
+  <div class="loading-container" aria-label="Loading application">
+    <div class="loading-spinner" role="progressbar"></div>
+    <p class="loading-text">Loading Integrity Studio...</p>
+  </div>
+
+  <!-- Noscript fallback for SEO and accessibility -->
+  <noscript>
+    <div style="background: #0F172A; color: #F1F5F9; padding: 40px; text-align: center; min-height: 100vh; box-sizing: border-box;">
+      <h1 style="font-size: 32px; margin-bottom: 16px;">Integrity Studio</h1>
+      <h2 style="font-size: 24px; font-weight: normal; color: #94A3B8; margin-bottom: 32px;">AI Observability Platform</h2>
+
+      <p style="max-width: 600px; margin: 0 auto 24px; line-height: 1.6; color: #CBD5E1;">
+        Enterprise-grade observability for LLM applications. Monitor performance,
+        track costs, and debug issues with comprehensive tracing and analytics.
+      </p>
+
+      <h3 style="font-size: 18px; margin: 32px 0 16px;">Key Features:</h3>
+      <ul style="list-style: none; padding: 0; color: #CBD5E1;">
+        <li style="margin: 8px 0;">LLM Monitoring - Track every call with detailed metrics</li>
+        <li style="margin: 8px 0;">Distributed Tracing - End-to-end visibility with OpenTelemetry</li>
+        <li style="margin: 8px 0;">Cost Attribution - Know exactly what each request costs</li>
+        <li style="margin: 8px 0;">Anomaly Detection - Automated alerts for unusual patterns</li>
+        <li style="margin: 8px 0;">Security & Privacy - PII detection and data masking</li>
+      </ul>
+
+      <p style="margin-top: 32px; color: #94A3B8;">
+        <strong>JavaScript is required to use this application.</strong><br>
+        Please enable JavaScript in your browser settings.
+      </p>
+
+      <p style="margin-top: 24px;">
+        <a href="mailto:contact@integritystudio.ai" style="color: #3B82F6;">
+          Contact us at contact@integritystudio.ai
+        </a>
+      </p>
+    </div>
+  </noscript>
+
+  <!-- Flutter Web Entry Point -->
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

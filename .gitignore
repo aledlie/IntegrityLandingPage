@@ -1,0 +1,38 @@
+# Flutter/Dart
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Pub
+pubspec.lock
+
+# Generated
+*.g.dart
+*.freezed.dart
+
+# Web build
+build/web/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Coverage
+coverage/
+
+# Test
+.test_coverage.dart
+
+# Logs
+*.log
