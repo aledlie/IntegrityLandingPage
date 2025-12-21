@@ -4,21 +4,17 @@ import '../services/analytics.dart';
 import '../widgets/sections/hero_section.dart';
 import '../widgets/sections/features_section.dart';
 import '../widgets/sections/pricing_section.dart';
+import '../widgets/sections/status_section.dart';
 import '../widgets/sections/cta_section.dart';
 import '../widgets/sections/footer_section.dart';
 
-/// Main landing page composing all sections
+/// Main landing page composing all sections.
 ///
 /// Features:
-/// - Smooth scroll navigation
-/// - Section tracking for analytics
-/// - Responsive layout
-/// - Accessibility with semantic regions
-///
-/// Usage:
-/// ```dart
-/// LandingPage()
-/// ```
+/// - Smooth scroll navigation between sections
+/// - Scroll depth tracking for analytics
+/// - Responsive layout with accessibility support
+/// - Semantic regions for screen readers
 class LandingPage extends StatefulWidget {
   final VoidCallback? onShowCookieSettings;
 
@@ -35,10 +31,13 @@ class _LandingPageState extends State<LandingPage> {
   final ScrollController _scrollController = ScrollController();
 
   // Section keys for scroll navigation
-  final GlobalKey _heroKey = GlobalKey();
-  final GlobalKey _featuresKey = GlobalKey();
-  final GlobalKey _pricingKey = GlobalKey();
-  final GlobalKey _ctaKey = GlobalKey();
+  final _sectionKeys = <String, GlobalKey>{
+    'hero': GlobalKey(),
+    'features': GlobalKey(),
+    'status': GlobalKey(),
+    'pricing': GlobalKey(),
+    'cta': GlobalKey(),
+  };
 
   @override
   void initState() {
@@ -55,28 +54,23 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   void _onScroll() {
-    // Track scroll depth at 25%, 50%, 75%, 100%
     final maxScroll = _scrollController.position.maxScrollExtent;
-    if (maxScroll > 0) {
-      final percentage =
-          ((_scrollController.offset / maxScroll) * 100).round();
-      AnalyticsService.trackScrollDepth(percentage);
-    }
+    if (maxScroll <= 0) return;
+
+    final percentage = ((_scrollController.offset / maxScroll) * 100).round();
+    AnalyticsService.trackScrollDepth(percentage);
   }
 
-  void _scrollToSection(GlobalKey key) {
-    final context = key.currentContext;
-    if (context != null) {
-      Scrollable.ensureVisible(
-        context,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
+  void _scrollToSection(String sectionName) {
+    final key = _sectionKeys[sectionName];
+    if (key?.currentContext == null) return;
 
-  void _scrollToPricing() => _scrollToSection(_pricingKey);
-  void _scrollToCTA() => _scrollToSection(_ctaKey);
+    Scrollable.ensureVisible(
+      key!.currentContext!,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,73 +80,77 @@ class _LandingPageState extends State<LandingPage> {
         child: CustomScrollView(
           controller: _scrollController,
           slivers: [
-            // Hero Section
-            SliverToBoxAdapter(
-              child: Semantics(
-                label: 'Hero section',
-                child: KeyedSubtree(
-                  key: _heroKey,
-                  child: HeroSection(
-                    onGetStarted: _scrollToPricing,
-                    onWatchDemo: () {
-                      // TODO: Implement demo modal
-                    },
-                  ),
-                ),
+            _buildSection(
+              key: _sectionKeys['hero']!,
+              label: 'Hero section',
+              child: HeroSection(
+                onGetStarted: () => _scrollToSection('pricing'),
+                onWatchDemo: _handleWatchDemo,
               ),
             ),
-
-            // Features Section
-            SliverToBoxAdapter(
-              child: Semantics(
-                label: 'Features section',
-                child: KeyedSubtree(
-                  key: _featuresKey,
-                  child: const FeaturesSection(),
-                ),
+            _buildSection(
+              key: _sectionKeys['features']!,
+              label: 'Features section',
+              child: const FeaturesSection(),
+            ),
+            _buildSection(
+              key: _sectionKeys['status']!,
+              label: 'Status section',
+              child: const StatusSection(),
+            ),
+            _buildSection(
+              key: _sectionKeys['pricing']!,
+              label: 'Pricing section',
+              child: PricingSection(
+                onSelectTier: _handleSelectTier,
               ),
             ),
-
-            // Pricing Section
-            SliverToBoxAdapter(
-              child: Semantics(
-                label: 'Pricing section',
-                child: KeyedSubtree(
-                  key: _pricingKey,
-                  child: PricingSection(
-                    onSelectTier: (tier) {
-                      // TODO: Navigate to signup with tier selection
-                    },
-                  ),
-                ),
+            _buildSection(
+              key: _sectionKeys['cta']!,
+              label: 'Call to action section',
+              child: CTASection(
+                onGetStarted: () => _scrollToSection('pricing'),
               ),
             ),
-
-            // CTA Section
-            SliverToBoxAdapter(
-              child: Semantics(
-                label: 'Call to action section',
-                child: KeyedSubtree(
-                  key: _ctaKey,
-                  child: CTASection(
-                    onGetStarted: _scrollToPricing,
-                  ),
-                ),
-              ),
-            ),
-
-            // Footer
-            SliverToBoxAdapter(
-              child: Semantics(
-                label: 'Footer section',
-                child: FooterSection(
-                  onCookieSettings: widget.onShowCookieSettings,
-                ),
+            _buildSection(
+              label: 'Footer section',
+              child: FooterSection(
+                onCookieSettings: widget.onShowCookieSettings,
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  /// Build a semantic sliver section.
+  SliverToBoxAdapter _buildSection({
+    GlobalKey? key,
+    required String label,
+    required Widget child,
+  }) {
+    Widget content = child;
+
+    if (key != null) {
+      content = KeyedSubtree(key: key, child: content);
+    }
+
+    return SliverToBoxAdapter(
+      child: Semantics(
+        label: label,
+        child: content,
+      ),
+    );
+  }
+
+  void _handleWatchDemo() {
+    // TODO: Implement demo modal or video player
+    AnalyticsService.trackDemoRequest();
+  }
+
+  void _handleSelectTier(String tier) {
+    // TODO: Navigate to signup with tier selection
+    AnalyticsService.trackPricingView(tier);
   }
 }
