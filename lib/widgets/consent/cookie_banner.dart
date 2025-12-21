@@ -124,7 +124,7 @@ class _CookieBannerState extends State<CookieBanner>
                 padding: EdgeInsets.all(
                   isMobile ? AppSpacing.md : AppSpacing.lg,
                 ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   border: Border(
                     top: BorderSide(
                       color: AppColors.gray700,
@@ -151,7 +151,7 @@ class _CookieBannerState extends State<CookieBanner>
         // Header
         Row(
           children: [
-            Icon(
+            const Icon(
               Icons.cookie_outlined,
               color: AppColors.blue400,
               size: 24,
@@ -277,7 +277,7 @@ class _CookieBannerState extends State<CookieBanner>
         const SizedBox(height: AppSpacing.lg),
 
         // Essential cookies (always on)
-        _CookieCategory(
+        const _CookieCategory(
           title: 'Essential Cookies',
           description:
               'Required for the website to function properly. Cannot be disabled.',

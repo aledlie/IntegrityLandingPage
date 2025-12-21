@@ -126,7 +126,7 @@ class _CTAButtonState extends State<_CTAButton> {
                 ),
               ),
               const SizedBox(width: AppSpacing.sm),
-              Icon(
+              const Icon(
                 LucideIcons.arrowRight,
                 size: 20,
                 color: AppColors.blue600,

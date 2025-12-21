@@ -47,7 +47,7 @@ class _GlassCardState extends State<GlassCard> {
   bool _isHovered = false;
 
   EdgeInsets get _padding =>
-      widget.padding ?? EdgeInsets.all(AppSpacing.cardPadding);
+      widget.padding ?? const EdgeInsets.all(AppSpacing.cardPadding);
 
   @override
   Widget build(BuildContext context) {

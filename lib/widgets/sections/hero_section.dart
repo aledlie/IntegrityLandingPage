@@ -262,7 +262,7 @@ class HeroSection extends StatelessWidget {
               Container(
                 width: 4,
                 height: 4,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: AppColors.gray600,
                   shape: BoxShape.circle,
                 ),
@@ -286,7 +286,7 @@ class _TrustIndicator extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
+        const Icon(
           LucideIcons.check,
           size: 16,
           color: AppColors.success,

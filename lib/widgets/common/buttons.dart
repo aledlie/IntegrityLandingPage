@@ -237,7 +237,7 @@ class _OutlineButtonState extends State<OutlineButton> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (widget.isLoading)
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                             height: 20,
                             child: CircularProgressIndicator(

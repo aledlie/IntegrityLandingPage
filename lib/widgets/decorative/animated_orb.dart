@@ -173,7 +173,7 @@ class DecorativeOrbs extends StatelessWidget {
     final shouldAnimate = animate && !reduceMotion;
 
     if (shouldAnimate) {
-      return Positioned.fill(
+      return const Positioned.fill(
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -184,7 +184,7 @@ class DecorativeOrbs extends StatelessWidget {
                 size: 256,
                 color: AppColors.blue500,
                 position: Alignment.topLeft,
-                offset: const Offset(-80, -80),
+                offset: Offset(-80, -80),
               ),
             ),
             Positioned(
@@ -194,8 +194,8 @@ class DecorativeOrbs extends StatelessWidget {
                 size: 200,
                 color: AppColors.indigo500,
                 position: Alignment.bottomRight,
-                offset: const Offset(-60, 100),
-                duration: const Duration(seconds: 10),
+                offset: Offset(-60, 100),
+                duration: Duration(seconds: 10),
               ),
             ),
           ],
@@ -204,7 +204,7 @@ class DecorativeOrbs extends StatelessWidget {
     }
 
     // Static fallback for reduced motion
-    return Positioned.fill(
+    return const Positioned.fill(
       child: Stack(
         clipBehavior: Clip.none,
         children: [

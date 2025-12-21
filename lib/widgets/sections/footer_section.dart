@@ -105,20 +105,20 @@ class FooterSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        Row(
+        const Row(
           children: [
             _SocialLink(
               icon: LucideIcons.twitter,
               url: 'https://twitter.com/integritystudio',
               label: 'Twitter',
             ),
-            const SizedBox(width: AppSpacing.md),
+            SizedBox(width: AppSpacing.md),
             _SocialLink(
               icon: LucideIcons.linkedin,
               url: 'https://linkedin.com/company/integritystudio',
               label: 'LinkedIn',
             ),
-            const SizedBox(width: AppSpacing.md),
+            SizedBox(width: AppSpacing.md),
             _SocialLink(
               icon: LucideIcons.github,
               url: 'https://github.com/integritystudio',
