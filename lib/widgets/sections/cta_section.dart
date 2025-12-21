@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
-import '../common/buttons.dart';
 import '../common/containers.dart';
 
 /// Final call-to-action section

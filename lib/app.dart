@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'theme/theme.dart';
 import 'pages/landing_page.dart';
 import 'services/consent_manager.dart';
