@@ -67,7 +67,7 @@ class _GradientButtonState extends State<GradientButton> {
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeOut,
               transform: _isHovered && !_isDisabled
-                  ? (Matrix4.identity()..translate(0.0, -2.0))
+                  ? Matrix4.translationValues(0.0, -2.0, 0.0)
                   : Matrix4.identity(),
               decoration: BoxDecoration(
                 gradient: _isDisabled

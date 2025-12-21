@@ -425,7 +425,7 @@ class _CookieCategory extends StatelessWidget {
           Switch(
             value: enabled,
             onChanged: onChanged,
-            activeColor: AppColors.blue500,
+            activeTrackColor: AppColors.blue500,
             inactiveThumbColor: required ? AppColors.gray500 : AppColors.gray400,
             inactiveTrackColor: AppColors.gray700,
           ),

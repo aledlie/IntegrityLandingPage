@@ -1,10 +1,9 @@
-/// Consent preferences model for GDPR compliance
+/// Consent preferences model for GDPR compliance.
 ///
 /// GDPR requires:
 /// - Recording WHEN consent was given (timestamp)
 /// - Granular consent options (analytics vs marketing)
 /// - Easy withdrawal mechanism
-
 class ConsentPreferences {
   /// Essential cookies are always allowed (required for site function)
   final bool essential;

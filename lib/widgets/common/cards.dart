@@ -70,7 +70,7 @@ class _GlassCardState extends State<GlassCard> {
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeOut,
             transform: widget.enableHover && _isHovered
-                ? (Matrix4.identity()..translate(0.0, -4.0))
+                ? Matrix4.translationValues(0.0, -4.0, 0.0)
                 : Matrix4.identity(),
             decoration: _buildDecoration(),
             child: ClipRRect(
