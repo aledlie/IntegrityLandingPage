@@ -91,11 +91,11 @@ class AppColors {
   );
 
   // Orb Colors (decorative)
-  static Color orbBlue = blue500.withOpacity(0.15);
-  static Color orbIndigo = indigo500.withOpacity(0.15);
-  static Color orbPurple = purple500.withOpacity(0.15);
+  static Color orbBlue = blue500.withValues(alpha: 0.15);
+  static Color orbIndigo = indigo500.withValues(alpha: 0.15);
+  static Color orbPurple = purple500.withValues(alpha: 0.15);
 
   // Shadow Colors
-  static Color shadowDefault = gray900.withOpacity(0.3);
-  static Color shadowBlue = blue500.withOpacity(0.3);
+  static Color shadowDefault = gray900.withValues(alpha: 0.3);
+  static Color shadowBlue = blue500.withValues(alpha: 0.3);
 }

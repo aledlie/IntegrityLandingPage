@@ -178,7 +178,7 @@ class _PricingSectionState extends State<PricingSection> {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: AppColors.gray800.withOpacity(0.5),
+        color: AppColors.gray800.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(AppSpacing.radiusLG),
         border: Border.all(color: AppColors.gray700),
       ),

@@ -92,8 +92,8 @@ class _GradientButtonState extends State<GradientButton> {
                 child: InkWell(
                   onTap: _isDisabled ? null : widget.onPressed,
                   borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                  hoverColor: Colors.white.withOpacity(0.1),
-                  focusColor: Colors.white.withOpacity(0.1),
+                  hoverColor: Colors.white.withValues(alpha: 0.1),
+                  focusColor: Colors.white.withValues(alpha: 0.1),
                   child: Container(
                     width: widget.fullWidth ? double.infinity : null,
                     padding: const EdgeInsets.symmetric(

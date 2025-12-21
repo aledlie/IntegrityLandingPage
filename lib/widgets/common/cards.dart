@@ -95,13 +95,13 @@ class _GlassCardState extends State<GlassCard> {
       case GlassCardTier.primary:
         return BoxDecoration(
           color: kIsWeb
-              ? AppColors.gray900.withOpacity(0.95)
-              : AppColors.gray900.withOpacity(0.8),
+              ? AppColors.gray900.withValues(alpha: 0.95)
+              : AppColors.gray900.withValues(alpha: 0.8),
           borderRadius: BorderRadius.circular(AppSpacing.radiusXL),
           border: Border.all(
             color: _isHovered
-                ? AppColors.blue500.withOpacity(0.5)
-                : AppColors.gray700.withOpacity(0.5),
+                ? AppColors.blue500.withValues(alpha: 0.5)
+                : AppColors.gray700.withValues(alpha: 0.5),
             width: _isHovered ? 2 : 1,
           ),
           boxShadow: [
@@ -112,7 +112,7 @@ class _GlassCardState extends State<GlassCard> {
             ),
             if (_isHovered)
               BoxShadow(
-                color: AppColors.blue500.withOpacity(0.1),
+                color: AppColors.blue500.withValues(alpha: 0.1),
                 blurRadius: 40,
                 offset: const Offset(0, 8),
               ),
@@ -121,12 +121,12 @@ class _GlassCardState extends State<GlassCard> {
 
       case GlassCardTier.secondary:
         return BoxDecoration(
-          color: AppColors.gray800.withOpacity(0.9),
+          color: AppColors.gray800.withValues(alpha: 0.9),
           borderRadius: BorderRadius.circular(AppSpacing.radiusXL),
           border: Border.all(
             color: _isHovered
-                ? AppColors.blue500.withOpacity(0.4)
-                : AppColors.gray700.withOpacity(0.5),
+                ? AppColors.blue500.withValues(alpha: 0.4)
+                : AppColors.gray700.withValues(alpha: 0.5),
             width: 1,
           ),
           boxShadow: [

@@ -92,7 +92,7 @@ class _AnimatedOrbState extends State<AnimatedOrb>
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    widget.color.withOpacity(_opacityAnimation.value),
+                    widget.color.withValues(alpha: _opacityAnimation.value),
                     Colors.transparent,
                   ],
                 ),
@@ -135,7 +135,7 @@ class StaticOrb extends StatelessWidget {
         shape: BoxShape.circle,
         gradient: RadialGradient(
           colors: [
-            color.withOpacity(opacity),
+            color.withValues(alpha: opacity),
             Colors.transparent,
           ],
         ),

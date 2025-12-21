@@ -269,7 +269,7 @@ class GradientBackground extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      AppColors.blue500.withOpacity(orbOpacity ?? 0.15),
+                      AppColors.blue500.withValues(alpha: orbOpacity ?? 0.15),
                       Colors.transparent,
                     ],
                   ),
@@ -287,7 +287,7 @@ class GradientBackground extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      AppColors.indigo500.withOpacity(orbOpacity ?? 0.15),
+                      AppColors.indigo500.withValues(alpha: orbOpacity ?? 0.15),
                       Colors.transparent,
                     ],
                   ),

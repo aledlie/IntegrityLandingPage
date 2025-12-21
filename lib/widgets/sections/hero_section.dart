@@ -111,10 +111,10 @@ class HeroSection extends StatelessWidget {
         vertical: AppSpacing.xs,
       ),
       decoration: BoxDecoration(
-        color: AppColors.blue500.withOpacity(0.1),
+        color: AppColors.blue500.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
         border: Border.all(
-          color: AppColors.blue500.withOpacity(0.3),
+          color: AppColors.blue500.withValues(alpha: 0.3),
         ),
       ),
       child: Row(

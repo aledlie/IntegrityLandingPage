@@ -33,7 +33,7 @@ class CTASection extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppSpacing.radiusXL),
           boxShadow: [
             BoxShadow(
-              color: AppColors.blue500.withOpacity(0.3),
+              color: AppColors.blue500.withValues(alpha: 0.3),
               blurRadius: 40,
               offset: const Offset(0, 16),
             ),
@@ -54,7 +54,7 @@ class CTASection extends StatelessWidget {
               child: Text(
                 'Start your free trial today. No credit card required.',
                 style: AppTypography.bodyLG.copyWith(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValues(alpha: 0.9),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -109,7 +109,7 @@ class _CTAButtonState extends State<_CTAButton> {
             boxShadow: _isHovered
                 ? [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withValues(alpha: 0.2),
                       blurRadius: 16,
                       offset: const Offset(0, 8),
                     ),

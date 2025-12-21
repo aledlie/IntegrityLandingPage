@@ -371,7 +371,7 @@ class _CookieCategory extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
-        color: AppColors.gray900.withOpacity(0.5),
+        color: AppColors.gray900.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
         border: Border.all(color: AppColors.gray700),
       ),
