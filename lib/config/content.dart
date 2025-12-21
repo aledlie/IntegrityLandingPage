@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
-/// Centralized content configuration for landing page
+/// Centralized content configuration for landing page.
 ///
 /// This file externalizes all hardcoded content from widgets,
 /// enabling A/B testing, easy content updates, and localization readiness.
@@ -15,7 +15,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 // HERO SECTION CONTENT
 // ============================================================================
 
-/// Hero section content with A/B testing variants
+/// Hero section content with A/B testing variants.
+@immutable
 class HeroContent {
   final String badge;
   final String headline;
@@ -112,7 +113,8 @@ class HeroContent {
 // PRICING SECTION CONTENT
 // ============================================================================
 
-/// Pricing tier data structure
+/// Pricing tier data structure.
+@immutable
 class PricingTierContent {
   final String name;
   final String monthlyPrice;
@@ -135,7 +137,8 @@ class PricingTierContent {
   });
 }
 
-/// Pricing section content configuration
+/// Pricing section content configuration.
+@immutable
 class PricingContent {
   final String title;
   final String subtitle;
@@ -285,7 +288,8 @@ class PricingContent {
 // FEATURES SECTION CONTENT
 // ============================================================================
 
-/// Feature card data structure
+/// Feature card data structure.
+@immutable
 class FeatureCardContent {
   final IconData icon;
   final String title;
@@ -300,7 +304,8 @@ class FeatureCardContent {
   });
 }
 
-/// Features section content configuration
+/// Features section content configuration.
+@immutable
 class FeaturesContent {
   final String title;
   final String subtitle;
@@ -466,7 +471,8 @@ class FeaturesContent {
 // CTA SECTION CONTENT
 // ============================================================================
 
-/// CTA section content configuration
+/// CTA section content configuration.
+@immutable
 class CTAContent {
   final String headline;
   final String subheadline;
@@ -505,7 +511,8 @@ class CTAContent {
 // SOCIAL PROOF CONTENT (NEW - per audit recommendations)
 // ============================================================================
 
-/// Customer logo/testimonial for social proof section
+/// Customer logo/testimonial for social proof section.
+@immutable
 class CustomerLogoContent {
   final String name;
   final String? logoAsset;
@@ -518,7 +525,8 @@ class CustomerLogoContent {
   });
 }
 
-/// Testimonial content
+/// Testimonial content.
+@immutable
 class TestimonialContent {
   final String quote;
   final String author;
@@ -535,7 +543,8 @@ class TestimonialContent {
   });
 }
 
-/// Social proof section content
+/// Social proof section content.
+@immutable
 class SocialProofContent {
   final String title;
   final List<CustomerLogoContent> logos;
@@ -580,10 +589,120 @@ class SocialProofContent {
 }
 
 // ============================================================================
+// STATUS SECTION CONTENT
+// ============================================================================
+
+/// Status metric item for platform health/status display.
+@immutable
+class StatusMetricContent {
+  final String label;
+  final String value;
+  final String? sublabel;
+  final bool isOperational;
+
+  const StatusMetricContent({
+    required this.label,
+    required this.value,
+    this.sublabel,
+    this.isOperational = true,
+  });
+}
+
+/// Status service item showing individual service status.
+@immutable
+class StatusServiceContent {
+  final String name;
+  final String status;
+  final bool isOperational;
+
+  const StatusServiceContent({
+    required this.name,
+    required this.status,
+    this.isOperational = true,
+  });
+}
+
+/// Status section content configuration.
+@immutable
+class StatusContent {
+  final String title;
+  final String subtitle;
+  final String statusBadge;
+  final bool allOperational;
+  final List<StatusMetricContent> metrics;
+  final List<StatusServiceContent> services;
+  final String statusPageUrl;
+  final String statusPageCta;
+
+  const StatusContent({
+    required this.title,
+    required this.subtitle,
+    required this.statusBadge,
+    required this.allOperational,
+    required this.metrics,
+    required this.services,
+    required this.statusPageUrl,
+    required this.statusPageCta,
+  });
+
+  /// Current production content
+  /// Based on Brand Guidelines and Content Strategy metrics
+  static const current = StatusContent(
+    title: 'Platform Status',
+    subtitle: 'Real-time operational health and performance metrics',
+    statusBadge: 'All Systems Operational',
+    allOperational: true,
+    metrics: [
+      StatusMetricContent(
+        label: 'Uptime',
+        value: '99.9%',
+        sublabel: 'SLA Guaranteed',
+      ),
+      StatusMetricContent(
+        label: 'Traces Processed',
+        value: '10M+',
+        sublabel: 'Daily',
+      ),
+      StatusMetricContent(
+        label: 'AI Teams',
+        value: '500+',
+        sublabel: 'Trusted By',
+      ),
+      StatusMetricContent(
+        label: 'Setup Time',
+        value: '5 min',
+        sublabel: 'Average',
+      ),
+    ],
+    services: [
+      StatusServiceContent(
+        name: 'Trace Ingestion API',
+        status: 'Operational',
+      ),
+      StatusServiceContent(
+        name: 'Dashboard & Analytics',
+        status: 'Operational',
+      ),
+      StatusServiceContent(
+        name: 'Compliance Reporting',
+        status: 'Operational',
+      ),
+      StatusServiceContent(
+        name: 'Alerting System',
+        status: 'Operational',
+      ),
+    ],
+    statusPageUrl: 'https://status.integritystudio.ai',
+    statusPageCta: 'View Full Status Page',
+  );
+}
+
+// ============================================================================
 // FOOTER CONTENT
 // ============================================================================
 
-/// Footer link group
+/// Footer link group.
+@immutable
 class FooterLinkGroup {
   final String title;
   final List<FooterLink> links;
@@ -594,7 +713,8 @@ class FooterLinkGroup {
   });
 }
 
-/// Individual footer link
+/// Individual footer link.
+@immutable
 class FooterLink {
   final String label;
   final String url;
@@ -607,7 +727,8 @@ class FooterLink {
   });
 }
 
-/// Footer content configuration
+/// Footer content configuration.
+@immutable
 class FooterContent {
   final String companyName;
   final String tagline;
@@ -702,6 +823,9 @@ class AppContent {
 
   /// Current social proof content
   static SocialProofContent get socialProof => SocialProofContent.placeholder;
+
+  /// Current status section content
+  static StatusContent get status => StatusContent.current;
 
   /// Current footer content
   static FooterContent get footer => FooterContent.current;
