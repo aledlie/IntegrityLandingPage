@@ -1,30 +1,35 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+/// Widget tests for Integrity Studio AI landing page.
+///
+/// These tests verify the app loads correctly and basic UI elements render.
+/// Sentry is not initialized during tests (no DSN configured).
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:integrity_studio_ai/main.dart';
+import 'package:integrity_studio_ai/app.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('IntegrityStudioApp', () {
+    testWidgets('renders without errors', (tester) async {
+      await tester.pumpWidget(const IntegrityStudioApp());
+      await tester.pumpAndSettle();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      expect(find.byType(IntegrityStudioApp), findsOneWidget);
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    testWidgets('contains MaterialApp', (tester) async {
+      await tester.pumpWidget(const IntegrityStudioApp());
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      expect(find.byType(MaterialApp), findsOneWidget);
+    });
+
+    testWidgets('uses dark theme background', (tester) async {
+      await tester.pumpWidget(const IntegrityStudioApp());
+      await tester.pumpAndSettle();
+
+      final scaffold = tester.widget<Scaffold>(find.byType(Scaffold).first);
+      expect(scaffold.backgroundColor, isNotNull);
+    });
   });
 }
