@@ -1,8 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../theme/theme.dart';
 import '../common/containers.dart';
+
+/// Launch URL with web-compatible mode
+Future<void> _launchUrl(String url) async {
+  final uri = Uri.parse(url);
+  const mode = kIsWeb ? LaunchMode.platformDefault : LaunchMode.externalApplication;
+  await launchUrl(uri, mode: mode);
+}
 
 /// Footer section with links and legal information
 ///
@@ -148,7 +156,7 @@ class FooterSection extends StatelessWidget {
                 text: link.text,
                 onTap: link.isInternal
                     ? () {}
-                    : () => launchUrl(Uri.parse(link.url)),
+                    : () => _launchUrl(link.url),
               ),
             )),
       ],
@@ -170,12 +178,12 @@ class FooterSection extends StatelessWidget {
             children: [
               _FooterLink(
                 text: 'Privacy Policy',
-                onTap: () => launchUrl(Uri.parse('/privacy')),
+                onTap: () => _launchUrl('/privacy'),
               ),
               const SizedBox(width: AppSpacing.md),
               _FooterLink(
                 text: 'Terms',
-                onTap: () => launchUrl(Uri.parse('/terms')),
+                onTap: () => _launchUrl('/terms'),
               ),
               const SizedBox(width: AppSpacing.md),
               _FooterLink(
@@ -199,12 +207,12 @@ class FooterSection extends StatelessWidget {
           children: [
             _FooterLink(
               text: 'Privacy Policy',
-              onTap: () => launchUrl(Uri.parse('/privacy')),
+              onTap: () => _launchUrl('/privacy'),
             ),
             const SizedBox(width: AppSpacing.lg),
             _FooterLink(
               text: 'Terms of Service',
-              onTap: () => launchUrl(Uri.parse('/terms')),
+              onTap: () => _launchUrl('/terms'),
             ),
             const SizedBox(width: AppSpacing.lg),
             _FooterLink(
@@ -237,7 +245,7 @@ class _SocialLink extends StatelessWidget {
         icon: Icon(icon, size: 20),
         color: AppColors.gray400,
         hoverColor: AppColors.gray700,
-        onPressed: () => launchUrl(Uri.parse(url)),
+        onPressed: () => _launchUrl(url),
         padding: EdgeInsets.zero,
         constraints: const BoxConstraints(
           minWidth: 36,

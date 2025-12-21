@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -309,8 +310,12 @@ class _StatusPageLink extends StatelessWidget {
 
   Future<void> _handleTap() async {
     final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    // On web, skip canLaunchUrl check (often returns false) and use platformDefault
+    // On native, use externalApplication mode
+    const mode = kIsWeb ? LaunchMode.platformDefault : LaunchMode.externalApplication;
+
+    if (kIsWeb || await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: mode);
       AnalyticsService.trackExternalLink(url);
     }
   }

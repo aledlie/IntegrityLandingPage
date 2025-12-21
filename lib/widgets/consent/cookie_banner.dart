@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../theme/theme.dart';
@@ -100,7 +101,9 @@ class _CookieBannerState extends State<CookieBanner>
   }
 
   void _openPrivacyPolicy() {
-    launchUrl(Uri.parse('https://integritystudio.ai/privacy'));
+    final uri = Uri.parse('https://integritystudio.ai/privacy');
+    const mode = kIsWeb ? LaunchMode.platformDefault : LaunchMode.externalApplication;
+    launchUrl(uri, mode: mode);
   }
 
   @override
