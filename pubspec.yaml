@@ -26,8 +26,11 @@ dependencies:
   # Utilities
   url_launcher: ^6.2.2
 
+  # State Management
+  provider: ^6.1.1
+
   # Error Tracking
-  sentry_flutter: ^7.14.0
+  # sentry_flutter: ^9.9.1  # Temporarily disabled - Xcode 26 compatibility issue
 
 dev_dependencies:
   flutter_test:

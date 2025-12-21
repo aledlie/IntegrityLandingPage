@@ -1,3 +1,8 @@
+// Re-export theme components for convenience
+export 'colors.dart';
+export 'typography.dart';
+export 'spacing.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
@@ -116,7 +121,7 @@ class AppTheme {
         ),
 
         // Card
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           color: AppColors.backgroundCard,
           elevation: 0,
           shape: RoundedRectangleBorder(
@@ -182,8 +187,3 @@ class AppTheme {
         labelSmall: AppTypography.caption,
       );
 }
-
-// Re-export theme components for convenience
-export 'colors.dart';
-export 'typography.dart';
-export 'spacing.dart';

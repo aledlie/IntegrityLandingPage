@@ -83,36 +83,18 @@ class _AnimatedOrbState extends State<AnimatedOrb>
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
-          return Positioned(
-            left: widget.position == Alignment.topLeft ||
-                    widget.position == Alignment.bottomLeft
-                ? widget.offset.dx
-                : null,
-            right: widget.position == Alignment.topRight ||
-                    widget.position == Alignment.bottomRight
-                ? widget.offset.dx.abs()
-                : null,
-            top: widget.position == Alignment.topLeft ||
-                    widget.position == Alignment.topRight
-                ? widget.offset.dy
-                : null,
-            bottom: widget.position == Alignment.bottomLeft ||
-                    widget.position == Alignment.bottomRight
-                ? widget.offset.dy.abs()
-                : null,
-            child: Transform.scale(
-              scale: _scaleAnimation.value,
-              child: Container(
-                width: widget.size,
-                height: widget.size,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: RadialGradient(
-                    colors: [
-                      widget.color.withOpacity(_opacityAnimation.value),
-                      Colors.transparent,
-                    ],
-                  ),
+          return Transform.scale(
+            scale: _scaleAnimation.value,
+            child: Container(
+              width: widget.size,
+              height: widget.size,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    widget.color.withOpacity(_opacityAnimation.value),
+                    Colors.transparent,
+                  ],
                 ),
               ),
             ),
@@ -191,45 +173,59 @@ class DecorativeOrbs extends StatelessWidget {
     final shouldAnimate = animate && !reduceMotion;
 
     if (shouldAnimate) {
-      return const Stack(
-        children: [
-          AnimatedOrb(
-            size: 256,
-            color: AppColors.blue500,
-            position: Alignment.topLeft,
-            offset: Offset(-80, -80),
-          ),
-          AnimatedOrb(
-            size: 200,
-            color: AppColors.indigo500,
-            position: Alignment.bottomRight,
-            offset: Offset(-60, 100),
-            duration: Duration(seconds: 10),
-          ),
-        ],
+      return Positioned.fill(
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Positioned(
+              left: -80,
+              top: -80,
+              child: AnimatedOrb(
+                size: 256,
+                color: AppColors.blue500,
+                position: Alignment.topLeft,
+                offset: const Offset(-80, -80),
+              ),
+            ),
+            Positioned(
+              right: -60,
+              bottom: 100,
+              child: AnimatedOrb(
+                size: 200,
+                color: AppColors.indigo500,
+                position: Alignment.bottomRight,
+                offset: const Offset(-60, 100),
+                duration: const Duration(seconds: 10),
+              ),
+            ),
+          ],
+        ),
       );
     }
 
     // Static fallback for reduced motion
-    return Stack(
-      children: [
-        Positioned(
-          left: -80,
-          top: -80,
-          child: StaticOrb(
-            size: 256,
-            color: AppColors.blue500,
+    return Positioned.fill(
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            left: -80,
+            top: -80,
+            child: StaticOrb(
+              size: 256,
+              color: AppColors.blue500,
+            ),
           ),
-        ),
-        Positioned(
-          right: -60,
-          bottom: 100,
-          child: StaticOrb(
-            size: 200,
-            color: AppColors.indigo500,
+          Positioned(
+            right: -60,
+            bottom: 100,
+            child: StaticOrb(
+              size: 200,
+              color: AppColors.indigo500,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
