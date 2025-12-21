@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
 import '../common/cards.dart';
@@ -10,12 +10,32 @@ import '../common/containers.dart';
 /// IMPORTANT: All feature claims should be verifiable.
 /// Avoid unsubstantiated statistics.
 ///
+/// Features:
+/// - Externalized content via FeaturesContent (supports A/B testing)
+/// - Responsive grid layout
+/// - Analytics tracking on feature interactions
+///
 /// Usage:
 /// ```dart
-/// FeaturesSection()
+/// FeaturesSection(
+///   content: FeaturesContent.current, // or AppContent.features
+/// )
 /// ```
 class FeaturesSection extends StatelessWidget {
-  const FeaturesSection({super.key});
+  final FeaturesContent content;
+
+  const FeaturesSection({
+    super.key,
+    this.content = const FeaturesContent(
+      title: 'Platform Capabilities',
+      subtitle: 'Comprehensive tools for AI application observability',
+      features: [],
+    ),
+  });
+
+  // Use content from widget or fallback to AppContent
+  FeaturesContent get _content =>
+      content.features.isEmpty ? AppContent.features : content;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +45,9 @@ class FeaturesSection extends StatelessWidget {
       child: Column(
         children: [
           // Section header
-          const SectionTitle(
-            title: 'Platform Capabilities',
-            subtitle: 'Comprehensive tools for AI application observability',
+          SectionTitle(
+            title: _content.title,
+            subtitle: _content.subtitle,
           ),
 
           SizedBox(height: AppSpacing.sectionPadding(context) * 0.75),
@@ -37,7 +57,7 @@ class FeaturesSection extends StatelessWidget {
             mobileColumns: 1,
             tabletColumns: 2,
             desktopColumns: 3,
-            children: _features
+            children: _content.features
                 .map((feature) => FeatureCard(
                       icon: feature.icon,
                       title: feature.title,
@@ -54,86 +74,3 @@ class FeaturesSection extends StatelessWidget {
     );
   }
 }
-
-class _FeatureData {
-  final IconData icon;
-  final String title;
-  final String description;
-  final List<String> bullets;
-
-  const _FeatureData({
-    required this.icon,
-    required this.title,
-    required this.description,
-    required this.bullets,
-  });
-}
-
-const List<_FeatureData> _features = [
-  _FeatureData(
-    icon: LucideIcons.activity,
-    title: 'LLM Monitoring',
-    description:
-        'Track every LLM call with detailed performance metrics and cost attribution.',
-    bullets: [
-      'Token usage tracking',
-      'Latency monitoring',
-      'Cost attribution per request',
-    ],
-  ),
-  _FeatureData(
-    icon: LucideIcons.gitBranch,
-    title: 'Distributed Tracing',
-    description:
-        'End-to-end visibility across your AI application with OpenTelemetry support.',
-    bullets: [
-      'Request correlation',
-      'Service dependency mapping',
-      'Bottleneck identification',
-    ],
-  ),
-  _FeatureData(
-    icon: LucideIcons.alertTriangle,
-    title: 'Anomaly Detection',
-    description:
-        'Automated detection of performance regressions and unusual patterns.',
-    bullets: [
-      'Baseline comparison',
-      'Custom alert thresholds',
-      'Slack/PagerDuty integration',
-    ],
-  ),
-  _FeatureData(
-    icon: LucideIcons.shield,
-    title: 'Security & Privacy',
-    description:
-        'Enterprise-grade security with PII detection and data masking.',
-    bullets: [
-      'Automatic PII redaction',
-      'Role-based access control',
-      'Audit logging',
-    ],
-  ),
-  _FeatureData(
-    icon: LucideIcons.barChart3,
-    title: 'Analytics Dashboard',
-    description:
-        'Customizable dashboards with real-time metrics and historical trends.',
-    bullets: [
-      'Custom visualizations',
-      'Export capabilities',
-      'Team collaboration',
-    ],
-  ),
-  _FeatureData(
-    icon: LucideIcons.zap,
-    title: 'Performance Optimization',
-    description:
-        'Identify optimization opportunities with detailed performance insights.',
-    bullets: [
-      'Slow query detection',
-      'Caching recommendations',
-      'Resource utilization',
-    ],
-  ),
-];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
 import '../common/cards.dart';
@@ -9,17 +10,34 @@ import '../common/containers.dart';
 /// LEGAL NOTE: All pricing and features should be accurate.
 /// Update this section when pricing changes.
 ///
+/// Features:
+/// - Externalized content via PricingContent (supports A/B testing)
+/// - Monthly/Annual billing toggle
+/// - Analytics tracking on pricing interactions
+///
 /// Usage:
 /// ```dart
 /// PricingSection(
+///   content: PricingContent.current, // or AppContent.pricing
 ///   onSelectTier: (tier) => navigateToSignup(tier),
 /// )
 /// ```
 class PricingSection extends StatefulWidget {
+  final PricingContent content;
   final void Function(String tier)? onSelectTier;
 
   const PricingSection({
     super.key,
+    this.content = const PricingContent(
+      title: 'Simple, Transparent Pricing',
+      subtitle: 'Start free, scale as you grow',
+      monthlyLabel: 'Monthly',
+      annualLabel: 'Annual',
+      annualBadge: 'Save 20%',
+      enterpriseNote: 'Need custom solutions? ',
+      enterpriseLink: 'Contact our sales team',
+      tiers: [],
+    ),
     this.onSelectTier,
   });
 
@@ -30,6 +48,10 @@ class PricingSection extends StatefulWidget {
 class _PricingSectionState extends State<PricingSection> {
   bool _isAnnual = true;
 
+  // Use content from widget or fallback to AppContent
+  PricingContent get _content =>
+      widget.content.tiers.isEmpty ? AppContent.pricing : widget.content;
+
   @override
   Widget build(BuildContext context) {
     final isMobile = ResponsiveUtils.isMobile(context);
@@ -39,9 +61,9 @@ class _PricingSectionState extends State<PricingSection> {
       child: Column(
         children: [
           // Section header
-          const SectionTitle(
-            title: 'Simple, Transparent Pricing',
-            subtitle: 'Start free, scale as you grow',
+          SectionTitle(
+            title: _content.title,
+            subtitle: _content.subtitle,
           ),
 
           const SizedBox(height: AppSpacing.xl),
@@ -77,7 +99,7 @@ class _PricingSectionState extends State<PricingSection> {
         mainAxisSize: MainAxisSize.min,
         children: [
           _BillingOption(
-            label: 'Monthly',
+            label: _content.monthlyLabel,
             isSelected: !_isAnnual,
             onTap: () {
               setState(() => _isAnnual = false);
@@ -85,9 +107,9 @@ class _PricingSectionState extends State<PricingSection> {
             },
           ),
           _BillingOption(
-            label: 'Annual',
+            label: _content.annualLabel,
             isSelected: _isAnnual,
-            badge: 'Save 20%',
+            badge: _content.annualBadge,
             onTap: () {
               setState(() => _isAnnual = true);
               AnalyticsService.trackPricingToggle(isAnnual: true);
@@ -102,7 +124,7 @@ class _PricingSectionState extends State<PricingSection> {
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: _pricingTiers.map((tier) {
+        children: _content.tiers.map((tier) {
           return Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
@@ -128,7 +150,7 @@ class _PricingSectionState extends State<PricingSection> {
 
   Widget _buildMobilePricing() {
     return Column(
-      children: _pricingTiers.map((tier) {
+      children: _content.tiers.map((tier) {
         return Padding(
           padding: const EdgeInsets.only(bottom: AppSpacing.lg),
           child: SizedBox(
@@ -165,7 +187,7 @@ class _PricingSectionState extends State<PricingSection> {
         children: [
           Flexible(
             child: Text(
-              'Need custom solutions? ',
+              _content.enterpriseNote,
               style: AppTypography.bodyMD,
             ),
           ),
@@ -178,7 +200,7 @@ class _PricingSectionState extends State<PricingSection> {
               );
             },
             child: Text(
-              'Contact our sales team',
+              _content.enterpriseLink,
               style: AppTypography.bodyMD.copyWith(
                 color: AppColors.textLink,
                 fontWeight: FontWeight.w600,
@@ -254,75 +276,3 @@ class _BillingOption extends StatelessWidget {
     );
   }
 }
-
-class _PricingTier {
-  final String name;
-  final String monthlyPrice;
-  final String annualPrice;
-  final String? period;
-  final String? description;
-  final List<String> features;
-  final bool isPopular;
-  final String ctaText;
-
-  const _PricingTier({
-    required this.name,
-    required this.monthlyPrice,
-    required this.annualPrice,
-    this.period,
-    this.description,
-    required this.features,
-    this.isPopular = false,
-    required this.ctaText,
-  });
-}
-
-const List<_PricingTier> _pricingTiers = [
-  _PricingTier(
-    name: 'Starter',
-    monthlyPrice: 'Free',
-    annualPrice: 'Free',
-    description: 'For individual developers',
-    features: [
-      '10K traces/month',
-      '7-day retention',
-      'Basic dashboards',
-      'Email support',
-      'Community access',
-    ],
-    ctaText: 'Get Started',
-  ),
-  _PricingTier(
-    name: 'Team',
-    monthlyPrice: '\$99',
-    annualPrice: '\$79',
-    period: '/month',
-    description: 'For growing teams',
-    features: [
-      '100K traces/month',
-      '30-day retention',
-      'Advanced analytics',
-      'Priority support',
-      'Team collaboration',
-      'Custom alerts',
-    ],
-    isPopular: true,
-    ctaText: 'Start Free Trial',
-  ),
-  _PricingTier(
-    name: 'Enterprise',
-    monthlyPrice: 'Custom',
-    annualPrice: 'Custom',
-    description: 'For large organizations',
-    features: [
-      'Unlimited traces',
-      '1-year retention',
-      'SSO/SAML',
-      'Dedicated support',
-      'Custom integrations',
-      'SLA guarantee',
-      'On-premise option',
-    ],
-    ctaText: 'Contact Sales',
-  ),
-];

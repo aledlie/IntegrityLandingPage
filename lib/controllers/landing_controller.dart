@@ -1,0 +1,219 @@
+import 'package:flutter/material.dart';
+import '../services/analytics.dart';
+import '../config/content.dart';
+
+/// Controller for landing page business logic
+///
+/// Responsibilities:
+/// - Scroll depth tracking
+/// - Section navigation
+/// - Content management (A/B testing)
+/// - Analytics coordination
+///
+/// Usage:
+/// ```dart
+/// final controller = LandingController();
+///
+/// // In widget
+/// ScrollController(controller: controller.scrollController);
+///
+/// // Track scroll
+/// controller.scrollController.addListener(() {
+///   controller.handleScrollUpdate();
+/// });
+///
+/// // Navigate to section
+/// controller.scrollToSection(sectionKey);
+/// ```
+class LandingController extends ChangeNotifier {
+  // Scroll controller for the page
+  final ScrollController scrollController = ScrollController();
+
+  // Section keys for navigation
+  final Map<String, GlobalKey> _sectionKeys = {};
+
+  // Track scroll depth milestones
+  final Set<int> _trackedMilestones = {};
+  static const List<int> _scrollMilestones = [25, 50, 75, 100];
+
+  // Content variants for A/B testing
+  String? _contentVariant;
+
+  // Page view tracked flag
+  bool _hasTrackedPageView = false;
+
+  /// Get current hero content based on variant
+  HeroContent get heroContent {
+    if (_contentVariant != null) {
+      return AppContent.getHeroVariant(_contentVariant!);
+    }
+    return AppContent.hero;
+  }
+
+  /// Get current pricing content
+  PricingContent get pricingContent => AppContent.pricing;
+
+  /// Get current features content
+  FeaturesContent get featuresContent => AppContent.features;
+
+  /// Get current CTA content
+  CTAContent get ctaContent => AppContent.cta;
+
+  /// Initialize the controller
+  void initialize() {
+    if (!_hasTrackedPageView) {
+      AnalyticsService.trackPageView('landing');
+      _hasTrackedPageView = true;
+    }
+    scrollController.addListener(_handleScroll);
+  }
+
+  /// Set content variant for A/B testing
+  void setContentVariant(String variant) {
+    _contentVariant = variant;
+    notifyListeners();
+  }
+
+  /// Register a section key for navigation
+  void registerSection(String sectionId, GlobalKey key) {
+    _sectionKeys[sectionId] = key;
+  }
+
+  /// Get section key by ID
+  GlobalKey? getSectionKey(String sectionId) => _sectionKeys[sectionId];
+
+  /// Handle scroll position updates
+  void _handleScroll() {
+    final maxScroll = scrollController.position.maxScrollExtent;
+    if (maxScroll <= 0) return;
+
+    final percentage = ((scrollController.offset / maxScroll) * 100).round();
+
+    // Track milestone scroll depths (25%, 50%, 75%, 100%)
+    for (final milestone in _scrollMilestones) {
+      if (percentage >= milestone && !_trackedMilestones.contains(milestone)) {
+        _trackedMilestones.add(milestone);
+        AnalyticsService.trackScrollDepth(milestone);
+      }
+    }
+  }
+
+  /// Scroll to a specific section
+  void scrollToSection(String sectionId) {
+    final key = _sectionKeys[sectionId];
+    if (key == null) return;
+
+    final context = key.currentContext;
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  /// Scroll to pricing section
+  void scrollToPricing() => scrollToSection('pricing');
+
+  /// Scroll to CTA section
+  void scrollToCTA() => scrollToSection('cta');
+
+  /// Handle Get Started CTA click
+  void handleGetStarted({String location = 'hero'}) {
+    AnalyticsService.trackCTAClick(
+      buttonName: 'Get Started',
+      location: location,
+      ctaType: 'primary',
+    );
+    scrollToPricing();
+  }
+
+  /// Handle Watch Demo CTA click
+  void handleWatchDemo() {
+    AnalyticsService.trackCTAClick(
+      buttonName: 'Watch Demo',
+      location: 'hero',
+      ctaType: 'secondary',
+    );
+    // TODO: Implement demo modal
+  }
+
+  /// Handle pricing tier selection
+  void handleTierSelection(String tier) {
+    AnalyticsService.trackPricingView(tier);
+    // TODO: Navigate to signup with tier selection
+  }
+
+  /// Handle feature interaction
+  void handleFeatureInteraction(String featureTitle) {
+    AnalyticsService.trackFeatureInteraction(featureTitle);
+  }
+
+  /// Reset scroll tracking (e.g., on navigation)
+  void resetScrollTracking() {
+    _trackedMilestones.clear();
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(_handleScroll);
+    scrollController.dispose();
+    super.dispose();
+  }
+}
+
+/// Controller for managing A/B test variants
+class ContentVariantController extends ChangeNotifier {
+  String _currentVariant = 'current';
+
+  String get currentVariant => _currentVariant;
+
+  /// Available variants
+  static const List<String> variants = [
+    'current',
+    'agent-first',
+    'cost-focused',
+    'legacy',
+  ];
+
+  /// Set the content variant
+  void setVariant(String variant) {
+    if (variants.contains(variant) && _currentVariant != variant) {
+      _currentVariant = variant;
+      notifyListeners();
+
+      // Track variant assignment
+      AnalyticsService.trackEvent(
+        eventName: 'ab_test_variant_assigned',
+        parameters: {
+          'variant': variant,
+          'test_name': 'hero_messaging',
+        },
+      );
+    }
+  }
+
+  /// Get hero content for current variant
+  HeroContent get heroContent => AppContent.getHeroVariant(_currentVariant);
+}
+
+/// Mixin for widgets that need landing controller access
+mixin LandingControllerMixin<T extends StatefulWidget> on State<T> {
+  late final LandingController _landingController;
+
+  LandingController get landingController => _landingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _landingController = LandingController();
+    _landingController.initialize();
+  }
+
+  @override
+  void dispose() {
+    _landingController.dispose();
+    super.dispose();
+  }
+}

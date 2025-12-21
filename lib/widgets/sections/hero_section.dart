@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
 import '../common/buttons.dart';
@@ -13,20 +14,39 @@ import '../decorative/animated_orb.dart';
 /// - Responsive typography
 /// - CTA buttons with analytics tracking
 /// - Semantic structure with h1 heading
+/// - Externalized content via HeroContent (supports A/B testing)
 ///
 /// Usage:
 /// ```dart
 /// HeroSection(
+///   content: HeroContent.current, // or AppContent.hero
 ///   onGetStarted: () => scrollTo('pricing'),
 ///   onWatchDemo: () => openDemo(),
 /// )
 /// ```
 class HeroSection extends StatelessWidget {
+  final HeroContent content;
   final VoidCallback? onGetStarted;
   final VoidCallback? onWatchDemo;
 
   const HeroSection({
     super.key,
+    this.content = const HeroContent(
+      badge: 'EU AI Act Ready',
+      headline: 'AI Observability That\nProves Compliance',
+      subheadline:
+          'Full traceability for every LLM decision. '
+          'Automated risk documentation. Audit-ready from day one. '
+          'Enterprise-grade monitoring with compliance built-in.',
+      primaryCTA: 'Start Free Trial',
+      secondaryCTA: 'Watch Demo',
+      trustIndicators: [
+        'EU AI Act Ready',
+        'SOC 2 Type II',
+        '99.9% Uptime',
+        '5-min Setup',
+      ],
+    ),
     this.onGetStarted,
     this.onWatchDemo,
   });
@@ -110,7 +130,7 @@ class HeroSection extends StatelessWidget {
           ),
           const SizedBox(width: AppSpacing.sm),
           Text(
-            'AI Observability Platform',
+            content.badge,
             style: AppTypography.caption.copyWith(
               color: AppColors.blue400,
               fontWeight: FontWeight.w500,
@@ -125,7 +145,7 @@ class HeroSection extends StatelessWidget {
     return Semantics(
       header: true,
       child: Text(
-        'Understand Your\nAI in Production',
+        content.headline,
         style: isMobile
             ? AppTypography.headingXL.copyWith(fontSize: 36)
             : AppTypography.headingXL,
@@ -140,9 +160,7 @@ class HeroSection extends StatelessWidget {
         maxWidth: isMobile ? double.infinity : (isTablet ? 500 : 600),
       ),
       child: Text(
-        'Enterprise-grade observability for LLM applications. '
-        'Monitor performance, track costs, and debug issues '
-        'with comprehensive tracing and analytics.',
+        content.subheadline,
         style: AppTypography.bodyLG,
         textAlign: TextAlign.center,
       ),
@@ -155,11 +173,11 @@ class HeroSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           GradientButton(
-            text: 'Start Free Trial',
+            text: content.primaryCTA,
             icon: LucideIcons.arrowRight,
             onPressed: () {
               AnalyticsService.trackCTAClick(
-                buttonName: 'Start Free Trial',
+                buttonName: content.primaryCTA,
                 location: 'hero',
                 ctaType: 'primary',
               );
@@ -169,11 +187,11 @@ class HeroSection extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.md),
           OutlineButton(
-            text: 'Watch Demo',
+            text: content.secondaryCTA,
             icon: LucideIcons.play,
             onPressed: () {
               AnalyticsService.trackCTAClick(
-                buttonName: 'Watch Demo',
+                buttonName: content.secondaryCTA,
                 location: 'hero',
                 ctaType: 'secondary',
               );
@@ -189,11 +207,11 @@ class HeroSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GradientButton(
-          text: 'Start Free Trial',
+          text: content.primaryCTA,
           icon: LucideIcons.arrowRight,
           onPressed: () {
             AnalyticsService.trackCTAClick(
-              buttonName: 'Start Free Trial',
+              buttonName: content.primaryCTA,
               location: 'hero',
               ctaType: 'primary',
             );
@@ -202,11 +220,11 @@ class HeroSection extends StatelessWidget {
         ),
         const SizedBox(width: AppSpacing.md),
         OutlineButton(
-          text: 'Watch Demo',
+          text: content.secondaryCTA,
           icon: LucideIcons.play,
           onPressed: () {
             AnalyticsService.trackCTAClick(
-              buttonName: 'Watch Demo',
+              buttonName: content.secondaryCTA,
               location: 'hero',
               ctaType: 'secondary',
             );
@@ -218,11 +236,7 @@ class HeroSection extends StatelessWidget {
   }
 
   Widget _buildTrustIndicators(BuildContext context, bool isMobile) {
-    final indicators = [
-      'No credit card required',
-      '14-day free trial',
-      'Cancel anytime',
-    ];
+    final indicators = content.trustIndicators;
 
     if (isMobile) {
       return Column(
