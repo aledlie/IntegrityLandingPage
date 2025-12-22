@@ -692,7 +692,7 @@ class StatusContent {
         status: 'Operational',
       ),
     ],
-    statusPageUrl: 'https://status.integritystudio.ai',
+    statusPageUrl: 'https://integritystudio.ai/status',
     statusPageCta: 'View Full Status Page',
   );
 }
@@ -776,7 +776,7 @@ class FooterContent {
         links: [
           FooterLink(label: 'EU AI Act Guide', url: '/eu-ai-act'),
           FooterLink(label: 'API Reference', url: '/api'),
-          FooterLink(label: 'Status', url: 'https://status.integritystudio.ai', isExternal: true),
+          FooterLink(label: 'Status', url: 'https://integritystudio.ai/status', isExternal: true),
           FooterLink(label: 'Support', url: '/support'),
         ],
       ),

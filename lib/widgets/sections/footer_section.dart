@@ -336,7 +336,7 @@ const List<_LinkSection> _linkSections = [
     title: 'Resources',
     links: [
       _LinkItem(text: 'Help Center', url: '/help'),
-      _LinkItem(text: 'Status', url: 'https://status.integritystudio.ai', isInternal: false),
+      _LinkItem(text: 'Status', url: 'https://integritystudio.ai/status', isInternal: false),
       _LinkItem(text: 'Security', url: '/security'),
       _LinkItem(text: 'Changelog', url: '/changelog'),
     ],
