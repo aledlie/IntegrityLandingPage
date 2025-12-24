@@ -108,6 +108,9 @@ abstract final class Routes {
   // Comparison pages
   static const String whylabsAlternative = '/whylabs-alternative';
   static const String arizeAlternative = '/compare/arize-ai-alternative';
+
+  // Information pages
+  static const String sources = '/sources';
 }
 
 // =============================================================================
