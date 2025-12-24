@@ -323,24 +323,25 @@ class _TestimonialCardState extends State<_TestimonialCard> {
                 gradient: AppColors.primaryGradient,
                 borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    widget.testimonial.metric,
-                    style: AppTypography.caption.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: widget.testimonial.metric,
+                      style: AppTypography.caption.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    widget.testimonial.metricContext,
-                    style: AppTypography.caption.copyWith(
-                      color: Colors.white.withValues(alpha: 0.8),
+                    const TextSpan(text: ' '),
+                    TextSpan(
+                      text: widget.testimonial.metricContext,
+                      style: AppTypography.caption.copyWith(
+                        color: Colors.white.withValues(alpha: 0.8),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: AppSpacing.md),
