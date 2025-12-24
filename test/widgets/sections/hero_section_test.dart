@@ -103,7 +103,7 @@ void main() {
         );
         await tester.pump(const Duration(milliseconds: 500));
 
-        expect(find.text('SOC 2 Type II'), findsOneWidget);
+        expect(find.text('Enterprise Security'), findsOneWidget);
         expect(find.text('99.9% Uptime'), findsOneWidget);
         expect(find.text('5-min Setup'), findsOneWidget);
       });

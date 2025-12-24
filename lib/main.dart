@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'app.dart';
+import 'services/tracking.dart';
 
 // =============================================================================
 // Configuration Constants
@@ -50,10 +52,17 @@ abstract final class SentryConfig {
 ///
 /// Initializes:
 /// 1. Flutter bindings
-/// 2. Sentry error tracking (if configured)
-/// 3. The main application widget
+/// 2. GTM Consent Mode v2 (default denied state)
+/// 3. Sentry error tracking (if configured)
+/// 4. The main application widget
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize GTM Consent Mode with default denied state (GDPR requirement)
+  // This MUST happen before GTM loads to ensure proper consent handling
+  if (kIsWeb) {
+    TrackingWeb.initializeConsentMode();
+  }
 
   if (SentryConfig.isConfigured) {
     await _initializeWithSentry();

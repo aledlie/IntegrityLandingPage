@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../common/containers.dart';
 
@@ -37,32 +38,63 @@ class SocialProofSection extends StatelessWidget {
 
           // Trust badges
           _buildTrustBadges(context),
+
+          // Source attribution (legal requirement)
+          const SizedBox(height: AppSpacing.xl),
+          _buildSourceAttribution(),
         ],
       ),
     );
   }
 
+  Widget _buildSourceAttribution() {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.gray900.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+        border: Border.all(color: AppColors.gray700.withValues(alpha: 0.3)),
+      ),
+      child: Text(
+        AppStatistics.sourceDisclaimer,
+        style: AppTypography.caption.copyWith(
+          color: AppColors.gray500,
+          fontSize: 10,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
   Widget _buildStatsRow(BuildContext context, bool isMobile) {
-    const stats = [
+    // Using AppStatistics for cited sources
+    final stats = [
       _StatItem(
-        value: '73%',
-        label: 'Faster debugging',
+        value: AppStatistics.debuggingImprovement.value,
+        label: AppStatistics.debuggingImprovement.label,
         icon: LucideIcons.zap,
+        source: AppStatistics.debuggingImprovement.source,
       ),
       _StatItem(
-        value: '30-50%',
-        label: 'LLM cost reduction',
+        value: AppStatistics.costReduction.value,
+        label: AppStatistics.costReduction.label,
         icon: LucideIcons.dollarSign,
+        source: AppStatistics.costReduction.source,
       ),
       _StatItem(
-        value: '5min',
-        label: 'Setup time',
+        value: AppStatistics.setupTime.value,
+        label: AppStatistics.setupTime.label,
         icon: LucideIcons.clock,
+        source: AppStatistics.setupTime.source,
       ),
       _StatItem(
-        value: '99.9%',
-        label: 'Uptime SLA',
+        value: AppStatistics.uptimeTarget.value,
+        label: AppStatistics.uptimeTarget.label,
         icon: LucideIcons.shield,
+        source: AppStatistics.uptimeTarget.source,
       ),
     ];
 
@@ -157,7 +189,7 @@ class SocialProofSection extends StatelessWidget {
           spacing: AppSpacing.xl,
           runSpacing: AppSpacing.md,
           children: [
-            _TrustBadge(label: 'SOC 2 Type II', icon: LucideIcons.shieldCheck),
+            _TrustBadge(label: 'Enterprise Security', icon: LucideIcons.shieldCheck),
             _TrustBadge(label: 'GDPR Ready', icon: LucideIcons.lock),
             _TrustBadge(label: 'EU AI Act Ready', icon: LucideIcons.fileCheck),
             _TrustBadge(label: 'OpenTelemetry Native', icon: LucideIcons.radio),
@@ -172,11 +204,13 @@ class _StatItem {
   final String value;
   final String label;
   final IconData icon;
+  final String source;
 
   const _StatItem({
     required this.value,
     required this.label,
     required this.icon,
+    required this.source,
   });
 }
 
@@ -194,57 +228,70 @@ class _StatCardState extends State<_StatCard> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        transform: _isHovered
-            ? Matrix4.translationValues(0, -4, 0)
-            : Matrix4.identity(),
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        decoration: BoxDecoration(
-          color: _isHovered ? AppColors.gray700 : Colors.transparent,
-          borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-        ),
-        child: Column(
-          children: [
-            // Icon with gradient background
-            Container(
-              padding: const EdgeInsets.all(AppSpacing.sm),
-              decoration: BoxDecoration(
-                gradient: AppColors.primaryGradient,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-              ),
-              child: Icon(
-                widget.stat.icon,
-                size: 24,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: AppSpacing.md),
-            // Value with gradient text effect
-            ShaderMask(
-              shaderCallback: (bounds) => const LinearGradient(
-                colors: [AppColors.blue400, AppColors.purple400],
-              ).createShader(bounds),
-              child: Text(
-                widget.stat.value,
-                style: AppTypography.headingLG.copyWith(
+    return Tooltip(
+      message: 'Source: ${widget.stat.source}',
+      preferBelow: true,
+      decoration: BoxDecoration(
+        color: AppColors.gray800,
+        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+        border: Border.all(color: AppColors.gray700),
+      ),
+      textStyle: AppTypography.caption.copyWith(
+        color: AppColors.gray300,
+        fontSize: 11,
+      ),
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          transform: _isHovered
+              ? Matrix4.translationValues(0, -4, 0)
+              : Matrix4.identity(),
+          padding: const EdgeInsets.all(AppSpacing.lg),
+          decoration: BoxDecoration(
+            color: _isHovered ? AppColors.gray700 : Colors.transparent,
+            borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+          ),
+          child: Column(
+            children: [
+              // Icon with gradient background
+              Container(
+                padding: const EdgeInsets.all(AppSpacing.sm),
+                decoration: BoxDecoration(
+                  gradient: AppColors.primaryGradient,
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+                ),
+                child: Icon(
+                  widget.stat.icon,
+                  size: 24,
                   color: Colors.white,
-                  fontWeight: FontWeight.w700,
                 ),
               ),
-            ),
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              widget.stat.label,
-              style: AppTypography.bodySM.copyWith(
-                color: AppColors.gray300,
+              const SizedBox(height: AppSpacing.md),
+              // Value with gradient text effect
+              ShaderMask(
+                shaderCallback: (bounds) => const LinearGradient(
+                  colors: [AppColors.blue400, AppColors.purple400],
+                ).createShader(bounds),
+                child: Text(
+                  widget.stat.value,
+                  style: AppTypography.headingLG.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
-              textAlign: TextAlign.center,
-            ),
-          ],
+              const SizedBox(height: AppSpacing.xs),
+              Text(
+                widget.stat.label,
+                style: AppTypography.bodySM.copyWith(
+                  color: AppColors.gray300,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );

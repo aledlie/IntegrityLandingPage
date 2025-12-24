@@ -250,14 +250,14 @@ void main() {
 
       test('initialize completes without error on non-web', () async {
         await expectLater(
-          FacebookPixelService.initialize('test-pixel-id'),
+          FacebookPixelService.initialize(),
           completes,
         );
       });
 
       test('initialize can be called multiple times', () async {
-        await FacebookPixelService.initialize('test-pixel-id');
-        await FacebookPixelService.initialize('test-pixel-id');
+        await FacebookPixelService.initialize();
+        await FacebookPixelService.initialize();
 
         expect(true, isTrue);
       });

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'tracking.dart';
 
 // =============================================================================
 // Analytics Event Types
@@ -55,13 +56,16 @@ class AnalyticsService {
   // ---------------------------------------------------------------------------
 
   /// Initialize GA4 analytics after user consent.
+  ///
+  /// Injects GTM script dynamically (not loaded in index.html for GDPR).
   static Future<void> initialize() async {
     if (_initialized || !kIsWeb) return;
 
     try {
-      // Web implementation would inject gtag.js dynamically here
+      // Inject GTM script after consent
+      TrackingWeb.injectGTM();
       _initialized = true;
-      _log('Analytics initialized');
+      _log('Analytics initialized - GTM injected');
     } catch (e) {
       _log('Failed to initialize analytics: $e');
     }
@@ -212,12 +216,11 @@ class AnalyticsService {
     _log('${event.name}: $params');
   }
 
-  /// Send event to analytics platform.
+  /// Send event to analytics platform via GTM/gtag.
   static void _sendEvent(String eventName, Map<String, dynamic> parameters) {
     if (!kIsWeb) return;
 
-    // Web implementation would call gtag via JS interop:
-    // js.context.callMethod('gtag', ['event', eventName, js.JsObject.jsify(parameters)]);
+    TrackingWeb.sendEvent(eventName, parameters);
   }
 
   /// Debug logging (only in debug mode).
@@ -501,11 +504,11 @@ class FacebookPixelService {
   static bool get isReady => _initialized && _enabled;
 
   /// Initialize Facebook Pixel after marketing consent.
-  static Future<void> initialize(String pixelId) async {
+  static Future<void> initialize() async {
     if (_initialized || !kIsWeb) return;
 
     try {
-      // Web implementation would inject FB Pixel script here
+      TrackingWeb.injectFacebookPixel();
       _initialized = true;
       _log('Facebook Pixel initialized');
     } catch (e) {
@@ -526,19 +529,19 @@ class FacebookPixelService {
   /// Track page view.
   static void trackPageView() {
     if (!isReady) return;
-    // fbq('track', 'PageView');
+    TrackingWeb.sendFBPageView();
   }
 
   /// Track lead (form submission).
   static void trackLead() {
     if (!isReady) return;
-    // fbq('track', 'Lead');
+    TrackingWeb.sendFBEvent('Lead');
   }
 
   /// Track view content.
   static void trackViewContent(String contentType) {
     if (!isReady) return;
-    // fbq('track', 'ViewContent', {content_type: contentType});
+    TrackingWeb.sendFBEvent('ViewContent', {'content_type': contentType});
   }
 
   static void _log(String message) {

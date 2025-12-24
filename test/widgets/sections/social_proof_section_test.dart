@@ -34,10 +34,10 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        expect(find.text('Faster debugging'), findsOneWidget);
+        expect(find.text('faster debugging'), findsOneWidget);
         expect(find.text('LLM cost reduction'), findsOneWidget);
-        expect(find.text('Setup time'), findsOneWidget);
-        expect(find.text('Uptime SLA'), findsOneWidget);
+        expect(find.text('setup time'), findsOneWidget);
+        expect(find.text('uptime SLA'), findsOneWidget);
       });
 
       testWidgets('renders stat icons', (tester) async {
@@ -196,7 +196,7 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        expect(find.text('SOC 2 Type II'), findsOneWidget);
+        expect(find.text('Enterprise Security'), findsOneWidget);
         expect(find.text('GDPR Ready'), findsOneWidget);
         expect(find.text('EU AI Act Ready'), findsOneWidget);
         expect(find.text('OpenTelemetry Native'), findsOneWidget);
@@ -229,7 +229,7 @@ void main() {
         // Core elements should be present
         expect(find.text('73%'), findsOneWidget);
         expect(find.textContaining('Sarah Chen'), findsOneWidget);
-        expect(find.text('SOC 2 Type II'), findsOneWidget);
+        expect(find.text('Enterprise Security'), findsOneWidget);
       });
 
       testWidgets('renders correctly on tablet', (tester) async {
@@ -319,7 +319,7 @@ void main() {
 
       test('trust badges array has 4 items', () {
         const badges = [
-          'SOC 2 Type II',
+          'Enterprise Security',
           'GDPR Ready',
           'EU AI Act Ready',
           'OpenTelemetry Native',
@@ -350,10 +350,10 @@ void main() {
         await tester.pumpAndSettle();
 
         // Each stat should have a label explaining what it means
-        expect(find.text('Faster debugging'), findsOneWidget);
+        expect(find.text('faster debugging'), findsOneWidget);
         expect(find.text('LLM cost reduction'), findsOneWidget);
-        expect(find.text('Setup time'), findsOneWidget);
-        expect(find.text('Uptime SLA'), findsOneWidget);
+        expect(find.text('setup time'), findsOneWidget);
+        expect(find.text('uptime SLA'), findsOneWidget);
       });
     });
   });

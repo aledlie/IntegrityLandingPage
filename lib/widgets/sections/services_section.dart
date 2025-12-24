@@ -220,6 +220,29 @@ class _ServiceCard extends StatelessWidget {
               ),
             ),
           ],
+
+          // Compliance disclaimer (legal requirement)
+          if (service.disclaimer != null) ...[
+            const SizedBox(height: AppSpacing.md),
+            Container(
+              padding: const EdgeInsets.all(AppSpacing.sm),
+              decoration: BoxDecoration(
+                color: AppColors.gray800.withValues(alpha: 0.5),
+                borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+                border: Border.all(
+                  color: AppColors.gray700.withValues(alpha: 0.5),
+                ),
+              ),
+              child: Text(
+                service.disclaimer!,
+                style: AppTypography.caption.copyWith(
+                  color: AppColors.gray500,
+                  fontSize: 10,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
+          ],
         ],
       ),
     );

@@ -2,10 +2,17 @@
 <html lang="en">
 <head>
   <!--
-    IMPORTANT: No analytics scripts loaded here!
-    Analytics are dynamically injected AFTER user consent.
-    See lib/services/consent_manager.dart
+    GTM Consent Mode v2 Setup
+    - dataLayer and gtag function defined here (required for consent mode)
+    - GTM script is NOT loaded here (injected after consent)
+    - See lib/services/tracking_web.dart for implementation
   -->
+  <script>
+    // Initialize dataLayer for GTM
+    window.dataLayer = window.dataLayer || [];
+    // Define gtag function for Consent Mode
+    function gtag(){dataLayer.push(arguments);}
+  </script>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -48,9 +48,22 @@ flutter drive --driver=test_driver/integration_test.dart \
 flutter build web --release
 ```
 
+## Project Structure
+
+```
+lib/
+├── config/           # Content configuration
+├── pages/            # Landing page, Blog page
+├── services/         # Analytics, consent management
+├── theme/            # Colors, typography, spacing
+└── widgets/
+    ├── common/       # Reusable buttons, cards
+    └── sections/     # Hero, features, pricing, etc.
+```
+
 ## Test Coverage
 
-Coverage reports are automatically generated and deployed to GitHub Pages on every push to main.
+Coverage reports are automatically generated and deployed to GitHub Pages on every push to main. Reports include function-level coverage metrics.
 
 **[View Coverage Report](https://aledlie.github.io/IntegrityLandingPage/)**
 
@@ -58,5 +71,5 @@ Coverage reports are automatically generated and deployed to GitHub Pages on eve
 
 Pull requests automatically receive a coverage comment showing:
 - Overall coverage percentage
-- Coverage summary
+- Function coverage summary
 - Link to download the full HTML report

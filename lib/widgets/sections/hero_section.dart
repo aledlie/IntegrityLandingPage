@@ -42,7 +42,7 @@ class HeroSection extends StatelessWidget {
       secondaryCTA: 'Watch Demo',
       trustIndicators: [
         'EU AI Act Ready',
-        'SOC 2 Type II',
+        'Enterprise Security',
         '99.9% Uptime',
         '5-min Setup',
       ],

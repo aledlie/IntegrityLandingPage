@@ -3,9 +3,9 @@
 **Project:** IntegrityStudio.ai
 **Based On:** Backend routing-and-controllers.md and middleware-guide.md principles
 **Created:** December 16, 2024
-**Last Updated:** December 16, 2024
+**Last Updated:** December 24, 2024
 **Purpose:** Apply backend separation of concerns patterns to Flutter web architecture
-**Status:** ✅ Phase 1-3 Implemented
+**Status:** ✅ Phase 1-7 Implemented (Blog, All Sections, Comprehensive Tests)
 
 ---
 
@@ -112,17 +112,25 @@ lib/
 │   │   └── containers.dart
 │   ├── decorative/
 │   │   └── animated_orb.dart
-│   ├── sections/               # Page sections
-│   │   ├── hero_section.dart
-│   │   ├── features_section.dart
-│   │   ├── pricing_section.dart
+│   ├── sections/               # Page sections (12 widgets)
+│   │   ├── about_section.dart
+│   │   ├── contact_section.dart
 │   │   ├── cta_section.dart
-│   │   └── footer_section.dart
+│   │   ├── features_section.dart
+│   │   ├── footer_section.dart
+│   │   ├── hero_section.dart
+│   │   ├── pricing_section.dart
+│   │   ├── resources_section.dart
+│   │   ├── services_section.dart
+│   │   ├── social_proof_section.dart
+│   │   ├── status_section.dart
+│   │   └── tabbed_features_section.dart
 │   └── consent/
 │       └── cookie_banner.dart
 │
 └── pages/                       # ✅ Exists - Page compositions
-    └── landing_page.dart
+    ├── landing_page.dart
+    └── blog_page.dart           # NEW: Blog with articles
 ```
 
 ---
@@ -410,6 +418,102 @@ class MockAnalyticsService implements IAnalyticsService {
   // ...
 }
 ```
+
+---
+
+## Consent Flow Architecture
+
+The following diagram illustrates how consent and tracking services interact:
+
+```
+  App Start
+      │
+      ▼
+  main.dart: TrackingWeb.initializeConsentMode()
+      │   (Sets default: all cookies DENIED)
+      ▼
+  User sees Cookie Banner
+      │
+      ├─► "Accept All" ─────────────────────┐
+      ├─► "Analytics Only" ─────────────────┤
+      └─► "Reject Non-Essential" ───────────┤
+                                            ▼
+                                ConsentManager.saveConsent()
+                                            │
+                            ┌───────────────┴───────────────┐
+                            ▼                               ▼
+                TrackingWeb.updateConsent()     AnalyticsService.initialize()
+                (Updates Consent Mode state)           │
+                                                       ▼
+                                            TrackingWeb.injectGTM()
+                                            (Loads GTM script)
+```
+
+**Key Points:**
+- Consent Mode defaults to DENIED until user action
+- GTM script only loads after explicit consent
+- Consent state is persisted and synced across services
+
+---
+
+## Compliance Disclaimer Placement
+
+Legal disclaimers are displayed in the footer and on compliance-related service cards:
+
+```
+  ┌─────────────────────────────────────────┐
+  │  Footer                                 │
+  │  ─────────────────────────────────────  │
+  │  ┌─────────────────────────────────┐    │
+  │  │ Compliance Disclaimer (general) │    │  ← NEW
+  │  └─────────────────────────────────┘    │
+  │  © 2025 Integrity Studio │ Privacy │ Terms│
+  └─────────────────────────────────────────┘
+
+  ┌─────────────────────────────────────────┐
+  │  Compliance & Governance Card           │
+  │  • EU AI Act Article 12...              │
+  │  • Automated risk classification...     │
+  │  ┌─────────────────────────────────┐    │
+  │  │ Tools to support EU AI Act...   │    │  ← NEW
+  │  └─────────────────────────────────┘    │
+  └─────────────────────────────────────────┘
+```
+
+**Implementation:**
+- `ComplianceDisclaimers` class in `lib/config/content/constants.dart`
+- Footer disclaimer via `_buildComplianceDisclaimer()` in `footer_section.dart`
+- Service card disclaimer via `disclaimer` field in `ServiceItemContent`
+
+---
+
+## Statistics Source Attribution
+
+All statistics display source citations for legal compliance and credibility:
+
+```
+  ┌────────────────────────────────────────────────┐
+  │  73%          30-50%         5min        99.9% │
+  │  (hover shows source tooltip on each stat)    │
+  ├────────────────────────────────────────────────┤
+  │ Statistics from customer data are aggregated  │
+  │ and anonymized. Industry statistics sourced   │
+  │ from third-party research reports.            │
+  │ See integritystudio.ai/sources for citations. │
+  └────────────────────────────────────────────────┘
+```
+
+**Implementation:**
+- `CitedStatistic` class with `value`, `label`, `source`, `sourceUrl`, `type`
+- `AppStatistics` centralized constants in `lib/config/content/constants.dart`
+- Tooltip on stat cards shows source on hover
+- Source disclaimer at bottom of social proof section
+
+**Statistic Types:**
+- `industry` - External research reports (requires URL citation)
+- `customerData` - Aggregated, anonymized customer data
+- `platformMetric` - Internal platform measurements
+- `slaTarget` - Service level targets (not measured statistics)
 
 ---
 
@@ -852,6 +956,8 @@ class _AnalyticsWrapperState extends State<AnalyticsWrapper> {
 
 ## Current Codebase Audit
 
+**Last Updated: December 24, 2024**
+
 ### What's Working Well ✅
 
 | Pattern | Implementation | File |
@@ -859,17 +965,20 @@ class _AnalyticsWrapperState extends State<AnalyticsWrapper> {
 | **Service layer** | AnalyticsService, ConsentManager | `services/*.dart` |
 | **Theme abstraction** | Colors, Typography, Spacing, Theme | `theme/*.dart` |
 | **Reusable widgets** | GradientButton, OutlineButton, Cards | `widgets/common/*.dart` |
-| **Page composition** | LandingPage composes sections | `pages/landing_page.dart` |
+| **Page composition** | LandingPage, BlogPage compose sections | `pages/*.dart` |
+| **Content externalization** | All content in config | `config/content.dart` |
+| **Section widgets** | 12 section widgets (hero, about, services, etc.) | `widgets/sections/*.dart` |
 | **Sentry integration** | Error tracking on initialization | `main.dart` |
 | **GDPR compliance** | ConsentManager with timestamps | `services/consent_manager.dart` |
 | **Documentation** | DocStrings on public classes | All files |
 | **Accessibility** | Semantics widgets, focus handling | `widgets/common/buttons.dart` |
+| **Comprehensive tests** | Widget, unit, and integration tests | `test/` |
+| **Coverage reporting** | Function-level coverage in CI/CD | `.github/workflows/ci.yml` |
 
 ### What Needs Improvement ⚠️
 
 | Issue | Current State | Recommendation | Priority |
 |-------|--------------|----------------|----------|
-| **Hardcoded content** | Strings in widgets | Externalize to `config/content.dart` | 🔴 High |
 | **No controller layer** | Logic mixed in pages | Add controllers for UI coordination | 🟡 Medium |
 | **Singleton services** | Static methods | Use DI with Provider/Riverpod | 🟡 Medium |
 | **Missing models** | ConsentPreferences in service | Move to `models/` directory | 🟢 Low |
@@ -880,50 +989,59 @@ class _AnalyticsWrapperState extends State<AnalyticsWrapper> {
 
 **`lib/pages/landing_page.dart`**
 ```
-✅ Good: Composes sections cleanly
+✅ Good: Composes 12 sections cleanly
 ✅ Good: Uses GlobalKeys for scroll navigation
+✅ Good: Integrates with content configuration
 ⚠️ Issue: Analytics calls directly in widget
-⚠️ Issue: Scroll tracking logic in widget
 📋 Fix: Extract to LandingController
 ```
 
-**`lib/widgets/sections/hero_section.dart`**
+**`lib/pages/blog_page.dart`** (NEW)
 ```
-✅ Good: Accepts callbacks for actions
+✅ Good: Displays blog articles with filtering
 ✅ Good: Responsive layout
-⚠️ Issue: All text hardcoded
-📋 Fix: Accept HeroContent parameter
+✅ Good: Comprehensive test coverage
+```
+
+**`lib/widgets/sections/` (12 widgets)**
+```
+✅ Good: hero_section.dart - Accepts callbacks, responsive
+✅ Good: about_section.dart - Company info display
+✅ Good: services_section.dart - Service offerings
+✅ Good: contact_section.dart - Form with validation
+✅ Good: resources_section.dart - Blog/resources display
+✅ Good: social_proof_section.dart - Customer logos, testimonials
+✅ Good: tabbed_features_section.dart - Feature showcase
+✅ Good: pricing_section.dart - Tier display
+✅ Good: cta_section.dart - Call to action
+✅ Good: footer_section.dart - Site footer
+✅ Good: status_section.dart - Status indicators
+✅ Good: features_section.dart - Feature cards
+```
+
+**`lib/config/content.dart`**
+```
+✅ Good: All content externalized
+✅ Good: HeroContent, ServicesContent, AboutContent, etc.
+✅ Good: ResourcesContent with blog posts
+✅ Good: ContactContent with form labels
 ```
 
 **`lib/services/analytics.dart`**
 ```
 ✅ Good: GDPR-compliant (initializes after consent)
-✅ Good: Event tracking methods
+✅ Good: Event tracking for new content types
 ⚠️ Issue: Static singleton pattern
 📋 Fix: Convert to injectable service
-```
-
-**`lib/services/consent_manager.dart`**
-```
-✅ Good: GDPR requirements met (timestamps, version)
-✅ Good: Granular consent options
-⚠️ Issue: ConsentPreferences defined here
-📋 Fix: Move model to models/ directory
 ```
 
 ---
 
 ## Migration Path
 
-### Phase 1: Content Externalization (Immediate)
+**Phase 1: Content Externalization** - Complete (see `CHANGELOG.md`)
 
-1. Create `lib/config/content.dart`
-2. Move all hardcoded strings from hero_section.dart
-3. Move pricing tier data from pricing_section.dart
-4. Move feature data from features_section.dart
-5. Update widgets to accept content as parameters
-
-### Phase 2: Add Controller Layer (Week 1)
+### Phase 2: Add Controller Layer (Future)
 
 1. Create `lib/controllers/landing_controller.dart`
 2. Move scroll tracking from LandingPage
@@ -931,7 +1049,7 @@ class _AnalyticsWrapperState extends State<AnalyticsWrapper> {
 4. Add Provider for state management
 5. Update LandingPage to use controller
 
-### Phase 3: Dependency Injection (Week 2)
+### Phase 3: Dependency Injection (Future)
 
 1. Add `flutter_riverpod` or `provider` package
 2. Create `lib/providers/app_providers.dart`
@@ -978,13 +1096,16 @@ Applying backend architectural principles to Flutter:
 
 **Key Action Items:**
 1. ✅ Create `config/content.dart` for externalized content
-2. ✅ Add `controllers/` layer for UI coordination
-3. ✅ Move analytics from widgets to controllers
-4. ✅ Add state management (Provider/Riverpod)
-5. ✅ Prepare for backend with repository pattern
+2. ⏳ Add `controllers/` layer for UI coordination (future)
+3. ⏳ Move analytics from widgets to controllers (future)
+4. ⏳ Add state management (Provider/Riverpod) (future)
+5. ⏳ Prepare for backend with repository pattern (future)
+
+*See `CHANGELOG.md` for completed implementation details.*
 
 ---
 
-*Document Version: 1.0*
+*Document Version: 1.1*
 *Created: December 2024*
+*Last Updated: December 24, 2024*
 *Based On: Backend routing-and-controllers.md, middleware-guide.md*

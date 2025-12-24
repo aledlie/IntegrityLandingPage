@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'theme/theme.dart';
 import 'pages/landing_page.dart';
 import 'pages/blog_page.dart';
+import 'pages/comparison_page.dart';
 import 'services/consent_manager.dart';
 import 'widgets/consent/cookie_banner.dart';
 
@@ -56,6 +57,36 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
             builder: (context) => Stack(
               children: [
                 BlogPage(onBack: () => Navigator.of(context).pushReplacementNamed('/')),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Handle WhyLabs alternative page
+        if (settings.name == '/whylabs-alternative') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                ComparisonPage.whylabs(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Handle Arize alternative page
+        if (settings.name == '/compare/arize-ai-alternative') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                ComparisonPage.arize(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
                 if (_showCookieBanner)
                   CookieBanner(onConsentGiven: _handleConsentGiven),
               ],

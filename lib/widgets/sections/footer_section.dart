@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../common/containers.dart';
 
@@ -52,6 +53,9 @@ class FooterSection extends StatelessWidget {
             if (isMobile) _buildMobileLayout(context) else _buildDesktopLayout(context),
             const SizedBox(height: AppSpacing.xl),
             const Divider(color: AppColors.gray700),
+            const SizedBox(height: AppSpacing.lg),
+            // Compliance disclaimer (legal requirement)
+            _buildComplianceDisclaimer(isMobile),
             const SizedBox(height: AppSpacing.lg),
             _buildBottomBar(currentYear, isMobile),
           ],
@@ -174,6 +178,28 @@ class FooterSection extends StatelessWidget {
               ),
             )),
       ],
+    );
+  }
+
+  Widget _buildComplianceDisclaimer(bool isMobile) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? AppSpacing.md : AppSpacing.xl,
+        vertical: AppSpacing.md,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.gray800.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+        border: Border.all(color: AppColors.gray700.withValues(alpha: 0.5)),
+      ),
+      child: Text(
+        ComplianceDisclaimers.general,
+        style: AppTypography.caption.copyWith(
+          color: AppColors.gray500,
+          fontSize: 11,
+        ),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 

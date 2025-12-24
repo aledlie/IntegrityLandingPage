@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import '../models/consent_preferences.dart';
 import 'analytics.dart';
+import 'tracking.dart';
 
 // Re-export for backward compatibility
 export '../models/consent_preferences.dart';
@@ -61,6 +62,12 @@ class ConsentManager {
         // Storage might be unavailable in private browsing
         debugPrint('Failed to save consent to storage: $e');
       }
+
+      // Update GTM Consent Mode with user's choices
+      TrackingWeb.updateConsent(
+        analytics: prefs.analytics,
+        marketing: prefs.marketing,
+      );
     }
 
     // Initialize analytics ONLY if consent was given
@@ -92,26 +99,25 @@ class ConsentManager {
   static Future<void> _initializeMarketing() async {
     if (!kIsWeb) return;
 
-    // Facebook Pixel initialization would go here
-    // This is loaded dynamically AFTER consent, not in index.html
+    // Inject Facebook Pixel script
+    TrackingWeb.injectFacebookPixel();
+    TrackingWeb.sendFBPageView();
     debugPrint('Marketing tracking initialized with consent');
   }
 
-  // Platform-specific storage methods
+  // Platform-specific storage methods using TrackingWeb
   static String? _getFromStorage(String key) {
     if (!kIsWeb) return null;
-    // This will be implemented with dart:html on web
-    // For now, return null to indicate web-specific implementation needed
-    return null;
+    return TrackingWeb.getFromStorage(key);
   }
 
   static void _setToStorage(String key, String value) {
     if (!kIsWeb) return;
-    // This will be implemented with dart:html on web
+    TrackingWeb.setToStorage(key, value);
   }
 
   static void _removeFromStorage(String key) {
     if (!kIsWeb) return;
-    // This will be implemented with dart:html on web
+    TrackingWeb.removeFromStorage(key);
   }
 }
