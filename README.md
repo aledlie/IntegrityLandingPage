@@ -1,7 +1,7 @@
 # Integrity Studio AI
 
 [![CI](https://github.com/aledlie/IntegrityLandingPage/actions/workflows/ci.yml/badge.svg)](https://github.com/aledlie/IntegrityLandingPage/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/aledlie/IntegrityLandingPage/branch/main/graph/badge.svg)](https://codecov.io/gh/aledlie/IntegrityLandingPage)
+[![Coverage](https://img.shields.io/endpoint?url=https://aledlie.github.io/IntegrityLandingPage/badge.json)](https://aledlie.github.io/IntegrityLandingPage/)
 
 Landing page for Integrity Studio AI - AI Observability Platform.
 
@@ -31,6 +31,10 @@ flutter test
 # Run tests with coverage
 flutter test --coverage
 
+# Generate HTML coverage report
+genhtml coverage/lcov.info -o coverage/html
+open coverage/html/index.html
+
 # Run E2E tests in Chrome (requires chromedriver)
 chromedriver --port=4444 &
 flutter drive --driver=test_driver/integration_test.dart \
@@ -46,13 +50,13 @@ flutter build web --release
 
 ## Test Coverage
 
-Coverage reports are generated automatically in CI and uploaded to Codecov.
+Coverage reports are automatically generated and deployed to GitHub Pages on every push to main.
 
-To generate coverage locally:
+**[View Coverage Report](https://aledlie.github.io/IntegrityLandingPage/)**
 
-```bash
-flutter test --coverage
-# Install lcov: brew install lcov (macOS) or apt-get install lcov (Linux)
-genhtml coverage/lcov.info -o coverage/html
-open coverage/html/index.html
-```
+### Coverage in PRs
+
+Pull requests automatically receive a coverage comment showing:
+- Overall coverage percentage
+- Coverage summary
+- Link to download the full HTML report
