@@ -22,6 +22,21 @@ class BlogPage extends StatelessWidget {
 
   static const List<BlogPost> _posts = [
     BlogPost(
+      title: 'End-to-End Agentic Observability: From Chaos to Control',
+      subtitle: 'A Practical Guide to the 4-Stage Observability Lifecycle',
+      description: 'Your AI agent just autonomously decided to email your entire customer database at 3 AM. With a coupon code that doesn\'t exist. In French. Learn the Build, Test, Monitor, Analyze lifecycle that keeps agents reliable and compliant.',
+      date: 'December 24, 2024',
+      readTime: '12 min read',
+      category: 'Best Practices',
+      url: '/blog/end-to-end-agentic-observability-lifecycle.html',
+      isSeries: false,
+      stats: [
+        '73% faster debugging',
+        '4-stage lifecycle',
+        'EU AI Act ready',
+      ],
+    ),
+    BlogPost(
       title: 'AI Observability Platform Strategy',
       subtitle: 'Enhanced Research Report: Market Analysis, Regulatory Compliance & Competitive Intelligence',
       description: 'Comprehensive market research and strategic analysis for AI Observability and Trust Platform positioning, with regulatory compliance insights and competitive landscape analysis.',

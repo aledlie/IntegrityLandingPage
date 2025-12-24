@@ -1316,6 +1316,18 @@ class ResourcesContent {
     ],
     featuredPosts: [
       BlogPostPreviewContent(
+        title: 'End-to-End Agentic Observability: From Chaos to Control',
+        excerpt:
+            'Your AI agent just autonomously decided to email your entire customer database '
+            'at 3 AM. Learn the Build, Test, Monitor, Analyze lifecycle that keeps agents '
+            'reliable, compliant, and not accidentally ordering 10,000 pizzas.',
+        category: 'Best Practices',
+        publishDate: '2024-12-24',
+        readTime: '12 min read',
+        slug: 'end-to-end-agentic-observability-lifecycle',
+        author: 'Alyshia Ledlie',
+      ),
+      BlogPostPreviewContent(
         title: 'EU AI Act: What Engineering Teams Need to Know',
         excerpt:
             'A practical guide to EU AI Act compliance for AI engineering teams. '
