@@ -178,25 +178,22 @@ class _TabbedFeaturesSectionState extends State<TabbedFeaturesSection> {
       );
     }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: AppSpacing.md,
+      runSpacing: AppSpacing.sm,
       children: _features.asMap().entries.map((entry) {
-        return Padding(
-          padding: EdgeInsets.only(
-            right: entry.key < _features.length - 1 ? AppSpacing.md : 0,
-          ),
-          child: _FeatureTabButton(
-            feature: entry.value,
-            isSelected: _selectedIndex == entry.key,
-            isHovered: _hoveredIndex == entry.key,
-            onTap: () {
-              setState(() => _selectedIndex = entry.key);
-              AnalyticsService.trackFeatureInteraction(entry.value.title);
-            },
-            onHover: (hovering) {
-              setState(() => _hoveredIndex = hovering ? entry.key : null);
-            },
-          ),
+        return _FeatureTabButton(
+          feature: entry.value,
+          isSelected: _selectedIndex == entry.key,
+          isHovered: _hoveredIndex == entry.key,
+          onTap: () {
+            setState(() => _selectedIndex = entry.key);
+            AnalyticsService.trackFeatureInteraction(entry.value.title);
+          },
+          onHover: (hovering) {
+            setState(() => _hoveredIndex = hovering ? entry.key : null);
+          },
         );
       }).toList(),
     );

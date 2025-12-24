@@ -5,6 +5,10 @@ import '../widgets/sections/hero_section.dart';
 import '../widgets/sections/tabbed_features_section.dart';
 import '../widgets/sections/social_proof_section.dart';
 import '../widgets/sections/features_section.dart';
+import '../widgets/sections/services_section.dart';
+import '../widgets/sections/about_section.dart';
+import '../widgets/sections/resources_section.dart';
+import '../widgets/sections/contact_section.dart';
 import '../widgets/sections/pricing_section.dart';
 import '../widgets/sections/status_section.dart';
 import '../widgets/sections/cta_section.dart';
@@ -38,6 +42,10 @@ class _LandingPageState extends State<LandingPage> {
     'features-explorer': GlobalKey(),
     'social-proof': GlobalKey(),
     'features': GlobalKey(),
+    'services': GlobalKey(),
+    'about': GlobalKey(),
+    'resources': GlobalKey(),
+    'contact': GlobalKey(),
     'status': GlobalKey(),
     'pricing': GlobalKey(),
     'cta': GlobalKey(),
@@ -108,6 +116,30 @@ class _LandingPageState extends State<LandingPage> {
               key: _sectionKeys['features']!,
               label: 'Features section',
               child: const FeaturesSection(),
+            ),
+            // Services section (platform capabilities)
+            _buildSection(
+              key: _sectionKeys['services']!,
+              label: 'Services section',
+              child: const ServicesSection(),
+            ),
+            // About section (company story, values, team)
+            _buildSection(
+              key: _sectionKeys['about']!,
+              label: 'About section',
+              child: const AboutSection(),
+            ),
+            // Resources section (docs, blog, lead magnets)
+            _buildSection(
+              key: _sectionKeys['resources']!,
+              label: 'Resources section',
+              child: const ResourcesSection(),
+            ),
+            // Contact section (form, contact methods)
+            _buildSection(
+              key: _sectionKeys['contact']!,
+              label: 'Contact section',
+              child: const ContactSection(),
             ),
             _buildSection(
               key: _sectionKeys['status']!,
