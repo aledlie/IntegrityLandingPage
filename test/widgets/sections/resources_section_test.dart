@@ -96,8 +96,9 @@ void main() {
         setLargeViewport(tester);
         await tester.pumpWidget(buildTestWidget());
 
+        // Multiple posts may have the same read time, so use findsWidgets
         for (final post in AppContent.resources.featuredPosts) {
-          expect(find.text(post.readTime), findsOneWidget);
+          expect(find.text(post.readTime), findsWidgets);
         }
       });
     });

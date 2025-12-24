@@ -46,10 +46,10 @@ void main() {
         }
       });
 
-      test('has 3 featured blog posts', () {
+      test('has 4 featured blog posts', () {
         final content = AppContent.resources;
 
-        expect(content.featuredPosts.length, equals(3));
+        expect(content.featuredPosts.length, equals(4));
       });
 
       test('each blog post has required fields', () {
