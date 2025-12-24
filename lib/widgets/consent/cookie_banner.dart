@@ -160,9 +160,11 @@ class _CookieBannerState extends State<CookieBanner>
               size: 24,
             ),
             const SizedBox(width: AppSpacing.sm),
-            Text(
-              'Cookie Preferences',
-              style: AppTypography.headingSM.copyWith(fontSize: 18),
+            Flexible(
+              child: Text(
+                'Cookie Preferences',
+                style: AppTypography.headingSM.copyWith(fontSize: 18),
+              ),
             ),
           ],
         ),
@@ -270,9 +272,11 @@ class _CookieBannerState extends State<CookieBanner>
               constraints: const BoxConstraints(),
             ),
             const SizedBox(width: AppSpacing.sm),
-            Text(
-              'Cookie Preferences',
-              style: AppTypography.headingSM.copyWith(fontSize: 18),
+            Flexible(
+              child: Text(
+                'Cookie Preferences',
+                style: AppTypography.headingSM.copyWith(fontSize: 18),
+              ),
             ),
           ],
         ),
@@ -387,11 +391,13 @@ class _CookieCategory extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      title,
-                      style: AppTypography.bodyMD.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary,
+                    Flexible(
+                      child: Text(
+                        title,
+                        style: AppTypography.bodyMD.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textPrimary,
+                        ),
                       ),
                     ),
                     if (required) ...[
