@@ -1,5 +1,223 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+
+/// Animated gradient border button (AiSDR-inspired design)
+///
+/// Features:
+/// - Rotating gradient border animation (10s cycle)
+/// - Smooth hover lift effect
+/// - Inner gradient fill
+/// - Respects reduced motion preferences
+///
+/// Usage:
+/// ```dart
+/// AnimatedGradientBorderButton(
+///   text: 'Start Free Trial',
+///   onPressed: () => startTrial(),
+/// )
+/// ```
+class AnimatedGradientBorderButton extends StatefulWidget {
+  final String text;
+  final VoidCallback? onPressed;
+  final IconData? icon;
+  final bool isLoading;
+  final String? semanticLabel;
+  final bool fullWidth;
+
+  const AnimatedGradientBorderButton({
+    super.key,
+    required this.text,
+    this.onPressed,
+    this.icon,
+    this.isLoading = false,
+    this.semanticLabel,
+    this.fullWidth = false,
+  });
+
+  @override
+  State<AnimatedGradientBorderButton> createState() =>
+      _AnimatedGradientBorderButtonState();
+}
+
+class _AnimatedGradientBorderButtonState
+    extends State<AnimatedGradientBorderButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  bool _isHovered = false;
+  bool _isFocused = false;
+
+  bool get _isDisabled => widget.isLoading || widget.onPressed == null;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 10),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final reduceMotion =
+        MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+
+    return Semantics(
+      button: true,
+      enabled: !_isDisabled,
+      label: widget.semanticLabel ?? widget.text,
+      child: Focus(
+        onFocusChange: (focused) => setState(() => _isFocused = focused),
+        child: MouseRegion(
+          cursor:
+              _isDisabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
+          onEnter: (_) => setState(() => _isHovered = true),
+          onExit: (_) => setState(() => _isHovered = false),
+          child: GestureDetector(
+            onTap: _isDisabled ? null : widget.onPressed,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
+              transform: _isHovered && !_isDisabled
+                  ? Matrix4.translationValues(0.0, -2.0, 0.0)
+                  : Matrix4.identity(),
+              child: AnimatedBuilder(
+                animation: reduceMotion
+                    ? const AlwaysStoppedAnimation(0.0)
+                    : _controller,
+                builder: (context, child) {
+                  return CustomPaint(
+                    painter: _GradientBorderPainter(
+                      rotation: reduceMotion ? 0.0 : _controller.value * 2 * math.pi,
+                      borderRadius: AppSpacing.radiusMD,
+                      strokeWidth: 2.0,
+                      gradient: const SweepGradient(
+                        colors: [
+                          AppColors.blue500,
+                          AppColors.indigo500,
+                          AppColors.purple500,
+                          AppColors.blue500,
+                        ],
+                      ),
+                    ),
+                    child: child,
+                  );
+                },
+                child: Container(
+                  width: widget.fullWidth ? double.infinity : null,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xl,
+                    vertical: AppSpacing.md,
+                  ),
+                  decoration: BoxDecoration(
+                    gradient: _isDisabled
+                        ? AppColors.disabledGradient
+                        : AppColors.primaryGradient,
+                    borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+                    boxShadow: _isDisabled
+                        ? []
+                        : [
+                            BoxShadow(
+                              color: AppColors.shadowBlue,
+                              blurRadius: _isHovered ? 24 : 16,
+                              offset: Offset(0, _isHovered ? 6 : 4),
+                            ),
+                          ],
+                    border: _isFocused
+                        ? Border.all(color: AppColors.blue400, width: 2)
+                        : null,
+                  ),
+                  child: Row(
+                    mainAxisSize:
+                        widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (widget.isLoading)
+                        const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        )
+                      else
+                        Text(
+                          widget.text,
+                          style: AppTypography.buttonText.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      if (widget.icon != null && !widget.isLoading) ...[
+                        const SizedBox(width: AppSpacing.sm),
+                        Icon(
+                          widget.icon,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Custom painter for rotating gradient border
+class _GradientBorderPainter extends CustomPainter {
+  final double rotation;
+  final double borderRadius;
+  final double strokeWidth;
+  final Gradient gradient;
+
+  _GradientBorderPainter({
+    required this.rotation,
+    required this.borderRadius,
+    required this.strokeWidth,
+    required this.gradient,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rect = Offset.zero & size;
+    final rrect = RRect.fromRectAndRadius(
+      rect.deflate(strokeWidth / 2),
+      Radius.circular(borderRadius),
+    );
+
+    // Create rotated gradient
+    canvas.save();
+    canvas.translate(size.width / 2, size.height / 2);
+    canvas.rotate(rotation);
+    canvas.translate(-size.width / 2, -size.height / 2);
+
+    final paint = Paint()
+      ..shader = gradient.createShader(rect)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth;
+
+    canvas.drawRRect(rrect, paint);
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(_GradientBorderPainter oldDelegate) {
+    return oldDelegate.rotation != rotation;
+  }
+}
 
 /// Primary gradient button with accessibility support
 ///

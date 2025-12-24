@@ -23,14 +23,17 @@ Future<void> _launchUrl(String url) async {
 /// ```dart
 /// FooterSection(
 ///   onCookieSettings: () => showCookieBanner(),
+///   onNavigateToBlog: () => Navigator.pushNamed(context, '/blog'),
 /// )
 /// ```
 class FooterSection extends StatelessWidget {
   final VoidCallback? onCookieSettings;
+  final VoidCallback? onNavigateToBlog;
 
   const FooterSection({
     super.key,
     this.onCookieSettings,
+    this.onNavigateToBlog,
   });
 
   @override
@@ -46,7 +49,7 @@ class FooterSection extends StatelessWidget {
         ),
         child: Column(
           children: [
-            if (isMobile) _buildMobileLayout() else _buildDesktopLayout(),
+            if (isMobile) _buildMobileLayout(context) else _buildDesktopLayout(context),
             const SizedBox(height: AppSpacing.xl),
             const Divider(color: AppColors.gray700),
             const SizedBox(height: AppSpacing.lg),
@@ -57,7 +60,7 @@ class FooterSection extends StatelessWidget {
     );
   }
 
-  Widget _buildDesktopLayout() {
+  Widget _buildDesktopLayout(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -68,13 +71,13 @@ class FooterSection extends StatelessWidget {
         ),
         // Link columns
         ..._linkSections.map((section) => Expanded(
-              child: _buildLinkColumn(section),
+              child: _buildLinkColumn(context, section),
             )),
       ],
     );
   }
 
-  Widget _buildMobileLayout() {
+  Widget _buildMobileLayout(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -86,7 +89,7 @@ class FooterSection extends StatelessWidget {
           children: _linkSections.map((section) {
             return SizedBox(
               width: 150,
-              child: _buildLinkColumn(section),
+              child: _buildLinkColumn(context, section),
             );
           }).toList(),
         ),
@@ -138,7 +141,7 @@ class FooterSection extends StatelessWidget {
     );
   }
 
-  Widget _buildLinkColumn(_LinkSection section) {
+  Widget _buildLinkColumn(BuildContext context, _LinkSection section) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -154,9 +157,20 @@ class FooterSection extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: AppSpacing.sm),
               child: _FooterLink(
                 text: link.text,
-                onTap: link.isInternal
-                    ? () {}
-                    : () => _launchUrl(link.url),
+                onTap: () {
+                  // Handle blog navigation specially
+                  if (link.url == '/blog') {
+                    if (onNavigateToBlog != null) {
+                      onNavigateToBlog!();
+                    } else {
+                      Navigator.of(context).pushNamed('/blog');
+                    }
+                  } else if (link.isInternal) {
+                    // Internal links - no action for now
+                  } else {
+                    _launchUrl(link.url);
+                  }
+                },
               ),
             )),
       ],

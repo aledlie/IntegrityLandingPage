@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../theme/theme.dart';
 import '../services/analytics.dart';
 import '../widgets/sections/hero_section.dart';
+import '../widgets/sections/tabbed_features_section.dart';
+import '../widgets/sections/social_proof_section.dart';
 import '../widgets/sections/features_section.dart';
 import '../widgets/sections/pricing_section.dart';
 import '../widgets/sections/status_section.dart';
@@ -33,6 +35,8 @@ class _LandingPageState extends State<LandingPage> {
   // Section keys for scroll navigation
   final _sectionKeys = <String, GlobalKey>{
     'hero': GlobalKey(),
+    'features-explorer': GlobalKey(),
+    'social-proof': GlobalKey(),
     'features': GlobalKey(),
     'status': GlobalKey(),
     'pricing': GlobalKey(),
@@ -87,6 +91,18 @@ class _LandingPageState extends State<LandingPage> {
                 onGetStarted: () => _scrollToSection('pricing'),
                 onWatchDemo: _handleWatchDemo,
               ),
+            ),
+            // Tabbed feature explorer (AiSDR-inspired interactive tabs)
+            _buildSection(
+              key: _sectionKeys['features-explorer']!,
+              label: 'Feature explorer section',
+              child: const TabbedFeaturesSection(),
+            ),
+            // Social proof with quantified metrics (AiSDR-inspired)
+            _buildSection(
+              key: _sectionKeys['social-proof']!,
+              label: 'Social proof section',
+              child: const SocialProofSection(),
             ),
             _buildSection(
               key: _sectionKeys['features']!,

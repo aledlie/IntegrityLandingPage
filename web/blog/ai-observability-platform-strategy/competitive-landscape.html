@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitive Landscape - AI Observability Platform Strategy | Integrity Studio</title>
+    <meta name="description" content="Detailed competitor analysis, funding data, strategic partnerships, and market segmentation in the AI observability and MLOps ecosystem.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary-color: #a78bfa;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --text-dark: #1e293b;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --bg-white: #ffffff;
+            --bg-light: #f8fafc;
+            --bg-gray: #f1f5f9;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .subtitle {
+            font-size: 1.125rem;
+            opacity: 0.95;
+        }
+
+        .nav {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+        }
+
+        .nav a {
+            display: block;
+            padding: 1rem 0;
+            color: var(--text-medium);
+            text-decoration: none;
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav a:hover, .nav a.active {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section {
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin: 2rem 0 1rem;
+        }
+
+        .section p {
+            color: var(--text-medium);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .insight-box {
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+
+        .insight-box strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-medium);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-light);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .source-link {
+            font-size: 0.875rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .source-link:hover {
+            text-decoration: underline;
+        }
+
+        .competitor-card {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .competitor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .competitor-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .competitor-funding {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .competitor-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .detail-item {
+            padding: 0.75rem;
+            background: var(--bg-white);
+            border-radius: 6px;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-light);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        .competitor-description {
+            color: var(--text-medium);
+            line-height: 1.7;
+            margin-top: 1rem;
+        }
+
+        .differentiation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .diff-card {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .diff-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .diff-description {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            table {
+                font-size: 0.875rem;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .competitor-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .differentiation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>Competitive Landscape</h1>
+            <p class="subtitle">Funding Analysis, Strategic Positioning & Market Segmentation</p>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="index.html">Overview</a>
+            <a href="market-analysis.html">Market Analysis</a>
+            <a href="regulatory-drivers.html">Regulatory Drivers</a>
+            <a href="competitive-landscape.html" class="active">Competitive Landscape</a>
+            <a href="growth-strategy.html">Growth Strategy</a>
+            <a href="recommendations.html">Recommendations</a>
+            <a href="sources.html">Sources</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="section">
+            <h2>Funding & Market Position</h2>
+            <p>The AI observability and MLOps market has seen significant venture capital investment, with leaders raising substantial funding rounds and achieving unicorn valuations. Understanding the competitive funding landscape reveals market maturity, investor confidence, and strategic positioning opportunities.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Total Funding</th>
+                        <th>Latest Round</th>
+                        <th>Valuation</th>
+                        <th>Key Differentiator</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Weights & Biases</strong></td>
+                        <td>$255M</td>
+                        <td>$135M Series C</td>
+                        <td>$1B</td>
+                        <td>Experiment tracking, MLOps lifecycle</td>
+                        <td><a href="https://www.seedtable.com/best-mlops-startups" class="source-link" target="_blank">Seedtable</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Arize AI</strong></td>
+                        <td>$131M</td>
+                        <td>$70M Series C (Microsoft M12)</td>
+                        <td>N/A</td>
+                        <td>Unified AI engineering, open-core (Phoenix/OpenInference)</td>
+                        <td><a href="https://www.cbinsights.com/company/arize-ai" class="source-link" target="_blank">CB Insights</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Iguazio</strong></td>
+                        <td>$113M</td>
+                        <td>Series C (Tiger Global)</td>
+                        <td>N/A</td>
+                        <td>End-to-end MLOps automation</td>
+                        <td><a href="https://quickmarketpitch.com/blogs/news/mlops-funding" class="source-link" target="_blank">Quick Market Pitch</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fiddler AI</strong></td>
+                        <td>$68.6M</td>
+                        <td>$18.6M Series B Prime (Dec 2024)</td>
+                        <td>N/A</td>
+                        <td>Explainability, GRC, responsible AI</td>
+                        <td><a href="https://uplatz.com/blog/a-technical-leaders-comparative-analysis-of-ai-observability-platforms-evidently-ai-arize-ai-and-fiddler-ai/" class="source-link" target="_blank">Uplatz</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>WhyLabs</strong></td>
+                        <td>Open-sourced (Jan 2025)</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>Privacy-first, statistical profiles vs. raw data</td>
+                        <td><a href="https://coralogix.com/ai-blog/ml-observability-alternatives-to-arize-ai/" class="source-link" target="_blank">Coralogix</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="section">
+            <h2>Detailed Competitor Analysis</h2>
+
+            <div class="competitor-card">
+                <div class="competitor-header">
+                    <div class="competitor-name">Weights & Biases</div>
+                    <div class="competitor-funding">$255M Raised</div>
+                </div>
+                <div class="competitor-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Latest Round</div>
+                        <div class="detail-value">$135M Series C</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Valuation</div>
+                        <div class="detail-value">$1B (Unicorn)</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Focus Area</div>
+                        <div class="detail-value">MLOps Lifecycle</div>
+                    </div>
+                </div>
+                <div class="competitor-description">
+                    <strong>Strategic Position:</strong> Market leader in experiment tracking and ML lifecycle management. Strong product-market fit with data science teams. Primary focus on development and training phases rather than production monitoring and governance. Weakness in compliance and regulatory features creates opportunity for governance-focused competitors.
+                </div>
+            </div>
+
+            <div class="competitor-card">
+                <div class="competitor-header">
+                    <div class="competitor-name">Arize AI</div>
+                    <div class="competitor-funding">$131M Raised</div>
+                </div>
+                <div class="competitor-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Latest Round</div>
+                        <div class="detail-value">$70M Series C</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Investor</div>
+                        <div class="detail-value">Microsoft M12</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Strategy</div>
+                        <div class="detail-value">Open-Core</div>
+                    </div>
+                </div>
+                <div class="competitor-description">
+                    <strong>Strategic Position:</strong> Unified AI engineering platform with strong Microsoft partnership. Open-source Phoenix project and OpenInference standard building developer community. Balancing open-core community building with commercial enterprise features. Recent Infogain partnership (Nov 2025) expands enterprise implementation capabilities.
+                </div>
+            </div>
+
+            <div class="competitor-card">
+                <div class="competitor-header">
+                    <div class="competitor-name">Fiddler AI</div>
+                    <div class="competitor-funding">$68.6M Raised</div>
+                </div>
+                <div class="competitor-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Latest Round</div>
+                        <div class="detail-value">$18.6M Series B Prime</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Timing</div>
+                        <div class="detail-value">December 2024</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Focus</div>
+                        <div class="detail-value">Responsible AI</div>
+                    </div>
+                </div>
+                <div class="competitor-description">
+                    <strong>Strategic Position:</strong> Strong focus on explainability, governance, risk, and compliance (GRC). SOC 2 Type 2 and HIPAA compliance for regulated industries. Positioning as responsible AI platform aligns with EU AI Act compliance needs. Most direct competitor for governance-first positioning.
+                </div>
+            </div>
+
+            <div class="competitor-card">
+                <div class="competitor-header">
+                    <div class="competitor-name">WhyLabs</div>
+                    <div class="competitor-funding">Recently Open-Sourced</div>
+                </div>
+                <div class="competitor-details">
+                    <div class="detail-item">
+                        <div class="detail-label">Strategy Shift</div>
+                        <div class="detail-value">January 2025</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Focus</div>
+                        <div class="detail-value">Privacy-First</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Approach</div>
+                        <div class="detail-value">Statistical Profiles</div>
+                    </div>
+                </div>
+                <div class="competitor-description">
+                    <strong>Strategic Position:</strong> Privacy-first architecture using statistical profiles instead of raw data transfer. Open-sourcing in January 2025 suggests pivot to community-driven model. Creates opportunity gap in commercial privacy-focused monitoring for enterprises that need vendor support and SLAs.
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Strategic Partnership Activity</h2>
+            <p>Recent partnership announcements reveal market consolidation trends and ecosystem integration strategies that will shape competitive dynamics.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Partnership</th>
+                        <th>Date</th>
+                        <th>Significance</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Arize AI + Infogain</strong></td>
+                        <td>November 2025</td>
+                        <td>Joint customer design, evaluation, scaling services. Expands enterprise implementation capabilities.</td>
+                        <td><a href="https://www.unite.ai/best-ai-observability-tools/" class="source-link" target="_blank">Unite.AI</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>CoreWeave + Weights & Biases</strong></td>
+                        <td>2025</td>
+                        <td>Infrastructure + MLOps platform consolidation. Trend toward vertical integration of AI stack.</td>
+                        <td><a href="https://neptune.ai/blog/mlops-tools-platforms-landscape" class="source-link" target="_blank">Neptune.ai</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Corporate VC Activity</strong></td>
+                        <td>2024</td>
+                        <td>40% of late-stage rounds (up from 25% in 2022). Strategic acquirers positioning for M&A.</td>
+                        <td><a href="https://quickmarketpitch.com/blogs/news/mlops-funding" class="source-link" target="_blank">Quick Market Pitch</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box">
+                <strong>Partnership Insight:</strong> The increase in corporate VC participation from 25% to 40% signals that strategic acquirers (major cloud providers, enterprise software companies, monitoring platforms) are actively evaluating acquisition targets. Platforms with differentiated positioning in compliance and governance may be particularly attractive to companies seeking to round out their AI portfolios.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Market Segmentation by Use Case</h2>
+            <p>Different customer segments prioritize different capabilities, creating opportunities for specialized positioning and focused go-to-market strategies.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Segment</th>
+                        <th>Preferred Solution</th>
+                        <th>Reason</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Enterprise teams with existing MLOps</strong></td>
+                        <td>Arize or Fiddler</td>
+                        <td>Integration with established workflows, enterprise support SLAs</td>
+                        <td><a href="https://coralogix.com/ai-blog/ml-observability-alternatives-to-arize-ai/" class="source-link" target="_blank">Coralogix</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lightweight LLM monitoring</strong></td>
+                        <td>Helicone or LangFuse</td>
+                        <td>Lower complexity, faster setup, LLM-specific features</td>
+                        <td><a href="https://www.unite.ai/best-ai-observability-tools/" class="source-link" target="_blank">Unite.AI</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Privacy-first industries</strong></td>
+                        <td>WhyLabs</td>
+                        <td>Statistical profiles approach, no raw data transfer</td>
+                        <td><a href="https://coralogix.com/ai-blog/ml-observability-alternatives-to-arize-ai/" class="source-link" target="_blank">Coralogix</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compliance-heavy sectors</strong></td>
+                        <td>Fiddler</td>
+                        <td>SOC 2 Type 2, HIPAA compliance, governance focus</td>
+                        <td><a href="https://uplatz.com/blog/a-technical-leaders-comparative-analysis-of-ai-observability-platforms-evidently-ai-arize-ai-and-fiddler-ai/" class="source-link" target="_blank">Uplatz</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="section">
+            <h2>Large Platform Expansion</h2>
+            <p>Established enterprise software and monitoring vendors are expanding into AI observability, bringing large customer bases but often lacking AI-native depth.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Major Vendors</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Data/AI Platforms</strong></td>
+                        <td>Informatica, IBM, Cisco</td>
+                        <td><a href="https://neptune.ai/blog/mlops-tools-platforms-landscape" class="source-link" target="_blank">Neptune.ai</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>APM/Monitoring</strong></td>
+                        <td>New Relic, Datadog, Splunk, Dynatrace</td>
+                        <td><a href="https://www.unite.ai/best-ai-observability-tools/" class="source-link" target="_blank">Unite.AI</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>AIOps</strong></td>
+                        <td>ScienceLogic</td>
+                        <td><a href="https://neptune.ai/blog/mlops-tools-platforms-landscape" class="source-link" target="_blank">Neptune.ai</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box">
+                <strong>Competitive Insight:</strong> Large vendors have established customer bases and existing monitoring infrastructure but lack AI-native depth and compliance-first features. Differentiation opportunity lies in purpose-built AI governance capabilities, regulatory compliance templates, and deep integration with AI development workflows that traditional monitoring platforms cannot easily replicate.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Differentiation Opportunities</h2>
+            <p>Based on competitive analysis, the following differentiation strategies offer the strongest positioning opportunities for new entrants and emerging platforms.</p>
+
+            <div class="differentiation-grid">
+                <div class="diff-card">
+                    <div class="diff-title">Compliance-as-a-Feature</div>
+                    <div class="diff-description">
+                        Pre-built templates for EU AI Act, NIST RMF, and ISO 42001. Automated evidence collection and audit trail generation. 98% of enterprises increasing governance budgets creates immediate demand for compliance-ready platforms.
+                    </div>
+                </div>
+
+                <div class="diff-card">
+                    <div class="diff-title">Infrastructure Correlation</div>
+                    <div class="diff-description">
+                        Connect AI monitoring to underlying infrastructure systems (unlike pure AI tools). Bridge gap between traditional APM vendors (lack AI depth) and AI-native platforms (lack infrastructure integration).
+                    </div>
+                </div>
+
+                <div class="diff-card">
+                    <div class="diff-title">Privacy-First Architecture</div>
+                    <div class="diff-description">
+                        Address regulated industry needs (healthcare, finance) with data residency, statistical profiling, and minimal data transfer. WhyLabs' open-source move validates demand but creates commercial opportunity gap.
+                    </div>
+                </div>
+
+                <div class="diff-card">
+                    <div class="diff-title">Cost Transparency</div>
+                    <div class="diff-description">
+                        Help enterprises evaluate AI ROI—currently only 51% can confidently assess returns. Connect technical metrics to business outcomes and infrastructure costs for CFO-friendly reporting.
+                    </div>
+                </div>
+
+                <div class="diff-card">
+                    <div class="diff-title">Open-Core Strategy</div>
+                    <div class="diff-description">
+                        Compete with Arize's Phoenix for developer adoption. Build community through open standards and tools while monetizing enterprise features (compliance, SSO, advanced analytics, SLAs).
+                    </div>
+                </div>
+
+                <div class="diff-card">
+                    <div class="diff-title">Vertical Specialization</div>
+                    <div class="diff-description">
+                        Deep expertise in high-risk industries (financial services, healthcare) with industry-specific compliance templates, risk models, and regulatory reporting capabilities.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>AI Observability Platform Strategy - Enhanced Research Report</p>
+            <p>Original Source: <a href="https://integritystudio.ai/blog/ai-observability-platform-strategy" target="_blank">Integrity Studio</a> | Enhanced: December 8, 2025</p>
+            <p style="margin-top: 1rem;"><a href="regulatory-drivers.html">← Back to Regulatory Drivers</a> | <a href="growth-strategy.html">Next: Growth Strategy →</a></p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -172,7 +172,8 @@ class HeroSection extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          GradientButton(
+          // Use animated gradient border button for primary CTA (AiSDR-inspired)
+          AnimatedGradientBorderButton(
             text: content.primaryCTA,
             icon: LucideIcons.arrowRight,
             onPressed: () {
@@ -206,7 +207,8 @@ class HeroSection extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        GradientButton(
+        // Use animated gradient border button for primary CTA (AiSDR-inspired)
+        AnimatedGradientBorderButton(
           text: content.primaryCTA,
           icon: LucideIcons.arrowRight,
           onPressed: () {

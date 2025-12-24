@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'theme/theme.dart';
 import 'pages/landing_page.dart';
+import 'pages/blog_page.dart';
 import 'services/consent_manager.dart';
 import 'widgets/consent/cookie_banner.dart';
 
@@ -47,13 +48,32 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
       title: 'Integrity Studio - Enterprise AI Observability',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
-      home: Stack(
-        children: [
-          LandingPage(onShowCookieSettings: _showCookieSettings),
-          if (_showCookieBanner)
-            CookieBanner(onConsentGiven: _handleConsentGiven),
-        ],
-      ),
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        // Handle blog routes
+        if (settings.name == '/blog') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                BlogPage(onBack: () => Navigator.of(context).pushReplacementNamed('/')),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Default to landing page
+        return MaterialPageRoute(
+          builder: (context) => Stack(
+            children: [
+              LandingPage(onShowCookieSettings: _showCookieSettings),
+              if (_showCookieBanner)
+                CookieBanner(onConsentGiven: _handleConsentGiven),
+            ],
+          ),
+        );
+      },
     );
   }
 }
