@@ -9,7 +9,7 @@ import 'mocks.dart';
 final ThemeData testTheme = ThemeData(
   brightness: Brightness.dark,
   scaffoldBackgroundColor: AppColors.gray900,
-  colorScheme: ColorScheme.dark(
+  colorScheme: const ColorScheme.dark(
     primary: AppColors.blue500,
     secondary: AppColors.purple500,
     surface: AppColors.gray800,
