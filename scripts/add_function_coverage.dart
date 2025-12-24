@@ -1,7 +1,11 @@
 #!/usr/bin/env dart
-/// Script to add function coverage data to lcov.info
+// ignore_for_file: avoid_print
+
+/// Script to add function coverage data to lcov.info.
+///
 /// Flutter's coverage only outputs line coverage, this adds function coverage
 /// by parsing Dart source files and correlating with line hit data.
+library;
 
 import 'dart:io';
 
@@ -156,9 +160,6 @@ List<FunctionInfo> extractFunctions(String filePath) {
     // Arrow functions in class: name(params) =>
     RegExp(r'^\s*(?:@override\s+)?(?:static\s+)?(?:Future<[^>]+>|[A-Za-z_][A-Za-z0-9_<>,\s]*)\s+([a-z_][a-zA-Z0-9_]*)\s*\([^)]*\)\s*=>'),
   ];
-
-  var braceDepth = 0;
-  var currentFunctionEndLine = 0;
 
   for (var i = 0; i < lines.length; i++) {
     final line = lines[i];
