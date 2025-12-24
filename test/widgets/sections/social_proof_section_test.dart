@@ -157,7 +157,8 @@ void main() {
         // Metric context is rendered in Text.rich spans
         expect(find.textContaining('issue resolution'), findsOneWidget);
         expect(find.textContaining('compliance prep saved'), findsOneWidget);
-        expect(find.textContaining('cost reduction'), findsOneWidget);
+        // Note: 'cost reduction' appears in both stat label and testimonial
+        expect(find.textContaining('cost reduction'), findsWidgets);
       });
 
       testWidgets('renders author initials as avatar', (tester) async {
