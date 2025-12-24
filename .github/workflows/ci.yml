@@ -51,7 +51,8 @@ jobs:
           dart scripts/add_function_coverage.dart coverage/lcov.info
 
           # Generate HTML coverage report with function coverage
-          genhtml coverage/lcov.info -o coverage/html --legend --title "Integrity Studio AI Coverage" --ignore-errors category
+          # Use --prefix to properly strip working directory and avoid duplicated paths
+          genhtml coverage/lcov.info -o coverage/html --legend --title "Integrity Studio AI Coverage" --ignore-errors category --prefix "$(pwd)"
 
           # Generate coverage summary
           lcov --summary coverage/lcov.info > coverage/summary.txt 2>&1
