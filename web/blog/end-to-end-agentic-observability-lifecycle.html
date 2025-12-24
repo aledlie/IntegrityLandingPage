@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A practical guide to the 4-stage agentic observability lifecycle: Build, Test, Monitor, and Analyze. Learn how to ship reliable AI agents without losing your mind or your compliance standing.">
+    <meta name="keywords" content="agentic AI, AI observability, LLM agents, autonomous AI, EU AI Act compliance, agent monitoring, AI debugging">
+    <meta name="author" content="Alyshia Ledlie">
+    <title>End-to-End Agentic Observability: From Chaos to Control | Integrity Studio</title>
+    <style>
+        :root {
+            --gray-900: #111827;
+            --gray-800: #1F2937;
+            --gray-700: #374151;
+            --gray-600: #4B5563;
+            --gray-500: #6B7280;
+            --gray-400: #9CA3AF;
+            --gray-300: #D1D5DB;
+            --blue-500: #3B82F6;
+            --blue-400: #60A5FA;
+            --blue-600: #2563EB;
+            --indigo-500: #6366F1;
+            --purple-500: #A855F7;
+            --success: #22C55E;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--gray-300);
+            background: var(--gray-900);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%);
+            padding: 80px 0 100px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--gray-700);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--blue-500) 0%, var(--indigo-500) 100%);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            color: white;
+        }
+
+        .header-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-300);
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .header-meta {
+            margin-top: 32px;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--gray-400);
+        }
+
+        .header-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--gray-800);
+            border-bottom: 1px solid var(--gray-700);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+            overflow-x: auto;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 4px;
+            list-style: none;
+            padding: 12px 0;
+        }
+
+        .nav-list a {
+            display: block;
+            padding: 8px 16px;
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 6px;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .nav-list a:hover {
+            color: var(--blue-400);
+            background: var(--gray-700);
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 64px 24px;
+        }
+
+        section {
+            margin-bottom: 64px;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-700);
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            color: white;
+            margin: 40px 0 16px;
+        }
+
+        h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--gray-300);
+            margin: 32px 0 12px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--gray-300);
+            font-size: 1.0625rem;
+        }
+
+        /* Lead paragraph */
+        .lead {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--gray-300);
+            margin-bottom: 32px;
+        }
+
+        /* Stage Cards */
+        .stage-card {
+            background: var(--gray-800);
+            border: 1px solid var(--gray-700);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 32px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--blue-500) 0%, var(--indigo-500) 100%);
+        }
+
+        .stage-card.stage-build::before {
+            background: linear-gradient(135deg, var(--blue-500) 0%, var(--blue-400) 100%);
+        }
+
+        .stage-card.stage-test::before {
+            background: linear-gradient(135deg, var(--indigo-500) 0%, var(--purple-500) 100%);
+        }
+
+        .stage-card.stage-monitor::before {
+            background: linear-gradient(135deg, var(--success) 0%, #34D399 100%);
+        }
+
+        .stage-card.stage-analyze::before {
+            background: linear-gradient(135deg, var(--warning) 0%, #FBBF24 100%);
+        }
+
+        .stage-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--blue-500) 0%, var(--indigo-500) 100%);
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .stage-card h3 {
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        /* Callout boxes */
+        .callout {
+            background: var(--gray-800);
+            border-left: 4px solid var(--blue-500);
+            border-radius: 0 12px 12px 0;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .callout.warning {
+            border-left-color: var(--warning);
+        }
+
+        .callout.success {
+            border-left-color: var(--success);
+        }
+
+        .callout p {
+            margin-bottom: 0;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            color: var(--blue-400);
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .callout.warning .callout-title {
+            color: var(--warning);
+        }
+
+        .callout.success .callout-title {
+            color: var(--success);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            color: var(--gray-300);
+        }
+
+        li::marker {
+            color: var(--blue-400);
+        }
+
+        /* Code */
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            background: var(--gray-800);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--blue-400);
+        }
+
+        .code-block {
+            background: var(--gray-800);
+            border: 1px solid var(--gray-700);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--gray-300);
+        }
+
+        /* Blockquotes */
+        blockquote {
+            background: var(--gray-800);
+            border-left: 4px solid var(--indigo-500);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--gray-400);
+        }
+
+        blockquote p {
+            margin-bottom: 0;
+        }
+
+        /* Lifecycle diagram */
+        .lifecycle-diagram {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 40px 0;
+        }
+
+        .lifecycle-step {
+            background: var(--gray-800);
+            border: 1px solid var(--gray-700);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .lifecycle-step::after {
+            content: '\2192';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-600);
+            font-size: 20px;
+        }
+
+        .lifecycle-step:last-child::after {
+            display: none;
+        }
+
+        .lifecycle-step h4 {
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .lifecycle-step p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--gray-400);
+        }
+
+        /* Metric cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .metric-card {
+            background: var(--gray-800);
+            border: 1px solid var(--gray-700);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--blue-400) 0%, var(--purple-500) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--gray-400);
+        }
+
+        /* Links */
+        a {
+            color: var(--blue-400);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--blue-500);
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-800);
+            border-top: 1px solid var(--gray-700);
+            padding: 48px 24px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .footer p {
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--gray-800) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid var(--gray-700);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        .cta-section h3 {
+            margin-top: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--blue-500) 0%, var(--indigo-500) 100%);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 60px 0 80px;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .main {
+                padding: 40px 20px;
+            }
+
+            .lifecycle-diagram {
+                grid-template-columns: 1fr;
+            }
+
+            .lifecycle-step::after {
+                content: '\2193';
+                right: 50%;
+                top: auto;
+                bottom: -20px;
+                transform: translateX(50%);
+            }
+
+            .stage-card {
+                padding: 24px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .nav {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: #1e293b;
+            }
+
+            .header {
+                background: #0f172a;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .stage-card, .callout, .code-block {
+                break-inside: avoid;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <span class="header-badge">Agent Observability</span>
+            <h1>End-to-End Agentic Observability: From Chaos to Control</h1>
+            <p class="header-subtitle">A practical guide to the 4-stage observability lifecycle that keeps your AI agents reliable, compliant, and not accidentally ordering 10,000 pizzas.</p>
+            <div class="header-meta">
+                <span>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    12 min read
+                </span>
+                <span>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    December 24, 2024
+                </span>
+                <span>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Alyshia Ledlie
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <ul class="nav-list">
+                <li><a href="#why-lifecycle">Why a Lifecycle?</a></li>
+                <li><a href="#build">1. Build</a></li>
+                <li><a href="#test">2. Test</a></li>
+                <li><a href="#monitor">3. Monitor</a></li>
+                <li><a href="#analyze">4. Analyze</a></li>
+                <li><a href="#compliance">Compliance</a></li>
+                <li><a href="#getting-started">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main">
+        <!-- Introduction -->
+        <section id="intro">
+            <p class="lead">Your AI agent just autonomously decided to email your entire customer database at 3 AM. With a coupon code that doesn't exist. In French.</p>
+
+            <p>Look, I get it. You built something incredible. An AI agent that actually <em>does things</em>&mdash;books meetings, processes refunds, generates reports. It's magic. Until it isn't.</p>
+
+            <p>The problem with agentic AI isn't that it doesn't work. The problem is that when it fails, it fails <em>spectacularly</em>. Traditional monitoring tools that work great for your API endpoints? They'll tell you the agent responded in 200ms. They won't tell you the agent just promised a customer a 90% discount you can't honor.</p>
+
+            <p>That's where the observability lifecycle comes in.</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">73%</div>
+                    <div class="metric-label">Faster debugging with proper observability</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">4</div>
+                    <div class="metric-label">Stages in the lifecycle</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">69%</div>
+                    <div class="metric-label">AI decisions still human-verified</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why a Lifecycle -->
+        <section id="why-lifecycle">
+            <h2>Why Think in Lifecycles?</h2>
+
+            <p>Here's the thing about AI agents: they're not just "code that runs." They're decision-making systems that evolve, learn (sometimes the wrong lessons), and interact with the real world in ways you didn't anticipate.</p>
+
+            <p>A lifecycle approach means you're not just watching for errors. You're building a continuous feedback loop where every production incident makes your agent smarter, and every test you write prevents the next disaster.</p>
+
+            <div class="lifecycle-diagram">
+                <div class="lifecycle-step">
+                    <h4>Build</h4>
+                    <p>Instrument from day one</p>
+                </div>
+                <div class="lifecycle-step">
+                    <h4>Test</h4>
+                    <p>Simulate before shipping</p>
+                </div>
+                <div class="lifecycle-step">
+                    <h4>Monitor</h4>
+                    <p>Watch what matters</p>
+                </div>
+                <div class="lifecycle-step">
+                    <h4>Analyze</h4>
+                    <p>Learn and improve</p>
+                </div>
+            </div>
+
+            <p>This isn't a linear process. The insights from Stage 4 feed directly back into Stage 1. That weird edge case you discovered in production? It becomes a test case. That test case informs how you instrument the next feature. It's a virtuous cycle&mdash;or at least, it should be.</p>
+        </section>
+
+        <!-- Stage 1: Build -->
+        <section id="build">
+            <div class="stage-card stage-build">
+                <div class="stage-number">1</div>
+                <h3>Build: Instrument Like You Mean It</h3>
+
+                <p>The biggest mistake teams make with agent observability? Treating it as an afterthought. "We'll add logging later." Famous last words, right up there with "it works on my machine."</p>
+
+                <p>When you're building an agentic system, every decision point needs to be traceable. Not just "the agent called the database." You need:</p>
+
+                <ul>
+                    <li><strong>The reasoning chain</strong> &mdash; Why did the agent choose Option A over Option B?</li>
+                    <li><strong>Tool call context</strong> &mdash; What information did it have when it decided to send that email?</li>
+                    <li><strong>Confidence signals</strong> &mdash; Was the agent 95% sure or 51% sure?</li>
+                    <li><strong>Input/output pairs</strong> &mdash; The full context, not just the final answer</li>
+                </ul>
+
+                <div class="callout">
+                    <div class="callout-title">Pro Tip</div>
+                    <p>Use OpenTelemetry from the start. It's vendor-neutral, widely supported, and you won't have to rip out custom logging when you switch observability tools. Because you <em>will</em> switch observability tools.</p>
+                </div>
+
+                <h4>The Trust Model Approach</h4>
+
+                <p>Here's a pattern that's been working well: define a "Trust Model" for your agent upfront. What actions require human approval? What confidence threshold triggers a review? Document these <em>before</em> you write the code, not after something goes wrong.</p>
+
+                <div class="code-block">
+<pre>// Example Trust Model configuration
+{
+  "agent": "customer-support-bot",
+  "trust_levels": {
+    "refund_under_50": { "auto_approve": true },
+    "refund_50_to_500": { "requires_review": true },
+    "refund_over_500": { "requires_human_approval": true },
+    "account_deletion": { "requires_human_approval": true, "audit_log": "always" }
+  },
+  "confidence_thresholds": {
+    "minimum_for_action": 0.85,
+    "flag_for_review": 0.70
+  }
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 2: Test -->
+        <section id="test">
+            <div class="stage-card stage-test">
+                <div class="stage-number">2</div>
+                <h3>Test: Stop Vibe-Checking Your Agents</h3>
+
+                <p>I've seen teams "test" their AI agents by running them a few times, eyeballing the outputs, and declaring victory. This is what we call "vibe testing," and it's approximately as reliable as flipping a coin.</p>
+
+                <p>Agent testing requires a different mindset than traditional software testing. You're not just checking if the code runs. You're checking if the agent's <em>decisions</em> are correct across a wide range of scenarios.</p>
+
+                <h4>What Agent Testing Actually Looks Like</h4>
+
+                <ul>
+                    <li><strong>Behavioral test suites</strong> &mdash; Given this input, does the agent choose the right action?</li>
+                    <li><strong>Adversarial testing</strong> &mdash; What happens when users try to trick the agent?</li>
+                    <li><strong>Edge case coverage</strong> &mdash; The 2 AM French email scenario</li>
+                    <li><strong>Regression testing</strong> &mdash; Did the prompt change break something that used to work?</li>
+                    <li><strong>Performance benchmarks</strong> &mdash; Is the agent still fast enough under load?</li>
+                </ul>
+
+                <div class="callout warning">
+                    <div class="callout-title">EU AI Act Note</div>
+                    <p>If your agent operates in a high-risk category under the EU AI Act, testing isn't optional&mdash;it's legally required. Article 9 mandates "appropriate data governance and management practices." Start building your test suite now; you'll need it for compliance documentation.</p>
+                </div>
+
+                <h4>The Evaluation Dataset</h4>
+
+                <p>Build an evaluation dataset that grows with your agent. Every weird production issue becomes a test case. Every support ticket about "the bot did something strange" gets added. This dataset is your institutional memory&mdash;it prevents you from making the same mistake twice.</p>
+            </div>
+        </section>
+
+        <!-- Stage 3: Monitor -->
+        <section id="monitor">
+            <div class="stage-card stage-monitor">
+                <div class="stage-number">3</div>
+                <h3>Monitor: Watch What Actually Matters</h3>
+
+                <p>Your agent is in production. Congratulations! Now comes the fun part: watching it like a hawk while pretending to be calm.</p>
+
+                <p>Traditional metrics (latency, error rates, throughput) are necessary but not sufficient. For agents, you need to monitor the quality of <em>decisions</em>, not just the quantity of requests.</p>
+
+                <h4>The Three Pillars of Agent Monitoring</h4>
+
+                <p><strong>1. Decision Quality Metrics</strong></p>
+                <p>Track what the agent is actually deciding, not just whether it responded. Are customers escalating to humans more often? Are refund amounts trending higher? These proxy metrics catch problems before they become disasters.</p>
+
+                <p><strong>2. Cost and Resource Usage</strong></p>
+                <p>Agents can get expensive fast. A poorly-tuned agent might make 47 API calls to answer a simple question. Monitor token usage, API costs, and processing time per decision. Set alerts before your bill gets interesting.</p>
+
+                <p><strong>3. Compliance and Audit Trails</strong></p>
+                <p>Every decision your agent makes should be traceable. Not just for debugging&mdash;for legal requirements. The EU AI Act's Article 12 requires "automatic recording of events" for high-risk AI systems. Build the audit trail now.</p>
+
+                <div class="callout success">
+                    <div class="callout-title">Quick Win</div>
+                    <p>Set up alerts for when your agent's confidence scores drop below threshold. A sudden drop in confidence often indicates drift&mdash;something in the real world changed that your agent doesn't understand.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stage 4: Analyze -->
+        <section id="analyze">
+            <div class="stage-card stage-analyze">
+                <div class="stage-number">4</div>
+                <h3>Analyze: Learn and Close the Loop</h3>
+
+                <p>This is where the lifecycle becomes a cycle. Analysis isn't just "look at dashboards and feel informed." It's a systematic process for turning production data into better agents.</p>
+
+                <h4>The Analysis Workflow</h4>
+
+                <ol>
+                    <li><strong>Identify patterns in failures</strong> &mdash; What do the bad decisions have in common?</li>
+                    <li><strong>Root cause analysis</strong> &mdash; Was it the prompt, the context, or the model's training?</li>
+                    <li><strong>Extract test cases</strong> &mdash; Turn failure patterns into regression tests</li>
+                    <li><strong>Update instrumentation</strong> &mdash; Add telemetry for the things you wish you'd measured</li>
+                    <li><strong>Improve the agent</strong> &mdash; Better prompts, guardrails, or model selection</li>
+                </ol>
+
+                <p>The feedback loop is everything. The insights you gain in production should directly inform how you build, test, and monitor the next iteration.</p>
+
+                <h4>From Reactive to Proactive</h4>
+
+                <p>The goal isn't just to fix problems. It's to predict them. As your analysis matures, you'll start to see warning signs before they become incidents. Confidence scores dropping gradually over a week? Your agent might be experiencing model drift. Certain user queries taking 3x longer than average? There might be a scaling issue lurking.</p>
+
+                <p>This is where observability stops being a cost center and starts being a competitive advantage.</p>
+            </div>
+        </section>
+
+        <!-- Compliance Section -->
+        <section id="compliance">
+            <h2>The Compliance Dimension</h2>
+
+            <p>Let's talk about the elephant in the room: the EU AI Act is now in effect, and if you're deploying AI agents in or to the EU, compliance isn't optional.</p>
+
+            <p>The good news? If you've built a proper observability lifecycle, you're already most of the way there. The requirements for high-risk AI systems map surprisingly well to good engineering practices:</p>
+
+            <ul>
+                <li><strong>Article 9 (Data Governance)</strong> &mdash; Your evaluation datasets and testing protocols</li>
+                <li><strong>Article 12 (Traceability)</strong> &mdash; Your audit trails and decision logging</li>
+                <li><strong>Article 14 (Human Oversight)</strong> &mdash; Your Trust Models and approval workflows</li>
+                <li><strong>Article 15 (Accuracy)</strong> &mdash; Your monitoring and quality metrics</li>
+            </ul>
+
+            <div class="callout">
+                <div class="callout-title">Reality Check</div>
+                <p>Compliance isn't a one-time checkbox. It's ongoing. The same observability infrastructure that helps you debug production issues will generate the documentation you need for audits. Build it right once, and compliance becomes a byproduct of good engineering.</p>
+            </div>
+        </section>
+
+        <!-- Getting Started -->
+        <section id="getting-started">
+            <h2>Getting Started</h2>
+
+            <p>If you're staring at an existing agent with zero observability, don't panic. Here's the pragmatic path forward:</p>
+
+            <ol>
+                <li><strong>Start with instrumentation</strong> &mdash; Add OpenTelemetry to your agent's core decision points. Don't try to instrument everything at once; focus on the actions that matter most.</li>
+                <li><strong>Build your first evaluation dataset</strong> &mdash; Take 20 real production interactions and manually label them as "good" or "bad." This is your baseline.</li>
+                <li><strong>Set up basic monitoring</strong> &mdash; Track latency, error rates, and token costs. Add decision quality metrics as you can.</li>
+                <li><strong>Schedule weekly analysis sessions</strong> &mdash; Look at the data. Ask "what went wrong this week?" Turn answers into tests.</li>
+                <li><strong>Iterate</strong> &mdash; The lifecycle isn't something you finish. It's something you practice.</li>
+            </ol>
+
+            <p>Perfect is the enemy of shipped. A basic observability setup that you actually use beats a sophisticated one that you're "going to implement eventually."</p>
+        </section>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h3>Ready to Get Your Agents Under Control?</h3>
+            <p style="margin-bottom: 24px;">Integrity Studio provides the observability platform built for agentic AI&mdash;with EU AI Act compliance baked in from day one.</p>
+            <a href="/#contact" class="cta-button">Start Free &mdash; No Credit Card Required</a>
+        </div>
+
+        <!-- Conclusion -->
+        <section>
+            <h2>The Bottom Line</h2>
+
+            <p>Agentic AI is powerful. It's also dangerous in exactly the ways that traditional software isn't. Your agent can make a thousand decisions before anyone notices something's wrong.</p>
+
+            <p>The observability lifecycle isn't about adding more dashboards. It's about building the feedback loops that let you trust your agents&mdash;and prove that trust to your users, your executives, and your regulators.</p>
+
+            <p>Build, test, monitor, analyze. Then do it again. That's the practice.</p>
+
+            <blockquote>
+                <p>"The goal isn't to prevent all failures. The goal is to catch them fast, learn from them faster, and never make the same mistake twice."</p>
+            </blockquote>
+
+            <p>Now go instrument something. Your future self will thank you.</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p><strong>Integrity Studio</strong> &middot; AI Observability That Proves Compliance</p>
+        <p style="margin-top: 8px;">EU AI Act Ready &middot; SOC 2 Type II &middot; 99.9% Uptime SLA</p>
+        <p style="margin-top: 16px; opacity: 0.6;">&copy; 2024 Integrity Studio. All rights reserved.</p>
+    </footer>
+</body>
+</html>
