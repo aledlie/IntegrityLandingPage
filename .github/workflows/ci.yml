@@ -47,8 +47,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y lcov
 
-          # Generate HTML coverage report
-          genhtml coverage/lcov.info -o coverage/html --legend --title "Integrity Studio AI Coverage"
+          # Add function coverage data (Flutter only outputs line coverage)
+          dart scripts/add_function_coverage.dart coverage/lcov.info
+
+          # Generate HTML coverage report with function coverage
+          genhtml coverage/lcov.info -o coverage/html --legend --title "Integrity Studio AI Coverage" --ignore-errors category
 
           # Generate coverage summary
           lcov --summary coverage/lcov.info > coverage/summary.txt 2>&1
