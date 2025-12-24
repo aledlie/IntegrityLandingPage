@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integrity_studio_ai/widgets/common/containers.dart';
-import 'package:integrity_studio_ai/theme/theme.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
