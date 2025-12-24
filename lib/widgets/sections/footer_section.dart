@@ -169,6 +169,8 @@ class FooterSection extends StatelessWidget {
                     } else {
                       Navigator.of(context).pushNamed('/blog');
                     }
+                  } else if (link.url == '/sources') {
+                    Navigator.of(context).pushNamed('/sources');
                   } else if (link.isInternal) {
                     // Internal links - no action for now
                   } else {
@@ -368,6 +370,7 @@ const List<_LinkSection> _linkSections = [
     links: [
       _LinkItem(text: 'About', url: '/about'),
       _LinkItem(text: 'Blog', url: '/blog'),
+      _LinkItem(text: 'Sources', url: '/sources'),
       _LinkItem(text: 'Careers', url: '/careers'),
       _LinkItem(text: 'Contact', url: '/contact'),
     ],
