@@ -268,7 +268,10 @@ class _BlogPostCardState extends State<_BlogPostCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Category and meta
-                  Row(
+                  Wrap(
+                    spacing: AppSpacing.sm,
+                    runSpacing: AppSpacing.sm,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -287,8 +290,7 @@ class _BlogPostCardState extends State<_BlogPostCard> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: AppSpacing.sm),
-                      if (widget.post.isSeries) ...[
+                      if (widget.post.isSeries)
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: AppSpacing.sm,
@@ -309,9 +311,6 @@ class _BlogPostCardState extends State<_BlogPostCard> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: AppSpacing.sm),
-                      ],
-                      const Spacer(),
                       Text(
                         widget.post.date,
                         style: AppTypography.caption.copyWith(
@@ -392,45 +391,91 @@ class _BlogPostCardState extends State<_BlogPostCard> {
                   const SizedBox(height: AppSpacing.lg),
 
                   // Read time and CTA
-                  Row(
-                    children: [
-                      const Icon(
-                        LucideIcons.clock,
-                        size: 14,
-                        color: AppColors.gray400,
-                      ),
-                      const SizedBox(width: AppSpacing.xs),
-                      Text(
-                        widget.post.readTime,
-                        style: AppTypography.caption.copyWith(
+                  if (isMobile)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              LucideIcons.clock,
+                              size: 14,
+                              color: AppColors.gray400,
+                            ),
+                            const SizedBox(width: AppSpacing.xs),
+                            Text(
+                              widget.post.readTime,
+                              style: AppTypography.caption.copyWith(
+                                color: AppColors.gray400,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: AppSpacing.md),
+                        if (widget.post.isSeries)
+                          TextButton.icon(
+                            onPressed: () {
+                              setState(() => _isExpanded = !_isExpanded);
+                            },
+                            icon: Icon(
+                              _isExpanded
+                                  ? LucideIcons.chevronUp
+                                  : LucideIcons.chevronDown,
+                              size: 16,
+                            ),
+                            label: Text(_isExpanded ? 'Hide Articles' : 'View Articles'),
+                            style: TextButton.styleFrom(
+                              foregroundColor: AppColors.blue400,
+                            ),
+                          )
+                        else
+                          GradientButton(
+                            text: 'Read Article',
+                            icon: LucideIcons.arrowRight,
+                            onPressed: () => _launchUrl(widget.post.url),
+                          ),
+                      ],
+                    )
+                  else
+                    Row(
+                      children: [
+                        const Icon(
+                          LucideIcons.clock,
+                          size: 14,
                           color: AppColors.gray400,
                         ),
-                      ),
-                      const Spacer(),
-                      if (widget.post.isSeries)
-                        TextButton.icon(
-                          onPressed: () {
-                            setState(() => _isExpanded = !_isExpanded);
-                          },
-                          icon: Icon(
-                            _isExpanded
-                                ? LucideIcons.chevronUp
-                                : LucideIcons.chevronDown,
-                            size: 16,
+                        const SizedBox(width: AppSpacing.xs),
+                        Text(
+                          widget.post.readTime,
+                          style: AppTypography.caption.copyWith(
+                            color: AppColors.gray400,
                           ),
-                          label: Text(_isExpanded ? 'Hide Articles' : 'View Articles'),
-                          style: TextButton.styleFrom(
-                            foregroundColor: AppColors.blue400,
-                          ),
-                        )
-                      else
-                        GradientButton(
-                          text: 'Read Article',
-                          icon: LucideIcons.arrowRight,
-                          onPressed: () => _launchUrl(widget.post.url),
                         ),
-                    ],
-                  ),
+                        const Spacer(),
+                        if (widget.post.isSeries)
+                          TextButton.icon(
+                            onPressed: () {
+                              setState(() => _isExpanded = !_isExpanded);
+                            },
+                            icon: Icon(
+                              _isExpanded
+                                  ? LucideIcons.chevronUp
+                                  : LucideIcons.chevronDown,
+                              size: 16,
+                            ),
+                            label: Text(_isExpanded ? 'Hide Articles' : 'View Articles'),
+                            style: TextButton.styleFrom(
+                              foregroundColor: AppColors.blue400,
+                            ),
+                          )
+                        else
+                          GradientButton(
+                            text: 'Read Article',
+                            icon: LucideIcons.arrowRight,
+                            onPressed: () => _launchUrl(widget.post.url),
+                          ),
+                      ],
+                    ),
                 ],
               ),
             ),

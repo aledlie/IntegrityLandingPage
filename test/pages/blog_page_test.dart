@@ -322,11 +322,8 @@ void main() {
     });
 
     group('responsive design', () {
-      // Skip: BlogPage has layout overflow on mobile screens - Row widgets at lines 271 and 395
-      // need to be wrapped or made responsive. This is a known issue to fix.
       testWidgets('renders correctly on mobile', (tester) async {
-        // Use tablet-size screen until mobile layout is fixed
-        setScreenSize(tester, const Size(768, 1200));
+        setScreenSize(tester, const Size(375, 812));
 
         await tester.pumpWidget(
           MaterialApp(
