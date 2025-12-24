@@ -17,7 +17,9 @@ enum AnalyticsEvent {
   featureInteraction('feature_interaction'),
   pricingToggle('pricing_toggle'),
   externalLinkClick('external_link_click'),
-  demoRequest('demo_request');
+  demoRequest('demo_request'),
+  leadMagnetDownload('lead_magnet_download'),
+  blogPostClick('blog_post_click');
 
   final String name;
   const AnalyticsEvent(this.name);
@@ -163,6 +165,28 @@ class AnalyticsService {
   /// Track demo request.
   static void trackDemoRequest() {
     _track(AnalyticsEvent.demoRequest, {});
+  }
+
+  /// Track lead magnet download.
+  static void trackLeadMagnetDownload(String resourceName) {
+    _track(AnalyticsEvent.leadMagnetDownload, {
+      'resource_name': resourceName,
+    });
+  }
+
+  /// Track blog post click.
+  static void trackBlogPostClick(String postSlug) {
+    _track(AnalyticsEvent.blogPostClick, {
+      'post_slug': postSlug,
+    });
+  }
+
+  /// Track form submit (simplified wrapper).
+  static void trackFormSubmit(String formType) {
+    _track(AnalyticsEvent.formSubmission, {
+      'form_type': formType,
+      'success': true,
+    });
   }
 
   /// Track custom event (for A/B testing and custom analytics).
