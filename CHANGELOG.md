@@ -4,6 +4,24 @@ All notable changes to the IntegrityStudio.ai Flutter project.
 
 ---
 
+## [2024-12-24] - Best LLM Monitoring Tools Guide
+
+### New Content Published
+
+**Best LLM Monitoring Tools (2025 Guide):**
+- Comprehensive comparison of 11 LLM observability platforms
+- Covers: Phoenix, Helicone, LangSmith, Langfuse, Datadog, Fiddler, Arize, OpenLLMetry
+- Includes pricing, features, pros/cons for each tool
+- EU AI Act compliance considerations
+- Cost optimization strategies
+- Written in aledlie.com informal, technically-deep style
+
+**Files Added:**
+- `web/blog/best-llm-monitoring-tools-2025.html`
+- Updated `lib/config/content/resources_content.dart`
+
+---
+
 ## [2024-12-24] - Brand Assets & Infrastructure
 
 ### Brand Assets Completed

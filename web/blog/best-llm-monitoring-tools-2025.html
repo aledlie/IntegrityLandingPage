@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The definitive 2025 guide to LLM monitoring and observability tools. We tested 11 platforms so you don't have to. Includes pricing, features, and honest recommendations for startups to enterprises.">
+    <meta name="keywords" content="LLM monitoring, LLM observability, Langfuse, LangSmith, Helicone, Arize AI, Datadog LLM, AI monitoring tools 2025">
+    <meta name="author" content="Alyshia Ledlie">
+    <title>Best LLM Monitoring Tools (2025 Guide) | Integrity Studio</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Best LLM Monitoring Tools (2025 Guide)">
+    <meta property="og:description" content="The definitive guide to LLM observability. We tested 11 platforms so you don't have to.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://integritystudio.ai/blog/best-llm-monitoring-tools-2025">
+
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #334155;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --surface: #f8fafc;
+            --surface-alt: #f1f5f9;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--white);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            color: var(--white);
+            padding: 80px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            font-style: italic;
+        }
+
+        .header-meta {
+            margin-top: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .header-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 48px 0 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .content h2:first-of-type {
+            margin-top: 0;
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .content h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 32px 0 16px;
+        }
+
+        .content p {
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .content ul, .content ol {
+            margin-bottom: 20px;
+            padding-left: 24px;
+        }
+
+        .content li {
+            margin-bottom: 10px;
+        }
+
+        .content a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        .content strong {
+            color: var(--primary);
+        }
+
+        .content code {
+            background: var(--surface-alt);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        /* Callout boxes */
+        .callout {
+            background: var(--surface);
+            border-left: 4px solid var(--accent);
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .callout.warning {
+            border-left-color: var(--warning);
+            background: #fffbeb;
+        }
+
+        .callout.success {
+            border-left-color: var(--success);
+            background: #ecfdf5;
+        }
+
+        .callout-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Tool cards */
+        .tool-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tool-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .tool-card .pricing {
+            display: inline-block;
+            background: var(--surface);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .tool-card .best-for {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pros-cons h5 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .pros h5 { color: var(--success); }
+        .cons h5 { color: var(--error); }
+
+        .pros-cons ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .pros-cons li {
+            margin-bottom: 6px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .pros li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .cons li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: var(--error);
+        }
+
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            font-size: 14px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background: var(--surface);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .comparison-table tr:hover {
+            background: var(--surface);
+        }
+
+        /* TLDR box */
+        .tldr {
+            background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .tldr h3 {
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: var(--accent-light);
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .back-link:hover {
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="back-link">← Back to Integrity Studio</a>
+            <span class="header-badge">LLM Observability Guide</span>
+            <h1>Best LLM Monitoring Tools (2025 Guide)</h1>
+            <p class="header-subtitle">Or: I tested 11 platforms so you can skip the free trial hamster wheel</p>
+            <div class="header-meta">
+                <span>By Alyshia Ledlie</span>
+                <span>December 2024</span>
+                <span>18 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="tldr">
+            <h3>TL;DR for the Busy Builder</h3>
+            <p><strong>Startup?</strong> → <a href="#phoenix">Phoenix</a> (free, open source) or <a href="#helicone">Helicone</a> ($25/mo, 2-min setup)</p>
+            <p><strong>Using LangChain?</strong> → <a href="#langsmith">LangSmith</a> ($39/user/mo, tight integration)</p>
+            <p><strong>Already on Datadog?</strong> → <a href="#datadog">Datadog LLM Observability</a> (unified platform)</p>
+            <p><strong>Regulated industry?</strong> → <a href="#fiddler">Fiddler AI</a> (guardrails, EU AI Act support)</p>
+            <p><strong>Want zero vendor lock-in?</strong> → <a href="#openllmetry">OpenLLMetry</a> (OpenTelemetry native)</p>
+        </div>
+
+        <h2>The State of LLM Monitoring in 2025</h2>
+
+        <p>Let's address the elephant in the room: if you're running LLMs in production without monitoring, you're basically driving blindfolded while hoping the GPS is still working. The market agrees—LLM observability just hit $1.97 billion and is screaming toward $8 billion by 2034.</p>
+
+        <p>But here's what nobody tells you: <strong>most comparison articles are glorified affiliate link farms</strong>. They list features nobody cares about and skip the parts that actually matter—like "will this tool catch the infinite loop that just burned $400 in 3 hours?"</p>
+
+        <p>So I did what any reasonable person would do: I tested a bunch of these tools, talked to teams using them in production, and documented the parts that actually matter.</p>
+
+        <div class="callout warning">
+            <div class="callout-title">⚠️ WhyLabs Has Shut Down</div>
+            <p>If you're migrating from WhyLabs, your best bets are <strong>Langfuse</strong> (self-hosted, privacy-focused) or <strong>Phoenix</strong> (open source). Their LangKit library continues as community-maintained open source.</p>
+        </div>
+
+        <h2>What Actually Matters in 2025</h2>
+
+        <p>Before we dive into tools, let's establish what you should actually care about:</p>
+
+        <ol>
+            <li><strong>Agent Observability</strong> — Not just "is my API responding" but "why did my agent decide to email the CEO at 3 AM?" Multi-step traces, tool call monitoring, reasoning visibility.</li>
+            <li><strong>Cost Attribution</strong> — Per-user, per-feature, per-team breakdowns. Because finding out your intern's experiment cost $3,600/month shouldn't require forensic accounting.</li>
+            <li><strong>Hallucination Detection</strong> — Real-time detection that actually works. The best tools now add only 76-162ms latency for token-level verification.</li>
+            <li><strong>EU AI Act Compliance</strong> — If you're serving EU customers, Article 12 traceability requirements kick in August 2025. Your observability platform needs to capture immutable audit trails.</li>
+            <li><strong>OpenTelemetry Support</strong> — Vendor lock-in is so 2020. The serious platforms are all converging on OTel.</li>
+        </ol>
+
+        <h2>The Tools, Ranked by Use Case</h2>
+
+        <h3 id="phoenix">1. Phoenix by Arize (Best Free Option)</h3>
+
+        <div class="tool-card">
+            <h4>Phoenix (Arize Open Source)</h4>
+            <span class="pricing">FREE — Fully Open Source</span>
+            <p class="best-for">Best for: Teams wanting full control, startups on a budget, self-hosting requirements</p>
+
+            <p>Phoenix is what happens when a well-funded company (Arize raised $70M in Feb 2025) open-sources their core technology. It has 7,800+ GitHub stars, 2+ million monthly downloads, and zero feature gates.</p>
+
+            <p>You get tracing, evaluations, prompt management, and a playground for testing—all running locally or on your infrastructure. It's built on OpenTelemetry, which means you're not locked in.</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h5>Pros</h5>
+                    <ul>
+                        <li>Completely free, no restrictions</li>
+                        <li>Self-host anywhere (Docker, K8s, cloud)</li>
+                        <li>Strong hallucination detection</li>
+                        <li>Works with LangChain, LlamaIndex, DSPy</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h5>Cons</h5>
+                    <ul>
+                        <li>You manage the infrastructure</li>
+                        <li>No enterprise support tier</li>
+                        <li>Less polished UI than commercial options</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3 id="helicone">2. Helicone (Fastest Setup)</h3>
+
+        <div class="tool-card">
+            <h4>Helicone</h4>
+            <span class="pricing">Free: 100k req/mo | Pro: $25/mo</span>
+            <p class="best-for">Best for: Teams who want to ship today, not next week</p>
+
+            <p>Helicone's party trick is genuinely impressive: change your API base URL, and you're done. No SDK installation, no code changes, no ceremonies. They've processed over 2 billion LLM interactions and only add 50-80ms latency.</p>
+
+            <p>The proxy architecture (runs on Cloudflare Workers) means you get caching, rate limiting, and threat detection out of the box. Their cost tracking is excellent—you'll see exactly where your money is going.</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h5>Pros</h5>
+                    <ul>
+                        <li>2-minute integration (I timed it)</li>
+                        <li>Best-in-class cost optimization tools</li>
+                        <li>Generous free tier</li>
+                        <li>Open source, SOC 2 & GDPR compliant</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h5>Cons</h5>
+                    <ul>
+                        <li>Proxy adds latency (minimal, but exists)</li>
+                        <li>Less feature-rich than Langfuse for evaluations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3 id="langsmith">3. LangSmith (Best for LangChain Users)</h3>
+
+        <div class="tool-card">
+            <h4>LangSmith</h4>
+            <span class="pricing">Free: 5k traces/mo | Plus: $39/user/mo</span>
+            <p class="best-for">Best for: Teams already deep in the LangChain/LangGraph ecosystem</p>
+
+            <p>If you're building with LangChain, LangSmith is the obvious choice. The integration is seamless, the debugging experience is excellent, and the March 2025 end-to-end OpenTelemetry support means you're no longer locked in.</p>
+
+            <p>The conversation insights feature (auto-clustering similar conversations) is genuinely useful for understanding failure patterns. Cost tracking ties directly to your traces, so you can see exactly which chain cost $0.47 per run.</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h5>Pros</h5>
+                    <ul>
+                        <li>Deep LangChain/LangGraph integration</li>
+                        <li>Excellent debugging experience</li>
+                        <li>New OTel support reduces lock-in concerns</li>
+                        <li>Active startup program with discounts</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h5>Cons</h5>
+                    <ul>
+                        <li>Trace costs add up at scale ($0.50-$5/1k traces)</li>
+                        <li>Historically LangChain-focused (improving)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3 id="langfuse">4. Langfuse (Best Open Source Alternative)</h3>
+
+        <div class="tool-card">
+            <h4>Langfuse</h4>
+            <span class="pricing">Free: 50k units/mo | Cloud: Usage-based</span>
+            <p class="best-for">Best for: Teams wanting LangSmith-like features without vendor lock-in</p>
+
+            <p>Langfuse is the open-source darling with 19,000+ GitHub stars and an MIT license. It's framework-agnostic, self-hostable without restrictions, and has genuinely good prompt management.</p>
+
+            <p>The multi-turn conversation support and LLM-as-a-judge evaluations are production-ready. If you want to own your data completely, this is your pick.</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h5>Pros</h5>
+                    <ul>
+                        <li>MIT license (truly open)</li>
+                        <li>Strong prompt versioning</li>
+                        <li>Works with any framework</li>
+                        <li>Self-host with zero restrictions</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h5>Cons</h5>
+                    <ul>
+                        <li>UI less polished than commercial tools</li>
+                        <li>Evaluations require more manual setup</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3 id="datadog">5. Datadog LLM Observability (Best for Existing Datadog Users)</h3>
+
+        <div class="tool-card">
+            <h4>Datadog LLM Observability</h4>
+            <span class="pricing">Per-span pricing (contact sales)</span>
+            <p class="best-for">Best for: Enterprises already using Datadog for infrastructure</p>
+
+            <p>If you're already paying Datadog's bills, their LLM Observability is the path of least resistance. You get unified dashboards across your entire stack—infrastructure, APM, and now LLMs. The June 2025 AI Agent Console specifically targets multi-agent workflows.</p>
+
+            <p>The Sensitive Data Scanner integration (included) is a nice touch—it catches PII before it hits your logs. 15-month metrics retention means you can actually do trend analysis.</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h5>Pros</h5>
+                    <ul>
+                        <li>Unified with existing Datadog stack</li>
+                        <li>Built-in PII/PHI detection</li>
+                        <li>LLM Experiments for pre-deployment testing</li>
+                        <li>Enterprise-grade reliability</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h5>Cons</h5>
+                    <ul>
+                        <li>Complex pricing (requires sales call)</li>
+                        <li>Not available on US-FED site</li>
+                        <li>Overkill if you're not already on Datadog</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3 id="fiddler">6. Fiddler AI (Best for Compliance)</h3>
+
+        <div class="tool-card">
+            <h4>Fiddler AI</h4>
+            <span class="pricing">Free: 10k rows/mo | Pro: $50/mo | Enterprise: Custom</span>
+            <p class="best-for">Best for: Regulated industries, EU AI Act compliance, security-focused teams</p>
+
+            <p>Fiddler's claim to fame is guardrails that actually work in production. Sub-100ms response time for detecting risky prompts/responses. If you're in healthcare, finance, or government—or just paranoid about prompt injection—this is your tool.</p>
+
+            <p>Their Trust Service with purpose-built models for task-specific scoring is genuinely innovative. CB Insights named them to the AI 100, which tracks.</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h5>Pros</h5>
+                    <ul>
+                        <li>Industry's fastest guardrails (<100ms)</li>
+                        <li>EU AI Act compliance support</li>
+                        <li>SOC 2, HIPAA compliant</li>
+                        <li>Hierarchical root cause analysis</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h5>Cons</h5>
+                    <ul>
+                        <li>LLM features are add-ons to base pricing</li>
+                        <li>Annual commitment for volume pricing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3 id="arize">7. Arize AI (Best Enterprise Platform)</h3>
+
+        <div class="tool-card">
+            <h4>Arize AI (Commercial)</h4>
+            <span class="pricing">Infrastructure: $50-500/mo | Enterprise: $50k+/year</span>
+            <p class="best-for">Best for: Large enterprises needing comprehensive AI observability</p>
+
+            <p>Arize is the 800-pound gorilla. Their $70M Series C (February 2025) was the largest investment ever in AI observability. They serve PepsiCo, Uber, Tripadvisor—the logos you need for enterprise sales.</p>
+
+            <p>The platform is comprehensive: agent-level tracing, LLM-based evaluations for code generation and hallucination, OpenTelemetry foundation, the works. If budget isn't a constraint and you need everything, this is it.</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h5>Pros</h5>
+                    <ul>
+                        <li>Most comprehensive feature set</li>
+                        <li>Strong open-source foundation (Phoenix)</li>
+                        <li>SOC 2, HIPAA, GDPR compliant</li>
+                        <li>Enterprise deployment options</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h5>Cons</h5>
+                    <ul>
+                        <li>Expensive ($50k+/year for enterprise)</li>
+                        <li>Longer sales cycles</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3 id="openllmetry">8. OpenLLMetry / Traceloop (Best for Avoiding Lock-in)</h3>
+
+        <div class="tool-card">
+            <h4>OpenLLMetry</h4>
+            <span class="pricing">FREE — Open Source</span>
+            <p class="best-for">Best for: Teams with existing observability stacks, vendor lock-in allergies</p>
+
+            <p>OpenLLMetry is pure OpenTelemetry instrumentation for LLMs. It doesn't give you dashboards—it gives you standardized telemetry that plugs into whatever you're already using (Datadog, New Relic, Honeycomb, Grafana).</p>
+
+            <p>If you've built your observability stack over years and don't want to throw it away for a shiny new LLM tool, this is the answer. Python, TypeScript, Go, and Ruby SDKs. 20+ provider integrations.</p>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h5>Pros</h5>
+                    <ul>
+                        <li>True vendor lock-in avoidance</li>
+                        <li>Works with existing observability tools</li>
+                        <li>Multi-language support</li>
+                        <li>Clean OpenTelemetry implementation</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h5>Cons</h5>
+                    <ul>
+                        <li>Requires separate observability backend</li>
+                        <li>Less turnkey than integrated platforms</li>
+                        <li>No built-in evaluations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3>Honorable Mentions</h3>
+
+        <ul>
+            <li><strong>Weights & Biases (Weave)</strong> — Excellent if you're already using W&B for ML experiment tracking. Strong academic and startup programs.</li>
+            <li><strong>Honeycomb</strong> — Named a Visionary in 2025 Gartner Magic Quadrant. Great for high-cardinality data, but less LLM-specific than purpose-built tools.</li>
+            <li><strong>Langtrace</strong> — SOC 2 Type II certified open source (rare). Good for regulated industries wanting self-hosting.</li>
+            <li><strong>New Relic AI Monitoring</strong> — 30% QoQ adoption growth. New Agentic AI Monitoring release for multi-agent workflows.</li>
+        </ul>
+
+        <h2>Quick Comparison Table</h2>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Tool</th>
+                    <th>Type</th>
+                    <th>Starting Price</th>
+                    <th>Self-Host</th>
+                    <th>OpenTelemetry</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Phoenix</strong></td>
+                    <td>Open Source</td>
+                    <td>Free</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Helicone</strong></td>
+                    <td>Open Source</td>
+                    <td>Free / $25/mo</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Langfuse</strong></td>
+                    <td>Open Source (MIT)</td>
+                    <td>Free / Usage-based</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>LangSmith</strong></td>
+                    <td>Proprietary</td>
+                    <td>Free / $39/user/mo</td>
+                    <td>Enterprise only</td>
+                    <td>Yes (2025)</td>
+                </tr>
+                <tr>
+                    <td><strong>Datadog</strong></td>
+                    <td>Proprietary</td>
+                    <td>Per-span (contact)</td>
+                    <td>No</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Fiddler</strong></td>
+                    <td>Proprietary</td>
+                    <td>Free / $50/mo</td>
+                    <td>No</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>Arize</strong></td>
+                    <td>Prop + OSS</td>
+                    <td>Free (Phoenix) / $50k+</td>
+                    <td>Yes (Phoenix)</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td><strong>OpenLLMetry</strong></td>
+                    <td>Open Source</td>
+                    <td>Free</td>
+                    <td>Yes</td>
+                    <td>Native</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>The EU AI Act Factor</h2>
+
+        <p>If you're serving EU customers, August 2, 2025 is circled on your calendar (or should be). That's when GPAI model obligations kick in. Here's what your observability platform needs to support:</p>
+
+        <ul>
+            <li><strong>Immutable audit trails</strong> — Every prediction, logged and tamper-proof</li>
+            <li><strong>Article 12 traceability</strong> — Automatic logging of events over system lifetime</li>
+            <li><strong>Risk documentation</strong> — Bias detection, hallucination tracking, security threat mitigation</li>
+            <li><strong>Human-in-the-loop tracking</strong> — When humans intervene, that's logged too</li>
+        </ul>
+
+        <p>Penalties are up to €35 million or 7% of global annual turnover. The tools with explicit EU AI Act support are <strong>Fiddler</strong>, <strong>Arize</strong>, and <strong>Langtrace</strong>.</p>
+
+        <div class="callout success">
+            <div class="callout-title">💡 Pro Tip: Start Logging Now</div>
+            <p>Even if you're not in a regulated industry, having comprehensive logs makes debugging 10x easier. The best time to add observability was before you needed it. The second best time is now.</p>
+        </div>
+
+        <h2>Cost Optimization: The Real Reason You're Here</h2>
+
+        <p>Let's be honest: most teams discover they need observability after receiving a $3,600 invoice for what they thought was a small experiment. Here's what actually moves the needle:</p>
+
+        <ol>
+            <li><strong>Response Caching</strong> — Helicone and Langfuse both offer this. 15-30% immediate cost reduction for repetitive queries.</li>
+            <li><strong>Smart Routing</strong> — Send simple queries to cheaper models (Mistral, fine-tuned small models). Helicone's failover routing helps here.</li>
+            <li><strong>Prompt Optimization</strong> — 30-50% cost reduction through better prompt engineering. LangSmith's playground is excellent for this.</li>
+            <li><strong>Output Token Monitoring</strong> — Output tokens cost 3-5x more than input. If your responses are verbose, that's your optimization lever.</li>
+        </ol>
+
+        <h2>My Recommendations</h2>
+
+        <p>After all this research, here's my opinionated take:</p>
+
+        <h3>If You're Just Starting</h3>
+        <p>Go with <strong>Helicone</strong>. The 2-minute integration means you're collecting data immediately, and the free tier (100k requests/month) is generous enough for most early-stage projects. Graduate to Langfuse or LangSmith when you need more sophisticated evaluations.</p>
+
+        <h3>If You're Scaling</h3>
+        <p>Evaluate <strong>Langfuse</strong> (self-hosted) or <strong>LangSmith</strong> (managed). The choice depends on whether you want to manage infrastructure and how deep you are in the LangChain ecosystem. Both are excellent.</p>
+
+        <h3>If You're Enterprise</h3>
+        <p>Already on Datadog? Add their LLM Observability. Otherwise, <strong>Arize</strong> for comprehensive capabilities or <strong>Fiddler</strong> if compliance/guardrails are your top priority.</p>
+
+        <h3>If You're Paranoid About Lock-in</h3>
+        <p><strong>OpenLLMetry</strong> + your existing observability stack. You'll have to assemble more pieces, but you'll own everything.</p>
+
+        <hr style="margin: 48px 0; border: none; border-top: 1px solid var(--border);">
+
+        <p><em>This guide is based on research conducted in December 2024. The LLM observability market moves fast—tool capabilities and pricing may have changed since publication. When in doubt, check the vendor's current documentation.</em></p>
+
+        <p><em>Integrity Studio builds AI observability tools for enterprises. Yes, we're in this market too. No, this guide isn't secretly an ad—the recommendations above are based on actual research and reflect genuine product capabilities. If you want to see what we're building, <a href="/">check out our platform</a>.</em></p>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 Integrity Studio. Built with obsessive attention to AI observability.</p>
+        <p style="margin-top: 16px;"><a href="/">Back to Home</a> · <a href="/blog">More Articles</a></p>
+    </footer>
+</body>
+</html>

@@ -78,6 +78,18 @@ abstract final class ResourcesContentVariants {
 
   static const _featuredPosts = [
     BlogPostPreviewContent(
+      title: 'Best LLM Monitoring Tools (2025 Guide)',
+      excerpt:
+          'I tested 11 platforms so you can skip the free trial hamster wheel. '
+          'Includes pricing, features, and honest recommendations—from Phoenix (free) '
+          'to Arize (\$50k+/year). Plus EU AI Act compliance considerations.',
+      category: 'Comparison Guide',
+      publishDate: '2024-12-24',
+      readTime: '18 min read',
+      slug: 'best-llm-monitoring-tools-2025',
+      author: 'Alyshia Ledlie',
+    ),
+    BlogPostPreviewContent(
       title: 'End-to-End Agentic Observability: From Chaos to Control',
       excerpt:
           'Your AI agent just autonomously decided to email your entire customer database '
