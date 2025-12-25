@@ -91,93 +91,102 @@ class AboutSection extends StatelessWidget {
   }
 
   Widget _buildMissionVisionRow(BuildContext context, bool isMobile) {
-    final cards = [
-      Expanded(
-        child: GlassCard(
-          tier: GlassCardTier.secondary,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    // Mission card content
+    final missionCard = GlassCard(
+      tier: GlassCardTier.secondary,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(AppSpacing.sm),
-                    decoration: BoxDecoration(
-                      color: AppColors.blue500.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                    ),
-                    child: const Icon(
-                      Icons.flag_outlined,
-                      color: AppColors.blue400,
-                      size: 24,
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.md),
-                  Text(
-                    'Our Mission',
-                    style: AppTypography.headingSM.copyWith(
-                      color: AppColors.blue400,
-                    ),
-                  ),
-                ],
+              Container(
+                padding: const EdgeInsets.all(AppSpacing.sm),
+                decoration: BoxDecoration(
+                  color: AppColors.blue500.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+                ),
+                child: const Icon(
+                  Icons.flag_outlined,
+                  color: AppColors.blue400,
+                  size: 24,
+                ),
               ),
-              const SizedBox(height: AppSpacing.lg),
+              const SizedBox(width: AppSpacing.md),
               Text(
-                _content.missionStatement,
-                style: AppTypography.bodyLG,
+                'Our Mission',
+                style: AppTypography.headingSM.copyWith(
+                  color: AppColors.blue400,
+                ),
               ),
             ],
           ),
-        ),
-      ),
-      if (!isMobile) const SizedBox(width: AppSpacing.lg),
-      if (isMobile) const SizedBox(height: AppSpacing.lg),
-      Expanded(
-        child: GlassCard(
-          tier: GlassCardTier.secondary,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(AppSpacing.sm),
-                    decoration: BoxDecoration(
-                      color: AppColors.indigo500.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                    ),
-                    child: const Icon(
-                      Icons.visibility_outlined,
-                      color: AppColors.indigo400,
-                      size: 24,
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.md),
-                  Text(
-                    'Our Vision',
-                    style: AppTypography.headingSM.copyWith(
-                      color: AppColors.indigo400,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              Text(
-                _content.visionStatement,
-                style: AppTypography.bodyLG,
-              ),
-            ],
+          const SizedBox(height: AppSpacing.lg),
+          Text(
+            _content.missionStatement,
+            style: AppTypography.bodyLG,
           ),
-        ),
+        ],
       ),
-    ];
+    );
 
-    return isMobile
-        ? Column(children: cards)
-        : Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: cards,
-          );
+    // Vision card content
+    final visionCard = GlassCard(
+      tier: GlassCardTier.secondary,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(AppSpacing.sm),
+                decoration: BoxDecoration(
+                  color: AppColors.indigo500.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+                ),
+                child: const Icon(
+                  Icons.visibility_outlined,
+                  color: AppColors.indigo400,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Text(
+                'Our Vision',
+                style: AppTypography.headingSM.copyWith(
+                  color: AppColors.indigo400,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          Text(
+            _content.visionStatement,
+            style: AppTypography.bodyLG,
+          ),
+        ],
+      ),
+    );
+
+    // Mobile: Stack vertically without Expanded (unbounded height in scrollable)
+    if (isMobile) {
+      return Column(
+        children: [
+          missionCard,
+          const SizedBox(height: AppSpacing.lg),
+          visionCard,
+        ],
+      );
+    }
+
+    // Desktop: Side by side with Expanded (bounded width)
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(child: missionCard),
+        const SizedBox(width: AppSpacing.lg),
+        Expanded(child: visionCard),
+      ],
+    );
   }
 
   Widget _buildStorySection(BuildContext context) {

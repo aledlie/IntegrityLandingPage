@@ -239,7 +239,9 @@ class HeroSection extends StatelessWidget {
 
   Widget _buildTrustIndicators(BuildContext context, bool isMobile) {
     final indicators = content.trustIndicators;
+    final isTablet = ResponsiveUtils.isTablet(context);
 
+    // Mobile: Stack vertically
     if (isMobile) {
       return Column(
         children: indicators
@@ -251,8 +253,11 @@ class HeroSection extends StatelessWidget {
       );
     }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    // Tablet and Desktop: Use Wrap for flexible layout
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: AppSpacing.md,
+      runSpacing: isTablet ? AppSpacing.sm : 0,
       children: indicators.asMap().entries.map((entry) {
         final isLast = entry.key == indicators.length - 1;
         return Row(
@@ -269,7 +274,6 @@ class HeroSection extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
               ),
-              const SizedBox(width: AppSpacing.md),
             ],
           ],
         );

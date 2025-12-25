@@ -150,10 +150,13 @@ class _AnimatedGradientBorderButtonState
                           ),
                         )
                       else
-                        Text(
-                          widget.text,
-                          style: AppTypography.buttonText.copyWith(
-                            color: Colors.white,
+                        Flexible(
+                          child: Text(
+                            widget.text,
+                            style: AppTypography.buttonText.copyWith(
+                              color: Colors.white,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       if (widget.icon != null && !widget.isLoading) ...[
