@@ -622,6 +622,7 @@ Are you ready? Download our compliance checklist: [link]
 |---------|------|---------|
 | 1.0 | 2024-12-16 | Initial creation from competitive audit |
 | 1.1 | 2024-12-24 | Updated implementation status: hero, social proof, blog posts published |
+| 1.2 | 2024-12-24 | Moved completed items to CHANGELOG.md, added sources page |
 
 ---
 
