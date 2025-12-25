@@ -72,13 +72,41 @@ abstract final class AboutContentVariants {
 
   static const _team = [
     TeamMemberContent(
+      name: 'Chase Hoffman',
+      role: 'President',
+      bio:
+          'Seasoned technology executive with deep expertise in scaling enterprise software companies. '
+          'Focused on building high-performance teams that deliver exceptional customer outcomes.',
+    ),
+    TeamMemberContent(
       name: 'Alyshia Ledlie',
-      role: 'Founder & CEO',
+      role: 'Founder and CEO',
       bio:
           'Previously built observability infrastructure at scale. Passionate about making '
           'AI systems transparent and trustworthy for enterprises navigating regulatory change.',
       linkedInUrl: ExternalUrls.founderLinkedIn,
       twitterUrl: ExternalUrls.founderTwitter,
+    ),
+    TeamMemberContent(
+      name: 'Chandra Srivastava',
+      role: 'Co-founder & CMO',
+      bio:
+          'Marketing leader with experience driving growth at B2B technology companies. '
+          'Expert in positioning AI products for enterprise adoption and building category-defining brands.',
+    ),
+    TeamMemberContent(
+      name: 'Micah Lindsay',
+      role: 'Chief Data Scientist',
+      bio:
+          'Machine learning researcher focused on AI evaluation and observability. '
+          'Developed novel approaches to hallucination detection and model performance analysis.',
+    ),
+    TeamMemberContent(
+      name: 'John Skelton',
+      role: 'Head of Policy',
+      bio:
+          'Regulatory and compliance expert specializing in AI governance frameworks. '
+          'Advises enterprises on EU AI Act preparation and responsible AI deployment.',
     ),
   ];
 }
