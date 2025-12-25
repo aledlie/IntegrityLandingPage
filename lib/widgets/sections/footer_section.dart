@@ -215,19 +215,19 @@ class FooterSection extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.sm),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: AppSpacing.md,
+            runSpacing: AppSpacing.xs,
             children: [
               _FooterLink(
                 text: 'Privacy Policy',
                 onTap: () => _launchUrl('/privacy'),
               ),
-              const SizedBox(width: AppSpacing.md),
               _FooterLink(
                 text: 'Terms',
                 onTap: () => _launchUrl('/terms'),
               ),
-              const SizedBox(width: AppSpacing.md),
               _FooterLink(
                 text: 'Cookies',
                 onTap: onCookieSettings,

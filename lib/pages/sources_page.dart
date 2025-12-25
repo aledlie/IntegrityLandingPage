@@ -173,11 +173,13 @@ class _HeroSection extends StatelessWidget {
                     color: AppColors.blue400,
                   ),
                   const SizedBox(width: AppSpacing.sm),
-                  Text(
-                    'Transparency & Accountability',
-                    style: AppTypography.bodySM.copyWith(
-                      color: AppColors.blue400,
-                      fontWeight: FontWeight.w600,
+                  Flexible(
+                    child: Text(
+                      'Transparency & Accountability',
+                      style: AppTypography.bodySM.copyWith(
+                        color: AppColors.blue400,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],
