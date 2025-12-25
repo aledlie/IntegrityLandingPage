@@ -4,6 +4,7 @@ import 'pages/landing_page.dart';
 import 'pages/blog_page.dart';
 import 'pages/comparison_page.dart';
 import 'pages/sources_page.dart';
+import 'pages/legal_page.dart';
 import 'services/consent_manager.dart';
 import 'widgets/consent/cookie_banner.dart';
 
@@ -101,6 +102,36 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
             builder: (context) => Stack(
               children: [
                 SourcesPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Handle Privacy Policy page
+        if (settings.name == '/privacy') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                LegalPage.privacy(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Handle Terms of Service page
+        if (settings.name == '/terms') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                LegalPage.terms(
                   onBack: () => Navigator.of(context).pushReplacementNamed('/'),
                 ),
                 if (_showCookieBanner)
