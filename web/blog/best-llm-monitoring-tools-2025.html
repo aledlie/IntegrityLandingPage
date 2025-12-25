@@ -390,15 +390,15 @@
 
         <h2>The State of LLM Monitoring in 2025</h2>
 
-        <p>Let's address the elephant in the room: if you're running LLMs in production without monitoring, you're basically driving blindfolded while hoping the GPS is still working. The market agrees—LLM observability just hit $1.97 billion and is screaming toward $8 billion by 2034.</p>
+        <p>Let's address the elephant in the room: if you're running LLMs in production without monitoring, you're basically driving blindfolded while hoping the GPS is still working. The market agrees—LLM observability is projected to reach $1.97 billion in 2025 (per Grand View Research) and is screaming toward $8 billion by 2034.</p>
 
         <p>But here's what nobody tells you: <strong>most comparison articles are glorified affiliate link farms</strong>. They list features nobody cares about and skip the parts that actually matter—like "will this tool catch the infinite loop that just burned $400 in 3 hours?"</p>
 
         <p>So I did what any reasonable person would do: I tested a bunch of these tools, talked to teams using them in production, and documented the parts that actually matter.</p>
 
         <div class="callout warning">
-            <div class="callout-title">⚠️ WhyLabs Has Shut Down</div>
-            <p>If you're migrating from WhyLabs, your best bets are <strong>Langfuse</strong> (self-hosted, privacy-focused) or <strong>Phoenix</strong> (open source). Their LangKit library continues as community-maintained open source.</p>
+            <div class="callout-title">⚠️ WhyLabs Acquired by Apple (January 2025)</div>
+            <p>WhyLabs was acquired by Apple in early 2025. If you were using WhyLabs and need an alternative, your best bets are <strong>Langfuse</strong> (self-hosted, privacy-focused) or <strong>Phoenix</strong> (open source). Their open-source LangKit library continues to be community-maintained.</p>
         </div>
 
         <h2>What Actually Matters in 2025</h2>
@@ -409,7 +409,7 @@
             <li><strong>Agent Observability</strong> — Not just "is my API responding" but "why did my agent decide to email the CEO at 3 AM?" Multi-step traces, tool call monitoring, reasoning visibility.</li>
             <li><strong>Cost Attribution</strong> — Per-user, per-feature, per-team breakdowns. Because finding out your intern's experiment cost $3,600/month shouldn't require forensic accounting.</li>
             <li><strong>Hallucination Detection</strong> — Real-time detection that actually works. The best tools now add only 76-162ms latency for token-level verification.</li>
-            <li><strong>EU AI Act Compliance</strong> — If you're serving EU customers, Article 12 traceability requirements kick in August 2025. Your observability platform needs to capture immutable audit trails.</li>
+            <li><strong>EU AI Act Compliance</strong> — If you're serving EU customers, transparency and traceability requirements (Articles 50-56) phase in through 2025-2027. Your observability platform needs to capture immutable audit trails.</li>
             <li><strong>OpenTelemetry Support</strong> — Vendor lock-in is so 2020. The serious platforms are all converging on OTel.</li>
         </ol>
 
@@ -422,7 +422,7 @@
             <span class="pricing">FREE — Fully Open Source</span>
             <p class="best-for">Best for: Teams wanting full control, startups on a budget, self-hosting requirements</p>
 
-            <p>Phoenix is what happens when a well-funded company (Arize raised $70M in Feb 2025) open-sources their core technology. It has 7,800+ GitHub stars, 2+ million monthly downloads, and zero feature gates.</p>
+            <p>Phoenix is what happens when a well-funded company (Arize raised $70M in Feb 2025) open-sources their core technology. It has 8,000+ GitHub stars, strong community adoption, and zero feature gates.</p>
 
             <p>You get tracing, evaluations, prompt management, and a playground for testing—all running locally or on your infrastructure. It's built on OpenTelemetry, which means you're not locked in.</p>
 
@@ -513,7 +513,7 @@
 
         <div class="tool-card">
             <h4>Langfuse</h4>
-            <span class="pricing">Free: 50k units/mo | Cloud: Usage-based</span>
+            <span class="pricing">Free: 100k observations/mo | Cloud: Usage-based</span>
             <p class="best-for">Best for: Teams wanting LangSmith-like features without vendor lock-in</p>
 
             <p>Langfuse is the open-source darling with 19,000+ GitHub stars and an MIT license. It's framework-agnostic, self-hostable without restrictions, and has genuinely good prompt management.</p>
@@ -669,6 +669,7 @@
         <h3>Honorable Mentions</h3>
 
         <ul>
+            <li><strong>Braintrust</strong> — Used by Notion, Zapier, and Stripe. Strong evaluation framework with prompt playground. Worth evaluating if you're focused on prompt iteration and A/B testing.</li>
             <li><strong>Weights & Biases (Weave)</strong> — Excellent if you're already using W&B for ML experiment tracking. Strong academic and startup programs.</li>
             <li><strong>Honeycomb</strong> — Named a Visionary in 2025 Gartner Magic Quadrant. Great for high-cardinality data, but less LLM-specific than purpose-built tools.</li>
             <li><strong>Langtrace</strong> — SOC 2 Type II certified open source (rare). Good for regulated industries wanting self-hosting.</li>
@@ -749,11 +750,11 @@
 
         <h2>The EU AI Act Factor</h2>
 
-        <p>If you're serving EU customers, August 2, 2025 is circled on your calendar (or should be). That's when GPAI model obligations kick in. Here's what your observability platform needs to support:</p>
+        <p>If you're serving EU customers, August 2, 2025 is circled on your calendar (or should be). That's when GPAI model transparency obligations kick in, with high-risk AI system requirements following in 2026-2027. Here's what your observability platform needs to support:</p>
 
         <ul>
             <li><strong>Immutable audit trails</strong> — Every prediction, logged and tamper-proof</li>
-            <li><strong>Article 12 traceability</strong> — Automatic logging of events over system lifetime</li>
+            <li><strong>Transparency requirements (Articles 50-56)</strong> — Automatic logging of events, user disclosures, content marking</li>
             <li><strong>Risk documentation</strong> — Bias detection, hallucination tracking, security threat mitigation</li>
             <li><strong>Human-in-the-loop tracking</strong> — When humans intervene, that's logged too</li>
         </ul>
