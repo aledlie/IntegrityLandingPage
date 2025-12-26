@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comprehensive EU AI Act compliance checklist for high-risk AI systems. Covers Articles 9-15 requirements including risk management, data governance, logging, transparency, and human oversight.">
+    <meta name="keywords" content="EU AI Act, compliance checklist, high-risk AI, Article 12, risk management, AI governance, GDPR AI">
+    <meta name="author" content="Integrity Studio">
+    <title>EU AI Act Compliance Checklist | Integrity Studio</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="EU AI Act Compliance Checklist for High-Risk AI Systems">
+    <meta property="og:description" content="Free downloadable checklist covering all Article 9-15 requirements for EU AI Act compliance.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://integritystudio.ai/resources/eu-ai-act-compliance-checklist">
+
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #334155;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --surface: #f8fafc;
+            --surface-alt: #f1f5f9;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--white);
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            color: var(--white);
+            padding: 60px 0 80px;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .header h1 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+
+        .print-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+
+        .print-button:hover {
+            background: var(--accent-light);
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        /* Timeline Info */
+        .timeline-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 48px;
+            border-left: 4px solid var(--warning);
+        }
+
+        .timeline-box h3 {
+            color: #92400e;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-box p {
+            color: #78350f;
+            margin-bottom: 12px;
+        }
+
+        .timeline-box ul {
+            color: #78350f;
+            padding-left: 20px;
+        }
+
+        .timeline-box li {
+            margin-bottom: 4px;
+        }
+
+        /* Checklist Sections */
+        .checklist-section {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--surface);
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section-number {
+            background: var(--accent);
+            color: var(--white);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .section-info h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .section-article {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .section-content {
+            padding: 24px;
+        }
+
+        .section-description {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        /* Checklist Items */
+        .checklist-group {
+            margin-bottom: 24px;
+        }
+
+        .checklist-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .checklist-group-title {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .checklist-items {
+            list-style: none;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checkbox:hover {
+            border-color: var(--accent);
+        }
+
+        .checkbox.checked {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-text {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .item-details {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .item-priority {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .priority-critical {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .priority-high {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+
+        .priority-medium {
+            background: #fefce8;
+            color: #ca8a04;
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 48px;
+            position: sticky;
+            top: 80px;
+            z-index: 50;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .progress-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .progress-count {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success) 0%, #34d399 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        /* Notes Section */
+        .notes-section {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 48px;
+        }
+
+        .notes-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        .notes-area {
+            width: 100%;
+            min-height: 150px;
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            border-radius: 16px;
+            padding: 48px;
+            margin: 48px 0;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            opacity: 0.9;
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-light);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Print Styles */
+        @media print {
+            .nav, .print-button, .progress-tracker, .cta-section, .footer {
+                display: none !important;
+            }
+
+            .header {
+                background: none !important;
+                color: var(--primary) !important;
+                padding: 24px 0 !important;
+                border-bottom: 2px solid var(--primary);
+            }
+
+            .header-badge {
+                background: none !important;
+                color: var(--primary) !important;
+                border: 1px solid var(--primary) !important;
+            }
+
+            .checklist-section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .checkbox {
+                border: 2px solid var(--primary) !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .section-number {
+                background: var(--primary) !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            body {
+                font-size: 11pt;
+            }
+
+            .content {
+                padding: 24px 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .header {
+                padding: 40px 0 60px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .progress-tracker {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="/" class="nav-logo">Integrity Studio</a>
+            <div class="nav-links">
+                <a href="/blog">Blog</a>
+                <a href="/#features">Features</a>
+                <a href="/#pricing">Pricing</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="header-content">
+            <span class="header-badge">Free Resource</span>
+            <h1>EU AI Act Compliance Checklist</h1>
+            <p class="header-subtitle">Complete checklist for high-risk AI systems covering Articles 9-15 requirements. Track your compliance progress and identify gaps before the August 2026 deadline.</p>
+            <button class="print-button" onclick="window.print()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 6,2 18,2 18,9"></polyline>
+                    <path d="M6,18 L4,18 C2.9,18 2,17.1 2,16 L2,11 C2,9.9 2.9,9 4,9 L20,9 C21.1,9 22,9.9 22,11 L22,16 C22,17.1 21.1,18 20,18 L18,18"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                Print / Save as PDF
+            </button>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="timeline-box">
+            <h3>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12,6 12,12 16,14"></polyline>
+                </svg>
+                Key Compliance Deadlines
+            </h3>
+            <p>The EU AI Act entered into force on August 1, 2024. Here are the critical dates:</p>
+            <ul>
+                <li><strong>February 2, 2025:</strong> Prohibited AI practices become enforceable</li>
+                <li><strong>August 2, 2025:</strong> GPAI (General Purpose AI) rules apply</li>
+                <li><strong>August 2, 2026:</strong> High-risk AI system requirements enforceable</li>
+                <li><strong>August 2, 2027:</strong> Remaining provisions fully applicable</li>
+            </ul>
+        </div>
+
+        <div class="progress-tracker">
+            <div class="progress-header">
+                <span class="progress-title">Compliance Progress</span>
+                <span class="progress-count"><span id="checked-count">0</span> of <span id="total-count">0</span> items complete</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Section 1: Risk Management -->
+        <section class="checklist-section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <div class="section-info">
+                    <h2>Risk Management System</h2>
+                    <span class="section-article">Article 9</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="section-description">Establish and maintain a risk management system as an iterative process running throughout the entire lifecycle of the AI system.</p>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Risk Identification & Analysis</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Identified and analyzed known and reasonably foreseeable risks<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Document risks to health, safety, and fundamental rights when system is used as intended</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Estimated and evaluated risks from reasonably foreseeable misuse<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Consider how the system might be misused and potential harms from misuse</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Evaluated risks based on post-market monitoring data<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Incorporate learnings from deployed systems and incident reports</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Risk Mitigation</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Adopted appropriate risk management measures<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Implement controls to eliminate or reduce identified risks to acceptable levels</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Considered technical knowledge, experience, and state of the art<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Risk measures should reflect current best practices and technological capabilities</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Documented residual risks with justification<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">For risks that cannot be eliminated, document why they are acceptable</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Testing & Validation</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Performed appropriate testing procedures<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Test against clearly defined metrics and probabilistic thresholds</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Tested in real-world conditions where applicable<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Validate performance in conditions matching intended deployment environment</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Data Governance -->
+        <section class="checklist-section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <div class="section-info">
+                    <h2>Data and Data Governance</h2>
+                    <span class="section-article">Article 10</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="section-description">Ensure training, validation, and testing datasets meet quality standards appropriate for the system's intended purpose.</p>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Dataset Quality</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Training data is relevant to intended purpose<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Data should be appropriate and sufficient for the system's use case</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Datasets are sufficiently representative<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Cover the diversity of persons, groups, and settings where system will be used</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Datasets are free of errors to the best extent possible<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Implement data cleaning and quality assurance processes</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Datasets are complete for the intended purpose<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">No critical gaps that could affect system performance or safety</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Bias Management</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Examined datasets for possible biases<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Assess for biases related to protected characteristics and vulnerable groups</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Implemented measures to detect and address biases<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Document bias detection methods and mitigation strategies applied</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Considered geographic, contextual, and behavioral biases<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Account for biases that may arise from data collection circumstances</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Data Governance Practices</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Documented data collection processes<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Maintain records of data sources, collection methods, and processing steps</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Established data management procedures<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Define processes for data storage, access control, and lifecycle management</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Technical Documentation -->
+        <section class="checklist-section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <div class="section-info">
+                    <h2>Technical Documentation</h2>
+                    <span class="section-article">Article 11</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="section-description">Prepare comprehensive technical documentation demonstrating compliance before placing the system on the market.</p>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">System Description</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Documented general description of the AI system<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Include intended purpose, developer information, and system version</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Described elements and development process<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Algorithms, data, training process, and key design choices</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Documented system architecture and components<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Hardware, software, and data flow diagrams</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Performance & Compliance</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Documented performance metrics and benchmarks<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Accuracy, robustness, and other relevant performance measures</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Included validation and testing results<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Test methodologies, datasets used, and outcomes</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Documented risk management measures<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Reference to risk assessment and mitigation strategies</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Documentation Management</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Documentation is kept up to date<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Update when substantial modifications are made to the system</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Retained documentation for at least 10 years<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">From date system is placed on market or put into service</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Record-Keeping (Logging) -->
+        <section class="checklist-section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <div class="section-info">
+                    <h2>Record-Keeping (Logging)</h2>
+                    <span class="section-article">Article 12</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="section-description">Design systems with automatic logging capabilities to ensure traceability throughout the system's lifetime.</p>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Automatic Logging Capabilities</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">System automatically records events during operation<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Logging must be automatic without requiring manual intervention</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Logs enable identification of risk situations<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Capture events that may indicate system presenting risk or substantial modification</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Logs facilitate post-market monitoring (Article 72)<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Support ongoing surveillance after deployment</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Logs support operational monitoring (Article 26(5))<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Enable deployers to monitor system operation</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Log Content Requirements</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Logs include timestamps (start and end of sessions)<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">ISO 8601 format with timezone for unambiguous timing</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Logs record input data references (hashed for PII protection)<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Enable traceability without exposing personal data</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Logs capture output/decision information<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Record what the system decided or produced</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Logs identify human verifiers (where applicable)<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">For biometric systems, record identity of persons verifying results</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Log Storage & Security</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Logs maintained throughout system lifetime<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Retention policies aligned with system lifecycle and legal requirements</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Logs stored securely with access controls<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Implement appropriate security measures per Article 15</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Logs are tamper-evident (recommended)<span class="item-priority priority-medium">Medium</span></div>
+                                <div class="item-details">Consider hash chains or similar integrity mechanisms</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Transparency -->
+        <section class="checklist-section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <div class="section-info">
+                    <h2>Transparency and Information</h2>
+                    <span class="section-article">Article 13</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="section-description">Design systems to be sufficiently transparent to enable deployers to interpret outputs and use the system appropriately.</p>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Instructions for Use</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Provided clear instructions for deployers<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Concise, complete, correct, and accessible documentation</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Documented intended purpose and limitations<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Clear statement of what system is designed to do and known limitations</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Included performance characteristics<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Accuracy levels, confidence thresholds, known failure modes</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Specified hardware and software requirements<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Computational resources, dependencies, and integration requirements</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Transparency Information</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Explained how to interpret system outputs<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Guidance on understanding and acting on AI decisions</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Documented human oversight measures<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">How humans can monitor, interpret, and intervene</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Disclosed risks to vulnerable groups (if applicable)<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Special considerations for children, disabled persons, or other vulnerable groups</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Human Oversight -->
+        <section class="checklist-section">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                <div class="section-info">
+                    <h2>Human Oversight</h2>
+                    <span class="section-article">Article 14</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="section-description">Design systems to allow effective oversight by humans during the period of use.</p>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Oversight Capabilities</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Humans can understand system capabilities and limitations<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Design enables human comprehension of what system can/cannot do</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Humans can monitor system operation<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Real-time or near-real-time visibility into system behavior</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Humans can interpret system outputs correctly<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Outputs presented in ways that enable proper interpretation</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Intervention Capabilities</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Humans can decide not to use system output<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Ability to disregard, override, or reverse AI decisions</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Humans can intervene in system operation<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Mechanisms to pause, stop, or modify system behavior</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Emergency stop functionality available<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">For systems with physical effects, ability to immediately halt operation</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Automation Bias Prevention</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Measures to prevent over-reliance on AI outputs<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Design discourages blind acceptance of AI decisions</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Training provided for human overseers<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Personnel trained on system capabilities, limitations, and oversight procedures</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Accuracy, Robustness, Cybersecurity -->
+        <section class="checklist-section">
+            <div class="section-header">
+                <div class="section-number">7</div>
+                <div class="section-info">
+                    <h2>Accuracy, Robustness, and Cybersecurity</h2>
+                    <span class="section-article">Article 15</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="section-description">Design systems to achieve appropriate levels of accuracy, robustness, and cybersecurity throughout their lifecycle.</p>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Accuracy</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">System achieves appropriate accuracy levels<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Accuracy consistent with intended purpose and state of the art</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Accuracy metrics documented and communicated<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Clear documentation of accuracy levels in instructions for use</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Accuracy maintained over system lifecycle<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Monitoring to detect and address accuracy degradation</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Robustness</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">System resilient to errors and inconsistencies<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Handles edge cases and unexpected inputs gracefully</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">System maintains performance under various conditions<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Testing across diverse operating conditions and data distributions</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Fail-safe mechanisms implemented<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">System fails safely when encountering problems</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Cybersecurity</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Resilient against unauthorized third-party access<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Protection against exploitation of system vulnerabilities</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Protected against adversarial attacks<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Measures against data poisoning, model manipulation, input attacks</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Security measures appropriate to risks<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Security controls proportionate to identified risks</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Regular security assessments conducted<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Ongoing vulnerability assessments and penetration testing</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Registration & Conformity -->
+        <section class="checklist-section">
+            <div class="section-header">
+                <div class="section-number">8</div>
+                <div class="section-info">
+                    <h2>Registration and Conformity</h2>
+                    <span class="section-article">Articles 16, 49</span>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="section-description">Register the AI system and complete conformity assessment before placing on the market.</p>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">EU Database Registration</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Registered in EU database before market placement<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Complete registration before placing system on market or putting into service</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Registration information is accurate and complete<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">All required fields completed with correct information</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Registration kept up to date<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Update registration when system details change</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Conformity Assessment</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Completed appropriate conformity assessment<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Self-assessment or third-party assessment as required</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Applied CE marking<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">CE marking affixed after successful conformity assessment</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">EU Declaration of Conformity prepared<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Signed declaration stating system meets all requirements</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-group">
+                    <div class="checklist-group-title">Quality Management</div>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Quality management system implemented<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Systematic approach to ensuring ongoing compliance</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Post-market monitoring system established<span class="item-priority priority-critical">Critical</span></div>
+                                <div class="item-details">Active monitoring of system performance after deployment</div>
+                            </div>
+                        </li>
+                        <li class="checklist-item">
+                            <div class="checkbox" onclick="toggleCheck(this)"></div>
+                            <div class="item-content">
+                                <div class="item-text">Corrective action procedures defined<span class="item-priority priority-high">High</span></div>
+                                <div class="item-details">Process for addressing non-conformities and incidents</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="notes-section">
+            <h3>Notes and Action Items</h3>
+            <textarea class="notes-area" placeholder="Use this space to record notes, action items, responsible parties, and deadlines..."></textarea>
+        </div>
+
+        <div class="cta-section">
+            <h3>Automate Your EU AI Act Compliance</h3>
+            <p>Integrity Studio provides built-in Article 12 logging, automatic risk detection, and audit-ready compliance reports out of the box.</p>
+            <a href="/" class="cta-button">Start Free Trial</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Integrity Studio. This checklist is for informational purposes only and does not constitute legal advice.</p>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/blog">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize checkbox functionality
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+            updateProgress();
+            saveProgress();
+        }
+
+        function updateProgress() {
+            const total = document.querySelectorAll('.checkbox').length;
+            const checked = document.querySelectorAll('.checkbox.checked').length;
+            const percentage = total > 0 ? (checked / total) * 100 : 0;
+
+            document.getElementById('total-count').textContent = total;
+            document.getElementById('checked-count').textContent = checked;
+            document.getElementById('progress-fill').style.width = percentage + '%';
+        }
+
+        function saveProgress() {
+            const checkboxes = document.querySelectorAll('.checkbox');
+            const state = Array.from(checkboxes).map(cb => cb.classList.contains('checked'));
+            localStorage.setItem('eu-ai-act-checklist', JSON.stringify(state));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('eu-ai-act-checklist');
+            if (saved) {
+                const state = JSON.parse(saved);
+                const checkboxes = document.querySelectorAll('.checkbox');
+                checkboxes.forEach((cb, i) => {
+                    if (state[i]) {
+                        cb.classList.add('checked');
+                    }
+                });
+            }
+            updateProgress();
+        }
+
+        // Load saved progress on page load
+        document.addEventListener('DOMContentLoaded', loadProgress);
+    </script>
+</body>
+</html>

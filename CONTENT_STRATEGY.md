@@ -210,10 +210,10 @@ This document consolidates content strategy recommendations from the December 20
 **Technical Tutorials:**
 - [ ] How to Monitor OpenAI API Costs (Tutorial)
 - [ ] Debugging LangChain Agents Step-by-Step
-- [ ] Setting Up Compliance Logging for EU AI Act
+- [x] Setting Up Compliance Logging for EU AI Act ✓ Published 2025-12-26
 
 **Lead Magnets:**
-- [ ] EU AI Act Compliance Checklist
+- [x] EU AI Act Compliance Checklist ✓ Published 2025-12-26
 - [ ] State of AI Observability Report 2025
 - [ ] ROI of AI Observability: Customer Data Analysis
 

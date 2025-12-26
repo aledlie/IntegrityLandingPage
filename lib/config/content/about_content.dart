@@ -73,16 +73,16 @@ abstract final class AboutContentVariants {
   static const _team = [
     TeamMemberContent(
       name: 'Chase Hoffman',
-      role: 'President',
+      role: 'Co-Founder and President'
       bio:
           'Seasoned technology executive with deep expertise in scaling enterprise software companies. '
-          'Focused on building high-performance teams that deliver exceptional customer outcomes.',
+          'Focused on developing high-performance monitization systems and cost optimization that deliver exceptional customer success.',
     ),
     TeamMemberContent(
       name: 'Alyshia Ledlie',
       role: 'Founder and CEO',
       bio:
-          'Previously built observability infrastructure at scale. Passionate about making '
+          'Deep experience building observability-first infrastructure at scale. Passionate about making '
           'AI systems transparent and trustworthy for enterprises navigating regulatory change.',
       linkedInUrl: ExternalUrls.founderLinkedIn,
       twitterUrl: ExternalUrls.founderTwitter,
@@ -91,7 +91,7 @@ abstract final class AboutContentVariants {
       name: 'Chandra Srivastava',
       role: 'Co-founder & CMO',
       bio:
-          'Marketing leader with experience driving growth at B2B technology companies. '
+          'Marketing leader with experience driving growth at early stage B2B technology companies. '
           'Expert in positioning AI products for enterprise adoption and building category-defining brands.',
     ),
     TeamMemberContent(
@@ -99,7 +99,7 @@ abstract final class AboutContentVariants {
       role: 'Chief Data Scientist',
       bio:
           'Machine learning researcher focused on AI evaluation and observability. '
-          'Developed novel approaches to hallucination detection and model performance analysis.',
+          'Developed novel approaches to precise hallucination detection and model performance analysis.',
     ),
     TeamMemberContent(
       name: 'John Skelton',

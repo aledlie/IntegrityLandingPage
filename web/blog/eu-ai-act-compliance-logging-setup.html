@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Technical guide to implementing EU AI Act Article 12 compliant logging for LLM systems. Includes code examples, data schemas, and implementation patterns for high-risk AI compliance.">
+    <meta name="keywords" content="EU AI Act, Article 12, compliance logging, LLM traceability, AI observability, high-risk AI systems, record-keeping, ISO 24970">
+    <meta name="author" content="Alyshia Ledlie">
+    <title>Setting Up Compliance Logging for EU AI Act | Integrity Studio</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Setting Up Compliance Logging for EU AI Act">
+    <meta property="og:description" content="Technical guide to implementing Article 12 compliant logging for LLM systems. Code examples and implementation patterns included.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup">
+
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #334155;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --surface: #f8fafc;
+            --surface-alt: #f1f5f9;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--white);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            color: var(--white);
+            padding: 80px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 24px;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 24px;
+            font-size: 14px;
+            opacity: 0.8;
+            flex-wrap: wrap;
+        }
+
+        .header-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            color: var(--primary);
+            letter-spacing: -0.01em;
+        }
+
+        .content h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin: 36px 0 16px;
+            color: var(--primary);
+        }
+
+        .content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 24px 0 12px;
+            color: var(--secondary);
+        }
+
+        .content p {
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .content ul, .content ol {
+            margin-bottom: 20px;
+            padding-left: 24px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .content a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .content a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--primary);
+            color: #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-block-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent-light);
+        }
+
+        .code-block-lang {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+
+        .inline-code {
+            background: var(--surface-alt);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--secondary);
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #c792ea; }
+        .string { color: #c3e88d; }
+        .comment { color: #676e95; }
+        .function { color: #82aaff; }
+        .number { color: #f78c6c; }
+        .type { color: #ffcb6b; }
+        .property { color: #89ddff; }
+
+        /* Info Boxes */
+        .info-box {
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.warning {
+            background: #fffbeb;
+            border-color: var(--warning);
+        }
+
+        .info-box.success {
+            background: #ecfdf5;
+            border-color: var(--success);
+        }
+
+        .info-box.info {
+            background: #eff6ff;
+            border-color: var(--accent);
+        }
+
+        .info-box.error {
+            background: #fef2f2;
+            border-color: var(--error);
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--surface);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        tr:hover {
+            background: var(--surface);
+        }
+
+        /* TOC */
+        .toc {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .toc-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 8px;
+        }
+
+        .toc-list a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .toc-list a:hover {
+            color: var(--accent);
+        }
+
+        .toc-list .nested {
+            padding-left: 16px;
+            margin-top: 8px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            border-radius: 16px;
+            padding: 48px;
+            margin: 48px 0;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta-section h3 {
+            color: var(--white);
+            margin-top: 0;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-light);
+            border-bottom-color: transparent;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 60px 0 80px;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .header-meta {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta-section {
+                padding: 32px 24px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="/" class="nav-logo">Integrity Studio</a>
+            <div class="nav-links">
+                <a href="/blog">Blog</a>
+                <a href="/#features">Features</a>
+                <a href="/#pricing">Pricing</a>
+                <a href="/contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="header-content">
+            <span class="header-badge">Technical Tutorial</span>
+            <h1>Setting Up Compliance Logging for EU AI Act</h1>
+            <p class="header-subtitle">A practical guide to implementing Article 12-compliant logging for LLM systems, with code examples and production-ready patterns.</p>
+            <div class="header-meta">
+                <span>By Alyshia Ledlie</span>
+                <span>December 26, 2025</span>
+                <span>15 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="toc">
+            <div class="toc-title">Table of Contents</div>
+            <ol class="toc-list">
+                <li><a href="#why-compliance-logging">Why Compliance Logging Matters</a></li>
+                <li><a href="#article-12-requirements">Article 12 Requirements Breakdown</a></li>
+                <li><a href="#log-schema">Designing Your Log Schema</a></li>
+                <li><a href="#implementation">Implementation Guide</a>
+                    <ul class="nested">
+                        <li><a href="#python-implementation">Python Implementation</a></li>
+                        <li><a href="#typescript-implementation">TypeScript Implementation</a></li>
+                    </ul>
+                </li>
+                <li><a href="#what-to-log">What to Log for Different AI Systems</a></li>
+                <li><a href="#storage-retention">Storage and Retention</a></li>
+                <li><a href="#audit-trails">Building Audit Trails</a></li>
+                <li><a href="#testing-validation">Testing and Validation</a></li>
+            </ol>
+        </div>
+
+        <p>The EU AI Act's August 2026 deadline for high-risk AI system compliance is approaching faster than most teams realize. While much attention focuses on the classification and conformity assessment aspects, Article 12's record-keeping requirements are where the rubber meets the road for engineering teams.</p>
+
+        <p>This guide walks through exactly what you need to implement, with production-ready code examples you can adapt for your LLM applications.</p>
+
+        <div class="info-box warning">
+            <div class="info-box-title">Enforcement Timeline</div>
+            <p style="margin-bottom: 0;">High-risk AI system requirements become enforceable on <strong>August 2, 2026</strong>. If your AI system falls under Annex III classifications (biometrics, critical infrastructure, employment, education, law enforcement, etc.), you need compliant logging before that date.</p>
+        </div>
+
+        <h2 id="why-compliance-logging">Why Compliance Logging Matters</h2>
+
+        <p>Article 12 isn't just bureaucratic checkbox compliance. It's fundamentally about being able to answer one question: <em>"Why did your AI system make this decision?"</em></p>
+
+        <p>When something goes wrong with an AI system affecting people's lives, jobs, or freedom, regulators and courts will want to reconstruct exactly what happened. Your logs are your defense.</p>
+
+        <p>The requirements serve three purposes:</p>
+        <ol>
+            <li><strong>Risk Detection:</strong> Identifying situations where the AI system presents risks or undergoes substantial modifications</li>
+            <li><strong>Post-Market Monitoring:</strong> Supporting ongoing surveillance after deployment (Article 72)</li>
+            <li><strong>Operational Oversight:</strong> Enabling human operators to monitor system behavior (Article 26(5))</li>
+        </ol>
+
+        <h2 id="article-12-requirements">Article 12 Requirements Breakdown</h2>
+
+        <p>Let's translate the legal language into technical specifications:</p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Requirement</th>
+                        <th>Technical Implementation</th>
+                        <th>Priority</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Automatic event recording</td>
+                        <td>Middleware/interceptor pattern for all AI operations</td>
+                        <td>Critical</td>
+                    </tr>
+                    <tr>
+                        <td>Lifetime traceability</td>
+                        <td>Immutable log storage with retention policies</td>
+                        <td>Critical</td>
+                    </tr>
+                    <tr>
+                        <td>Risk situation identification</td>
+                        <td>Anomaly detection on logged events</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <td>Session timestamps</td>
+                        <td>ISO 8601 timestamps with timezone</td>
+                        <td>Critical</td>
+                    </tr>
+                    <tr>
+                        <td>Input data recording</td>
+                        <td>Hash or reference to input, not raw PII</td>
+                        <td>Critical</td>
+                    </tr>
+                    <tr>
+                        <td>Human verifier identification</td>
+                        <td>User authentication and audit trail</td>
+                        <td>High</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>ISO/IEC DIS 24970:2025 Standard</h3>
+
+        <p>The upcoming ISO/IEC DIS 24970:2025 standard provides implementation guidance for Article 12. Key points:</p>
+
+        <ul>
+            <li><strong>Logging triggers:</strong> Routine operation, automated monitoring, and human oversight interventions</li>
+            <li><strong>Required data:</strong> Error codes, severity, system context, timestamps, component identifiers</li>
+            <li><strong>Access controls:</strong> Third-party access only with proper permissions and security guarantees</li>
+            <li><strong>Flexibility:</strong> No mandated schema; adaptable to your architecture</li>
+        </ul>
+
+        <h2 id="log-schema">Designing Your Log Schema</h2>
+
+        <p>Here's a battle-tested schema that satisfies Article 12 while remaining practical for LLM applications:</p>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">compliance_log_schema.json</span>
+                <span class="code-block-lang">JSON Schema</span>
+            </div>
+<pre>{
+  <span class="string">"$schema"</span>: <span class="string">"http://json-schema.org/draft-07/schema#"</span>,
+  <span class="string">"type"</span>: <span class="string">"object"</span>,
+  <span class="string">"required"</span>: [<span class="string">"event_id"</span>, <span class="string">"timestamp"</span>, <span class="string">"event_type"</span>, <span class="string">"system_id"</span>],
+  <span class="string">"properties"</span>: {
+    <span class="string">"event_id"</span>: {
+      <span class="string">"type"</span>: <span class="string">"string"</span>,
+      <span class="string">"format"</span>: <span class="string">"uuid"</span>,
+      <span class="string">"description"</span>: <span class="string">"Unique identifier for this log event"</span>
+    },
+    <span class="string">"timestamp"</span>: {
+      <span class="string">"type"</span>: <span class="string">"string"</span>,
+      <span class="string">"format"</span>: <span class="string">"date-time"</span>,
+      <span class="string">"description"</span>: <span class="string">"ISO 8601 timestamp with timezone"</span>
+    },
+    <span class="string">"event_type"</span>: {
+      <span class="string">"type"</span>: <span class="string">"string"</span>,
+      <span class="string">"enum"</span>: [<span class="string">"inference"</span>, <span class="string">"training"</span>, <span class="string">"validation"</span>,
+              <span class="string">"human_override"</span>, <span class="string">"system_change"</span>, <span class="string">"error"</span>]
+    },
+    <span class="string">"system_id"</span>: {
+      <span class="string">"type"</span>: <span class="string">"string"</span>,
+      <span class="string">"description"</span>: <span class="string">"Unique identifier for the AI system"</span>
+    },
+    <span class="string">"session"</span>: {
+      <span class="string">"type"</span>: <span class="string">"object"</span>,
+      <span class="string">"properties"</span>: {
+        <span class="string">"session_id"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span> },
+        <span class="string">"start_time"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span>, <span class="string">"format"</span>: <span class="string">"date-time"</span> },
+        <span class="string">"end_time"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span>, <span class="string">"format"</span>: <span class="string">"date-time"</span> }
+      }
+    },
+    <span class="string">"input"</span>: {
+      <span class="string">"type"</span>: <span class="string">"object"</span>,
+      <span class="string">"properties"</span>: {
+        <span class="string">"hash"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span> },
+        <span class="string">"token_count"</span>: { <span class="string">"type"</span>: <span class="string">"integer"</span> },
+        <span class="string">"content_type"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span> }
+      }
+    },
+    <span class="string">"output"</span>: {
+      <span class="string">"type"</span>: <span class="string">"object"</span>,
+      <span class="string">"properties"</span>: {
+        <span class="string">"hash"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span> },
+        <span class="string">"token_count"</span>: { <span class="string">"type"</span>: <span class="string">"integer"</span> },
+        <span class="string">"confidence"</span>: { <span class="string">"type"</span>: <span class="string">"number"</span> }
+      }
+    },
+    <span class="string">"model"</span>: {
+      <span class="string">"type"</span>: <span class="string">"object"</span>,
+      <span class="string">"properties"</span>: {
+        <span class="string">"name"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span> },
+        <span class="string">"version"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span> },
+        <span class="string">"provider"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span> }
+      }
+    },
+    <span class="string">"human_oversight"</span>: {
+      <span class="string">"type"</span>: <span class="string">"object"</span>,
+      <span class="string">"properties"</span>: {
+        <span class="string">"verifier_id"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span> },
+        <span class="string">"action"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span> },
+        <span class="string">"timestamp"</span>: { <span class="string">"type"</span>: <span class="string">"string"</span>, <span class="string">"format"</span>: <span class="string">"date-time"</span> }
+      }
+    },
+    <span class="string">"risk_indicators"</span>: {
+      <span class="string">"type"</span>: <span class="string">"object"</span>,
+      <span class="string">"properties"</span>: {
+        <span class="string">"confidence_below_threshold"</span>: { <span class="string">"type"</span>: <span class="string">"boolean"</span> },
+        <span class="string">"anomaly_detected"</span>: { <span class="string">"type"</span>: <span class="string">"boolean"</span> },
+        <span class="string">"requires_review"</span>: { <span class="string">"type"</span>: <span class="string">"boolean"</span> }
+      }
+    },
+    <span class="string">"metadata"</span>: {
+      <span class="string">"type"</span>: <span class="string">"object"</span>,
+      <span class="string">"additionalProperties"</span>: <span class="keyword">true</span>
+    }
+  }
+}</pre>
+        </div>
+
+        <h2 id="implementation">Implementation Guide</h2>
+
+        <h3 id="python-implementation">Python Implementation</h3>
+
+        <p>Here's a complete compliance logging module for Python applications:</p>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">compliance_logger.py</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">import</span> uuid
+<span class="keyword">import</span> hashlib
+<span class="keyword">import</span> json
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timezone
+<span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, asdict
+<span class="keyword">from</span> typing <span class="keyword">import</span> Optional, Dict, Any
+<span class="keyword">from</span> enum <span class="keyword">import</span> Enum
+
+
+<span class="keyword">class</span> <span class="type">EventType</span>(Enum):
+    INFERENCE = <span class="string">"inference"</span>
+    TRAINING = <span class="string">"training"</span>
+    VALIDATION = <span class="string">"validation"</span>
+    HUMAN_OVERRIDE = <span class="string">"human_override"</span>
+    SYSTEM_CHANGE = <span class="string">"system_change"</span>
+    ERROR = <span class="string">"error"</span>
+
+
+<span class="keyword">@dataclass</span>
+<span class="keyword">class</span> <span class="type">ComplianceLogEntry</span>:
+    <span class="string">"""EU AI Act Article 12 compliant log entry."""</span>
+
+    event_id: <span class="type">str</span>
+    timestamp: <span class="type">str</span>
+    event_type: <span class="type">str</span>
+    system_id: <span class="type">str</span>
+    session_id: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    session_start: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    session_end: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    input_hash: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    input_token_count: Optional[<span class="type">int</span>] = <span class="keyword">None</span>
+    output_hash: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    output_token_count: Optional[<span class="type">int</span>] = <span class="keyword">None</span>
+    output_confidence: Optional[<span class="type">float</span>] = <span class="keyword">None</span>
+    model_name: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    model_version: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    model_provider: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    verifier_id: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    verifier_action: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    risk_flags: Optional[Dict[<span class="type">str</span>, <span class="type">bool</span>]] = <span class="keyword">None</span>
+    metadata: Optional[Dict[<span class="type">str</span>, Any]] = <span class="keyword">None</span>
+    error_code: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    error_message: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    error_severity: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+
+
+<span class="keyword">class</span> <span class="type">ComplianceLogger</span>:
+    <span class="string">"""
+    EU AI Act Article 12 compliant logging system.
+
+    Provides automatic event recording with traceability
+    for high-risk AI systems.
+    """</span>
+
+    <span class="keyword">def</span> <span class="function">__init__</span>(
+        self,
+        system_id: <span class="type">str</span>,
+        storage_backend: <span class="string">"LogStorageBackend"</span>,
+        confidence_threshold: <span class="type">float</span> = <span class="number">0.7</span>
+    ):
+        self.system_id = system_id
+        self.storage = storage_backend
+        self.confidence_threshold = confidence_threshold
+        self._active_sessions: Dict[<span class="type">str</span>, datetime] = {}
+
+    <span class="keyword">def</span> <span class="function">_now</span>(self) -> <span class="type">str</span>:
+        <span class="string">"""Return current timestamp in ISO 8601 format with timezone."""</span>
+        <span class="keyword">return</span> datetime.now(timezone.utc).isoformat()
+
+    <span class="keyword">def</span> <span class="function">_hash_content</span>(self, content: <span class="type">str</span>) -> <span class="type">str</span>:
+        <span class="string">"""Create SHA-256 hash of content for traceability without storing PII."""</span>
+        <span class="keyword">return</span> hashlib.sha256(content.encode()).hexdigest()
+
+    <span class="keyword">def</span> <span class="function">start_session</span>(self) -> <span class="type">str</span>:
+        <span class="string">"""Start a new logging session. Returns session_id."""</span>
+        session_id = <span class="type">str</span>(uuid.uuid4())
+        self._active_sessions[session_id] = datetime.now(timezone.utc)
+        <span class="keyword">return</span> session_id
+
+    <span class="keyword">def</span> <span class="function">end_session</span>(self, session_id: <span class="type">str</span>) -> <span class="keyword">None</span>:
+        <span class="string">"""End a logging session."""</span>
+        <span class="keyword">if</span> session_id <span class="keyword">in</span> self._active_sessions:
+            <span class="keyword">del</span> self._active_sessions[session_id]
+
+    <span class="keyword">def</span> <span class="function">log_inference</span>(
+        self,
+        input_text: <span class="type">str</span>,
+        output_text: <span class="type">str</span>,
+        model_name: <span class="type">str</span>,
+        model_version: <span class="type">str</span>,
+        provider: <span class="type">str</span>,
+        confidence: Optional[<span class="type">float</span>] = <span class="keyword">None</span>,
+        session_id: Optional[<span class="type">str</span>] = <span class="keyword">None</span>,
+        metadata: Optional[Dict] = <span class="keyword">None</span>
+    ) -> <span class="type">str</span>:
+        <span class="string">"""
+        Log an inference event with full traceability.
+
+        Returns the event_id for reference.
+        """</span>
+        <span class="comment"># Determine risk flags</span>
+        risk_flags = {
+            <span class="string">"confidence_below_threshold"</span>: (
+                confidence <span class="keyword">is not</span> <span class="keyword">None</span> <span class="keyword">and</span>
+                confidence &lt; self.confidence_threshold
+            ),
+            <span class="string">"anomaly_detected"</span>: <span class="keyword">False</span>,  <span class="comment"># Extend with anomaly detection</span>
+            <span class="string">"requires_review"</span>: <span class="keyword">False</span>
+        }
+
+        <span class="comment"># Flag for review if confidence is low</span>
+        <span class="keyword">if</span> risk_flags[<span class="string">"confidence_below_threshold"</span>]:
+            risk_flags[<span class="string">"requires_review"</span>] = <span class="keyword">True</span>
+
+        <span class="comment"># Build session info</span>
+        session_start = <span class="keyword">None</span>
+        <span class="keyword">if</span> session_id <span class="keyword">and</span> session_id <span class="keyword">in</span> self._active_sessions:
+            session_start = self._active_sessions[session_id].isoformat()
+
+        entry = ComplianceLogEntry(
+            event_id=<span class="type">str</span>(uuid.uuid4()),
+            timestamp=self._now(),
+            event_type=EventType.INFERENCE.value,
+            system_id=self.system_id,
+            session_id=session_id,
+            session_start=session_start,
+            input_hash=self._hash_content(input_text),
+            input_token_count=<span class="type">len</span>(input_text.split()),  <span class="comment"># Approximate</span>
+            output_hash=self._hash_content(output_text),
+            output_token_count=<span class="type">len</span>(output_text.split()),
+            output_confidence=confidence,
+            model_name=model_name,
+            model_version=model_version,
+            model_provider=provider,
+            risk_flags=risk_flags,
+            metadata=metadata
+        )
+
+        self.storage.write(entry)
+        <span class="keyword">return</span> entry.event_id
+
+    <span class="keyword">def</span> <span class="function">log_human_override</span>(
+        self,
+        verifier_id: <span class="type">str</span>,
+        action: <span class="type">str</span>,
+        original_event_id: <span class="type">str</span>,
+        reason: Optional[<span class="type">str</span>] = <span class="keyword">None</span>,
+        session_id: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+    ) -> <span class="type">str</span>:
+        <span class="string">"""
+        Log a human oversight intervention.
+
+        Required by Article 12 for tracing human verification.
+        """</span>
+        entry = ComplianceLogEntry(
+            event_id=<span class="type">str</span>(uuid.uuid4()),
+            timestamp=self._now(),
+            event_type=EventType.HUMAN_OVERRIDE.value,
+            system_id=self.system_id,
+            session_id=session_id,
+            verifier_id=verifier_id,
+            verifier_action=action,
+            metadata={
+                <span class="string">"original_event_id"</span>: original_event_id,
+                <span class="string">"reason"</span>: reason
+            }
+        )
+
+        self.storage.write(entry)
+        <span class="keyword">return</span> entry.event_id
+
+    <span class="keyword">def</span> <span class="function">log_error</span>(
+        self,
+        error_code: <span class="type">str</span>,
+        error_message: <span class="type">str</span>,
+        severity: <span class="type">str</span> = <span class="string">"error"</span>,
+        session_id: Optional[<span class="type">str</span>] = <span class="keyword">None</span>,
+        metadata: Optional[Dict] = <span class="keyword">None</span>
+    ) -> <span class="type">str</span>:
+        <span class="string">"""Log an error event for risk identification."""</span>
+        entry = ComplianceLogEntry(
+            event_id=<span class="type">str</span>(uuid.uuid4()),
+            timestamp=self._now(),
+            event_type=EventType.ERROR.value,
+            system_id=self.system_id,
+            session_id=session_id,
+            error_code=error_code,
+            error_message=error_message,
+            error_severity=severity,
+            risk_flags={
+                <span class="string">"anomaly_detected"</span>: <span class="keyword">True</span>,
+                <span class="string">"requires_review"</span>: severity <span class="keyword">in</span> [<span class="string">"error"</span>, <span class="string">"critical"</span>]
+            },
+            metadata=metadata
+        )
+
+        self.storage.write(entry)
+        <span class="keyword">return</span> entry.event_id
+
+    <span class="keyword">def</span> <span class="function">log_system_change</span>(
+        self,
+        change_type: <span class="type">str</span>,
+        description: <span class="type">str</span>,
+        changed_by: <span class="type">str</span>,
+        metadata: Optional[Dict] = <span class="keyword">None</span>
+    ) -> <span class="type">str</span>:
+        <span class="string">"""
+        Log substantial system modifications.
+
+        Required for identifying situations that may present risks.
+        """</span>
+        entry = ComplianceLogEntry(
+            event_id=<span class="type">str</span>(uuid.uuid4()),
+            timestamp=self._now(),
+            event_type=EventType.SYSTEM_CHANGE.value,
+            system_id=self.system_id,
+            verifier_id=changed_by,
+            verifier_action=change_type,
+            metadata={
+                <span class="string">"description"</span>: description,
+                **(metadata <span class="keyword">or</span> {})
+            },
+            risk_flags={
+                <span class="string">"requires_review"</span>: <span class="keyword">True</span>
+            }
+        )
+
+        self.storage.write(entry)
+        <span class="keyword">return</span> entry.event_id</pre>
+        </div>
+
+        <h3 id="typescript-implementation">TypeScript Implementation</h3>
+
+        <p>For Node.js/TypeScript applications:</p>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">complianceLogger.ts</span>
+                <span class="code-block-lang">TypeScript</span>
+            </div>
+<pre><span class="keyword">import</span> { randomUUID } <span class="keyword">from</span> <span class="string">'crypto'</span>;
+<span class="keyword">import</span> { createHash } <span class="keyword">from</span> <span class="string">'crypto'</span>;
+
+<span class="keyword">enum</span> <span class="type">EventType</span> {
+  INFERENCE = <span class="string">'inference'</span>,
+  TRAINING = <span class="string">'training'</span>,
+  VALIDATION = <span class="string">'validation'</span>,
+  HUMAN_OVERRIDE = <span class="string">'human_override'</span>,
+  SYSTEM_CHANGE = <span class="string">'system_change'</span>,
+  ERROR = <span class="string">'error'</span>,
+}
+
+<span class="keyword">interface</span> <span class="type">ComplianceLogEntry</span> {
+  event_id: <span class="type">string</span>;
+  timestamp: <span class="type">string</span>;
+  event_type: <span class="type">EventType</span>;
+  system_id: <span class="type">string</span>;
+  session?: {
+    session_id: <span class="type">string</span>;
+    start_time: <span class="type">string</span>;
+    end_time?: <span class="type">string</span>;
+  };
+  input?: {
+    hash: <span class="type">string</span>;
+    token_count: <span class="type">number</span>;
+    content_type?: <span class="type">string</span>;
+  };
+  output?: {
+    hash: <span class="type">string</span>;
+    token_count: <span class="type">number</span>;
+    confidence?: <span class="type">number</span>;
+  };
+  model?: {
+    name: <span class="type">string</span>;
+    version: <span class="type">string</span>;
+    provider: <span class="type">string</span>;
+  };
+  human_oversight?: {
+    verifier_id: <span class="type">string</span>;
+    action: <span class="type">string</span>;
+    timestamp: <span class="type">string</span>;
+  };
+  risk_indicators?: {
+    confidence_below_threshold: <span class="type">boolean</span>;
+    anomaly_detected: <span class="type">boolean</span>;
+    requires_review: <span class="type">boolean</span>;
+  };
+  error?: {
+    code: <span class="type">string</span>;
+    message: <span class="type">string</span>;
+    severity: <span class="string">'info'</span> | <span class="string">'warning'</span> | <span class="string">'error'</span> | <span class="string">'critical'</span>;
+  };
+  metadata?: <span class="type">Record</span>&lt;<span class="type">string</span>, <span class="type">unknown</span>&gt;;
+}
+
+<span class="keyword">interface</span> <span class="type">LogStorageBackend</span> {
+  write(entry: <span class="type">ComplianceLogEntry</span>): <span class="type">Promise</span>&lt;<span class="type">void</span>&gt;;
+  query(filters: <span class="type">Record</span>&lt;<span class="type">string</span>, <span class="type">unknown</span>&gt;): <span class="type">Promise</span>&lt;<span class="type">ComplianceLogEntry</span>[]&gt;;
+}
+
+<span class="keyword">export class</span> <span class="type">ComplianceLogger</span> {
+  <span class="keyword">private</span> systemId: <span class="type">string</span>;
+  <span class="keyword">private</span> storage: <span class="type">LogStorageBackend</span>;
+  <span class="keyword">private</span> confidenceThreshold: <span class="type">number</span>;
+  <span class="keyword">private</span> activeSessions: <span class="type">Map</span>&lt;<span class="type">string</span>, <span class="type">Date</span>&gt; = <span class="keyword">new</span> <span class="type">Map</span>();
+
+  <span class="keyword">constructor</span>(config: {
+    systemId: <span class="type">string</span>;
+    storage: <span class="type">LogStorageBackend</span>;
+    confidenceThreshold?: <span class="type">number</span>;
+  }) {
+    <span class="keyword">this</span>.systemId = config.systemId;
+    <span class="keyword">this</span>.storage = config.storage;
+    <span class="keyword">this</span>.confidenceThreshold = config.confidenceThreshold ?? <span class="number">0.7</span>;
+  }
+
+  <span class="keyword">private</span> <span class="function">now</span>(): <span class="type">string</span> {
+    <span class="keyword">return new</span> <span class="type">Date</span>().toISOString();
+  }
+
+  <span class="keyword">private</span> <span class="function">hashContent</span>(content: <span class="type">string</span>): <span class="type">string</span> {
+    <span class="keyword">return</span> createHash(<span class="string">'sha256'</span>).update(content).digest(<span class="string">'hex'</span>);
+  }
+
+  <span class="function">startSession</span>(): <span class="type">string</span> {
+    <span class="keyword">const</span> sessionId = randomUUID();
+    <span class="keyword">this</span>.activeSessions.set(sessionId, <span class="keyword">new</span> <span class="type">Date</span>());
+    <span class="keyword">return</span> sessionId;
+  }
+
+  <span class="function">endSession</span>(sessionId: <span class="type">string</span>): <span class="type">void</span> {
+    <span class="keyword">this</span>.activeSessions.delete(sessionId);
+  }
+
+  <span class="keyword">async</span> <span class="function">logInference</span>(params: {
+    inputText: <span class="type">string</span>;
+    outputText: <span class="type">string</span>;
+    modelName: <span class="type">string</span>;
+    modelVersion: <span class="type">string</span>;
+    provider: <span class="type">string</span>;
+    confidence?: <span class="type">number</span>;
+    sessionId?: <span class="type">string</span>;
+    metadata?: <span class="type">Record</span>&lt;<span class="type">string</span>, <span class="type">unknown</span>&gt;;
+  }): <span class="type">Promise</span>&lt;<span class="type">string</span>&gt; {
+    <span class="keyword">const</span> eventId = randomUUID();
+
+    <span class="keyword">const</span> riskIndicators = {
+      confidence_below_threshold:
+        params.confidence !== <span class="keyword">undefined</span> &&
+        params.confidence &lt; <span class="keyword">this</span>.confidenceThreshold,
+      anomaly_detected: <span class="keyword">false</span>,
+      requires_review: <span class="keyword">false</span>,
+    };
+
+    <span class="keyword">if</span> (riskIndicators.confidence_below_threshold) {
+      riskIndicators.requires_review = <span class="keyword">true</span>;
+    }
+
+    <span class="keyword">const</span> sessionStart = params.sessionId
+      ? <span class="keyword">this</span>.activeSessions.get(params.sessionId)?.toISOString()
+      : <span class="keyword">undefined</span>;
+
+    <span class="keyword">const</span> entry: <span class="type">ComplianceLogEntry</span> = {
+      event_id: eventId,
+      timestamp: <span class="keyword">this</span>.now(),
+      event_type: <span class="type">EventType</span>.INFERENCE,
+      system_id: <span class="keyword">this</span>.systemId,
+      session: params.sessionId
+        ? {
+            session_id: params.sessionId,
+            start_time: sessionStart ?? <span class="keyword">this</span>.now(),
+          }
+        : <span class="keyword">undefined</span>,
+      input: {
+        hash: <span class="keyword">this</span>.hashContent(params.inputText),
+        token_count: params.inputText.split(<span class="string">/\s+/</span>).length,
+      },
+      output: {
+        hash: <span class="keyword">this</span>.hashContent(params.outputText),
+        token_count: params.outputText.split(<span class="string">/\s+/</span>).length,
+        confidence: params.confidence,
+      },
+      model: {
+        name: params.modelName,
+        version: params.modelVersion,
+        provider: params.provider,
+      },
+      risk_indicators: riskIndicators,
+      metadata: params.metadata,
+    };
+
+    <span class="keyword">await this</span>.storage.write(entry);
+    <span class="keyword">return</span> eventId;
+  }
+
+  <span class="keyword">async</span> <span class="function">logHumanOverride</span>(params: {
+    verifierId: <span class="type">string</span>;
+    action: <span class="type">string</span>;
+    originalEventId: <span class="type">string</span>;
+    reason?: <span class="type">string</span>;
+    sessionId?: <span class="type">string</span>;
+  }): <span class="type">Promise</span>&lt;<span class="type">string</span>&gt; {
+    <span class="keyword">const</span> eventId = randomUUID();
+
+    <span class="keyword">const</span> entry: <span class="type">ComplianceLogEntry</span> = {
+      event_id: eventId,
+      timestamp: <span class="keyword">this</span>.now(),
+      event_type: <span class="type">EventType</span>.HUMAN_OVERRIDE,
+      system_id: <span class="keyword">this</span>.systemId,
+      human_oversight: {
+        verifier_id: params.verifierId,
+        action: params.action,
+        timestamp: <span class="keyword">this</span>.now(),
+      },
+      metadata: {
+        original_event_id: params.originalEventId,
+        reason: params.reason,
+      },
+    };
+
+    <span class="keyword">await this</span>.storage.write(entry);
+    <span class="keyword">return</span> eventId;
+  }
+
+  <span class="keyword">async</span> <span class="function">logError</span>(params: {
+    code: <span class="type">string</span>;
+    message: <span class="type">string</span>;
+    severity?: <span class="string">'info'</span> | <span class="string">'warning'</span> | <span class="string">'error'</span> | <span class="string">'critical'</span>;
+    sessionId?: <span class="type">string</span>;
+    metadata?: <span class="type">Record</span>&lt;<span class="type">string</span>, <span class="type">unknown</span>&gt;;
+  }): <span class="type">Promise</span>&lt;<span class="type">string</span>&gt; {
+    <span class="keyword">const</span> eventId = randomUUID();
+    <span class="keyword">const</span> severity = params.severity ?? <span class="string">'error'</span>;
+
+    <span class="keyword">const</span> entry: <span class="type">ComplianceLogEntry</span> = {
+      event_id: eventId,
+      timestamp: <span class="keyword">this</span>.now(),
+      event_type: <span class="type">EventType</span>.ERROR,
+      system_id: <span class="keyword">this</span>.systemId,
+      error: {
+        code: params.code,
+        message: params.message,
+        severity,
+      },
+      risk_indicators: {
+        confidence_below_threshold: <span class="keyword">false</span>,
+        anomaly_detected: <span class="keyword">true</span>,
+        requires_review: [<span class="string">'error'</span>, <span class="string">'critical'</span>].includes(severity),
+      },
+      metadata: params.metadata,
+    };
+
+    <span class="keyword">await this</span>.storage.write(entry);
+    <span class="keyword">return</span> eventId;
+  }
+}</pre>
+        </div>
+
+        <h2 id="what-to-log">What to Log for Different AI Systems</h2>
+
+        <p>The specific data you need to log varies by AI system type. Here's a breakdown:</p>
+
+        <h3>LLM/Chatbot Systems</h3>
+        <ul>
+            <li>Input prompts (hashed for privacy)</li>
+            <li>Generated responses (hashed)</li>
+            <li>Model name, version, temperature settings</li>
+            <li>Token counts (input/output)</li>
+            <li>Response confidence/perplexity if available</li>
+            <li>Any content filtering decisions</li>
+        </ul>
+
+        <h3>Biometric Identification (Annex III, 1(a))</h3>
+        <p>These have stricter requirements per Article 12:</p>
+        <ul>
+            <li>Session start and end timestamps</li>
+            <li>Reference database identifier used</li>
+            <li>Input data that triggered matches</li>
+            <li>Identity of human verifiers checking results</li>
+            <li>Match confidence scores</li>
+            <li>All verification decisions</li>
+        </ul>
+
+        <h3>Decision Support Systems</h3>
+        <ul>
+            <li>All input features used in decision</li>
+            <li>Decision outcome and confidence</li>
+            <li>Features with highest impact on decision</li>
+            <li>Alternative decisions considered</li>
+            <li>Human override history</li>
+        </ul>
+
+        <div class="info-box info">
+            <div class="info-box-title">Privacy Consideration</div>
+            <p style="margin-bottom: 0;">Store <strong>hashes</strong> of input/output content rather than raw data when it may contain PII. The hash provides traceability without exposing personal data. Store raw content only when required and with appropriate access controls.</p>
+        </div>
+
+        <h2 id="storage-retention">Storage and Retention</h2>
+
+        <p>Article 12 requires logs to be maintained "over the lifetime of the system." Here's how to implement this practically:</p>
+
+        <h3>Recommended Storage Architecture</h3>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">Storage Architecture</span>
+                <span class="code-block-lang">Text</span>
+            </div>
+<pre>
+┌─────────────────────────────────────────────────────────────┐
+│                    Compliance Logs                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Hot Storage (0-30 days)     │  Warm Storage (30-365 days) │
+│  ─────────────────────────   │  ─────────────────────────  │
+│  • PostgreSQL / MongoDB      │  • S3 / Azure Blob          │
+│  • Fast queries              │  • Compressed JSON          │
+│  • Real-time monitoring      │  • Weekly aggregations      │
+│                              │                              │
+├──────────────────────────────┼──────────────────────────────┤
+│                                                             │
+│  Cold Storage (1-7+ years)   │  Archive (Regulatory Hold)  │
+│  ─────────────────────────   │  ─────────────────────────  │
+│  • Glacier / Archive tier    │  • WORM storage             │
+│  • Annual access expected    │  • Legal hold capable       │
+│  • Hash verification         │  • Tamper-evident           │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+</pre>
+        </div>
+
+        <h3>Retention Guidelines</h3>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Log Type</th>
+                        <th>Minimum Retention</th>
+                        <th>Recommended</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Inference logs</td>
+                        <td>System lifetime</td>
+                        <td>7 years post-decommission</td>
+                        <td>Required for post-market monitoring</td>
+                    </tr>
+                    <tr>
+                        <td>Human override logs</td>
+                        <td>System lifetime</td>
+                        <td>10 years</td>
+                        <td>Critical for audit trails</td>
+                    </tr>
+                    <tr>
+                        <td>Error logs</td>
+                        <td>System lifetime</td>
+                        <td>7 years</td>
+                        <td>Risk identification requirement</td>
+                    </tr>
+                    <tr>
+                        <td>System change logs</td>
+                        <td>System lifetime</td>
+                        <td>Permanent</td>
+                        <td>Substantial modification tracking</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 id="audit-trails">Building Audit Trails</h2>
+
+        <p>For regulators to trust your logs, they need to be tamper-evident. Here's a practical approach using hash chains:</p>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">hash_chain.py</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">import</span> hashlib
+<span class="keyword">import</span> json
+<span class="keyword">from</span> typing <span class="keyword">import</span> Optional
+
+
+<span class="keyword">class</span> <span class="type">HashChainedLogger</span>:
+    <span class="string">"""
+    Adds hash chain integrity to compliance logs.
+
+    Each log entry includes the hash of the previous entry,
+    creating a tamper-evident chain.
+    """</span>
+
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, base_logger: <span class="type">ComplianceLogger</span>):
+        self.base_logger = base_logger
+        self._previous_hash: Optional[<span class="type">str</span>] = <span class="keyword">None</span>
+
+    <span class="keyword">def</span> <span class="function">_compute_entry_hash</span>(self, entry: <span class="type">dict</span>) -> <span class="type">str</span>:
+        <span class="string">"""Compute deterministic hash of log entry."""</span>
+        <span class="comment"># Sort keys for deterministic serialization</span>
+        canonical = json.dumps(entry, sort_keys=<span class="keyword">True</span>, default=<span class="type">str</span>)
+        <span class="keyword">return</span> hashlib.sha256(canonical.encode()).hexdigest()
+
+    <span class="keyword">def</span> <span class="function">_add_chain_metadata</span>(self, entry: <span class="type">dict</span>) -> <span class="type">dict</span>:
+        <span class="string">"""Add hash chain metadata to entry."""</span>
+        entry[<span class="string">"chain"</span>] = {
+            <span class="string">"previous_hash"</span>: self._previous_hash,
+            <span class="string">"sequence"</span>: self._get_sequence_number()
+        }
+
+        <span class="comment"># Compute and store this entry's hash</span>
+        entry_hash = self._compute_entry_hash(entry)
+        entry[<span class="string">"chain"</span>][<span class="string">"entry_hash"</span>] = entry_hash
+
+        <span class="comment"># Update chain state</span>
+        self._previous_hash = entry_hash
+
+        <span class="keyword">return</span> entry
+
+    <span class="keyword">def</span> <span class="function">verify_chain</span>(self, entries: <span class="type">list</span>[<span class="type">dict</span>]) -> <span class="type">bool</span>:
+        <span class="string">"""Verify integrity of a chain of log entries."""</span>
+        previous_hash = <span class="keyword">None</span>
+
+        <span class="keyword">for</span> entry <span class="keyword">in</span> entries:
+            <span class="comment"># Verify previous hash matches</span>
+            <span class="keyword">if</span> entry.get(<span class="string">"chain"</span>, {}).get(<span class="string">"previous_hash"</span>) != previous_hash:
+                <span class="keyword">return</span> <span class="keyword">False</span>
+
+            <span class="comment"># Verify entry hash is correct</span>
+            stored_hash = entry[<span class="string">"chain"</span>][<span class="string">"entry_hash"</span>]
+            entry_copy = {k: v <span class="keyword">for</span> k, v <span class="keyword">in</span> entry.items() <span class="keyword">if</span> k != <span class="string">"chain"</span>}
+            entry_copy[<span class="string">"chain"</span>] = {
+                <span class="string">"previous_hash"</span>: entry[<span class="string">"chain"</span>][<span class="string">"previous_hash"</span>],
+                <span class="string">"sequence"</span>: entry[<span class="string">"chain"</span>][<span class="string">"sequence"</span>]
+            }
+
+            computed_hash = self._compute_entry_hash(entry_copy)
+            <span class="keyword">if</span> computed_hash != stored_hash:
+                <span class="keyword">return</span> <span class="keyword">False</span>
+
+            previous_hash = stored_hash
+
+        <span class="keyword">return</span> <span class="keyword">True</span></pre>
+        </div>
+
+        <div class="info-box success">
+            <div class="info-box-title">Why Hash Chains Matter</div>
+            <p style="margin-bottom: 0;">While the EU AI Act doesn't explicitly require cryptographic logs, the combination of lifetime traceability (Article 12), cybersecurity obligations (Article 15), and forensic evidence preservation (Article 73) makes hash-chained logs the economically rational choice. They provide non-repudiation without the complexity of a full blockchain.</p>
+        </div>
+
+        <h2 id="testing-validation">Testing and Validation</h2>
+
+        <p>Before deploying to production, validate your compliance logging:</p>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">test_compliance_logging.py</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">import</span> pytest
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timezone
+
+
+<span class="keyword">class</span> <span class="type">TestComplianceLogging</span>:
+    <span class="string">"""Test suite for EU AI Act Article 12 compliance."""</span>
+
+    <span class="keyword">def</span> <span class="function">test_inference_logs_contain_required_fields</span>(self, logger, storage):
+        <span class="string">"""Verify all Article 12 required fields are present."""</span>
+        event_id = logger.log_inference(
+            input_text=<span class="string">"Test input"</span>,
+            output_text=<span class="string">"Test output"</span>,
+            model_name=<span class="string">"gpt-4"</span>,
+            model_version=<span class="string">"2024-01"</span>,
+            provider=<span class="string">"openai"</span>,
+            confidence=<span class="number">0.95</span>
+        )
+
+        entry = storage.get_by_id(event_id)
+
+        <span class="comment"># Required fields per Article 12</span>
+        <span class="keyword">assert</span> entry[<span class="string">"event_id"</span>] <span class="keyword">is not</span> <span class="keyword">None</span>
+        <span class="keyword">assert</span> entry[<span class="string">"timestamp"</span>] <span class="keyword">is not</span> <span class="keyword">None</span>
+        <span class="keyword">assert</span> entry[<span class="string">"system_id"</span>] <span class="keyword">is not</span> <span class="keyword">None</span>
+        <span class="keyword">assert</span> entry[<span class="string">"input_hash"</span>] <span class="keyword">is not</span> <span class="keyword">None</span>
+        <span class="keyword">assert</span> entry[<span class="string">"output_hash"</span>] <span class="keyword">is not</span> <span class="keyword">None</span>
+        <span class="keyword">assert</span> entry[<span class="string">"model_name"</span>] <span class="keyword">is not</span> <span class="keyword">None</span>
+
+    <span class="keyword">def</span> <span class="function">test_timestamps_are_iso8601_with_timezone</span>(self, logger, storage):
+        <span class="string">"""Timestamps must include timezone per best practices."""</span>
+        event_id = logger.log_inference(
+            input_text=<span class="string">"Test"</span>,
+            output_text=<span class="string">"Test"</span>,
+            model_name=<span class="string">"gpt-4"</span>,
+            model_version=<span class="string">"2024-01"</span>,
+            provider=<span class="string">"openai"</span>
+        )
+
+        entry = storage.get_by_id(event_id)
+        timestamp = entry[<span class="string">"timestamp"</span>]
+
+        <span class="comment"># Should parse as ISO 8601 with timezone</span>
+        parsed = datetime.fromisoformat(timestamp)
+        <span class="keyword">assert</span> parsed.tzinfo <span class="keyword">is not</span> <span class="keyword">None</span>
+
+    <span class="keyword">def</span> <span class="function">test_low_confidence_triggers_review_flag</span>(self, logger, storage):
+        <span class="string">"""Low confidence should flag for human review."""</span>
+        event_id = logger.log_inference(
+            input_text=<span class="string">"Test"</span>,
+            output_text=<span class="string">"Test"</span>,
+            model_name=<span class="string">"gpt-4"</span>,
+            model_version=<span class="string">"2024-01"</span>,
+            provider=<span class="string">"openai"</span>,
+            confidence=<span class="number">0.3</span>  <span class="comment"># Below threshold</span>
+        )
+
+        entry = storage.get_by_id(event_id)
+
+        <span class="keyword">assert</span> entry[<span class="string">"risk_flags"</span>][<span class="string">"confidence_below_threshold"</span>] == <span class="keyword">True</span>
+        <span class="keyword">assert</span> entry[<span class="string">"risk_flags"</span>][<span class="string">"requires_review"</span>] == <span class="keyword">True</span>
+
+    <span class="keyword">def</span> <span class="function">test_human_override_links_to_original_event</span>(self, logger, storage):
+        <span class="string">"""Human overrides must reference the original decision."""</span>
+        original_id = logger.log_inference(
+            input_text=<span class="string">"Test"</span>,
+            output_text=<span class="string">"Wrong answer"</span>,
+            model_name=<span class="string">"gpt-4"</span>,
+            model_version=<span class="string">"2024-01"</span>,
+            provider=<span class="string">"openai"</span>
+        )
+
+        override_id = logger.log_human_override(
+            verifier_id=<span class="string">"user-123"</span>,
+            action=<span class="string">"corrected_output"</span>,
+            original_event_id=original_id,
+            reason=<span class="string">"Factual error in response"</span>
+        )
+
+        override_entry = storage.get_by_id(override_id)
+
+        <span class="keyword">assert</span> override_entry[<span class="string">"metadata"</span>][<span class="string">"original_event_id"</span>] == original_id
+        <span class="keyword">assert</span> override_entry[<span class="string">"verifier_id"</span>] == <span class="string">"user-123"</span>
+
+    <span class="keyword">def</span> <span class="function">test_input_hashing_provides_traceability</span>(self, logger, storage):
+        <span class="string">"""Same input should produce same hash for traceability."""</span>
+        input_text = <span class="string">"Specific test input"</span>
+
+        event_id_1 = logger.log_inference(
+            input_text=input_text,
+            output_text=<span class="string">"Output 1"</span>,
+            model_name=<span class="string">"gpt-4"</span>,
+            model_version=<span class="string">"2024-01"</span>,
+            provider=<span class="string">"openai"</span>
+        )
+
+        event_id_2 = logger.log_inference(
+            input_text=input_text,
+            output_text=<span class="string">"Output 2"</span>,
+            model_name=<span class="string">"gpt-4"</span>,
+            model_version=<span class="string">"2024-01"</span>,
+            provider=<span class="string">"openai"</span>
+        )
+
+        entry_1 = storage.get_by_id(event_id_1)
+        entry_2 = storage.get_by_id(event_id_2)
+
+        <span class="comment"># Same input should produce identical hash</span>
+        <span class="keyword">assert</span> entry_1[<span class="string">"input_hash"</span>] == entry_2[<span class="string">"input_hash"</span>]</pre>
+        </div>
+
+        <h3>Compliance Checklist</h3>
+
+        <p>Use this checklist before go-live:</p>
+
+        <ul>
+            <li>All AI operations automatically logged</li>
+            <li>Timestamps include timezone (ISO 8601)</li>
+            <li>Input/output hashes stored for traceability</li>
+            <li>Model name and version recorded</li>
+            <li>Human override capability with audit trail</li>
+            <li>Low-confidence events flagged for review</li>
+            <li>System changes logged with responsible party</li>
+            <li>Retention policies configured (minimum: system lifetime)</li>
+            <li>Access controls implemented</li>
+            <li>Hash chain integrity (recommended)</li>
+        </ul>
+
+        <div class="cta-section">
+            <h3>Need Help With EU AI Act Compliance?</h3>
+            <p>Integrity Studio provides built-in Article 12 compliant logging, automatic risk detection, and audit-ready reports out of the box.</p>
+            <a href="/" class="cta-button">Start Free Trial</a>
+        </div>
+
+        <h2>Conclusion</h2>
+
+        <p>EU AI Act compliance logging isn't just about avoiding fines; it's about building AI systems that are trustworthy, auditable, and defensible. The code examples in this guide give you a production-ready starting point that satisfies Article 12 requirements while remaining practical for real-world LLM applications.</p>
+
+        <p>Key takeaways:</p>
+        <ol>
+            <li><strong>Start now.</strong> August 2026 approaches faster than you think.</li>
+            <li><strong>Hash don't store.</strong> Use content hashes for traceability without PII exposure.</li>
+            <li><strong>Flag risks automatically.</strong> Low confidence and anomalies should trigger review workflows.</li>
+            <li><strong>Chain your logs.</strong> Hash chains provide tamper-evidence without blockchain complexity.</li>
+            <li><strong>Test thoroughly.</strong> Compliance isn't optional; verify your implementation works.</li>
+        </ol>
+
+        <p>The implementation patterns shown here work for OpenAI, Anthropic, open-source models, or any LLM provider. Adapt them to your stack and ship compliant AI with confidence.</p>
+
+        <h3>Further Reading</h3>
+        <ul>
+            <li><a href="https://artificialintelligenceact.eu/article/12/" target="_blank">Article 12: Record-Keeping (Official Text)</a></li>
+            <li><a href="https://www.vde.com/topics-en/artificial-intelligence/blog/eu-ai-act--ai-system-logging" target="_blank">ISO/IEC DIS 24970:2025 Guidance (VDE)</a></li>
+            <li><a href="https://artificialintelligenceact.eu/section/3-2/" target="_blank">Section 2: Requirements for High-Risk AI Systems</a></li>
+            <li><a href="/blog/best-llm-monitoring-tools-2025">Best LLM Monitoring Tools (2025 Guide)</a></li>
+        </ul>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <span>&copy; 2025 Integrity Studio. All rights reserved.</span>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/blog">Blog</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
