@@ -726,7 +726,7 @@
 
         <div class="alert-box warning">
             <div class="alert-box-title">Licensing Note</div>
-            <p style="margin-bottom: 0;">The open-source WhyLabs platform requires a separate <a href="https://www.highcharts.com/license" target="_blank">Highcharts license</a> for data visualizations. This can cost $500-$4,500+ depending on your use case.</p>
+            <p style="margin-bottom: 0;">The open-source WhyLabs platform requires a separate <a href="https://shop.highcharts.com/" target="_blank">Highcharts license</a> for data visualizations. This can cost $400-$6,600+ depending on your use case (internal tools vs SaaS deployment).</p>
         </div>
 
         <h3>Option 2: Migrate to Another Platform</h3>
@@ -755,8 +755,8 @@
                     </tr>
                     <tr>
                         <td>Fiddler AI</td>
-                        <td>Traditional ML model monitoring</td>
-                        <td>80%</td>
+                        <td>ML monitoring + LLM guardrails</td>
+                        <td>85-90%</td>
                     </tr>
                     <tr>
                         <td>Langfuse</td>
@@ -901,7 +901,7 @@
                     <tr>
                         <td>HIPAA support</td>
                         <td class="status-yes">Yes</td>
-                        <td>BAA available for enterprise</td>
+                        <td>BAA available (Enterprise tier required)</td>
                     </tr>
                     <tr>
                         <td>Bias detection</td>
@@ -910,8 +910,8 @@
                     </tr>
                     <tr>
                         <td>EU AI Act compliance</td>
-                        <td class="status-yes">Yes</td>
-                        <td><strong>Enhanced:</strong> Article 12 logging, risk assessment</td>
+                        <td class="status-yes">Tooling</td>
+                        <td><strong>Enhanced:</strong> Article 12 logging, risk assessment tools</td>
                     </tr>
                     <tr>
                         <td>Audit trails</td>
@@ -920,6 +920,18 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="alert-box info">
+            <div class="alert-box-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                Compliance Disclaimer
+            </div>
+            <p style="margin-bottom: 0;">Integrity Studio provides <strong>tools and features</strong> to help organizations meet compliance requirements. Actual compliance depends on proper configuration, organizational processes, and legal interpretation. <strong>HIPAA compliance</strong> requires our Enterprise tier with a signed BAA and proper data handling procedures. <strong>EU AI Act compliance</strong> requires appropriate use of our logging and documentation features—the tooling enables compliance but does not guarantee it. Consult your compliance team or legal counsel for specific requirements.</p>
         </div>
 
         <div class="alert-box success">
@@ -1033,14 +1045,15 @@
                 <span class="code-block-title">Before: WhyLabs with whylogs</span>
                 <span class="code-block-lang">Python</span>
             </div>
-<pre><span class="keyword">import</span> whylogs <span class="keyword">as</span> why
+<pre><span class="keyword">import</span> os
+<span class="keyword">import</span> whylogs <span class="keyword">as</span> why
 <span class="keyword">from</span> whylogs.api.writer.whylabs <span class="keyword">import</span> WhyLabsWriter
 
-<span class="comment"># Configure WhyLabs</span>
+<span class="comment"># Configure WhyLabs using environment variables</span>
 why.init(
-    org_id=<span class="string">"org-xxxxx"</span>,
-    api_key=<span class="string">"xxxxx.xxxxx:xxxxx"</span>,
-    default_dataset_id=<span class="string">"model-1"</span>
+    org_id=os.environ[<span class="string">"WHYLABS_ORG_ID"</span>],
+    api_key=os.environ[<span class="string">"WHYLABS_API_KEY"</span>],
+    default_dataset_id=os.environ.get(<span class="string">"WHYLABS_DATASET_ID"</span>, <span class="string">"model-1"</span>)
 )
 
 <span class="comment"># Log data profile</span>
@@ -1057,12 +1070,13 @@ result.writer(<span class="string">"whylabs"</span>).write()</pre>
                 <span class="code-block-title">After: Integrity Studio</span>
                 <span class="code-block-lang">Python</span>
             </div>
-<pre><span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient
+<pre><span class="keyword">import</span> os
+<span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient
 
-<span class="comment"># Configure Integrity Studio</span>
+<span class="comment"># Configure Integrity Studio using environment variables</span>
 client = IntegrityClient(
-    api_key=<span class="string">"is_xxxxx"</span>,
-    project_id=<span class="string">"model-1"</span>
+    api_key=os.environ[<span class="string">"INTEGRITY_API_KEY"</span>],
+    project_id=os.environ.get(<span class="string">"INTEGRITY_PROJECT_ID"</span>, <span class="string">"model-1"</span>)
 )
 
 <span class="comment"># Log data profile</span>
@@ -1105,9 +1119,10 @@ result.writer(<span class="string">"whylabs"</span>).write()</pre>
                 <span class="code-block-title">After: Integrity Studio</span>
                 <span class="code-block-lang">Python</span>
             </div>
-<pre><span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient
+<pre><span class="keyword">import</span> os
+<span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient
 
-client = IntegrityClient(api_key=<span class="string">"is_xxxxx"</span>)
+client = IntegrityClient(api_key=os.environ[<span class="string">"INTEGRITY_API_KEY"</span>])
 
 <span class="comment"># Log LLM interaction with automatic metrics</span>
 client.log_llm_interaction(
@@ -1122,14 +1137,58 @@ client.log_llm_interaction(
 )
 
 <span class="comment"># With EU AI Act compliance logging</span>
+<span class="comment"># IMPORTANT: Always hash user IDs before logging (see helper below)</span>
 client.log_llm_interaction(
     prompt=user_input,
     response=llm_output,
     model=<span class="string">"gpt-4"</span>,
     compliance_mode=<span class="keyword">True</span>,  <span class="comment"># Enables Article 12 logging</span>
     session_id=session_id,
-    user_id=<span class="string">"hashed_user_123"</span>  <span class="comment"># For human oversight tracking</span>
+    user_id=hash_user_id(actual_user_id)  <span class="comment"># Always hash PII</span>
 )</pre>
+        </div>
+
+        <div class="alert-box warning">
+            <div class="alert-box-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+                Handling Personal Identifiable Information (PII)
+            </div>
+            <p>When logging user-related data for compliance or monitoring:</p>
+            <ul style="margin-bottom: 0; padding-left: 20px;">
+                <li><strong>Always hash user identifiers</strong> using SHA-256 with a consistent salt</li>
+                <li><strong>Never log directly</strong>: email addresses, names, IP addresses, or session tokens</li>
+                <li><strong>Consider GDPR/privacy requirements</strong>: Even hashed IDs may be personal data under some regulations</li>
+                <li><strong>Use consistent hashing</strong>: Same user should produce same hash for tracking across sessions</li>
+            </ul>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">Secure User ID Hashing Helper</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">import</span> hashlib
+<span class="keyword">import</span> os
+
+<span class="comment"># Generate a salt once and store securely (environment variable or secrets manager)</span>
+<span class="comment"># This salt should be consistent across your application for user tracking</span>
+USER_ID_SALT = os.environ[<span class="string">"USER_ID_SALT"</span>]  <span class="comment"># Random 32+ character string</span>
+
+<span class="keyword">def</span> <span class="function">hash_user_id</span>(user_id: <span class="type">str</span>) -> <span class="type">str</span>:
+    <span class="string">"""Create a one-way hash of user ID for privacy-preserving logging.
+
+    Uses SHA-256 with salt to prevent rainbow table attacks.
+    Truncated to 16 chars for practicality while maintaining uniqueness.
+    """</span>
+    <span class="keyword">if</span> <span class="keyword">not</span> user_id:
+        <span class="keyword">return</span> <span class="string">"anonymous"</span>
+    salted = f<span class="string">"{USER_ID_SALT}{user_id}"</span>.encode(<span class="string">'utf-8'</span>)
+    <span class="keyword">return</span> hashlib.sha256(salted).hexdigest()[:<span class="number">16</span>]
+
+<span class="comment"># Usage</span>
+hashed_id = hash_user_id(<span class="string">"user@example.com"</span>)  <span class="comment"># Returns: "a3f2b8c1e9d4f7a2"</span></pre>
         </div>
 
         <h3>Drift Monitoring</h3>
@@ -1163,10 +1222,11 @@ report = constraints.generate_constraints_report(result.view())</pre>
                 <span class="code-block-title">After: Integrity Studio</span>
                 <span class="code-block-lang">Python</span>
             </div>
-<pre><span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient
+<pre><span class="keyword">import</span> os
+<span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient
 <span class="keyword">from</span> integrity_studio.monitors <span class="keyword">import</span> DriftMonitor
 
-client = IntegrityClient(api_key=<span class="string">"is_xxxxx"</span>)
+client = IntegrityClient(api_key=os.environ[<span class="string">"INTEGRITY_API_KEY"</span>])
 
 <span class="comment"># Create drift monitor</span>
 monitor = DriftMonitor(
@@ -1198,6 +1258,18 @@ drift_report = client.check_drift(
                 <span class="code-block-lang">TypeScript</span>
             </div>
 <pre><span class="keyword">import</span> { IntegrityClient } <span class="keyword">from</span> <span class="string">'@integrity-studio/sdk'</span>;
+<span class="keyword">import</span> { createHash } <span class="keyword">from</span> <span class="string">'crypto'</span>;
+
+<span class="comment">// Secure user ID hashing helper</span>
+<span class="keyword">const</span> USER_ID_SALT = process.env.USER_ID_SALT!;
+
+<span class="keyword">function</span> <span class="function">hashUserId</span>(userId: <span class="type">string</span>): <span class="type">string</span> {
+  <span class="keyword">if</span> (!userId) <span class="keyword">return</span> <span class="string">'anonymous'</span>;
+  <span class="keyword">return</span> createHash(<span class="string">'sha256'</span>)
+    .update(`${USER_ID_SALT}${userId}`)
+    .digest(<span class="string">'hex'</span>)
+    .slice(<span class="number">0</span>, <span class="number">16</span>);
+}
 
 <span class="keyword">const</span> client = <span class="keyword">new</span> IntegrityClient({
   apiKey: process.env.INTEGRITY_API_KEY,
@@ -1217,7 +1289,7 @@ drift_report = client.check_drift(
   },
   metadata: {
     conversationId,
-    userId: hashedUserId,
+    userId: hashUserId(actualUserId),  <span class="comment">// Always hash PII</span>
   },
 });
 
@@ -1227,7 +1299,7 @@ drift_report = client.check_drift(
   complianceMode: <span class="keyword">true</span>,
   sessionId: sessionId,
   humanOversight: {
-    verifierId: <span class="string">'reviewer-123'</span>,
+    verifierId: hashUserId(reviewerId),  <span class="comment">// Hash reviewer ID too</span>
     action: <span class="string">'approved'</span>,
   },
 });</pre>
@@ -1247,20 +1319,43 @@ drift_report = client.check_drift(
             <li><strong>API Keys and Org Settings:</strong> For reference during migration</li>
         </ul>
 
+        <div class="alert-box warning">
+            <div class="alert-box-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+                Data Export Security
+            </div>
+            <ul style="margin-bottom: 0; padding-left: 20px;">
+                <li><strong>Never hardcode API keys</strong> - use environment variables or a secrets manager</li>
+                <li><strong>Encrypt exported data</strong> - profiles may contain sensitive model behavior patterns</li>
+                <li><strong>Secure file permissions</strong> - restrict access to exported files (chmod 600)</li>
+                <li><strong>Delete credentials after migration</strong> - rotate or revoke WhyLabs API keys when done</li>
+                <li><strong>Audit storage location</strong> - use access-controlled storage with logging</li>
+            </ul>
+        </div>
+
         <h3>Export Using WhyLabs API</h3>
+
+        <div class="alert-box info">
+            <div class="alert-box-title">API Endpoint Note</div>
+            <p style="margin-bottom: 0;">The WhyLabs API is primarily designed for data ingestion. <strong>Bulk export endpoints may have limited availability</strong> as the platform winds down. We recommend: (1) contacting WhyLabs support directly for export assistance, (2) checking if you retained local profile copies before upload (whylogs can write to disk), or (3) using the <a href="https://pypi.org/project/whylabs-toolkit/" target="_blank">whylabs-toolkit</a> package which may offer additional export capabilities. Test API access before relying on this script.</p>
+        </div>
 
         <div class="code-block">
             <div class="code-block-header">
                 <span class="code-block-title">export_whylabs_data.py</span>
                 <span class="code-block-lang">Python</span>
             </div>
-<pre><span class="keyword">import</span> requests
+<pre><span class="keyword">import</span> os
+<span class="keyword">import</span> requests
 <span class="keyword">import</span> json
 <span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timedelta
 
-WHYLABS_API_KEY = <span class="string">"your-api-key"</span>
-ORG_ID = <span class="string">"org-xxxxx"</span>
-DATASET_ID = <span class="string">"model-1"</span>
+<span class="comment"># Load credentials from environment variables</span>
+WHYLABS_API_KEY = os.environ[<span class="string">"WHYLABS_API_KEY"</span>]
+ORG_ID = os.environ[<span class="string">"WHYLABS_ORG_ID"</span>]
+DATASET_ID = os.environ.get(<span class="string">"WHYLABS_DATASET_ID"</span>, <span class="string">"model-1"</span>)
 
 headers = {
     <span class="string">"X-API-Key"</span>: WHYLABS_API_KEY,
@@ -1281,11 +1376,14 @@ response = requests.get(
     }
 )
 
-<span class="comment"># Save to file</span>
-<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"whylabs_export.json"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:
+<span class="comment"># Save to file with restricted permissions</span>
+output_file = <span class="string">"whylabs_export.json"</span>
+<span class="keyword">with</span> <span class="function">open</span>(output_file, <span class="string">"w"</span>) <span class="keyword">as</span> f:
     json.dump(response.json(), f, indent=<span class="number">2</span>)
+os.chmod(output_file, <span class="number">0o600</span>)  <span class="comment"># Restrict to owner only</span>
 
-<span class="function">print</span>(f<span class="string">"Exported {len(response.json())} profiles"</span>)</pre>
+<span class="function">print</span>(f<span class="string">"Exported {len(response.json())} profiles to {output_file}"</span>)
+<span class="function">print</span>(<span class="string">"Remember to encrypt this file before long-term storage!"</span>)</pre>
         </div>
 
         <div class="alert-box info">
