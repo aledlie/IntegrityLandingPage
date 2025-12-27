@@ -747,6 +747,13 @@
         </div>
     </nav>
 
+    <!-- Urgency Banner -->
+    <div style="background: linear-gradient(90deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 12px 24px; text-align: center; font-size: 14px; font-weight: 500;">
+        <span style="margin-right: 8px;">⏰</span>
+        <strong>WhyLabs SaaS access ends March 9, 2025</strong> — Start your migration now to avoid disruption.
+        <a href="/demo" style="color: white; margin-left: 16px; text-decoration: underline; font-weight: 600;">Schedule migration assessment →</a>
+    </div>
+
     <header class="header">
         <div class="header-content">
             <span class="header-badge">WhyLabs Shutdown</span>
@@ -831,6 +838,36 @@
             </div>
         </div>
 
+        <h3>What Apple's Acquisition Means for AI Observability</h3>
+
+        <p>Apple's quiet acquisition of WhyLabs has broader implications for the AI observability market:</p>
+
+        <ul>
+            <li><strong>Talent consolidation:</strong> WhyLabs' expertise in data profiling and ML monitoring will likely be absorbed into Apple's internal AI infrastructure, not productized externally</li>
+            <li><strong>Open source uncertainty:</strong> While WhyLabs open-sourced their platform, long-term community maintenance is uncertain without the original team's active involvement</li>
+            <li><strong>Market validation:</strong> Apple's acquisition validates the importance of AI observability as a critical infrastructure category</li>
+            <li><strong>Vendor diversification:</strong> This event underscores the risk of depending on venture-backed startups for critical infrastructure—consider open standards and data portability</li>
+        </ul>
+
+        <div class="alert-box info">
+            <div class="alert-box-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Join the Community Discussion
+            </div>
+            <p style="margin-bottom: 8px;">Connect with other teams navigating this migration:</p>
+            <ul style="margin-bottom: 0; padding-left: 20px;">
+                <li><a href="https://www.reddit.com/r/MachineLearning/" target="_blank">r/MachineLearning</a> — Active threads on WhyLabs alternatives</li>
+                <li><a href="https://www.reddit.com/r/mlops/" target="_blank">r/MLOps</a> — Production ML infrastructure discussions</li>
+                <li><a href="https://home.mlops.community/" target="_blank">MLOps Community Slack</a> — 100k+ ML practitioners, dedicated #observability channel</li>
+                <li><a href="https://news.ycombinator.com/" target="_blank">Hacker News</a> — Search "WhyLabs" for acquisition discussions</li>
+            </ul>
+        </div>
+
         <h2 id="your-options">Your Migration Options</h2>
 
         <p>You have three main paths forward:</p>
@@ -870,34 +907,64 @@
                         <th>Platform</th>
                         <th>Best For</th>
                         <th>WhyLabs Feature Coverage</th>
+                        <th>Pricing Model</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>Integrity Studio</strong></td>
-                        <td>LLM monitoring, EU AI Act compliance</td>
+                        <td>LLM monitoring, EU AI Act compliance, agent workflows</td>
                         <td>85%+ with enhanced compliance</td>
+                        <td>Usage-based; 60-day trial</td>
                     </tr>
                     <tr>
-                        <td>Arize AI</td>
+                        <td><a href="https://arize.com" target="_blank">Arize AI</a></td>
                         <td>Large enterprise ML teams</td>
-                        <td>90%+ (complex setup)*</td>
+                        <td>90%+ (complex setup)</td>
+                        <td>Enterprise pricing</td>
                     </tr>
                     <tr>
-                        <td>Fiddler AI</td>
+                        <td><a href="https://www.fiddler.ai" target="_blank">Fiddler AI</a></td>
                         <td>ML monitoring + LLM guardrails</td>
                         <td>85-90%</td>
+                        <td>Enterprise pricing</td>
                     </tr>
                     <tr>
-                        <td>Langfuse</td>
+                        <td><a href="https://www.datadoghq.com/product/llm-observability/" target="_blank">Datadog LLM Observability</a></td>
+                        <td>Teams already using Datadog; agentic AI</td>
+                        <td>70% (LLM focused)</td>
+                        <td>$8/1M tokens + infra</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://www.braintrust.dev" target="_blank">Braintrust</a></td>
+                        <td>LLM evals, prompt engineering teams</td>
+                        <td>60% (LLM focused)</td>
+                        <td>Free tier; usage-based</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://wandb.ai" target="_blank">Weights & Biases</a></td>
+                        <td>ML experiment tracking with LLM support</td>
+                        <td>75% (experiment focused)</td>
+                        <td>Free tier; $50/user/mo</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://langfuse.com" target="_blank">Langfuse</a></td>
                         <td>LLM-only use cases (fully open source)</td>
-                        <td>65% (LLM focused)*</td>
+                        <td>65% (LLM focused)</td>
+                        <td>Self-host free; cloud paid</td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/Arize-ai/phoenix" target="_blank">Phoenix (Arize OSS)</a></td>
+                        <td>Self-hosted LLM tracing</td>
+                        <td>55% (tracing focused)</td>
+                        <td>Open source (Apache 2)</td>
                     </tr>
                 </tbody>
             </table>
             <p style="font-size: 13px; color: var(--text-muted); margin-top: 12px;">
-                * <strong>Arize AI</strong> also offers <a href="https://github.com/Arize-ai/phoenix" target="_blank">Phoenix</a>, an open-source observability tool if you prefer to self-host.<br>
-                * <strong>Langfuse</strong> open-sourced all formerly commercial features (evaluations, experiments, playground) under MIT license in June 2025.
+                <strong>Notes:</strong> Pricing as of January 2025. Enterprise pricing typically requires sales contact. WhyLabs feature coverage estimates based on drift detection, data quality, LLM metrics, and compliance capabilities.<br>
+                <strong>Langfuse</strong> open-sourced all formerly commercial features (evaluations, experiments, playground) under MIT license in June 2025.<br>
+                <strong>Datadog</strong> launched agentic AI monitoring capabilities in June 2025, making it competitive for agent workflows.
             </p>
         </div>
 
@@ -1011,6 +1078,26 @@
                         <td>Token cost tracking</td>
                         <td class="status-yes">Yes</td>
                         <td>Per-provider cost attribution</td>
+                    </tr>
+                    <tr>
+                        <td>Prompt versioning</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Track prompt templates with version history</td>
+                    </tr>
+                    <tr>
+                        <td>Prompt A/B testing</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Compare prompt performance with traffic splitting</td>
+                    </tr>
+                    <tr>
+                        <td>Automated evaluations</td>
+                        <td class="status-yes">Yes</td>
+                        <td>LLM-as-judge, custom evaluators, human-in-loop</td>
+                    </tr>
+                    <tr>
+                        <td>Evaluation datasets</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Curate and version test datasets for evals</td>
                     </tr>
                 </tbody>
             </table>
@@ -1138,6 +1225,25 @@
                 Compliance Disclaimer
             </div>
             <p style="margin-bottom: 0;">Integrity Studio provides <strong>tools and features</strong> to help organizations meet compliance requirements. Actual compliance depends on proper configuration, organizational processes, and legal interpretation. <strong>HIPAA compliance</strong> requires our Enterprise tier with a signed BAA and proper data handling procedures. <strong>EU AI Act compliance</strong> requires appropriate use of our logging and documentation features—the tooling enables compliance but does not guarantee it. Consult your compliance team or legal counsel for specific requirements.</p>
+        </div>
+
+        <div class="alert-box warning">
+            <div class="alert-box-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                EU AI Act: August 2, 2025 GPAI Deadline
+            </div>
+            <p style="margin-bottom: 8px;">If you're deploying General-Purpose AI (GPAI) models in the EU, the <strong>August 2, 2025 compliance deadline</strong> is approaching. Key requirements include:</p>
+            <ul style="margin-bottom: 8px; padding-left: 20px;">
+                <li><strong>Technical documentation:</strong> Model capabilities, limitations, and intended use</li>
+                <li><strong>Training data transparency:</strong> Summary of data sources and copyright compliance</li>
+                <li><strong>Systemic risk assessment:</strong> For models with high-impact capabilities</li>
+                <li><strong>Incident reporting:</strong> Logging and notification procedures for serious incidents</li>
+            </ul>
+            <p style="margin-bottom: 0;">Integrity Studio's compliance tooling helps you meet Article 12 logging requirements and generate audit-ready documentation. <a href="/blog/eu-ai-act-gpai-compliance">Learn more about GPAI compliance →</a></p>
         </div>
 
         <h3>OpenTelemetry Compatibility</h3>
@@ -1335,6 +1441,15 @@ client.log_llm_interaction(
             <strong>Data Loss:</strong> 0%
         </p>
 
+        <div class="cta-section" style="margin: 48px 0;">
+            <h3>See How Your Features Map</h3>
+            <p>Book a 30-minute technical assessment with our migration team to get a custom feature mapping for your WhyLabs setup.</p>
+            <div class="cta-buttons">
+                <a href="/demo" class="cta-button primary">Schedule Technical Assessment</a>
+                <a href="/contact" class="cta-button secondary">Questions? Contact Us</a>
+            </div>
+        </div>
+
         <h2 id="migration-steps">Step-by-Step Migration Guide</h2>
 
         <p>Here's the recommended migration process, designed to minimize disruption:</p>
@@ -1437,6 +1552,15 @@ client.log_llm_interaction(
                 <li>Verify all alerts and monitors are active</li>
                 <li>Archive exported WhyLabs data</li>
             </ul>
+        </div>
+
+        <div class="cta-section" style="margin: 48px 0;">
+            <h3>Get a Custom Migration Plan</h3>
+            <p>Our solutions engineers will create a migration plan specific to your environment, models, and compliance requirements.</p>
+            <div class="cta-buttons">
+                <a href="/migration-assessment" class="cta-button primary">Request Migration Assessment</a>
+                <a href="/trial" class="cta-button secondary">Start 60-Day Free Trial</a>
+            </div>
         </div>
 
         <h2 id="code-migration">Code Migration Examples</h2>
@@ -1892,10 +2016,11 @@ os.chmod(output_file, <span class="number">0o600</span>)  <span class="comment">
 
         <div class="cta-section">
             <h3>Ready to Migrate?</h3>
-            <p>Start your free trial today and get 60 days to complete your migration from WhyLabs. Our team is standing by to help.</p>
+            <p>Join the teams who have already migrated from WhyLabs. Get 60 days to complete your migration with dedicated support.</p>
             <div class="cta-buttons">
-                <a href="/" class="cta-button primary">Start Free Trial</a>
-                <a href="/contact" class="cta-button secondary">Talk to Sales</a>
+                <a href="/demo" class="cta-button primary">Schedule Demo</a>
+                <a href="/contact" class="cta-button secondary">Request Enterprise Quote</a>
+                <a href="/trial" class="cta-button secondary">Start 60-Day Trial</a>
             </div>
         </div>
 
