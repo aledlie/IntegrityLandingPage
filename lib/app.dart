@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'theme/theme.dart';
 import 'pages/landing_page.dart';
@@ -5,7 +6,9 @@ import 'pages/blog_page.dart';
 import 'pages/comparison_page.dart';
 import 'pages/sources_page.dart';
 import 'pages/legal_page.dart';
+import 'services/analytics.dart';
 import 'services/consent_manager.dart';
+import 'services/tracking.dart';
 import 'widgets/consent/cookie_banner.dart';
 
 class IntegrityStudioApp extends StatefulWidget {
@@ -29,10 +32,25 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
     if (!hasConsent) {
       setState(() => _showCookieBanner = true);
     } else {
-      // Initialize analytics if consent was previously given
+      // Re-initialize tracking for returning users with saved consent
       final prefs = await ConsentManager.getStoredConsent();
-      if (prefs?.analytics == true) {
-        // Analytics will be initialized by ConsentManager
+      if (prefs != null && kIsWeb) {
+        // Update Consent Mode with stored preferences
+        TrackingWeb.updateConsent(
+          analytics: prefs.analytics,
+          marketing: prefs.marketing,
+        );
+
+        // Initialize analytics if previously consented
+        if (prefs.analytics) {
+          await AnalyticsService.initialize();
+        }
+
+        // Initialize Facebook Pixel if marketing was consented
+        if (prefs.marketing) {
+          TrackingWeb.injectFacebookPixel();
+          TrackingWeb.sendFBPageView();
+        }
       }
     }
   }
