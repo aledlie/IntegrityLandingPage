@@ -65,7 +65,7 @@ void main() {
 
         await tester.pumpWidget(
           testableSection(
-            FeaturesSection(
+            const FeaturesSection(
               content: FeaturesContent(
                 title: 'Custom Title',
                 subtitle: 'Custom Subtitle',

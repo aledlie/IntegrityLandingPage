@@ -200,9 +200,9 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             theme: testTheme,
-            home: Scaffold(
+            home: const Scaffold(
               body: SingleChildScrollView(
-                child: const FooterSection(),
+                child: FooterSection(),
               ),
             ),
             onGenerateRoute: (settings) {

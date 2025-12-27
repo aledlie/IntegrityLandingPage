@@ -216,7 +216,7 @@ class _HeroSection extends StatelessWidget {
 class _PrivacyPolicyContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _LegalSection(
@@ -358,7 +358,7 @@ For EU residents, you also have the right to lodge a complaint with your local d
 class _TermsOfServiceContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _LegalSection(
@@ -449,7 +449,7 @@ TO THE MAXIMUM EXTENT PERMITTED BY LAW:
 
 The Service is provided "AS IS" without warranties of any kind. We do not warrant that the Service will be uninterrupted, secure, or error-free.
 
-IN NO EVENT SHALL ${CompanyInfo.name.toUpperCase()} BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES.
+IN NO EVENT SHALL INTEGRITY STUDIO BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR REVENUES.
 
 Our total liability shall not exceed the amount you paid us in the twelve (12) months preceding the claim.
 ''',

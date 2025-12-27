@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integrity_studio_ai/services/consent_manager.dart';
-import 'package:integrity_studio_ai/models/consent_preferences.dart';
 
 void main() {
   group('ConsentManager', () {
@@ -130,9 +129,9 @@ void main() {
       });
 
       test('ConsentLevel is accessible from consent_manager import', () {
-        final essential = ConsentLevel.essential;
-        final analytics = ConsentLevel.analytics;
-        final all = ConsentLevel.all;
+        const essential = ConsentLevel.essential;
+        const analytics = ConsentLevel.analytics;
+        const all = ConsentLevel.all;
 
         expect(essential.toPreferences().analytics, isFalse);
         expect(analytics.toPreferences().analytics, isTrue);

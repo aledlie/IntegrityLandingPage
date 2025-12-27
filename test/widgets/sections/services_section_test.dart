@@ -11,10 +11,10 @@ void main() {
     });
 
     Widget buildTestWidget() {
-      return MaterialApp(
+      return const MaterialApp(
         home: MediaQuery(
-          data: const MediaQueryData(size: Size(1920, 1080)),
-          child: const Scaffold(
+          data: MediaQueryData(size: Size(1920, 1080)),
+          child: Scaffold(
             body: SingleChildScrollView(
               child: ServicesSection(),
             ),

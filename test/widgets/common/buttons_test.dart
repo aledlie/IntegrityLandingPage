@@ -30,7 +30,7 @@ void main() {
 
         await tester.pumpWidget(
           testableWidget(
-            GradientButton(
+            const GradientButton(
               text: 'Disabled Button',
               onPressed: null,
             ),
@@ -178,7 +178,7 @@ void main() {
 
         await tester.pumpWidget(
           testableWidget(
-            OutlineButton(
+            const OutlineButton(
               text: 'Disabled',
               onPressed: null,
             ),
@@ -383,7 +383,7 @@ void main() {
 
         await tester.pumpWidget(
           testableWidget(
-            AnimatedGradientBorderButton(
+            const AnimatedGradientBorderButton(
               text: 'Disabled Animated',
               onPressed: null,
             ),

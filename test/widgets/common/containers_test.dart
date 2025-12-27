@@ -93,9 +93,9 @@ void main() {
     testWidgets('renders with background color', (tester) async {
       await tester.pumpWidget(
         testableWidget(
-          SectionContainer(
+          const SectionContainer(
             backgroundColor: Colors.red,
-            child: const Text('Content'),
+            child: Text('Content'),
           ),
         ),
       );
@@ -110,9 +110,9 @@ void main() {
 
       await tester.pumpWidget(
         testableWidget(
-          SectionContainer(
+          const SectionContainer(
             backgroundGradient: gradient,
-            child: const Text('Content'),
+            child: Text('Content'),
           ),
         ),
       );
@@ -125,9 +125,9 @@ void main() {
     testWidgets('adds semantic label when id is provided', (tester) async {
       await tester.pumpWidget(
         testableWidget(
-          SectionContainer(
+          const SectionContainer(
             id: 'features',
-            child: const Text('Content'),
+            child: Text('Content'),
           ),
         ),
       );
@@ -138,8 +138,8 @@ void main() {
     testWidgets('uses ResponsiveContainer by default', (tester) async {
       await tester.pumpWidget(
         testableWidget(
-          SectionContainer(
-            child: const Text('Content'),
+          const SectionContainer(
+            child: Text('Content'),
           ),
         ),
       );
@@ -150,9 +150,9 @@ void main() {
     testWidgets('skips ResponsiveContainer when useResponsiveContainer is false', (tester) async {
       await tester.pumpWidget(
         testableWidget(
-          SectionContainer(
+          const SectionContainer(
             useResponsiveContainer: false,
-            child: const Text('Content'),
+            child: Text('Content'),
           ),
         ),
       );
@@ -163,9 +163,9 @@ void main() {
     testWidgets('applies custom padding', (tester) async {
       await tester.pumpWidget(
         testableWidget(
-          SectionContainer(
-            padding: const EdgeInsets.all(50),
-            child: const Text('Content'),
+          const SectionContainer(
+            padding: EdgeInsets.all(50),
+            child: Text('Content'),
           ),
         ),
       );
@@ -287,9 +287,9 @@ void main() {
     testWidgets('shows orbs when showOrbs is true', (tester) async {
       await tester.pumpWidget(
         testableWidget(
-          GradientBackground(
+          const GradientBackground(
             showOrbs: true,
-            child: const SizedBox(),
+            child: SizedBox(),
           ),
         ),
       );
@@ -301,9 +301,9 @@ void main() {
     testWidgets('renders without showOrbs', (tester) async {
       await tester.pumpWidget(
         testableWidget(
-          GradientBackground(
+          const GradientBackground(
             showOrbs: false,
-            child: const SizedBox(),
+            child: SizedBox(),
           ),
         ),
       );
@@ -315,8 +315,8 @@ void main() {
     testWidgets('uses Stack for layered content', (tester) async {
       await tester.pumpWidget(
         testableWidget(
-          GradientBackground(
-            child: const SizedBox(),
+          const GradientBackground(
+            child: SizedBox(),
           ),
         ),
       );

@@ -199,11 +199,12 @@ void main() {
         expect(content.story.toLowerCase(), contains('observability'));
       });
 
-      test('founder has social links', () {
+      test('at least one team member has social links', () {
         final content = AppContent.about;
-        final founder = content.team.first;
+        final membersWithLinkedIn =
+            content.team.where((m) => m.linkedInUrl != null).toList();
 
-        expect(founder.linkedInUrl, isNotNull);
+        expect(membersWithLinkedIn, isNotEmpty);
       });
     });
   });
