@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete guide for migrating from WhyLabs to Integrity Studio. Feature mapping, code examples, and step-by-step migration instructions for teams affected by the WhyLabs shutdown.">
+    <meta name="keywords" content="WhyLabs alternative, WhyLabs migration, WhyLabs shutdown, AI observability, LLM monitoring, whylogs alternative, data quality monitoring">
+    <meta name="author" content="Alyshia Ledlie">
+    <title>Migrating from WhyLabs to Integrity Studio | Complete Guide</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Migrating from WhyLabs to Integrity Studio">
+    <meta property="og:description" content="Complete migration guide for teams affected by the WhyLabs shutdown. Feature mapping, code examples, and step-by-step instructions.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://integritystudio.ai/resources/whylabs-migration-guide">
+
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #334155;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --surface: #f8fafc;
+            --surface-alt: #f1f5f9;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--white);
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            color: var(--white);
+            padding: 80px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 24px;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 24px;
+            font-size: 14px;
+            opacity: 0.8;
+            flex-wrap: wrap;
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            color: var(--primary);
+            letter-spacing: -0.01em;
+        }
+
+        .content h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin: 36px 0 16px;
+            color: var(--primary);
+        }
+
+        .content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 24px 0 12px;
+            color: var(--secondary);
+        }
+
+        .content p {
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .content ul, .content ol {
+            margin-bottom: 20px;
+            padding-left: 24px;
+        }
+
+        .content li {
+            margin-bottom: 8px;
+        }
+
+        .content a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .content a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        /* Alert Boxes */
+        .alert-box {
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0;
+            border-left: 4px solid;
+        }
+
+        .alert-box.urgent {
+            background: #fef2f2;
+            border-color: var(--error);
+        }
+
+        .alert-box.warning {
+            background: #fffbeb;
+            border-color: var(--warning);
+        }
+
+        .alert-box.info {
+            background: #eff6ff;
+            border-color: var(--accent);
+        }
+
+        .alert-box.success {
+            background: #ecfdf5;
+            border-color: var(--success);
+        }
+
+        .alert-box-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .alert-box.urgent .alert-box-title { color: #dc2626; }
+        .alert-box.warning .alert-box-title { color: #d97706; }
+        .alert-box.info .alert-box-title { color: #2563eb; }
+        .alert-box.success .alert-box-title { color: #059669; }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--primary);
+            color: #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .code-block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-block-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent-light);
+        }
+
+        .code-block-lang {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .inline-code {
+            background: var(--surface-alt);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--secondary);
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #c792ea; }
+        .string { color: #c3e88d; }
+        .comment { color: #676e95; }
+        .function { color: #82aaff; }
+        .number { color: #f78c6c; }
+        .type { color: #ffcb6b; }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 24px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--surface);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        tr:hover {
+            background: var(--surface);
+        }
+
+        .status-yes {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .status-no {
+            color: var(--error);
+            font-weight: 600;
+        }
+
+        .status-partial {
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        /* TOC */
+        .toc {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .toc-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 8px;
+        }
+
+        .toc-list a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .toc-list a:hover {
+            color: var(--accent);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+            margin: 32px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 24px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -28px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .timeline-dot.urgent {
+            background: var(--error);
+            box-shadow: 0 0 0 2px var(--error);
+        }
+
+        .timeline-dot.warning {
+            background: var(--warning);
+            box-shadow: 0 0 0 2px var(--warning);
+        }
+
+        .timeline-date {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Migration Steps */
+        .migration-step {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            background: var(--accent);
+            color: var(--white);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .step-time {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-left: auto;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e3a5f 100%);
+            border-radius: 16px;
+            padding: 48px;
+            margin: 48px 0;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .cta-section h3 {
+            color: var(--white);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .cta-button.primary {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .cta-button.primary:hover {
+            background: var(--accent-light);
+            border-bottom-color: transparent;
+        }
+
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-bottom-color: transparent;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 60px 0 80px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta-section {
+                padding: 32px 24px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .step-header {
+                flex-wrap: wrap;
+            }
+
+            .step-time {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="/" class="nav-logo">Integrity Studio</a>
+            <div class="nav-links">
+                <a href="/blog">Blog</a>
+                <a href="/#features">Features</a>
+                <a href="/#pricing">Pricing</a>
+                <a href="/contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="header-content">
+            <span class="header-badge">WhyLabs Shutdown</span>
+            <h1>Migrating from WhyLabs to Integrity Studio</h1>
+            <p class="header-subtitle">A complete guide for teams affected by the WhyLabs discontinuation. Feature mapping, code examples, and step-by-step migration instructions.</p>
+            <div class="header-meta">
+                <span>By Alyshia Ledlie</span>
+                <span>December 26, 2025</span>
+                <span>12 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="alert-box urgent">
+            <div class="alert-box-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                Critical Timeline
+            </div>
+            <p style="margin-bottom: 0;"><strong>WhyLabs SaaS platform access ends March 9, 2025.</strong> If you're currently using WhyLabs, you need to migrate your monitoring infrastructure before this date to avoid disruption.</p>
+        </div>
+
+        <div class="toc">
+            <div class="toc-title">Table of Contents</div>
+            <ol class="toc-list">
+                <li><a href="#what-happened">What Happened to WhyLabs?</a></li>
+                <li><a href="#your-options">Your Migration Options</a></li>
+                <li><a href="#feature-comparison">Feature Comparison</a></li>
+                <li><a href="#migration-steps">Step-by-Step Migration Guide</a></li>
+                <li><a href="#code-migration">Code Migration Examples</a></li>
+                <li><a href="#data-export">Exporting Your WhyLabs Data</a></li>
+                <li><a href="#faqs">Frequently Asked Questions</a></li>
+            </ol>
+        </div>
+
+        <p>If you're reading this, you're likely one of the many teams caught off guard by WhyLabs' sudden discontinuation. First: we understand. Having a critical piece of your ML infrastructure disappear is frustrating, stressful, and disruptive.</p>
+
+        <p>This guide is designed to help you navigate the transition with minimal disruption. We'll cover what happened, your options, and provide concrete migration steps whether you choose Integrity Studio or another platform.</p>
+
+        <h2 id="what-happened">What Happened to WhyLabs?</h2>
+
+        <p>In late 2024, WhyLabs—a Seattle-based startup that helped define the AI Observability category—announced it was discontinuing operations. Reports confirmed the shutdown was the result of a quiet acquisition by Apple.</p>
+
+        <p>In response to their shutdown, WhyLabs took commendable steps to help their users:</p>
+
+        <ul>
+            <li><strong>Open-sourced the platform</strong> under Apache 2 license (January 23, 2025)</li>
+            <li><strong>Extended SaaS access</strong> until March 9, 2025</li>
+            <li><strong>Continued maintaining</strong> whylogs and LangKit as open-source projects</li>
+        </ul>
+
+        <h3>Key Dates Timeline</h3>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">December 2024</div>
+                <div class="timeline-title">Shutdown Announced</div>
+                <div class="timeline-desc">WhyLabs announces discontinuation, confirms Apple acquisition</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">January 23, 2025</div>
+                <div class="timeline-title">Platform Open-Sourced</div>
+                <div class="timeline-desc">WhyLabs AI Control Center released under Apache 2 license</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot warning"></div>
+                <div class="timeline-date">Now - March 9, 2025</div>
+                <div class="timeline-title">Migration Window</div>
+                <div class="timeline-desc">Final window to export data and migrate to new platform</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot urgent"></div>
+                <div class="timeline-date">March 9, 2025</div>
+                <div class="timeline-title">SaaS Platform Shutdown</div>
+                <div class="timeline-desc">WhyLabs hosted platform access ends permanently</div>
+            </div>
+        </div>
+
+        <h2 id="your-options">Your Migration Options</h2>
+
+        <p>You have three main paths forward:</p>
+
+        <h3>Option 1: Self-Host WhyLabs Open Source</h3>
+
+        <p>WhyLabs has released their platform as open source. You can run it on your own infrastructure.</p>
+
+        <p><strong>Pros:</strong></p>
+        <ul>
+            <li>Familiar interface and features</li>
+            <li>No immediate code changes required</li>
+            <li>Free (Apache 2 license)</li>
+        </ul>
+
+        <p><strong>Cons:</strong></p>
+        <ul>
+            <li>Requires DevOps resources to deploy and maintain</li>
+            <li>No official support (community only, no contributions accepted)</li>
+            <li>Highcharts license required for visualizations (additional cost)</li>
+            <li>Uncertain long-term maintenance</li>
+        </ul>
+
+        <div class="alert-box warning">
+            <div class="alert-box-title">Licensing Note</div>
+            <p style="margin-bottom: 0;">The open-source WhyLabs platform requires a separate <a href="https://www.highcharts.com/license" target="_blank">Highcharts license</a> for data visualizations. This can cost $500-$4,500+ depending on your use case.</p>
+        </div>
+
+        <h3>Option 2: Migrate to Another Platform</h3>
+
+        <p>Several AI observability platforms can replace WhyLabs functionality:</p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Platform</th>
+                        <th>Best For</th>
+                        <th>WhyLabs Feature Coverage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Integrity Studio</strong></td>
+                        <td>LLM monitoring, EU AI Act compliance</td>
+                        <td>85%+ with enhanced compliance</td>
+                    </tr>
+                    <tr>
+                        <td>Arize AI</td>
+                        <td>Large enterprise ML teams</td>
+                        <td>90%+ (complex setup)</td>
+                    </tr>
+                    <tr>
+                        <td>Fiddler AI</td>
+                        <td>Traditional ML model monitoring</td>
+                        <td>80%</td>
+                    </tr>
+                    <tr>
+                        <td>Langfuse</td>
+                        <td>LLM-only use cases (open source)</td>
+                        <td>60% (LLM focused)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Option 3: Build Custom Solution with whylogs</h3>
+
+        <p>WhyLabs' core logging library, <a href="https://github.com/whylabs/whylogs" target="_blank">whylogs</a>, remains actively maintained as open source. You can continue using it with custom dashboarding.</p>
+
+        <p><strong>Pros:</strong></p>
+        <ul>
+            <li>Minimal code changes if you're already using whylogs</li>
+            <li>Privacy-preserving data profiles still work</li>
+            <li>Flexible—use any visualization/storage backend</li>
+        </ul>
+
+        <p><strong>Cons:</strong></p>
+        <ul>
+            <li>No built-in dashboards or alerting</li>
+            <li>Significant development effort required</li>
+            <li>Must build or buy monitoring UI</li>
+        </ul>
+
+        <h2 id="feature-comparison">Feature Comparison: WhyLabs vs Integrity Studio</h2>
+
+        <p>Here's a detailed mapping of WhyLabs features to Integrity Studio equivalents:</p>
+
+        <h3>Data Quality & Drift Monitoring</h3>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>WhyLabs Feature</th>
+                        <th>Integrity Studio</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data drift detection</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Statistical drift with configurable thresholds</td>
+                    </tr>
+                    <tr>
+                        <td>Data quality monitoring</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Schema validation, null detection, range checks</td>
+                    </tr>
+                    <tr>
+                        <td>Feature statistics</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Distributions, cardinality, missing values</td>
+                    </tr>
+                    <tr>
+                        <td>Training-serving skew</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Compare training vs production distributions</td>
+                    </tr>
+                    <tr>
+                        <td>Privacy-preserving profiles</td>
+                        <td class="status-partial">Partial</td>
+                        <td>Hash-based tracing; full profiles optional</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>LLM Monitoring</h3>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>WhyLabs Feature</th>
+                        <th>Integrity Studio</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>LangKit text metrics</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Built-in + custom metrics support</td>
+                    </tr>
+                    <tr>
+                        <td>Toxicity detection</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Multiple toxicity classifiers</td>
+                    </tr>
+                    <tr>
+                        <td>Hallucination detection</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Factual grounding + confidence scoring</td>
+                    </tr>
+                    <tr>
+                        <td>Prompt injection detection</td>
+                        <td class="status-yes">Yes</td>
+                        <td>OWASP LLM Top 10 coverage</td>
+                    </tr>
+                    <tr>
+                        <td>Jailbreak detection</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Pattern + ML-based detection</td>
+                    </tr>
+                    <tr>
+                        <td>MITRE ATLAS alignment</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Full framework coverage</td>
+                    </tr>
+                    <tr>
+                        <td>Token cost tracking</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Per-provider cost attribution</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Compliance & Governance</h3>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>WhyLabs Feature</th>
+                        <th>Integrity Studio</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SOC 2 Type 2</td>
+                        <td class="status-partial">In Progress</td>
+                        <td>Q2 2025 certification expected</td>
+                    </tr>
+                    <tr>
+                        <td>HIPAA support</td>
+                        <td class="status-yes">Yes</td>
+                        <td>BAA available for enterprise</td>
+                    </tr>
+                    <tr>
+                        <td>Bias detection</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Demographic parity, equalized odds</td>
+                    </tr>
+                    <tr>
+                        <td>EU AI Act compliance</td>
+                        <td class="status-yes">Yes</td>
+                        <td><strong>Enhanced:</strong> Article 12 logging, risk assessment</td>
+                    </tr>
+                    <tr>
+                        <td>Audit trails</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Hash-chained, tamper-evident logs</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="alert-box success">
+            <div class="alert-box-title">What Integrity Studio Adds</div>
+            <p style="margin-bottom: 0;">Beyond matching WhyLabs features, Integrity Studio provides built-in <strong>EU AI Act Article 12 compliance logging</strong>, <strong>automated risk documentation</strong>, and <strong>audit-ready compliance reports</strong>—capabilities WhyLabs didn't offer.</p>
+        </div>
+
+        <h2 id="migration-steps">Step-by-Step Migration Guide</h2>
+
+        <p>Here's the recommended migration process, designed to minimize disruption:</p>
+
+        <div class="migration-step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <div class="step-title">Export Your WhyLabs Data</div>
+                <div class="step-time">~1 hour</div>
+            </div>
+            <p>Before WhyLabs access ends, export your historical data:</p>
+            <ul>
+                <li>Download data profiles and statistics</li>
+                <li>Export alert configurations</li>
+                <li>Save custom metric definitions</li>
+                <li>Document your monitoring thresholds</li>
+            </ul>
+            <p>See <a href="#data-export">Exporting Your WhyLabs Data</a> section below for detailed instructions.</p>
+        </div>
+
+        <div class="migration-step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <div class="step-title">Create Integrity Studio Account</div>
+                <div class="step-time">~5 minutes</div>
+            </div>
+            <p>Sign up for Integrity Studio and configure your organization:</p>
+            <ul>
+                <li>Create account at <a href="/">integritystudio.ai</a></li>
+                <li>Set up your organization and team members</li>
+                <li>Configure SSO if using enterprise authentication</li>
+                <li>Generate API keys for your environments</li>
+            </ul>
+        </div>
+
+        <div class="migration-step">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <div class="step-title">Install SDK and Update Integration Code</div>
+                <div class="step-time">~2-4 hours</div>
+            </div>
+            <p>Replace WhyLabs SDK calls with Integrity Studio equivalents:</p>
+            <ul>
+                <li>Install the Integrity Studio SDK</li>
+                <li>Update import statements</li>
+                <li>Migrate logging calls (see code examples below)</li>
+                <li>Configure environment variables</li>
+            </ul>
+        </div>
+
+        <div class="migration-step">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <div class="step-title">Recreate Monitors and Alerts</div>
+                <div class="step-time">~1-2 hours</div>
+            </div>
+            <p>Set up equivalent monitoring in Integrity Studio:</p>
+            <ul>
+                <li>Configure drift monitors with your thresholds</li>
+                <li>Set up data quality checks</li>
+                <li>Create alert rules and notification channels</li>
+                <li>Configure LLM-specific guardrails</li>
+            </ul>
+        </div>
+
+        <div class="migration-step">
+            <div class="step-header">
+                <div class="step-number">5</div>
+                <div class="step-title">Run Parallel Monitoring</div>
+                <div class="step-time">~1-2 weeks</div>
+            </div>
+            <p>Validate your migration before fully switching:</p>
+            <ul>
+                <li>Send data to both platforms simultaneously</li>
+                <li>Compare drift detection results</li>
+                <li>Verify alert thresholds are calibrated correctly</li>
+                <li>Train team on new dashboard and workflows</li>
+            </ul>
+        </div>
+
+        <div class="migration-step">
+            <div class="step-header">
+                <div class="step-number">6</div>
+                <div class="step-title">Complete Migration</div>
+                <div class="step-time">~1 hour</div>
+            </div>
+            <p>Finalize the transition:</p>
+            <ul>
+                <li>Remove WhyLabs SDK and configuration</li>
+                <li>Update documentation and runbooks</li>
+                <li>Verify all alerts and monitors are active</li>
+                <li>Archive exported WhyLabs data</li>
+            </ul>
+        </div>
+
+        <h2 id="code-migration">Code Migration Examples</h2>
+
+        <p>Here are side-by-side examples showing how to migrate common WhyLabs patterns:</p>
+
+        <h3>Basic Data Logging</h3>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">Before: WhyLabs with whylogs</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">import</span> whylogs <span class="keyword">as</span> why
+<span class="keyword">from</span> whylogs.api.writer.whylabs <span class="keyword">import</span> WhyLabsWriter
+
+<span class="comment"># Configure WhyLabs</span>
+why.init(
+    org_id=<span class="string">"org-xxxxx"</span>,
+    api_key=<span class="string">"xxxxx.xxxxx:xxxxx"</span>,
+    default_dataset_id=<span class="string">"model-1"</span>
+)
+
+<span class="comment"># Log data profile</span>
+result = why.log(df)
+result.writer(<span class="string">"whylabs"</span>).write()
+
+<span class="comment"># Log with tags</span>
+result = why.log(df, name=<span class="string">"predictions"</span>)
+result.writer(<span class="string">"whylabs"</span>).write()</pre>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">After: Integrity Studio</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient
+
+<span class="comment"># Configure Integrity Studio</span>
+client = IntegrityClient(
+    api_key=<span class="string">"is_xxxxx"</span>,
+    project_id=<span class="string">"model-1"</span>
+)
+
+<span class="comment"># Log data profile</span>
+client.log_dataframe(df)
+
+<span class="comment"># Log with tags</span>
+client.log_dataframe(
+    df,
+    name=<span class="string">"predictions"</span>,
+    tags={<span class="string">"environment"</span>: <span class="string">"production"</span>}
+)</pre>
+        </div>
+
+        <h3>LLM Monitoring (LangKit Replacement)</h3>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">Before: WhyLabs LangKit</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">from</span> langkit <span class="keyword">import</span> llm_metrics
+<span class="keyword">import</span> whylogs <span class="keyword">as</span> why
+
+<span class="comment"># Initialize LangKit schema</span>
+schema = llm_metrics.init()
+
+<span class="comment"># Log LLM interaction</span>
+result = why.log(
+    {
+        <span class="string">"prompt"</span>: user_input,
+        <span class="string">"response"</span>: llm_output
+    },
+    schema=schema
+)
+result.writer(<span class="string">"whylabs"</span>).write()</pre>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">After: Integrity Studio</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient
+
+client = IntegrityClient(api_key=<span class="string">"is_xxxxx"</span>)
+
+<span class="comment"># Log LLM interaction with automatic metrics</span>
+client.log_llm_interaction(
+    prompt=user_input,
+    response=llm_output,
+    model=<span class="string">"gpt-4"</span>,
+    <span class="comment"># Automatic extraction of:</span>
+    <span class="comment"># - Token counts</span>
+    <span class="comment"># - Toxicity scores</span>
+    <span class="comment"># - Prompt injection detection</span>
+    <span class="comment"># - Hallucination indicators</span>
+)
+
+<span class="comment"># With EU AI Act compliance logging</span>
+client.log_llm_interaction(
+    prompt=user_input,
+    response=llm_output,
+    model=<span class="string">"gpt-4"</span>,
+    compliance_mode=<span class="keyword">True</span>,  <span class="comment"># Enables Article 12 logging</span>
+    session_id=session_id,
+    user_id=<span class="string">"hashed_user_123"</span>  <span class="comment"># For human oversight tracking</span>
+)</pre>
+        </div>
+
+        <h3>Drift Monitoring</h3>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">Before: WhyLabs Drift Detection</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">from</span> whylogs.core.constraints <span class="keyword">import</span> Constraints
+<span class="keyword">from</span> whylogs.core.constraints.factories <span class="keyword">import</span> (
+    greater_than_number,
+    column_drift_less_than
+)
+
+<span class="comment"># Set up drift constraints</span>
+constraints = Constraints(
+    column_drift_less_than(
+        column_name=<span class="string">"feature_1"</span>,
+        threshold=<span class="number">0.1</span>
+    )
+)
+
+<span class="comment"># Apply and check</span>
+result = why.log(df)
+report = constraints.generate_constraints_report(result.view())</pre>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">After: Integrity Studio</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient
+<span class="keyword">from</span> integrity_studio.monitors <span class="keyword">import</span> DriftMonitor
+
+client = IntegrityClient(api_key=<span class="string">"is_xxxxx"</span>)
+
+<span class="comment"># Create drift monitor</span>
+monitor = DriftMonitor(
+    name=<span class="string">"feature_drift"</span>,
+    columns=[<span class="string">"feature_1"</span>, <span class="string">"feature_2"</span>],
+    threshold=<span class="number">0.1</span>,
+    method=<span class="string">"psi"</span>,  <span class="comment"># or "ks", "chi2", "jensen_shannon"</span>
+    alert_channels=[<span class="string">"slack"</span>, <span class="string">"email"</span>]
+)
+
+<span class="comment"># Register monitor</span>
+client.register_monitor(monitor)
+
+<span class="comment"># Log data (drift checked automatically)</span>
+client.log_dataframe(df)
+
+<span class="comment"># Or check drift manually</span>
+drift_report = client.check_drift(
+    baseline=training_df,
+    current=production_df
+)</pre>
+        </div>
+
+        <h3>TypeScript/JavaScript SDK</h3>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">Integrity Studio TypeScript SDK</span>
+                <span class="code-block-lang">TypeScript</span>
+            </div>
+<pre><span class="keyword">import</span> { IntegrityClient } <span class="keyword">from</span> <span class="string">'@integrity-studio/sdk'</span>;
+
+<span class="keyword">const</span> client = <span class="keyword">new</span> IntegrityClient({
+  apiKey: process.env.INTEGRITY_API_KEY,
+  projectId: <span class="string">'my-llm-app'</span>,
+});
+
+<span class="comment">// Log LLM interaction</span>
+<span class="keyword">await</span> client.logLLMInteraction({
+  prompt: userMessage,
+  response: assistantResponse,
+  model: <span class="string">'gpt-4'</span>,
+  provider: <span class="string">'openai'</span>,
+  latencyMs: responseTime,
+  tokenUsage: {
+    prompt: promptTokens,
+    completion: completionTokens,
+  },
+  metadata: {
+    conversationId,
+    userId: hashedUserId,
+  },
+});
+
+<span class="comment">// With compliance mode for EU AI Act</span>
+<span class="keyword">await</span> client.logLLMInteraction({
+  <span class="comment">// ... same as above</span>
+  complianceMode: <span class="keyword">true</span>,
+  sessionId: sessionId,
+  humanOversight: {
+    verifierId: <span class="string">'reviewer-123'</span>,
+    action: <span class="string">'approved'</span>,
+  },
+});</pre>
+        </div>
+
+        <h2 id="data-export">Exporting Your WhyLabs Data</h2>
+
+        <p>Before WhyLabs access ends on March 9, 2025, export your data:</p>
+
+        <h3>What to Export</h3>
+
+        <ul>
+            <li><strong>Data Profiles:</strong> Historical profile data for trend analysis</li>
+            <li><strong>Alert Configurations:</strong> Your threshold and notification settings</li>
+            <li><strong>Custom Metrics:</strong> Any custom metric definitions</li>
+            <li><strong>Dashboard Configurations:</strong> Layout and visualization preferences</li>
+            <li><strong>API Keys and Org Settings:</strong> For reference during migration</li>
+        </ul>
+
+        <h3>Export Using WhyLabs API</h3>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">export_whylabs_data.py</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">import</span> requests
+<span class="keyword">import</span> json
+<span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timedelta
+
+WHYLABS_API_KEY = <span class="string">"your-api-key"</span>
+ORG_ID = <span class="string">"org-xxxxx"</span>
+DATASET_ID = <span class="string">"model-1"</span>
+
+headers = {
+    <span class="string">"X-API-Key"</span>: WHYLABS_API_KEY,
+    <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>
+}
+
+<span class="comment"># Export profile data for last 90 days</span>
+end_time = datetime.utcnow()
+start_time = end_time - timedelta(days=<span class="number">90</span>)
+
+response = requests.get(
+    f<span class="string">"https://api.whylabsapp.com/v0/organizations/{ORG_ID}"</span>
+    f<span class="string">"/models/{DATASET_ID}/profiles"</span>,
+    headers=headers,
+    params={
+        <span class="string">"startTime"</span>: start_time.isoformat(),
+        <span class="string">"endTime"</span>: end_time.isoformat()
+    }
+)
+
+<span class="comment"># Save to file</span>
+<span class="keyword">with</span> <span class="function">open</span>(<span class="string">"whylabs_export.json"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:
+    json.dump(response.json(), f, indent=<span class="number">2</span>)
+
+<span class="function">print</span>(f<span class="string">"Exported {len(response.json())} profiles"</span>)</pre>
+        </div>
+
+        <div class="alert-box info">
+            <div class="alert-box-title">Need Help Exporting?</div>
+            <p style="margin-bottom: 0;">Contact our migration team at <a href="mailto:support@integritystudio.ai">support@integritystudio.ai</a> for assistance with data export and import. We can help convert WhyLabs profile formats to Integrity Studio format.</p>
+        </div>
+
+        <h2 id="faqs">Frequently Asked Questions</h2>
+
+        <h3>Can I keep using whylogs with Integrity Studio?</h3>
+
+        <p>Yes! whylogs remains open source and actively maintained. Integrity Studio can ingest whylogs profiles directly, so you can keep your existing data logging code and only change where profiles are sent.</p>
+
+        <h3>What about LangKit?</h3>
+
+        <p>LangKit also remains open source. However, Integrity Studio includes equivalent (and enhanced) LLM metrics built-in, so you may not need LangKit at all. If you prefer LangKit's specific metrics, you can use both together.</p>
+
+        <h3>Is there a free tier for WhyLabs refugees?</h3>
+
+        <p>Yes. We're offering an extended free trial (60 days vs standard 14 days) for teams migrating from WhyLabs. Contact us with your WhyLabs organization ID for verification.</p>
+
+        <h3>How long does migration typically take?</h3>
+
+        <p>For most teams, the full migration takes 1-2 weeks:</p>
+        <ul>
+            <li>Day 1: Export data, create account, install SDK</li>
+            <li>Days 2-3: Update integration code</li>
+            <li>Days 4-5: Configure monitors and alerts</li>
+            <li>Days 6-14: Run parallel monitoring, validate, train team</li>
+        </ul>
+
+        <h3>What if I need features WhyLabs had that you don't?</h3>
+
+        <p>Let us know! Our roadmap is responsive to customer needs. If there's a WhyLabs feature critical to your workflow that we don't currently offer, we want to hear about it. Email <a href="mailto:product@integritystudio.ai">product@integritystudio.ai</a>.</p>
+
+        <h3>Can you help with the migration?</h3>
+
+        <p>Absolutely. For Enterprise customers, we offer white-glove migration assistance including:</p>
+        <ul>
+            <li>Dedicated migration engineer</li>
+            <li>Code review and migration PR</li>
+            <li>Parallel monitoring setup</li>
+            <li>Team training sessions</li>
+        </ul>
+
+        <div class="cta-section">
+            <h3>Ready to Migrate?</h3>
+            <p>Start your free trial today and get 60 days to complete your migration from WhyLabs. Our team is standing by to help.</p>
+            <div class="cta-buttons">
+                <a href="/" class="cta-button primary">Start Free Trial</a>
+                <a href="/contact" class="cta-button secondary">Talk to Sales</a>
+            </div>
+        </div>
+
+        <h2>Additional Resources</h2>
+
+        <ul>
+            <li><a href="/blog/eu-ai-act-compliance-logging-setup">Setting Up Compliance Logging for EU AI Act</a></li>
+            <li><a href="/resources/eu-ai-act-compliance-checklist">EU AI Act Compliance Checklist</a></li>
+            <li><a href="/blog/best-llm-monitoring-tools-2025">Best LLM Monitoring Tools (2025 Guide)</a></li>
+            <li><a href="https://github.com/whylabs/whylogs" target="_blank">whylogs GitHub Repository</a></li>
+            <li><a href="https://github.com/whylabs/whylabs-oss" target="_blank">WhyLabs Platform OSS Repository</a></li>
+        </ul>
+
+        <h3>Sources</h3>
+        <ul>
+            <li><a href="https://docs.whylabs.ai/docs/open-source-project/" target="_blank">WhyLabs AI Control Center Open Source Project Documentation</a></li>
+            <li><a href="https://github.com/whylabs/whylabs-oss" target="_blank">WhyLabs OSS GitHub Repository</a></li>
+            <li><a href="https://whylabs.ai/observability" target="_blank">WhyLabs AI Observability Platform</a></li>
+            <li><a href="https://docs.whylabs.ai/docs/large-language-model-monitoring/" target="_blank">WhyLabs LLM Monitoring Documentation</a></li>
+        </ul>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <span>&copy; 2025 Integrity Studio. All rights reserved.</span>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/blog">Blog</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

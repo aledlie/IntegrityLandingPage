@@ -221,7 +221,7 @@ This document consolidates content strategy recommendations from the December 20
 - [ ] AI Observability for Healthcare: Compliance Guide
 - [ ] Financial Services AI Monitoring Best Practices
 - [ ] Case Study: [Customer] Reduces LLM Costs by 40%
-- [ ] Migrating from WhyLabs to Integrity Studio
+- [x] Migrating from WhyLabs to Integrity Studio ✓ Published 2025-12-26
 - [ ] AI Observability Trends: 2025 Predictions
 
 ---
