@@ -787,6 +787,7 @@
             <li>No built-in dashboards or alerting</li>
             <li>Significant development effort required</li>
             <li>Must build or buy monitoring UI</li>
+            <li>Community-maintained: security patches may be slower than commercial support</li>
         </ul>
 
         <h2 id="feature-comparison">Feature Comparison: WhyLabs vs Integrity Studio</h2>
@@ -920,7 +921,7 @@
                     <tr>
                         <td>Audit trails</td>
                         <td class="status-yes">Yes</td>
-                        <td>Hash-chained, tamper-evident logs</td>
+                        <td>Hash-chained logs with SHA-256 linking (<a href="/docs/security/audit-trails">details</a>)</td>
                     </tr>
                 </tbody>
             </table>
@@ -1481,6 +1482,8 @@ os.chmod(output_file, <span class="number">0o600</span>)  <span class="comment">
             <li>Days 4-5: Configure monitors and alerts</li>
             <li>Days 6-14: Run parallel monitoring, validate, train team</li>
         </ul>
+
+        <p><strong>Note for enterprise teams:</strong> Complex integrations with multiple models, custom metrics, CI/CD pipelines, or multi-region deployments may require 3-4 weeks. Contact our team for a migration assessment.</p>
 
         <h3>What if I need features WhyLabs had that you don't?</h3>
 
