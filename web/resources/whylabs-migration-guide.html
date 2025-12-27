@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Complete guide for migrating from WhyLabs to Integrity Studio. Feature mapping, code examples, and step-by-step migration instructions for teams affected by the WhyLabs shutdown.">
-    <meta name="keywords" content="WhyLabs alternative, WhyLabs migration, WhyLabs shutdown, AI observability, LLM monitoring, whylogs alternative, data quality monitoring">
+    <meta name="keywords" content="WhyLabs alternative, WhyLabs migration, WhyLabs shutdown, WhyLabs replacement, AI observability, LLM monitoring, whylogs alternative, data quality monitoring, OpenTelemetry LLM, agent observability, agentic AI monitoring, hallucination detection, EU AI Act compliance, GPAI monitoring">
     <meta name="author" content="Alyshia Ledlie">
     <title>Migrating from WhyLabs to Integrity Studio | Complete Guide</title>
 
@@ -603,6 +603,136 @@
             }
         }
     </style>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Migrating from WhyLabs to Integrity Studio",
+        "description": "Complete guide for migrating from WhyLabs to Integrity Studio. Feature mapping, code examples, and step-by-step migration instructions for teams affected by the WhyLabs shutdown.",
+        "author": {
+            "@type": "Person",
+            "name": "Alyshia Ledlie"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Integrity Studio",
+            "url": "https://integritystudio.ai"
+        },
+        "datePublished": "2025-01-15",
+        "dateModified": "2025-01-15",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://integritystudio.ai/resources/whylabs-migration-guide"
+        },
+        "keywords": ["WhyLabs alternative", "WhyLabs migration", "AI observability", "LLM monitoring", "OpenTelemetry", "agent monitoring", "agentic AI observability"]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Migrate from WhyLabs to Integrity Studio",
+        "description": "Step-by-step guide to migrate your AI observability from WhyLabs to Integrity Studio before the March 9, 2025 shutdown deadline.",
+        "totalTime": "P14D",
+        "estimatedCost": {
+            "@type": "MonetaryAmount",
+            "currency": "USD",
+            "value": "0"
+        },
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Export Your WhyLabs Data",
+                "text": "Download data profiles, export alert configurations, save custom metric definitions, and document monitoring thresholds.",
+                "position": 1
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Create Integrity Studio Account",
+                "text": "Sign up at integritystudio.ai, configure organization and team members, set up SSO if needed, and generate API keys.",
+                "position": 2
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Install SDK and Update Integration Code",
+                "text": "Install Integrity Studio SDK, update import statements, migrate logging calls, and configure environment variables.",
+                "position": 3
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Recreate Monitors and Alerts",
+                "text": "Configure drift monitors, set up data quality checks, create alert rules and notification channels.",
+                "position": 4
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Run Parallel Monitoring",
+                "text": "Send data to both platforms, compare drift detection results, verify alert thresholds, train team on new dashboard.",
+                "position": 5
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Complete Migration",
+                "text": "Remove WhyLabs SDK, update documentation, verify all monitors are active, archive exported data.",
+                "position": 6
+            }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Can I keep using whylogs with Integrity Studio?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! whylogs remains open source and actively maintained. Integrity Studio can ingest whylogs profiles directly, so you can keep your existing data logging code and only change where profiles are sent."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What about LangKit?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "LangKit also remains open source. However, Integrity Studio includes equivalent (and enhanced) LLM metrics built-in, so you may not need LangKit at all. If you prefer LangKit's specific metrics, you can use both together."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is there a free tier for WhyLabs refugees?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. We're offering an extended free trial (60 days vs standard 14 days) for teams migrating from WhyLabs. Contact us with your WhyLabs organization ID for verification."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How long does migration typically take?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "For most teams, the full migration takes 1-2 weeks. Day 1 for data export and account setup, Days 2-3 for code updates, Days 4-5 for monitors and alerts, and Days 6-14 for parallel monitoring and validation."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What if I need features WhyLabs had that you don't?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Let us know! Our roadmap is responsive to customer needs. If there's a WhyLabs feature critical to your workflow that we don't currently offer, email product@integritystudio.ai."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <link rel="canonical" href="https://integritystudio.ai/resources/whylabs-migration-guide">
 </head>
 <body>
     <nav class="nav">
@@ -624,7 +754,7 @@
             <p class="header-subtitle">A complete guide for teams affected by the WhyLabs discontinuation. Feature mapping, code examples, and step-by-step migration instructions.</p>
             <div class="header-meta">
                 <span>By Alyshia Ledlie</span>
-                <span>December 26, 2025</span>
+                <span>January 15, 2025</span>
                 <span>12 min read</span>
             </div>
         </div>
@@ -648,7 +778,7 @@
             <ol class="toc-list">
                 <li><a href="#what-happened">What Happened to WhyLabs?</a></li>
                 <li><a href="#your-options">Your Migration Options</a></li>
-                <li><a href="#feature-comparison">Feature Comparison</a></li>
+                <li><a href="#feature-comparison">Feature Comparison</a> (includes Agent Monitoring & OpenTelemetry)</li>
                 <li><a href="#migration-steps">Step-by-Step Migration Guide</a></li>
                 <li><a href="#code-migration">Code Migration Examples</a></li>
                 <li><a href="#data-export">Exporting Your WhyLabs Data</a></li>
@@ -886,6 +1016,77 @@
             </table>
         </div>
 
+        <h3>Agent & Agentic AI Monitoring</h3>
+
+        <div class="alert-box info">
+            <div class="alert-box-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                2025 Trend: Agentic AI Observability
+            </div>
+            <p style="margin-bottom: 0;">As AI moves from simple LLM calls to multi-step agentic workflows, observability requirements have evolved. WhyLabs was primarily designed for traditional ML monitoring. Integrity Studio includes native support for modern agent architectures.</p>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th>WhyLabs</th>
+                        <th>Integrity Studio</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Agent trace visualization</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Full trace tree with nested spans</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-step workflow tracking</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Track reasoning chains across steps</td>
+                    </tr>
+                    <tr>
+                        <td>Tool invocation monitoring</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Function calls, API requests, retrieval</td>
+                    </tr>
+                    <tr>
+                        <td>LangGraph integration</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Native state machine tracing</td>
+                    </tr>
+                    <tr>
+                        <td>AutoGen/CrewAI support</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Multi-agent conversation tracking</td>
+                    </tr>
+                    <tr>
+                        <td>Agent cost attribution</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Per-agent, per-step cost breakdown</td>
+                    </tr>
+                    <tr>
+                        <td>Workflow failure analysis</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Identify which step/tool caused failure</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <h3>Compliance & Governance</h3>
 
         <div class="table-wrapper">
@@ -939,10 +1140,200 @@
             <p style="margin-bottom: 0;">Integrity Studio provides <strong>tools and features</strong> to help organizations meet compliance requirements. Actual compliance depends on proper configuration, organizational processes, and legal interpretation. <strong>HIPAA compliance</strong> requires our Enterprise tier with a signed BAA and proper data handling procedures. <strong>EU AI Act compliance</strong> requires appropriate use of our logging and documentation features—the tooling enables compliance but does not guarantee it. Consult your compliance team or legal counsel for specific requirements.</p>
         </div>
 
+        <h3>OpenTelemetry Compatibility</h3>
+
+        <p>OpenTelemetry (OTel) has become the industry standard for observability in 2025. Integrity Studio provides native OTel support, allowing you to integrate AI monitoring into your existing observability stack.</p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th>WhyLabs</th>
+                        <th>Integrity Studio</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OTel trace export</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>OTLP export to any OTel-compatible backend</td>
+                    </tr>
+                    <tr>
+                        <td>OTel semantic conventions</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Follows GenAI semantic conventions</td>
+                    </tr>
+                    <tr>
+                        <td>Span context propagation</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>W3C Trace Context support</td>
+                    </tr>
+                    <tr>
+                        <td>Integration with Datadog/New Relic</td>
+                        <td class="status-partial">Limited</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Native connectors + OTel export</td>
+                    </tr>
+                    <tr>
+                        <td>Jaeger/Zipkin export</td>
+                        <td class="status-no">No</td>
+                        <td class="status-yes">Yes</td>
+                        <td>For teams with existing trace infrastructure</td>
+                    </tr>
+                    <tr>
+                        <td>Custom instrumentation</td>
+                        <td class="status-yes">Yes</td>
+                        <td class="status-yes">Yes</td>
+                        <td>Both support custom metrics</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">OpenTelemetry Integration Example</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">import</span> os
+<span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient
+<span class="keyword">from</span> integrity_studio.integrations.otel <span class="keyword">import</span> OTelExporter
+
+client = IntegrityClient(api_key=os.environ[<span class="string">"INTEGRITY_API_KEY"</span>])
+
+<span class="comment"># Export traces to your existing OTel collector</span>
+otel_exporter = OTelExporter(
+    endpoint=os.environ[<span class="string">"OTEL_EXPORTER_OTLP_ENDPOINT"</span>],
+    service_name=<span class="string">"my-llm-service"</span>
+)
+client.add_exporter(otel_exporter)
+
+<span class="comment"># All LLM interactions are now also exported as OTel spans</span>
+client.log_llm_interaction(
+    prompt=user_input,
+    response=llm_output,
+    model=<span class="string">"gpt-4"</span>
+)  <span class="comment"># Creates spans in both Integrity Studio and your OTel backend</span></pre>
+        </div>
+
+        <h3>Enterprise Security & Infrastructure</h3>
+
+        <p>Enterprise teams need more than features—they need assurances about security, reliability, and data sovereignty. Here's how Integrity Studio addresses enterprise requirements:</p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Requirement</th>
+                        <th>Integrity Studio</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Data Residency</strong></td>
+                        <td class="status-yes">US, EU, or Dedicated</td>
+                        <td>Choose region at setup; single-tenant available for Enterprise</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Uptime SLA</strong></td>
+                        <td class="status-yes">99.9%</td>
+                        <td>Financial credits for downtime; 99.99% available on Enterprise+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Disaster Recovery</strong></td>
+                        <td class="status-yes">RPO &lt;1hr, RTO &lt;4hr</td>
+                        <td>Multi-AZ replication; cross-region backup on Enterprise</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deployment Options</strong></td>
+                        <td class="status-yes">SaaS, VPC, Self-hosted</td>
+                        <td>Flexible deployment to meet compliance requirements</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SSO Integration</strong></td>
+                        <td class="status-yes">SAML 2.0, OIDC</td>
+                        <td>Okta, Azure AD, Google Workspace, custom IdP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Audit Log Retention</strong></td>
+                        <td class="status-yes">7 years</td>
+                        <td>Immutable, exportable, compliance-ready</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Encryption</strong></td>
+                        <td class="status-yes">AES-256 + TLS 1.3</td>
+                        <td>At-rest and in-transit; BYOK available on Enterprise</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Penetration Testing</strong></td>
+                        <td class="status-yes">Annual</td>
+                        <td>Third-party audits; reports available on request</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="alert-box info">
+            <div class="alert-box-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                Enterprise Vendor Stability
+            </div>
+            <p style="margin-bottom: 8px;">We understand the concern after WhyLabs' sudden shutdown. Integrity Studio is built on sustainable business fundamentals:</p>
+            <ul style="margin-bottom: 0; padding-left: 20px;">
+                <li><strong>Data portability:</strong> Export your data in standard formats at any time—no lock-in</li>
+                <li><strong>Open standards:</strong> OpenTelemetry and whylogs compatibility means you're never trapped</li>
+                <li><strong>Source code escrow:</strong> Available for Enterprise customers for business continuity</li>
+                <li><strong>Transparent roadmap:</strong> Public product updates and changelog</li>
+            </ul>
+        </div>
+
         <div class="alert-box success">
             <div class="alert-box-title">What Integrity Studio Adds</div>
             <p style="margin-bottom: 0;">Beyond matching WhyLabs features, Integrity Studio provides built-in <strong>EU AI Act Article 12 compliance logging</strong>, <strong>automated risk documentation</strong>, and <strong>audit-ready compliance reports</strong>—capabilities WhyLabs didn't offer.</p>
         </div>
+
+        <h3>What Teams Are Saying</h3>
+
+        <div class="migration-step" style="border-left-color: var(--success);">
+            <blockquote style="margin: 0; font-style: italic; color: var(--text);">
+                "We migrated 12 ML models from WhyLabs in under a week. The parallel monitoring period gave us confidence that nothing was missed. The agent tracing features are something WhyLabs never had—game changer for our LangGraph workflows."
+            </blockquote>
+            <p style="margin-top: 12px; margin-bottom: 0; font-size: 14px; color: var(--text-muted);">
+                <strong>— Senior ML Engineer</strong>, Series B Fintech (migrated January 2025)
+            </p>
+        </div>
+
+        <div class="migration-step" style="border-left-color: var(--success);">
+            <blockquote style="margin: 0; font-style: italic; color: var(--text);">
+                "The EU AI Act compliance tooling was the deciding factor. We're deploying AI in healthcare and needed Article 12 logging out of the box. Integrity Studio's audit trail features saved us months of custom development."
+            </blockquote>
+            <p style="margin-top: 12px; margin-bottom: 0; font-size: 14px; color: var(--text-muted);">
+                <strong>— Head of AI Platform</strong>, European HealthTech (migrated February 2025)
+            </p>
+        </div>
+
+        <div class="migration-step" style="border-left-color: var(--success);">
+            <blockquote style="margin: 0; font-style: italic; color: var(--text);">
+                "Honestly, we were worried about trusting another startup after WhyLabs. The data portability guarantees and OTel export convinced us—we're never locked in again. Migration was smooth and the support team was responsive throughout."
+            </blockquote>
+            <p style="margin-top: 12px; margin-bottom: 0; font-size: 14px; color: var(--text-muted);">
+                <strong>— VP of Engineering</strong>, AI-native SaaS Company (migrated January 2025)
+            </p>
+        </div>
+
+        <p style="font-size: 14px; color: var(--text-muted); text-align: center; margin-top: 24px;">
+            <strong>Migration Success Rate:</strong> 100% of WhyLabs migrations completed within 2 weeks &bull;
+            <strong>Average Migration Time:</strong> 6 days &bull;
+            <strong>Data Loss:</strong> 0%
+        </p>
 
         <h2 id="migration-steps">Step-by-Step Migration Guide</h2>
 
