@@ -22,6 +22,36 @@ class BlogPage extends StatelessWidget {
 
   static const List<BlogPost> _posts = [
     BlogPost(
+      title: 'Setting Up Compliance Logging for EU AI Act',
+      subtitle: 'Technical Guide to Article 12-Compliant Logging',
+      description: 'A practical guide to implementing Article 12-compliant logging for LLM systems, with code examples and production-ready patterns. Covers ISO 24970 standards, data schemas, and implementation for high-risk AI compliance.',
+      date: 'December 26, 2024',
+      readTime: '15 min read',
+      category: 'Compliance',
+      url: '/blog/eu-ai-act-compliance-logging-setup.html',
+      isSeries: false,
+      stats: [
+        'August 2026 deadline',
+        'ISO 24970 aligned',
+        'Production code',
+      ],
+    ),
+    BlogPost(
+      title: 'Best LLM Monitoring Tools (2025 Guide)',
+      subtitle: 'We Tested 11 Platforms So You Don\'t Have To',
+      description: 'The definitive guide to LLM monitoring and observability tools. Includes pricing, features, and honest recommendations for startups to enterprises. Covers Langfuse, LangSmith, Helicone, Arize, Datadog, and more.',
+      date: 'December 2025',
+      readTime: '18 min read',
+      category: 'Guide',
+      url: '/blog/best-llm-monitoring-tools-2025.html',
+      isSeries: false,
+      stats: [
+        '11 tools compared',
+        '\$1.97B market 2025',
+        'Startup to Enterprise',
+      ],
+    ),
+    BlogPost(
       title: 'End-to-End Agentic Observability: From Chaos to Control',
       subtitle: 'A Practical Guide to the 4-Stage Observability Lifecycle',
       description: 'Your AI agent just autonomously decided to email your entire customer database at 3 AM. With a coupon code that doesn\'t exist. In French. Learn the Build, Test, Monitor, Analyze lifecycle that keeps agents reliable and compliant.',

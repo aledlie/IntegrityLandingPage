@@ -3,16 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Technical guide to implementing EU AI Act Article 12 compliant logging for LLM systems. Includes code examples, data schemas, and implementation patterns for high-risk AI compliance.">
-    <meta name="keywords" content="EU AI Act, Article 12, compliance logging, LLM traceability, AI observability, high-risk AI systems, record-keeping, ISO 24970">
+    <meta name="description" content="Complete EU AI Act compliance logging guide: Article 12 implementation with Python/TypeScript code, JSON schemas, hash chains, and production-ready patterns for high-risk AI.">
+    <meta name="keywords" content="EU AI Act compliance logging, Article 12 AI Act, AI compliance implementation, LLM traceability, high-risk AI systems, record-keeping requirements, ISO 24970, compliance monitoring">
     <meta name="author" content="Alyshia Ledlie">
-    <title>Setting Up Compliance Logging for EU AI Act | Integrity Studio</title>
+    <title>EU AI Act Compliance Logging Setup: Article 12 Implementation</title>
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Setting Up Compliance Logging for EU AI Act">
-    <meta property="og:description" content="Technical guide to implementing Article 12 compliant logging for LLM systems. Code examples and implementation patterns included.">
+    <meta property="og:title" content="EU AI Act Compliance Logging: Article 12 Implementation Guide">
+    <meta property="og:description" content="Production-ready EU AI Act Article 12 compliance logging with Python/TypeScript examples, hash chains, and audit trails for high-risk AI systems.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup">
+    <meta property="og:image" content="https://integritystudio.ai/images/eu-ai-act-compliance-logging.png">
+    <meta property="article:published_time" content="2025-12-26T00:00:00Z">
+    <meta property="article:modified_time" content="2025-12-26T00:00:00Z">
+    <meta property="article:author" content="Alyshia Ledlie">
+    <meta property="article:section" content="AI Compliance">
+    <meta property="article:tag" content="EU AI Act">
+    <meta property="article:tag" content="Article 12">
+    <meta property="article:tag" content="Compliance Logging">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="EU AI Act Compliance Logging: Article 12 Implementation">
+    <meta name="twitter:description" content="Step-by-step guide to implementing EU AI Act Article 12 compliant logging with code examples for Python and TypeScript.">
+    <meta name="twitter:image" content="https://integritystudio.ai/images/eu-ai-act-compliance-logging.png">
 
     <style>
         :root {
@@ -263,6 +277,22 @@
             color: var(--secondary);
         }
 
+        /* Figure and Caption */
+        figure {
+            margin: 24px 0;
+        }
+
+        figcaption {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: var(--surface);
+            border-left: 3px solid var(--accent);
+            font-size: 14px;
+            color: var(--text-muted);
+            font-style: italic;
+            border-radius: 0 4px 4px 0;
+        }
+
         /* Syntax Highlighting */
         .keyword { color: #c792ea; }
         .string { color: #c3e88d; }
@@ -473,6 +503,322 @@
             }
         }
     </style>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Setting Up Compliance Logging for EU AI Act Article 12",
+      "alternativeHeadline": "Production-Ready Guide to EU AI Act Article 12 Compliance Logging Implementation",
+      "description": "Complete technical guide to implementing EU AI Act Article 12 compliant logging for LLM systems. Includes Python and TypeScript code examples, JSON schemas, hash chains, storage architecture, and testing patterns for high-risk AI compliance.",
+      "image": "https://integritystudio.ai/images/eu-ai-act-compliance-logging.png",
+      "author": {
+        "@type": "Person",
+        "name": "Alyshia Ledlie",
+        "url": "https://integritystudio.ai/about"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Integrity Studio",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/images/logo.png"
+        },
+        "url": "https://integritystudio.ai"
+      },
+      "datePublished": "2025-12-26T00:00:00Z",
+      "dateModified": "2025-12-26T00:00:00Z",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup"
+      },
+      "articleSection": "AI Compliance",
+      "keywords": [
+        "EU AI Act compliance logging",
+        "Article 12 AI Act",
+        "AI compliance implementation",
+        "LLM traceability",
+        "high-risk AI systems",
+        "record-keeping requirements",
+        "ISO 24970",
+        "compliance monitoring",
+        "AI observability",
+        "audit trails"
+      ],
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "EU AI Act",
+          "description": "European Union regulation on artificial intelligence"
+        },
+        {
+          "@type": "Thing",
+          "name": "Article 12",
+          "description": "Record-keeping requirements for high-risk AI systems"
+        },
+        {
+          "@type": "Thing",
+          "name": "Compliance Logging",
+          "description": "Automatic event recording for regulatory compliance"
+        }
+      ],
+      "proficiencyLevel": "Expert",
+      "dependencies": "Python 3.8+, Node.js 18+, TypeScript 4.5+",
+      "timeRequired": "PT45M"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Implement EU AI Act Article 12 Compliance Logging",
+      "description": "Step-by-step implementation guide for EU AI Act Article 12 compliant logging with code examples for Python and TypeScript applications.",
+      "image": "https://integritystudio.ai/images/eu-ai-act-compliance-logging.png",
+      "totalTime": "PT45M",
+      "estimatedCost": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": "0"
+      },
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "Python 3.8 or higher"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "Node.js 18 or higher"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "TypeScript 4.5 or higher"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "JSON Schema validator"
+        }
+      ],
+      "supply": [
+        {
+          "@type": "HowToSupply",
+          "name": "Log storage backend (PostgreSQL, MongoDB, or S3)"
+        },
+        {
+          "@type": "HowToSupply",
+          "name": "Immutable storage for compliance logs"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Design Your Log Schema",
+          "text": "Create a JSON schema that captures all Article 12 required fields including event_id, timestamp, event_type, system_id, session data, input/output hashes, model information, human oversight records, and risk indicators.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#log-schema",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Define required fields: event_id (UUID), timestamp (ISO 8601), event_type (enum), system_id"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Add session tracking: session_id, start_time, end_time"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Include input/output data: hashes instead of raw content for privacy, token counts, content types"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Record model information: name, version, provider"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Track human oversight: verifier_id, action, timestamp"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Add risk indicators: confidence thresholds, anomaly detection, review flags"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Implement Compliance Logger (Python)",
+          "text": "Build a Python compliance logger class that automatically records all AI operations with proper traceability, including inference events, human overrides, errors, and system changes.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#python-implementation",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Create ComplianceLogEntry dataclass with all required fields"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Implement ComplianceLogger class with automatic event recording"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Add methods for log_inference, log_human_override, log_error, log_system_change"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Use SHA-256 hashing for input/output content to avoid storing PII"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Implement confidence threshold checking with automatic review flags"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Implement Compliance Logger (TypeScript)",
+          "text": "Create TypeScript/Node.js version of the compliance logger with type-safe interfaces and async storage operations for enterprise applications.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#typescript-implementation",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Define TypeScript interfaces for ComplianceLogEntry and LogStorageBackend"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Create ComplianceLogger class with async methods"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Implement logInference, logHumanOverride, logError with Promise returns"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Use crypto module for SHA-256 hashing and UUID generation"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Configure Storage and Retention",
+          "text": "Set up tiered storage architecture with hot, warm, cold, and archive tiers to manage compliance logs over system lifetime with appropriate retention policies.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#storage-retention",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Configure hot storage (0-30 days) using PostgreSQL or MongoDB for fast queries"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Set up warm storage (30-365 days) with S3 or Azure Blob for compressed JSON"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Implement cold storage (1-7+ years) using Glacier or archive tier"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Configure regulatory hold with WORM storage for legal requirements"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Set retention policies: minimum system lifetime, recommended 7-10 years"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Build Audit Trails with Hash Chains",
+          "text": "Implement hash-chained logging to create tamper-evident audit trails without blockchain complexity, ensuring log integrity for regulatory inspection.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#audit-trails",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Create HashChainedLogger class wrapping ComplianceLogger"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Add chain metadata to each log entry: previous_hash, sequence, entry_hash"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Compute deterministic SHA-256 hash of each entry"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Link entries by including previous entry hash"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Implement verify_chain method for integrity validation"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Test and Validate Compliance",
+          "text": "Write comprehensive test suite to verify Article 12 compliance including required fields, timestamp formats, risk detection, human oversight tracking, and hash integrity.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#testing-validation",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Test all required fields are present in logged events"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Verify timestamps are ISO 8601 with timezone"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Validate low confidence triggers review flags"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Test human override links to original events"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Verify input hashing provides deterministic traceability"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Run compliance checklist before production deployment"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://integritystudio.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://integritystudio.ai/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "EU AI Act Compliance Logging Setup",
+          "item": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup"
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <nav class="nav">
@@ -493,14 +839,15 @@
             <h1>Setting Up Compliance Logging for EU AI Act</h1>
             <p class="header-subtitle">A practical guide to implementing Article 12-compliant logging for LLM systems, with code examples and production-ready patterns.</p>
             <div class="header-meta">
-                <span>By Alyshia Ledlie</span>
-                <span>December 26, 2025</span>
-                <span>15 min read</span>
+                <span>By <span itemprop="author">Alyshia Ledlie</span></span>
+                <span><time datetime="2025-12-26T00:00:00Z" itemprop="datePublished">December 26, 2025</time></span>
+                <span>45 min read</span>
             </div>
         </div>
     </header>
 
     <main class="content">
+        <article itemscope itemtype="https://schema.org/TechArticle">
         <div class="toc">
             <div class="toc-title">Table of Contents</div>
             <ol class="toc-list">
@@ -524,10 +871,10 @@
 
         <p>This guide walks through exactly what you need to implement, with production-ready code examples you can adapt for your LLM applications.</p>
 
-        <div class="info-box warning">
+        <aside class="info-box warning" role="note" aria-label="Enforcement Timeline Warning">
             <div class="info-box-title">Enforcement Timeline</div>
-            <p style="margin-bottom: 0;">High-risk AI system requirements become enforceable on <strong>August 2, 2026</strong>. If your AI system falls under Annex III classifications (biometrics, critical infrastructure, employment, education, law enforcement, etc.), you need compliant logging before that date.</p>
-        </div>
+            <p style="margin-bottom: 0;">High-risk AI system requirements become enforceable on <strong><time datetime="2026-08-02">August 2, 2026</time></strong>. If your AI system falls under Annex III classifications (biometrics, critical infrastructure, employment, education, law enforcement, etc.), you need compliant logging before that date.</p>
+        </aside>
 
         <h2 id="why-compliance-logging">Why Compliance Logging Matters</h2>
 
@@ -605,12 +952,13 @@
 
         <p>Here's a battle-tested schema that satisfies Article 12 while remaining practical for LLM applications:</p>
 
-        <div class="code-block">
-            <div class="code-block-header">
-                <span class="code-block-title">compliance_log_schema.json</span>
-                <span class="code-block-lang">JSON Schema</span>
-            </div>
-<pre>{
+        <figure>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">compliance_log_schema.json</span>
+                    <span class="code-block-lang">JSON Schema</span>
+                </div>
+<pre><code>{
   <span class="string">"$schema"</span>: <span class="string">"http://json-schema.org/draft-07/schema#"</span>,
   <span class="string">"type"</span>: <span class="string">"object"</span>,
   <span class="string">"required"</span>: [<span class="string">"event_id"</span>, <span class="string">"timestamp"</span>, <span class="string">"event_type"</span>, <span class="string">"system_id"</span>],
@@ -687,8 +1035,10 @@
       <span class="string">"additionalProperties"</span>: <span class="keyword">true</span>
     }
   }
-}</pre>
-        </div>
+}</code></pre>
+            </div>
+            <figcaption>Article 12-compliant JSON schema for EU AI Act compliance logging with required fields for event tracking, session management, input/output hashes, model metadata, human oversight, and risk indicators</figcaption>
+        </figure>
 
         <h2 id="implementation">Implementation Guide</h2>
 
@@ -696,12 +1046,13 @@
 
         <p>Here's a complete compliance logging module for Python applications:</p>
 
-        <div class="code-block">
-            <div class="code-block-header">
-                <span class="code-block-title">compliance_logger.py</span>
-                <span class="code-block-lang">Python</span>
-            </div>
-<pre><span class="keyword">import</span> uuid
+        <figure>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">compliance_logger.py</span>
+                    <span class="code-block-lang">Python</span>
+                </div>
+<pre><code><span class="keyword">import</span> uuid
 <span class="keyword">import</span> hashlib
 <span class="keyword">import</span> json
 <span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timezone
@@ -929,19 +1280,22 @@
         )
 
         self.storage.write(entry)
-        <span class="keyword">return</span> entry.event_id</pre>
-        </div>
+        <span class="keyword">return</span> entry.event_id</code></pre>
+            </div>
+            <figcaption>Python ComplianceLogger class implementing EU AI Act Article 12 automatic event recording with traceability for inference, human overrides, errors, and system changes</figcaption>
+        </figure>
 
         <h3 id="typescript-implementation">TypeScript Implementation</h3>
 
         <p>For Node.js/TypeScript applications:</p>
 
-        <div class="code-block">
-            <div class="code-block-header">
-                <span class="code-block-title">complianceLogger.ts</span>
-                <span class="code-block-lang">TypeScript</span>
-            </div>
-<pre><span class="keyword">import</span> { randomUUID } <span class="keyword">from</span> <span class="string">'crypto'</span>;
+        <figure>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">complianceLogger.ts</span>
+                    <span class="code-block-lang">TypeScript</span>
+                </div>
+<pre><code><span class="keyword">import</span> { randomUUID } <span class="keyword">from</span> <span class="string">'crypto'</span>;
 <span class="keyword">import</span> { createHash } <span class="keyword">from</span> <span class="string">'crypto'</span>;
 
 <span class="keyword">enum</span> <span class="type">EventType</span> {
@@ -1156,8 +1510,10 @@
     <span class="keyword">await this</span>.storage.write(entry);
     <span class="keyword">return</span> eventId;
   }
-}</pre>
-        </div>
+}</code></pre>
+            </div>
+            <figcaption>TypeScript ComplianceLogger class with async methods for Node.js applications, providing type-safe EU AI Act Article 12 compliance logging</figcaption>
+        </figure>
 
         <h2 id="what-to-log">What to Log for Different AI Systems</h2>
 
@@ -1193,10 +1549,10 @@
             <li>Human override history</li>
         </ul>
 
-        <div class="info-box info">
+        <aside class="info-box info" role="note" aria-label="Privacy Consideration">
             <div class="info-box-title">Privacy Consideration</div>
             <p style="margin-bottom: 0;">Store <strong>hashes</strong> of input/output content rather than raw data when it may contain PII. The hash provides traceability without exposing personal data. Store raw content only when required and with appropriate access controls.</p>
-        </div>
+        </aside>
 
         <h2 id="storage-retention">Storage and Retention</h2>
 
@@ -1204,12 +1560,13 @@
 
         <h3>Recommended Storage Architecture</h3>
 
-        <div class="code-block">
-            <div class="code-block-header">
-                <span class="code-block-title">Storage Architecture</span>
-                <span class="code-block-lang">Text</span>
-            </div>
-<pre>
+        <figure>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">Storage Architecture</span>
+                    <span class="code-block-lang">Text</span>
+                </div>
+<pre><code>
 ┌─────────────────────────────────────────────────────────────┐
 │                    Compliance Logs                          │
 ├─────────────────────────────────────────────────────────────┤
@@ -1229,8 +1586,10 @@
 │  • Hash verification         │  • Tamper-evident           │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
-</pre>
-        </div>
+</code></pre>
+            </div>
+            <figcaption>Tiered storage architecture for EU AI Act compliance logs with hot, warm, cold, and archive tiers for lifetime log retention</figcaption>
+        </figure>
 
         <h3>Retention Guidelines</h3>
 
@@ -1277,12 +1636,13 @@
 
         <p>For regulators to trust your logs, they need to be tamper-evident. Here's a practical approach using hash chains:</p>
 
-        <div class="code-block">
-            <div class="code-block-header">
-                <span class="code-block-title">hash_chain.py</span>
-                <span class="code-block-lang">Python</span>
-            </div>
-<pre><span class="keyword">import</span> hashlib
+        <figure>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">hash_chain.py</span>
+                    <span class="code-block-lang">Python</span>
+                </div>
+<pre><code><span class="keyword">import</span> hashlib
 <span class="keyword">import</span> json
 <span class="keyword">from</span> typing <span class="keyword">import</span> Optional
 
@@ -1344,24 +1704,27 @@
 
             previous_hash = stored_hash
 
-        <span class="keyword">return</span> <span class="keyword">True</span></pre>
-        </div>
+        <span class="keyword">return</span> <span class="keyword">True</span></code></pre>
+            </div>
+            <figcaption>HashChainedLogger implementation for tamper-evident audit trails using SHA-256 hash chains without blockchain complexity</figcaption>
+        </figure>
 
-        <div class="info-box success">
+        <aside class="info-box success" role="note" aria-label="Why Hash Chains Matter">
             <div class="info-box-title">Why Hash Chains Matter</div>
             <p style="margin-bottom: 0;">While the EU AI Act doesn't explicitly require cryptographic logs, the combination of lifetime traceability (Article 12), cybersecurity obligations (Article 15), and forensic evidence preservation (Article 73) makes hash-chained logs the economically rational choice. They provide non-repudiation without the complexity of a full blockchain.</p>
-        </div>
+        </aside>
 
         <h2 id="testing-validation">Testing and Validation</h2>
 
         <p>Before deploying to production, validate your compliance logging:</p>
 
-        <div class="code-block">
-            <div class="code-block-header">
-                <span class="code-block-title">test_compliance_logging.py</span>
-                <span class="code-block-lang">Python</span>
-            </div>
-<pre><span class="keyword">import</span> pytest
+        <figure>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">test_compliance_logging.py</span>
+                    <span class="code-block-lang">Python</span>
+                </div>
+<pre><code><span class="keyword">import</span> pytest
 <span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timezone
 
 
@@ -1468,8 +1831,10 @@
         entry_2 = storage.get_by_id(event_id_2)
 
         <span class="comment"># Same input should produce identical hash</span>
-        <span class="keyword">assert</span> entry_1[<span class="string">"input_hash"</span>] == entry_2[<span class="string">"input_hash"</span>]</pre>
-        </div>
+        <span class="keyword">assert</span> entry_1[<span class="string">"input_hash"</span>] == entry_2[<span class="string">"input_hash"</span>]</code></pre>
+            </div>
+            <figcaption>Comprehensive test suite for validating EU AI Act Article 12 compliance including required fields, timestamp formats, risk detection, and human oversight tracking</figcaption>
+        </figure>
 
         <h3>Compliance Checklist</h3>
 
@@ -1509,13 +1874,16 @@
 
         <p>The implementation patterns shown here work for OpenAI, Anthropic, open-source models, or any LLM provider. Adapt them to your stack and ship compliant AI with confidence.</p>
 
-        <h3>Further Reading</h3>
-        <ul>
-            <li><a href="https://artificialintelligenceact.eu/article/12/" target="_blank">Article 12: Record-Keeping (Official Text)</a></li>
-            <li><a href="https://www.vde.com/topics-en/artificial-intelligence/blog/eu-ai-act--ai-system-logging" target="_blank">ISO/IEC DIS 24970:2025 Guidance (VDE)</a></li>
-            <li><a href="https://artificialintelligenceact.eu/section/3-2/" target="_blank">Section 2: Requirements for High-Risk AI Systems</a></li>
-            <li><a href="/blog/best-llm-monitoring-tools-2025">Best LLM Monitoring Tools (2025 Guide)</a></li>
-        </ul>
+        <section>
+            <h3>Further Reading</h3>
+            <ul>
+                <li><a href="https://artificialintelligenceact.eu/article/12/" target="_blank" rel="noopener">Article 12: Record-Keeping (Official Text)</a></li>
+                <li><a href="https://www.vde.com/topics-en/artificial-intelligence/blog/eu-ai-act--ai-system-logging" target="_blank" rel="noopener">ISO/IEC DIS 24970:2025 Guidance (VDE)</a></li>
+                <li><a href="https://artificialintelligenceact.eu/section/3-2/" target="_blank" rel="noopener">Section 2: Requirements for High-Risk AI Systems</a></li>
+                <li><a href="/blog/best-llm-monitoring-tools-2025">Best LLM Monitoring Tools (2025 Guide)</a></li>
+            </ul>
+        </section>
+        </article>
     </main>
 
     <footer class="footer">
