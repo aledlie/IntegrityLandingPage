@@ -73,7 +73,7 @@ abstract final class AboutContentVariants {
   static const _team = [
     TeamMemberContent(
       name: 'Chase Hoffman',
-      role: 'Co-Founder and President'
+      role: 'Co-Founder and President',
       bio:
           'Seasoned technology executive with deep expertise in scaling enterprise software companies. '
           'Focused on developing high-performance monitization systems and cost optimization that deliver exceptional customer success.',
