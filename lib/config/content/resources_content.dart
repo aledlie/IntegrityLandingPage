@@ -114,14 +114,15 @@ abstract final class ResourcesContentVariants {
       author: 'Alyshia Ledlie',
     ),
     BlogPostPreviewContent(
-      title: 'How to Reduce LLM Costs by 40%',
+      title: 'LLM Cost Calculator & Optimization Guide (2025)',
       excerpt:
-          'Discover the optimization strategies that top AI teams use to cut their LLM API '
-          'costs without sacrificing quality. From caching to model selection, learn what works.',
+          'Compare API pricing for GPT-4, Claude, Gemini, and DeepSeek. Free calculator shows '
+          'monthly costs. Learn techniques to reduce AI spending by 40-80%, from prompt caching '
+          'to model routing.',
       category: 'Cost Optimization',
-      publishDate: '2024-12-10',
-      readTime: '8 min read',
-      slug: 'reduce-llm-costs',
+      publishDate: '2025-12-27',
+      readTime: '5 min read',
+      slug: 'llm-cost-optimization-guide',
       author: 'Alyshia Ledlie',
     ),
     BlogPostPreviewContent(
@@ -152,11 +153,11 @@ abstract final class ResourcesContentVariants {
       icon: LucideIcons.calculator,
       title: 'LLM Cost Calculator',
       description:
-          'Calculate your potential savings with optimized LLM monitoring. '
-          'Input your current spend and see projected ROI from implementing observability.',
+          'Compare pricing across GPT-4, Claude, Gemini, and DeepSeek. '
+          'Calculate monthly costs and discover optimization techniques to save 40-80%.',
       format: 'Interactive Tool',
       ctaText: CTAText.calculateSavings,
-      url: '/tools/llm-cost-calculator',
+      url: '/blog/llm-cost-optimization-guide#calculator',
       requiresEmail: false,
     ),
     LeadMagnetContent(
