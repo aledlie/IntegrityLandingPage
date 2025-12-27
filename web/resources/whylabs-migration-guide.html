@@ -751,7 +751,7 @@
                     <tr>
                         <td>Arize AI</td>
                         <td>Large enterprise ML teams</td>
-                        <td>90%+ (complex setup)</td>
+                        <td>90%+ (complex setup)*</td>
                     </tr>
                     <tr>
                         <td>Fiddler AI</td>
@@ -760,11 +760,15 @@
                     </tr>
                     <tr>
                         <td>Langfuse</td>
-                        <td>LLM-only use cases (open source)</td>
-                        <td>60% (LLM focused)</td>
+                        <td>LLM-only use cases (fully open source)</td>
+                        <td>65% (LLM focused)*</td>
                     </tr>
                 </tbody>
             </table>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 12px;">
+                * <strong>Arize AI</strong> also offers <a href="https://github.com/Arize-ai/phoenix" target="_blank">Phoenix</a>, an open-source observability tool if you prefer to self-host.<br>
+                * <strong>Langfuse</strong> open-sourced all formerly commercial features (evaluations, experiments, playground) under MIT license in June 2025.
+            </p>
         </div>
 
         <h3>Option 3: Build Custom Solution with whylogs</h3>
@@ -1017,6 +1021,15 @@
                 <li>Verify alert thresholds are calibrated correctly</li>
                 <li>Train team on new dashboard and workflows</li>
             </ul>
+            <div class="alert-box warning" style="margin-top: 16px;">
+                <div class="alert-box-title">Parallel Monitoring Security</div>
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li><strong>Minimize overlap period</strong> to 1-2 weeks maximum to reduce dual API key exposure</li>
+                    <li><strong>Use separate credential stores</strong> for WhyLabs and Integrity Studio API keys</li>
+                    <li><strong>Implement feature flags</strong> to cleanly switch between platforms rather than running both indefinitely</li>
+                    <li><strong>Rotate credentials after migration</strong> - generate new Integrity Studio API keys after removing WhyLabs</li>
+                </ul>
+            </div>
         </div>
 
         <div class="migration-step">
@@ -1305,6 +1318,60 @@ drift_report = client.check_drift(
 });</pre>
         </div>
 
+        <h3>Error Handling Best Practices</h3>
+
+        <p>Always implement proper error handling to prevent monitoring failures from affecting your application:</p>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">Resilient Logging Pattern</span>
+                <span class="code-block-lang">Python</span>
+            </div>
+<pre><span class="keyword">import</span> os
+<span class="keyword">import</span> logging
+<span class="keyword">from</span> integrity_studio <span class="keyword">import</span> IntegrityClient, IntegrityAPIError
+
+logger = logging.getLogger(__name__)
+client = IntegrityClient(api_key=os.environ[<span class="string">"INTEGRITY_API_KEY"</span>])
+
+<span class="keyword">def</span> <span class="function">log_interaction_safely</span>(prompt: <span class="type">str</span>, response: <span class="type">str</span>, **kwargs):
+    <span class="string">"""Log LLM interaction without blocking the main application."""</span>
+    <span class="keyword">try</span>:
+        client.log_llm_interaction(
+            prompt=prompt,
+            response=response,
+            **kwargs
+        )
+    <span class="keyword">except</span> IntegrityAPIError <span class="keyword">as</span> e:
+        <span class="comment"># Log error but don't crash the application</span>
+        logger.error(f<span class="string">"Failed to log to Integrity Studio: {e}"</span>)
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        <span class="comment"># Catch unexpected errors to prevent monitoring from breaking production</span>
+        logger.exception(f<span class="string">"Unexpected error in monitoring: {e}"</span>)</pre>
+        </div>
+
+        <h3>SDK Installation & Dependency Security</h3>
+
+        <div class="alert-box info">
+            <div class="alert-box-title">Dependency Security Best Practices</div>
+            <ul style="margin-bottom: 0; padding-left: 20px;">
+                <li><strong>Pin SDK versions</strong> in requirements.txt or package.json for reproducible builds</li>
+                <li><strong>Scan dependencies regularly</strong> with tools like Snyk, Dependabot, or pip-audit</li>
+                <li><strong>Verify packages</strong> from official sources (PyPI, npm) before installation</li>
+                <li><strong>Review changelogs</strong> before upgrading to catch breaking changes or security fixes</li>
+            </ul>
+        </div>
+
+        <div class="code-block">
+            <div class="code-block-header">
+                <span class="code-block-title">requirements.txt</span>
+                <span class="code-block-lang">Text</span>
+            </div>
+<pre><span class="comment"># Pin versions for reproducible, secure builds</span>
+integrity-studio==1.2.3
+whylogs==1.6.4  <span class="comment"># If still using whylogs during transition</span></pre>
+        </div>
+
         <h2 id="data-export">Exporting Your WhyLabs Data</h2>
 
         <p>Before WhyLabs access ends on March 9, 2025, export your data:</p>
@@ -1445,6 +1512,7 @@ os.chmod(output_file, <span class="number">0o600</span>)  <span class="comment">
             <li><a href="/resources/eu-ai-act-compliance-checklist">EU AI Act Compliance Checklist</a></li>
             <li><a href="/blog/best-llm-monitoring-tools-2025">Best LLM Monitoring Tools (2025 Guide)</a></li>
             <li><a href="https://github.com/whylabs/whylogs" target="_blank">whylogs GitHub Repository</a></li>
+            <li><a href="https://github.com/whylabs/langkit" target="_blank">LangKit GitHub Repository</a> (LLM text metrics)</li>
             <li><a href="https://github.com/whylabs/whylabs-oss" target="_blank">WhyLabs Platform OSS Repository</a></li>
         </ul>
 
