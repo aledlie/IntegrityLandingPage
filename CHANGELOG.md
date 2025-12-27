@@ -4,6 +4,42 @@ All notable changes to the IntegrityStudio.ai Flutter project.
 
 ---
 
+## [2025-12-26] - WhyLabs Migration Guide & Team Updates
+
+### New Content Published
+
+**WhyLabs Migration Guide:**
+- Comprehensive HTML migration guide for teams affected by WhyLabs shutdown
+- Feature comparison tables (data quality, LLM monitoring, compliance)
+- Step-by-step migration instructions (6 phases)
+- Code migration examples (Python, TypeScript)
+- Data export scripts for WhyLabs API
+- FAQ section addressing common migration concerns
+- Target deadline: WhyLabs SaaS shutdown March 9, 2025
+
+**Files Added:**
+- `web/resources/whylabs-migration-guide.html`
+
+### Marketing Content
+
+**LinkedIn Post:**
+- Created LinkedIn post promoting Best LLM Monitoring Tools guide
+- Added to `marketing/linkedin-posts/2024-12-24-llm-monitoring-guide.md`
+
+### About Page Updates
+
+**Team Section:**
+- Added team members to "Meet the Team" section
+- Updated `lib/config/content/about_content.dart`
+
+### Bug Fixes
+
+**LLM Monitoring Guide:**
+- Corrected factual errors in Best LLM Monitoring Tools (2025 Guide)
+- Updated `web/blog/best-llm-monitoring-tools-2025.html`
+
+---
+
 ## [2024-12-24] - Best LLM Monitoring Tools Guide
 
 ### New Content Published
@@ -180,6 +216,7 @@ All notable changes to the IntegrityStudio.ai Flutter project.
 
 | Date | Version | Changes |
 |------|---------|---------|
+| 2025-12-26 | 1.4 | WhyLabs migration guide, team members, LinkedIn post, blog fixes |
 | 2024-12-24 | 1.3 | Brand assets (logo, favicon, og-image), legal pages, infrastructure |
 | 2024-12-24 | 1.2 | Legal compliance fixes (SOC 2, EU AI Act disclaimers, statistics citations) |
 | 2024-12-24 | 1.1 | Documentation updates, changelog consolidation |
