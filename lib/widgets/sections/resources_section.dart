@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
@@ -99,10 +101,15 @@ class ResourcesSection extends StatelessWidget {
           children: _content.documentation
               .map((doc) => _DocCategoryCard(
                     category: doc,
-                    onTap: () {
+                    onTap: () async {
                       AnalyticsService.trackFeatureInteraction(
                         'docs_${doc.title}',
                       );
+                      final uri = Uri.parse(doc.url);
+                      const mode = kIsWeb
+                          ? LaunchMode.platformDefault
+                          : LaunchMode.externalApplication;
+                      await launchUrl(uri, mode: mode);
                     },
                   ))
               .toList(),
@@ -129,8 +136,13 @@ class ResourcesSection extends StatelessWidget {
           children: _content.leadMagnets
               .map((magnet) => _LeadMagnetCard(
                     magnet: magnet,
-                    onDownload: () {
+                    onDownload: () async {
                       AnalyticsService.trackLeadMagnetDownload(magnet.title);
+                      final uri = Uri.parse(magnet.url);
+                      const mode = kIsWeb
+                          ? LaunchMode.platformDefault
+                          : LaunchMode.externalApplication;
+                      await launchUrl(uri, mode: mode);
                     },
                   ))
               .toList(),
@@ -155,8 +167,14 @@ class ResourcesSection extends StatelessWidget {
           children: _content.featuredPosts
               .map((post) => _BlogPostCard(
                     post: post,
-                    onTap: () {
+                    onTap: () async {
                       AnalyticsService.trackBlogPostClick(post.slug);
+                      final url = '/blog/${post.slug}';
+                      final uri = Uri.parse(url);
+                      const mode = kIsWeb
+                          ? LaunchMode.platformDefault
+                          : LaunchMode.externalApplication;
+                      await launchUrl(uri, mode: mode);
                     },
                   ))
               .toList(),
