@@ -1,0 +1,469 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integrity_studio_ai/services/contact_service.dart';
+
+void main() {
+  group('ContactFormData', () {
+    test('creates instance with required fields', () {
+      const formData = ContactFormData(
+        name: 'John Doe',
+        email: 'john@example.com',
+        message: 'Hello, this is a test message.',
+      );
+
+      expect(formData.name, equals('John Doe'));
+      expect(formData.email, equals('john@example.com'));
+      expect(formData.message, equals('Hello, this is a test message.'));
+      expect(formData.organization, isNull);
+    });
+
+    test('creates instance with optional organization', () {
+      const formData = ContactFormData(
+        name: 'Jane Doe',
+        email: 'jane@company.com',
+        organization: 'ACME Corp',
+        message: 'Test message with organization.',
+      );
+
+      expect(formData.organization, equals('ACME Corp'));
+    });
+
+    group('toJson', () {
+      test('converts to JSON with required fields', () {
+        const formData = ContactFormData(
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'Test message',
+        );
+
+        final json = formData.toJson();
+
+        expect(json['name'], equals('John Doe'));
+        expect(json['email'], equals('john@example.com'));
+        expect(json['message'], equals('Test message'));
+        expect(json.containsKey('organization'), isFalse);
+      });
+
+      test('includes organization when present', () {
+        const formData = ContactFormData(
+          name: 'John Doe',
+          email: 'john@example.com',
+          organization: 'Test Company',
+          message: 'Test message',
+        );
+
+        final json = formData.toJson();
+
+        expect(json['organization'], equals('Test Company'));
+      });
+    });
+  });
+
+  group('ContactFormPayload', () {
+    test('creates with default timestamp', () {
+      final payload = ContactFormPayload(
+        formData: const ContactFormData(
+          name: 'Test',
+          email: 'test@test.com',
+          message: 'Message',
+        ),
+      );
+
+      expect(payload.timestamp, isNotNull);
+      expect(payload.timestamp, greaterThan(0));
+    });
+
+    test('creates with custom timestamp', () {
+      final payload = ContactFormPayload(
+        formData: const ContactFormData(
+          name: 'Test',
+          email: 'test@test.com',
+          message: 'Message',
+        ),
+        timestamp: 1234567890,
+      );
+
+      expect(payload.timestamp, equals(1234567890));
+    });
+
+    test('includes CSRF token', () {
+      final payload = ContactFormPayload(
+        formData: const ContactFormData(
+          name: 'Test',
+          email: 'test@test.com',
+          message: 'Message',
+        ),
+        csrfToken: 'abc123token',
+      );
+
+      expect(payload.csrfToken, equals('abc123token'));
+    });
+
+    test('includes user agent', () {
+      final payload = ContactFormPayload(
+        formData: const ContactFormData(
+          name: 'Test',
+          email: 'test@test.com',
+          message: 'Message',
+        ),
+        userAgent: 'Mozilla/5.0 Test Browser',
+      );
+
+      expect(payload.userAgent, equals('Mozilla/5.0 Test Browser'));
+    });
+  });
+
+  group('ContactFormErrors', () {
+    test('hasErrors returns false when no errors', () {
+      final errors = ContactFormErrors();
+
+      expect(errors.hasErrors, isFalse);
+    });
+
+    test('hasErrors returns true when name error exists', () {
+      final errors = ContactFormErrors(name: 'Name is required');
+
+      expect(errors.hasErrors, isTrue);
+    });
+
+    test('hasErrors returns true when email error exists', () {
+      final errors = ContactFormErrors(email: 'Invalid email');
+
+      expect(errors.hasErrors, isTrue);
+    });
+
+    test('hasErrors returns true when message error exists', () {
+      final errors = ContactFormErrors(message: 'Message too short');
+
+      expect(errors.hasErrors, isTrue);
+    });
+
+    test('hasErrors returns true when organization error exists', () {
+      final errors = ContactFormErrors(organization: 'Invalid org');
+
+      expect(errors.hasErrors, isTrue);
+    });
+
+    group('toMap', () {
+      test('returns empty map when no errors', () {
+        final errors = ContactFormErrors();
+
+        expect(errors.toMap(), isEmpty);
+      });
+
+      test('returns map with all errors', () {
+        final errors = ContactFormErrors(
+          name: 'Name error',
+          email: 'Email error',
+          organization: 'Org error',
+          message: 'Message error',
+        );
+
+        final map = errors.toMap();
+
+        expect(map['name'], equals('Name error'));
+        expect(map['email'], equals('Email error'));
+        expect(map['organization'], equals('Org error'));
+        expect(map['message'], equals('Message error'));
+      });
+
+      test('returns map with only present errors', () {
+        final errors = ContactFormErrors(
+          email: 'Email error',
+          message: 'Message error',
+        );
+
+        final map = errors.toMap();
+
+        expect(map.length, equals(2));
+        expect(map.containsKey('name'), isFalse);
+        expect(map.containsKey('organization'), isFalse);
+      });
+    });
+  });
+
+  group('ContactService', () {
+    group('isValidEmail', () {
+      test('returns true for valid emails', () {
+        expect(ContactService.isValidEmail('test@example.com'), isTrue);
+        expect(ContactService.isValidEmail('user.name@domain.org'), isTrue);
+        expect(ContactService.isValidEmail('user+tag@example.co.uk'), isTrue);
+        expect(ContactService.isValidEmail('a@b.c'), isTrue);
+      });
+
+      test('returns false for invalid emails', () {
+        expect(ContactService.isValidEmail(''), isFalse);
+        expect(ContactService.isValidEmail('invalid'), isFalse);
+        expect(ContactService.isValidEmail('missing@domain'), isFalse);
+        expect(ContactService.isValidEmail('@nodomain.com'), isFalse);
+        expect(ContactService.isValidEmail('spaces in@email.com'), isFalse);
+        expect(ContactService.isValidEmail('double@@at.com'), isFalse);
+      });
+    });
+
+    group('validateForm', () {
+      test('returns no errors for valid form data', () {
+        const formData = ContactFormData(
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'This is a valid message with enough characters.',
+        );
+
+        final errors = ContactService.validateForm(formData);
+
+        expect(errors.hasErrors, isFalse);
+      });
+
+      test('returns error for empty name', () {
+        const formData = ContactFormData(
+          name: '',
+          email: 'john@example.com',
+          message: 'Valid message here.',
+        );
+
+        final errors = ContactService.validateForm(formData);
+
+        expect(errors.name, isNotNull);
+        expect(errors.name, contains('name'));
+      });
+
+      test('returns error for whitespace-only name', () {
+        const formData = ContactFormData(
+          name: '   ',
+          email: 'john@example.com',
+          message: 'Valid message here.',
+        );
+
+        final errors = ContactService.validateForm(formData);
+
+        expect(errors.name, isNotNull);
+      });
+
+      test('returns error for empty email', () {
+        const formData = ContactFormData(
+          name: 'John Doe',
+          email: '',
+          message: 'Valid message here.',
+        );
+
+        final errors = ContactService.validateForm(formData);
+
+        expect(errors.email, isNotNull);
+        expect(errors.email, contains('email'));
+      });
+
+      test('returns error for invalid email format', () {
+        const formData = ContactFormData(
+          name: 'John Doe',
+          email: 'invalid-email',
+          message: 'Valid message here.',
+        );
+
+        final errors = ContactService.validateForm(formData);
+
+        expect(errors.email, isNotNull);
+        expect(errors.email, contains('valid'));
+      });
+
+      test('returns error for empty message', () {
+        const formData = ContactFormData(
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: '',
+        );
+
+        final errors = ContactService.validateForm(formData);
+
+        expect(errors.message, isNotNull);
+      });
+
+      test('returns error for message shorter than 10 characters', () {
+        const formData = ContactFormData(
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'Short',
+        );
+
+        final errors = ContactService.validateForm(formData);
+
+        expect(errors.message, isNotNull);
+        expect(errors.message, contains('10'));
+      });
+
+      test('accepts message with exactly 10 characters', () {
+        const formData = ContactFormData(
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: '1234567890',
+        );
+
+        final errors = ContactService.validateForm(formData);
+
+        expect(errors.message, isNull);
+      });
+
+      test('does not validate optional organization', () {
+        const formData = ContactFormData(
+          name: 'John Doe',
+          email: 'john@example.com',
+          organization: null,
+          message: 'Valid message here.',
+        );
+
+        final errors = ContactService.validateForm(formData);
+
+        expect(errors.organization, isNull);
+        expect(errors.hasErrors, isFalse);
+      });
+
+      test('returns multiple errors at once', () {
+        const formData = ContactFormData(
+          name: '',
+          email: 'invalid',
+          message: 'short',
+        );
+
+        final errors = ContactService.validateForm(formData);
+
+        expect(errors.name, isNotNull);
+        expect(errors.email, isNotNull);
+        expect(errors.message, isNotNull);
+      });
+    });
+
+    group('isFormValid', () {
+      test('returns true for valid form', () {
+        const formData = ContactFormData(
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'This is a valid message.',
+        );
+
+        expect(ContactService.isFormValid(formData), isTrue);
+      });
+
+      test('returns false for invalid form', () {
+        const formData = ContactFormData(
+          name: '',
+          email: 'invalid',
+          message: '',
+        );
+
+        expect(ContactService.isFormValid(formData), isFalse);
+      });
+    });
+
+    group('submitForm', () {
+      test('returns error for invalid form data', () async {
+        final payload = ContactFormPayload(
+          formData: const ContactFormData(
+            name: '',
+            email: 'invalid',
+            message: '',
+          ),
+        );
+
+        final response = await ContactService.submitForm(payload);
+
+        expect(response, isA<ContactFormError>());
+        final error = response as ContactFormError;
+        expect(error.fieldErrors, isNotNull);
+        expect(error.fieldErrors!.containsKey('name'), isTrue);
+        expect(error.fieldErrors!.containsKey('email'), isTrue);
+        expect(error.fieldErrors!.containsKey('message'), isTrue);
+      });
+
+      test('returns success for valid form data (most of the time)',
+          () async {
+        // Run multiple times since there's a 5% simulated failure rate
+        int successCount = 0;
+        const attempts = 20;
+
+        for (int i = 0; i < attempts; i++) {
+          final payload = ContactFormPayload(
+            formData: const ContactFormData(
+              name: 'John Doe',
+              email: 'john@example.com',
+              message: 'This is a valid message for testing.',
+            ),
+          );
+
+          final response = await ContactService.submitForm(payload);
+
+          if (response is ContactFormSuccess) {
+            successCount++;
+          }
+        }
+
+        // With 5% failure rate, we expect mostly successes
+        expect(successCount, greaterThan(attempts * 0.8));
+      });
+
+      test('success response includes submission ID', () async {
+        // Keep trying until we get a success (avoiding random failures)
+        ContactFormResponse? successResponse;
+        for (int i = 0; i < 50; i++) {
+          final payload = ContactFormPayload(
+            formData: const ContactFormData(
+              name: 'John Doe',
+              email: 'john@example.com',
+              message: 'This is a valid message for testing.',
+            ),
+          );
+
+          final response = await ContactService.submitForm(payload);
+          if (response is ContactFormSuccess) {
+            successResponse = response;
+            break;
+          }
+        }
+
+        expect(successResponse, isNotNull);
+        expect(successResponse, isA<ContactFormSuccess>());
+
+        final success = successResponse as ContactFormSuccess;
+        expect(success.submissionId, isNotNull);
+        expect(success.submissionId, startsWith('sub_'));
+        expect(success.message, isNotNull);
+      });
+    });
+  });
+
+  group('ContactFormResponse sealed class', () {
+    test('ContactFormSuccess is a ContactFormResponse', () {
+      const response = ContactFormSuccess(
+        message: 'Success',
+        submissionId: 'sub_123',
+      );
+
+      expect(response, isA<ContactFormResponse>());
+    });
+
+    test('ContactFormError is a ContactFormResponse', () {
+      const response = ContactFormError(error: 'Error');
+
+      expect(response, isA<ContactFormResponse>());
+    });
+
+    test('can pattern match on response types', () {
+      const ContactFormResponse success = ContactFormSuccess(
+        message: 'Success',
+        submissionId: 'sub_123',
+      );
+
+      const ContactFormResponse error = ContactFormError(error: 'Error');
+
+      String successResult = switch (success) {
+        ContactFormSuccess(:final message) => 'Got success: $message',
+        ContactFormError(:final error) => 'Got error: $error',
+      };
+
+      String errorResult = switch (error) {
+        ContactFormSuccess(:final message) => 'Got success: $message',
+        ContactFormError(:final error) => 'Got error: $error',
+      };
+
+      expect(successResult, equals('Got success: Success'));
+      expect(errorResult, equals('Got error: Error'));
+    });
+  });
+}
