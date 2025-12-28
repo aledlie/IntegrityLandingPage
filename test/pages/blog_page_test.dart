@@ -176,14 +176,17 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        expect(find.text('AI Observability Platform Strategy'), findsOneWidget);
-        expect(find.text('Strategy'), findsOneWidget);
-        expect(find.text('December 8, 2024'), findsOneWidget);
-        expect(find.text('45 min read'), findsOneWidget);
+        // First post is now "Setting Up Compliance Logging for EU AI Act"
+        expect(find.text('Setting Up Compliance Logging for EU AI Act'),
+            findsOneWidget);
+        expect(find.text('Compliance'), findsOneWidget);
+        expect(find.text('December 26, 2024'), findsOneWidget);
+        expect(find.text('15 min read'), findsOneWidget);
       });
 
       testWidgets('renders series badge for series posts', (tester) async {
-        setDesktopSize(tester);
+        // Use tall screen to see the series post (4th post)
+        setScreenSize(tester, const Size(1280, 3000));
 
         await tester.pumpWidget(
           MaterialApp(
@@ -197,7 +200,8 @@ void main() {
       });
 
       testWidgets('renders stats badges', (tester) async {
-        setDesktopSize(tester);
+        // Use tall screen to see the series post with market stats (4th post)
+        setScreenSize(tester, const Size(1280, 3000));
 
         await tester.pumpWidget(
           MaterialApp(
@@ -213,7 +217,8 @@ void main() {
       });
 
       testWidgets('renders View Articles button for series', (tester) async {
-        setDesktopSize(tester);
+        // Use tall screen to see the series post (4th post)
+        setScreenSize(tester, const Size(1280, 3000));
 
         await tester.pumpWidget(
           MaterialApp(
@@ -227,8 +232,8 @@ void main() {
       });
 
       testWidgets('expands series articles on tap', (tester) async {
-        // Use a large screen to ensure button is visible
-        setScreenSize(tester, const Size(1920, 2000));
+        // Use a large screen to ensure series post (4th) is visible
+        setScreenSize(tester, const Size(1920, 3000));
 
         await tester.pumpWidget(
           MaterialApp(
@@ -256,8 +261,8 @@ void main() {
       });
 
       testWidgets('collapses series articles on second tap', (tester) async {
-        // Use a large screen to ensure button is visible
-        setScreenSize(tester, const Size(1920, 2000));
+        // Use a large screen to ensure series post (4th) is visible
+        setScreenSize(tester, const Size(1920, 3000));
 
         await tester.pumpWidget(
           MaterialApp(
@@ -352,8 +357,8 @@ void main() {
 
         // Blog header should be present
         expect(find.text('Blog'), findsOneWidget);
-        // Post title should be visible on tablet
-        expect(find.textContaining('AI Observability'), findsWidgets);
+        // First post title should be visible on tablet
+        expect(find.textContaining('Compliance Logging'), findsWidgets);
       });
 
       testWidgets('renders correctly on desktop', (tester) async {
@@ -368,7 +373,9 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.text('Blog'), findsOneWidget);
-        expect(find.text('AI Observability Platform Strategy'), findsOneWidget);
+        // First post is now Compliance Logging
+        expect(find.text('Setting Up Compliance Logging for EU AI Act'),
+            findsOneWidget);
       });
     });
 
@@ -393,7 +400,8 @@ void main() {
       });
 
       testWidgets('buttons are tappable', (tester) async {
-        setDesktopSize(tester);
+        // Use tall screen to see the series post (4th post) with View Articles
+        setScreenSize(tester, const Size(1280, 3000));
 
         await tester.pumpWidget(
           MaterialApp(
