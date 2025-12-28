@@ -17,6 +17,7 @@ abstract final class CompanyInfo {
   static const String locationCity = 'Austin';
   static const String locationRegion = 'Texas';
   static const String email = 'hello@integritystudio.ai';
+  static const String phone = '(512) 829-1644';
 }
 
 // =============================================================================
@@ -104,6 +105,8 @@ abstract final class Routes {
   static const String careers = '/careers';
   static const String privacy = '/privacy';
   static const String terms = '/terms';
+  static const String cookies = '/cookies';
+  static const String accessibility = '/accessibility';
 
   // Comparison pages
   static const String whylabsAlternative = '/whylabs-alternative';

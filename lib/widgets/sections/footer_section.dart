@@ -206,64 +206,86 @@ class FooterSection extends StatelessWidget {
   }
 
   Widget _buildBottomBar(int year, bool isMobile) {
-    if (isMobile) {
-      return Column(
-        children: [
-          Text(
-            '$year Integrity Studio. All rights reserved.',
-            style: AppTypography.caption,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: AppSpacing.md,
-            runSpacing: AppSpacing.xs,
+    return Builder(
+      builder: (context) {
+        if (isMobile) {
+          return Column(
             children: [
-              _FooterLink(
-                text: 'Privacy Policy',
-                onTap: () => _launchUrl('/privacy'),
+              Text(
+                '$year Integrity Studio. All rights reserved.',
+                style: AppTypography.caption,
+                textAlign: TextAlign.center,
               ),
-              _FooterLink(
-                text: 'Terms',
-                onTap: () => _launchUrl('/terms'),
-              ),
-              _FooterLink(
-                text: 'Cookies',
-                onTap: onCookieSettings,
+              const SizedBox(height: AppSpacing.sm),
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: AppSpacing.md,
+                runSpacing: AppSpacing.xs,
+                children: [
+                  _FooterLink(
+                    text: 'Privacy',
+                    onTap: () => Navigator.of(context).pushNamed('/privacy'),
+                  ),
+                  _FooterLink(
+                    text: 'Terms',
+                    onTap: () => Navigator.of(context).pushNamed('/terms'),
+                  ),
+                  _FooterLink(
+                    text: 'Cookies',
+                    onTap: () => Navigator.of(context).pushNamed('/cookies'),
+                  ),
+                  _FooterLink(
+                    text: 'Accessibility',
+                    onTap: () => Navigator.of(context).pushNamed('/accessibility'),
+                  ),
+                  _FooterLink(
+                    text: 'Cookie Settings',
+                    onTap: onCookieSettings,
+                  ),
+                ],
               ),
             ],
-          ),
-        ],
-      );
-    }
+          );
+        }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          '$year Integrity Studio. All rights reserved.',
-          style: AppTypography.caption,
-        ),
-        Row(
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _FooterLink(
-              text: 'Privacy Policy',
-              onTap: () => _launchUrl('/privacy'),
+            Text(
+              '$year Integrity Studio. All rights reserved.',
+              style: AppTypography.caption,
             ),
-            const SizedBox(width: AppSpacing.lg),
-            _FooterLink(
-              text: 'Terms of Service',
-              onTap: () => _launchUrl('/terms'),
-            ),
-            const SizedBox(width: AppSpacing.lg),
-            _FooterLink(
-              text: 'Cookie Settings',
-              onTap: onCookieSettings,
+            Row(
+              children: [
+                _FooterLink(
+                  text: 'Privacy Policy',
+                  onTap: () => Navigator.of(context).pushNamed('/privacy'),
+                ),
+                const SizedBox(width: AppSpacing.lg),
+                _FooterLink(
+                  text: 'Terms of Service',
+                  onTap: () => Navigator.of(context).pushNamed('/terms'),
+                ),
+                const SizedBox(width: AppSpacing.lg),
+                _FooterLink(
+                  text: 'Cookie Policy',
+                  onTap: () => Navigator.of(context).pushNamed('/cookies'),
+                ),
+                const SizedBox(width: AppSpacing.lg),
+                _FooterLink(
+                  text: 'Accessibility',
+                  onTap: () => Navigator.of(context).pushNamed('/accessibility'),
+                ),
+                const SizedBox(width: AppSpacing.lg),
+                _FooterLink(
+                  text: 'Cookie Settings',
+                  onTap: onCookieSettings,
+                ),
+              ],
             ),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }

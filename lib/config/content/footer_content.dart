@@ -13,6 +13,8 @@ abstract final class FooterContentVariants {
     linkGroups: _linkGroups,
     privacyLink: Routes.privacy,
     termsLink: Routes.terms,
+    cookiesLink: Routes.cookies,
+    accessibilityLink: Routes.accessibility,
     cookieSettingsLabel: 'Cookie Settings',
   );
 

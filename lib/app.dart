@@ -159,6 +159,36 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
           );
         }
 
+        // Handle Cookies Policy page
+        if (settings.name == '/cookies') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                LegalPage.cookies(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Handle Accessibility Statement page
+        if (settings.name == '/accessibility') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                LegalPage.accessibility(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
         // Default to landing page
         return MaterialPageRoute(
           builder: (context) => Stack(

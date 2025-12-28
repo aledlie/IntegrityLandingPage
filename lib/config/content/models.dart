@@ -287,6 +287,8 @@ class FooterContent {
   final List<FooterLinkGroup> linkGroups;
   final String privacyLink;
   final String termsLink;
+  final String cookiesLink;
+  final String accessibilityLink;
   final String cookieSettingsLabel;
 
   const FooterContent({
@@ -296,6 +298,8 @@ class FooterContent {
     required this.linkGroups,
     required this.privacyLink,
     required this.termsLink,
+    required this.cookiesLink,
+    required this.accessibilityLink,
     required this.cookieSettingsLabel,
   });
 }
