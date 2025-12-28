@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Learn the 4-stage agentic AI observability lifecycle: Build, Test, Monitor, Analyze. Ship reliable AI agents with compliance built-in for EU AI Act.">
-    <meta name="keywords" content="agentic AI observability, AI agent monitoring, 4-stage observability lifecycle, LLM agents, autonomous AI, EU AI Act compliance, agent monitoring, AI debugging">
+    <meta name="description" content="Learn the 6-stage agentic AI observability lifecycle: Compress, Build, Launch, Monitor, Optimize, Automate. Ship reliable AI agents with compliance built-in for EU AI Act.">
+    <meta name="keywords" content="agentic AI observability, AI agent monitoring, 6-stage observability lifecycle, LLM agents, autonomous AI, EU AI Act compliance, agent monitoring, AI debugging">
     <meta name="author" content="Alyshia Ledlie">
-    <title>4-Stage Agentic AI Observability Lifecycle | Integrity Studio</title>
+    <title>6-Stage Agentic AI Observability Lifecycle | Integrity Studio</title>
 
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="4-Stage Agentic AI Observability Lifecycle">
-    <meta property="og:description" content="Learn the 4-stage observability lifecycle for reliable AI agents: Build, Test, Monitor, Analyze. EU AI Act compliance included.">
+    <meta property="og:title" content="6-Stage Agentic AI Observability Lifecycle">
+    <meta property="og:description" content="Learn the 6-stage observability lifecycle for reliable AI agents: Compress, Build, Launch, Monitor, Optimize, Automate. EU AI Act compliance included.">
     <meta property="og:url" content="https://integritystudio.ai/blog/end-to-end-agentic-observability-lifecycle.html">
     <meta property="og:site_name" content="Integrity Studio">
     <meta property="og:locale" content="en_US">
@@ -28,8 +28,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="4-Stage Agentic AI Observability Lifecycle">
-    <meta name="twitter:description" content="Learn the 4-stage observability lifecycle for reliable AI agents: Build, Test, Monitor, Analyze.">
+    <meta name="twitter:title" content="6-Stage Agentic AI Observability Lifecycle">
+    <meta name="twitter:description" content="Learn the 6-stage observability lifecycle for reliable AI agents: Compress, Build, Launch, Monitor, Optimize, Automate.">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://integritystudio.ai/blog/end-to-end-agentic-observability-lifecycle.html">
@@ -251,11 +251,15 @@
             background: linear-gradient(135deg, var(--blue-500) 0%, var(--indigo-500) 100%);
         }
 
+        .stage-card.stage-compress::before {
+            background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+        }
+
         .stage-card.stage-build::before {
             background: linear-gradient(135deg, var(--blue-500) 0%, var(--blue-400) 100%);
         }
 
-        .stage-card.stage-test::before {
+        .stage-card.stage-launch::before {
             background: linear-gradient(135deg, var(--indigo-500) 0%, var(--purple-500) 100%);
         }
 
@@ -263,8 +267,12 @@
             background: linear-gradient(135deg, var(--success) 0%, #34D399 100%);
         }
 
-        .stage-card.stage-analyze::before {
+        .stage-card.stage-optimize::before {
             background: linear-gradient(135deg, var(--warning) 0%, #FBBF24 100%);
+        }
+
+        .stage-card.stage-automate::before {
+            background: linear-gradient(135deg, #EC4899 0%, #F472B6 100%);
         }
 
         .stage-number {
@@ -387,6 +395,23 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 12px;
             margin: 40px 0;
+        }
+
+        .lifecycle-diagram.lifecycle-6-stage {
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+        }
+
+        .lifecycle-6-stage .lifecycle-step {
+            padding: 16px 12px;
+        }
+
+        .lifecycle-6-stage .lifecycle-step h4 {
+            font-size: 0.875rem;
+        }
+
+        .lifecycle-6-stage .lifecycle-step p {
+            font-size: 11px;
         }
 
         .lifecycle-step {
@@ -531,12 +556,20 @@
                 grid-template-columns: 1fr;
             }
 
+            .lifecycle-diagram.lifecycle-6-stage {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .lifecycle-step::after {
                 content: '\2193';
                 right: 50%;
                 top: auto;
                 bottom: -20px;
                 transform: translateX(50%);
+            }
+
+            .lifecycle-6-stage .lifecycle-step::after {
+                display: none;
             }
 
             .stage-card {
@@ -576,8 +609,8 @@
         "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "End-to-End Agentic Observability: From Chaos to Control",
-        "alternativeHeadline": "4-Stage Agentic AI Observability Lifecycle",
-        "description": "A practical guide to the 4-stage agentic observability lifecycle: Build, Test, Monitor, and Analyze. Learn how to ship reliable AI agents without losing your mind or your compliance standing.",
+        "alternativeHeadline": "6-Stage Agentic AI Observability Lifecycle",
+        "description": "A practical guide to the 6-stage agentic observability lifecycle: Compress, Build, Launch, Monitor, Optimize, and Automate. Learn how to ship reliable AI agents without losing your mind or your compliance standing.",
         "image": "https://integritystudio.ai/assets/og-agentic-observability.png",
         "author": {
             "@type": "Person",
@@ -603,7 +636,7 @@
             "@id": "https://integritystudio.ai/blog/end-to-end-agentic-observability-lifecycle.html"
         },
         "articleSection": "AI Observability",
-        "keywords": ["agentic AI observability", "AI agent monitoring", "4-stage observability lifecycle", "LLM agents", "autonomous AI", "EU AI Act compliance", "agent monitoring", "AI debugging"],
+        "keywords": ["agentic AI observability", "AI agent monitoring", "6-stage observability lifecycle", "LLM agents", "autonomous AI", "EU AI Act compliance", "agent monitoring", "AI debugging"],
         "about": [
             {
                 "@type": "Thing",
@@ -623,8 +656,8 @@
         ],
         "teaches": {
             "@type": "Thing",
-            "name": "4-Stage Agentic AI Observability Lifecycle",
-            "description": "A systematic approach to building, testing, monitoring, and analyzing AI agents for reliability and compliance"
+            "name": "6-Stage Agentic AI Observability Lifecycle",
+            "description": "A systematic approach to compressing, building, launching, monitoring, optimizing, and automating AI agents for reliability and compliance"
         },
         "educationalLevel": "Intermediate",
         "proficiencyLevel": "Intermediate",
@@ -674,7 +707,7 @@
         <div class="header-content">
             <span class="header-badge">Agent Observability</span>
             <h1>End-to-End Agentic Observability: From Chaos to Control</h1>
-            <p class="header-subtitle">A practical guide to the 4-stage observability lifecycle that keeps your AI agents reliable, compliant, and not accidentally ordering 10,000 pizzas.</p>
+            <p class="header-subtitle">A practical guide to the 6-stage observability lifecycle that keeps your AI agents reliable, compliant, and not accidentally ordering 10,000 pizzas.</p>
             <div class="header-meta">
                 <span>
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -696,10 +729,12 @@
         <div class="nav-inner">
             <ul class="nav-list">
                 <li><a href="#why-lifecycle">Why a Lifecycle?</a></li>
-                <li><a href="#build">1. Build</a></li>
-                <li><a href="#test">2. Test</a></li>
-                <li><a href="#monitor">3. Monitor</a></li>
-                <li><a href="#analyze">4. Analyze</a></li>
+                <li><a href="#compress">1. Compress</a></li>
+                <li><a href="#build">2. Build</a></li>
+                <li><a href="#launch">3. Launch</a></li>
+                <li><a href="#monitor">4. Monitor</a></li>
+                <li><a href="#optimize">5. Optimize</a></li>
+                <li><a href="#automate">6. Automate</a></li>
                 <li><a href="#compliance">Compliance</a></li>
                 <li><a href="#getting-started">Get Started</a></li>
             </ul>
@@ -724,12 +759,12 @@
                         <div class="metric-label">Faster debugging with proper observability</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-value">4</div>
+                        <div class="metric-value">6</div>
                         <div class="metric-label">Stages in the lifecycle</div>
                     </div>
                     <div class="metric-card">
                         <div class="metric-value">69%</div>
-                        <div class="metric-label">AI decisions still human-verified</div>
+                        <div class="metric-label">Self-optimizing via anomaly detection and root cause analysis</div>
                     </div>
                 </figure>
             </section>
@@ -742,33 +777,65 @@
 
                 <p>A lifecycle approach means you're not just watching for errors. You're building a continuous feedback loop where every production incident makes your agent smarter, and every test you write prevents the next disaster.</p>
 
-                <figure class="lifecycle-diagram" aria-label="4-stage observability lifecycle diagram">
+                <figure class="lifecycle-diagram lifecycle-6-stage" aria-label="6-stage observability lifecycle diagram">
+                    <div class="lifecycle-step">
+                        <h4>Compress</h4>
+                        <p>Reduce complexity first</p>
+                    </div>
                     <div class="lifecycle-step">
                         <h4>Build</h4>
                         <p>Instrument from day one</p>
                     </div>
                     <div class="lifecycle-step">
-                        <h4>Test</h4>
-                        <p>Simulate before shipping</p>
+                        <h4>Launch</h4>
+                        <p>Ship with confidence</p>
                     </div>
                     <div class="lifecycle-step">
                         <h4>Monitor</h4>
                         <p>Watch what matters</p>
                     </div>
                     <div class="lifecycle-step">
-                        <h4>Analyze</h4>
+                        <h4>Optimize</h4>
                         <p>Learn and improve</p>
                     </div>
-                    <figcaption class="visually-hidden">The 4-stage observability lifecycle: Build, Test, Monitor, and Analyze form a continuous improvement cycle</figcaption>
+                    <div class="lifecycle-step">
+                        <h4>Automate</h4>
+                        <p>Scale or deprecate</p>
+                    </div>
+                    <figcaption class="visually-hidden">The 6-stage observability lifecycle: Compress, Build, Launch, Monitor, Optimize, and Automate form a continuous improvement cycle</figcaption>
                 </figure>
 
-                <p>This isn't a linear process. The insights from Stage 4 feed directly back into Stage 1. That weird edge case you discovered in production? It becomes a test case. That test case informs how you instrument the next feature. It's a virtuous cycle&mdash;or at least, it should be.</p>
+                <p>This isn't a linear process. The insights from Stage 6 feed directly back into Stage 1. That weird edge case you discovered in production? It informs what to compress next. That optimization informs how you instrument the next feature. It's a virtuous cycle&mdash;or at least, it should be.</p>
             </section>
 
-            <!-- Stage 1: Build -->
+            <!-- Stage 1: Compress -->
+            <section id="compress">
+                <div class="stage-card stage-compress">
+                    <div class="stage-number" aria-label="Stage 1">1</div>
+                    <h3>Compress: Reduce Complexity First</h3>
+
+                    <p>Before you build anything, compress. The most observable system is the simplest one. Every unnecessary component, every redundant API call, every "we might need this later" feature is noise in your observability data.</p>
+
+                    <p>Compression isn't about cutting corners. It's about intentional design:</p>
+
+                    <ul>
+                        <li><strong>Reduce token sprawl</strong> &mdash; Tighter prompts mean lower costs and faster responses</li>
+                        <li><strong>Consolidate tool calls</strong> &mdash; Can three API calls become one?</li>
+                        <li><strong>Simplify decision trees</strong> &mdash; Fewer branches mean fewer failure modes to monitor</li>
+                        <li><strong>Eliminate dead paths</strong> &mdash; Code that never runs is code that confuses your traces</li>
+                    </ul>
+
+                    <aside class="callout">
+                        <div class="callout-title">Reality Check</div>
+                        <p>Teams that skip compression end up with agents that are 40% observability infrastructure and 60% actual logic. Compress first, instrument what remains.</p>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- Stage 2: Build -->
             <section id="build">
                 <div class="stage-card stage-build">
-                    <div class="stage-number" aria-label="Stage 1">1</div>
+                    <div class="stage-number" aria-label="Stage 2">2</div>
                     <h3>Build: Instrument Like You Mean It</h3>
 
                     <p>The biggest mistake teams make with agent observability? Treating it as an afterthought. "We'll add logging later." Famous last words, right up there with "it works on my machine."</p>
@@ -811,29 +878,27 @@
                 </div>
             </section>
 
-            <!-- Stage 2: Test -->
-            <section id="test">
-                <div class="stage-card stage-test">
-                    <div class="stage-number" aria-label="Stage 2">2</div>
-                    <h3>Test: Stop Vibe-Checking Your Agents</h3>
+            <!-- Stage 3: Launch -->
+            <section id="launch">
+                <div class="stage-card stage-launch">
+                    <div class="stage-number" aria-label="Stage 3">3</div>
+                    <h3>Launch: Ship With Confidence</h3>
 
-                    <p>I've seen teams "test" their AI agents by running them a few times, eyeballing the outputs, and declaring victory. This is what we call "vibe testing," and it's approximately as reliable as flipping a coin.</p>
+                    <p>You've compressed. You've built with instrumentation. Now it's time to ship&mdash;but not blindly. Launch is about controlled deployment with safety nets.</p>
 
-                    <p>Agent testing requires a different mindset than traditional software testing. You're not just checking if the code runs. You're checking if the agent's <em>decisions</em> are correct across a wide range of scenarios.</p>
-
-                    <h4>What Agent Testing Actually Looks Like</h4>
+                    <p>A proper launch strategy includes:</p>
 
                     <ul>
-                        <li><strong>Behavioral test suites</strong> &mdash; Given this input, does the agent choose the right action?</li>
-                        <li><strong>Adversarial testing</strong> &mdash; What happens when users try to trick the agent?</li>
-                        <li><strong>Edge case coverage</strong> &mdash; The 2 AM French email scenario</li>
-                        <li><strong>Regression testing</strong> &mdash; Did the prompt change break something that used to work?</li>
-                        <li><strong>Performance benchmarks</strong> &mdash; Is the agent still fast enough under load?</li>
+                        <li><strong>Staged rollout</strong> &mdash; Start with 1% of traffic, not 100%</li>
+                        <li><strong>Canary deployments</strong> &mdash; Compare new agent behavior against baseline</li>
+                        <li><strong>Kill switches</strong> &mdash; One-click rollback when things go wrong</li>
+                        <li><strong>Behavioral test gates</strong> &mdash; Automated checks before each stage</li>
+                        <li><strong>Human review checkpoints</strong> &mdash; Spot-check decisions at low volume</li>
                     </ul>
 
                     <aside class="callout warning">
                         <div class="callout-title">EU AI Act Note</div>
-                        <p>If your agent operates in a high-risk category under the EU AI Act, testing isn't optional&mdash;it's legally required. Article 9 mandates "appropriate data governance and management practices." Start building your test suite now; you'll need it for compliance documentation.</p>
+                        <p>If your agent operates in a high-risk category under the EU AI Act, testing isn't optional&mdash;it's legally required. Article 10 mandates "appropriate data governance and management practices." Start building your test suite now; you'll need it for compliance documentation.</p>
                     </aside>
 
                     <h4>The Evaluation Dataset</h4>
@@ -842,10 +907,10 @@
                 </div>
             </section>
 
-            <!-- Stage 3: Monitor -->
+            <!-- Stage 4: Monitor -->
             <section id="monitor">
                 <div class="stage-card stage-monitor">
-                    <div class="stage-number" aria-label="Stage 3">3</div>
+                    <div class="stage-number" aria-label="Stage 4">4</div>
                     <h3>Monitor: Watch What Actually Matters</h3>
 
                     <p>Your agent is in production. Congratulations! Now comes the fun part: watching it like a hawk while pretending to be calm.</p>
@@ -870,15 +935,15 @@
                 </div>
             </section>
 
-            <!-- Stage 4: Analyze -->
-            <section id="analyze">
-                <div class="stage-card stage-analyze">
-                    <div class="stage-number" aria-label="Stage 4">4</div>
-                    <h3>Analyze: Learn and Close the Loop</h3>
+            <!-- Stage 5: Optimize -->
+            <section id="optimize">
+                <div class="stage-card stage-optimize">
+                    <div class="stage-number" aria-label="Stage 5">5</div>
+                    <h3>Optimize: Learn and Close the Loop</h3>
 
-                    <p>This is where the lifecycle becomes a cycle. Analysis isn't just "look at dashboards and feel informed." It's a systematic process for turning production data into better agents.</p>
+                    <p>This is where the lifecycle becomes a cycle. Optimization isn't just "look at dashboards and feel informed." It's a systematic process for turning production data into better agents.</p>
 
-                    <h4>The Analysis Workflow</h4>
+                    <h4>The Optimization Workflow</h4>
 
                     <ol>
                         <li><strong>Identify patterns in failures</strong> &mdash; What do the bad decisions have in common?</li>
@@ -888,13 +953,50 @@
                         <li><strong>Improve the agent</strong> &mdash; Better prompts, guardrails, or model selection</li>
                     </ol>
 
-                    <p>The feedback loop is everything. The insights you gain in production should directly inform how you build, test, and monitor the next iteration.</p>
+                    <p>The feedback loop is everything. The insights you gain in production should directly inform how you compress, build, and monitor the next iteration.</p>
 
                     <h4>From Reactive to Proactive</h4>
 
                     <p>The goal isn't just to fix problems. It's to predict them. As your analysis matures, you'll start to see warning signs before they become incidents. Confidence scores dropping gradually over a week? Your agent might be experiencing model drift. Certain user queries taking 3x longer than average? There might be a scaling issue lurking.</p>
 
                     <p>This is where observability stops being a cost center and starts being a competitive advantage.</p>
+                </div>
+            </section>
+
+            <!-- Stage 6: Automate -->
+            <section id="automate">
+                <div class="stage-card stage-automate">
+                    <div class="stage-number" aria-label="Stage 6">6</div>
+                    <h3>Automate: Scale or Deprecate</h3>
+
+                    <p>The final stage is a decision point: Does this agent deserve to scale, or should it be deprecated? Not every agent makes it. That's not failure&mdash;that's good engineering.</p>
+
+                    <h4>The Automation Path</h4>
+
+                    <p>If your agent has proven itself through monitoring and optimization, it's time to reduce human overhead:</p>
+
+                    <ul>
+                        <li><strong>Self-healing workflows</strong> &mdash; Automatic rollback when confidence drops below threshold</li>
+                        <li><strong>Automated retraining triggers</strong> &mdash; Detect drift, queue fine-tuning jobs</li>
+                        <li><strong>Dynamic resource scaling</strong> &mdash; Scale compute based on demand patterns</li>
+                        <li><strong>Reduced human review</strong> &mdash; Gradually raise the confidence bar for auto-approval</li>
+                    </ul>
+
+                    <h4>The Deprecation Path</h4>
+
+                    <p>Sometimes the right answer is to shut it down. Signs an agent should be deprecated:</p>
+
+                    <ul>
+                        <li><strong>Persistent low confidence</strong> &mdash; The agent can't reliably make decisions</li>
+                        <li><strong>Cost exceeds value</strong> &mdash; Token costs outweigh business impact</li>
+                        <li><strong>Better alternatives exist</strong> &mdash; A simpler solution emerged from optimization</li>
+                        <li><strong>Compliance risk too high</strong> &mdash; The agent can't meet regulatory requirements</li>
+                    </ul>
+
+                    <aside class="callout success">
+                        <div class="callout-title">The Cycle Continues</div>
+                        <p>Whether you automate or deprecate, the insights feed back into Stage 1. What you learned compresses the next agent's design. The cycle never truly ends&mdash;it just gets faster.</p>
+                    </aside>
                 </div>
             </section>
 
@@ -907,7 +1009,7 @@
                 <p>The good news? If you've built a proper observability lifecycle, you're already most of the way there. The requirements for high-risk AI systems map surprisingly well to good engineering practices:</p>
 
                 <ul>
-                    <li><strong>Article 9 (Data Governance)</strong> &mdash; Your evaluation datasets and testing protocols</li>
+                    <li><strong>Article 10 (Data Governance)</strong> &mdash; Your evaluation datasets and testing protocols</li>
                     <li><strong>Article 12 (Traceability)</strong> &mdash; Your audit trails and decision logging</li>
                     <li><strong>Article 14 (Human Oversight)</strong> &mdash; Your Trust Models and approval workflows</li>
                     <li><strong>Article 15 (Accuracy)</strong> &mdash; Your monitoring and quality metrics</li>

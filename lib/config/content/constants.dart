@@ -29,7 +29,7 @@ abstract final class CTAText {
   static const String startFreeTrial = 'Start Free Trial';
   static const String getStarted = 'Get Started';
   static const String scheduledDemo = 'Schedule Demo';
-  static const String watchDemo = 'Watch Demo';
+  static const String requestDemo = 'Request Demo';
   static const String contactSales = 'Contact Sales';
   static const String learnMore = 'Learn More';
 

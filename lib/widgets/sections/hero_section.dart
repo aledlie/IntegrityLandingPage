@@ -39,7 +39,7 @@ class HeroSection extends StatelessWidget {
           'Automated risk documentation. Audit-ready from day one. '
           'Enterprise-grade monitoring with compliance built-in.',
       primaryCTA: 'Start Free Trial',
-      secondaryCTA: 'Watch Demo',
+      secondaryCTA: 'Request Demo',
       trustIndicators: [
         'EU AI Act Ready',
         'Enterprise Security',
@@ -172,8 +172,7 @@ class HeroSection extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Use animated gradient border button for primary CTA (AiSDR-inspired)
-          AnimatedGradientBorderButton(
+          GradientButton(
             text: content.primaryCTA,
             icon: LucideIcons.arrowRight,
             onPressed: () {
@@ -207,8 +206,7 @@ class HeroSection extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Use animated gradient border button for primary CTA (AiSDR-inspired)
-        AnimatedGradientBorderButton(
+        GradientButton(
           text: content.primaryCTA,
           icon: LucideIcons.arrowRight,
           onPressed: () {

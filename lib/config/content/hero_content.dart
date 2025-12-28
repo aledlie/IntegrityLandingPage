@@ -18,7 +18,7 @@ abstract final class HeroContentVariants {
         'Automated risk documentation. Audit-ready from day one. '
         'Enterprise-grade monitoring with compliance built-in.',
     primaryCTA: CTAText.startFreeTrial,
-    secondaryCTA: CTAText.watchDemo,
+    secondaryCTA: CTAText.requestDemo,
     trustIndicators: TrustIndicators.current,
   );
 
@@ -32,7 +32,7 @@ abstract final class HeroContentVariants {
         'Track performance, debug issues, and optimize costs '
         'with comprehensive tracing and analytics.',
     primaryCTA: CTAText.startFreeTrial,
-    secondaryCTA: CTAText.watchDemo,
+    secondaryCTA: CTAText.requestDemo,
     trustIndicators: TrustIndicators.current,
   );
 
@@ -46,7 +46,7 @@ abstract final class HeroContentVariants {
         'Set budgets, get alerts, and optimize spend '
         'with granular token-level attribution.',
     primaryCTA: CTAText.startFreeTrial,
-    secondaryCTA: CTAText.watchDemo,
+    secondaryCTA: CTAText.requestDemo,
     trustIndicators: TrustIndicators.current,
   );
 
@@ -59,7 +59,7 @@ abstract final class HeroContentVariants {
         'Monitor performance, track costs, and debug issues '
         'with comprehensive tracing and analytics.',
     primaryCTA: CTAText.startFreeTrial,
-    secondaryCTA: CTAText.watchDemo,
+    secondaryCTA: CTAText.requestDemo,
     trustIndicators: TrustIndicators.legacy,
   );
 

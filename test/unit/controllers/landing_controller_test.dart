@@ -85,8 +85,8 @@ void main() {
         expect(() => controller.handleGetStarted(location: 'footer'), returnsNormally);
       });
 
-      test('handleWatchDemo calls without error', () {
-        expect(() => controller.handleWatchDemo(), returnsNormally);
+      test('handleRequestDemo calls without error', () {
+        expect(() => controller.handleRequestDemo(), returnsNormally);
       });
 
       test('handleTierSelection calls without error', () {

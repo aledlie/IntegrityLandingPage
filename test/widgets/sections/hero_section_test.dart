@@ -32,21 +32,21 @@ void main() {
 
       testWidgets('invokes onWatchDemo when secondary CTA tapped', (tester) async {
         setDesktopSize(tester);
-        var watchDemoCalled = false;
+        var requestDemoCalled = false;
 
         await tester.pumpWidget(
           testableSection(
             HeroSection(
-              onWatchDemo: () => watchDemoCalled = true,
+              onWatchDemo: () => requestDemoCalled = true,
             ),
           ),
         );
         await tester.pump(const Duration(milliseconds: 500));
 
-        await tester.tap(find.text('Watch Demo'));
+        await tester.tap(find.text('Request Demo'));
         await tester.pump();
 
-        expect(watchDemoCalled, isTrue);
+        expect(requestDemoCalled, isTrue);
       });
     });
 
@@ -92,7 +92,7 @@ void main() {
         );
         await tester.pump(const Duration(milliseconds: 500));
 
-        expect(find.text('Watch Demo'), findsOneWidget);
+        expect(find.text('Request Demo'), findsOneWidget);
       });
 
       testWidgets('renders trust indicators', (tester) async {
@@ -158,7 +158,7 @@ void main() {
 
         // Both CTAs should be present
         expect(find.text('Start Free Trial'), findsOneWidget);
-        expect(find.text('Watch Demo'), findsOneWidget);
+        expect(find.text('Request Demo'), findsOneWidget);
       });
 
       testWidgets('renders on larger screens', (tester) async {

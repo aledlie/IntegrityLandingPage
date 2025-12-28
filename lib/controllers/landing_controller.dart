@@ -129,10 +129,10 @@ class LandingController extends ChangeNotifier {
     scrollToPricing();
   }
 
-  /// Handle Watch Demo CTA click
-  void handleWatchDemo() {
+  /// Handle Request Demo CTA click
+  void handleRequestDemo() {
     AnalyticsService.trackCTAClick(
-      buttonName: 'Watch Demo',
+      buttonName: 'Request Demo',
       location: 'hero',
       ctaType: 'secondary',
     );
