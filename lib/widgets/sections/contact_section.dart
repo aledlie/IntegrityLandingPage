@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
+import '../../services/contact_service.dart';
+import '../common/alert.dart';
 import '../common/cards.dart';
 import '../common/containers.dart';
 import '../common/buttons.dart';
+import '../common/form_fields.dart';
 
 /// Contact section with form and contact methods.
 ///
@@ -52,8 +55,10 @@ class ContactSection extends StatefulWidget {
 class _ContactSectionState extends State<ContactSection> {
   final _formKey = GlobalKey<FormState>();
   final _formData = <String, String>{};
+  final _fieldErrors = <String, String>{};
   bool _isSubmitting = false;
   bool? _submitSuccess;
+  String? _successMessage;
   String? _errorMessage;
 
   // Use content from widget or fallback to AppContent
@@ -155,46 +160,17 @@ class _ContactSectionState extends State<ContactSection> {
               ),
             ),
 
-            // Success/error message
+            // Success/error message using Alert widget
             if (_submitSuccess != null) ...[
               const SizedBox(height: AppSpacing.lg),
-              Container(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                decoration: BoxDecoration(
-                  color: _submitSuccess!
-                      ? AppColors.success.withValues(alpha: 0.1)
-                      : AppColors.error.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                  border: Border.all(
-                    color: _submitSuccess!
-                        ? AppColors.success.withValues(alpha: 0.3)
-                        : AppColors.error.withValues(alpha: 0.3),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      _submitSuccess!
-                          ? Icons.check_circle_outline
-                          : Icons.error_outline,
-                      color: _submitSuccess! ? AppColors.success : AppColors.error,
-                      size: 20,
-                    ),
-                    const SizedBox(width: AppSpacing.sm),
-                    Expanded(
-                      child: Text(
-                        _submitSuccess!
-                            ? _content.formSuccessMessage
-                            : (_errorMessage ?? _content.formErrorMessage),
-                        style: AppTypography.bodySM.copyWith(
-                          color: _submitSuccess!
-                              ? AppColors.success
-                              : AppColors.error,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              Alert(
+                variant:
+                    _submitSuccess! ? AlertVariant.success : AlertVariant.error,
+                message: _submitSuccess!
+                    ? (_successMessage ?? _content.formSuccessMessage)
+                    : (_errorMessage ?? _content.formErrorMessage),
+                dismissible: true,
+                onDismiss: () => setState(() => _submitSuccess = null),
               ),
             ],
           ],
@@ -248,11 +224,9 @@ class _ContactSectionState extends State<ContactSection> {
   Widget _buildField(ContactFormFieldContent field) {
     switch (field.type) {
       case 'select':
-        return DropdownButtonFormField<String>(
-          decoration: InputDecoration(
-            labelText: field.label,
-            hintText: field.placeholder,
-          ),
+        return FormSelect<String>(
+          label: field.label,
+          value: _formData[field.name],
           items: field.options
                   ?.map((option) => DropdownMenuItem(
                         value: option,
@@ -260,63 +234,98 @@ class _ContactSectionState extends State<ContactSection> {
                       ))
                   .toList() ??
               [],
-          validator: field.required
-              ? (value) => value == null ? 'Please select an option' : null
-              : null,
+          required: field.required,
+          placeholder: field.placeholder,
+          errorText: _fieldErrors[field.name],
           onChanged: (value) {
             if (value != null) {
-              _formData[field.name] = value;
+              setState(() {
+                _formData[field.name] = value;
+                _fieldErrors.remove(field.name);
+              });
             }
           },
         );
 
       case 'textarea':
-        return TextFormField(
-          decoration: InputDecoration(
-            labelText: field.label,
-            hintText: field.placeholder,
-            alignLabelWithHint: true,
-          ),
-          maxLines: 4,
-          validator: field.required
-              ? (value) =>
-                  value?.isEmpty ?? true ? 'This field is required' : null
-              : null,
-          onChanged: (value) => _formData[field.name] = value,
+        return FormTextArea(
+          label: field.label,
+          value: _formData[field.name] ?? '',
+          required: field.required,
+          placeholder: field.placeholder,
+          rows: 4,
+          minLength: 10,
+          errorText: _fieldErrors[field.name],
+          onChanged: (value) {
+            setState(() {
+              _formData[field.name] = value;
+              _fieldErrors.remove(field.name);
+            });
+          },
         );
 
       case 'email':
-        return TextFormField(
-          decoration: InputDecoration(
-            labelText: field.label,
-            hintText: field.placeholder,
-          ),
-          keyboardType: TextInputType.emailAddress,
-          validator: (value) {
-            if (field.required && (value?.isEmpty ?? true)) {
-              return 'This field is required';
-            }
-            if (value != null &&
-                value.isNotEmpty &&
-                !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-              return 'Please enter a valid email address';
-            }
-            return null;
+        return FormTextField(
+          label: field.label,
+          value: _formData[field.name] ?? '',
+          type: FormTextFieldType.email,
+          required: field.required,
+          placeholder: field.placeholder,
+          errorText: _fieldErrors[field.name],
+          onChanged: (value) {
+            setState(() {
+              _formData[field.name] = value;
+              _fieldErrors.remove(field.name);
+            });
           },
-          onChanged: (value) => _formData[field.name] = value,
+        );
+
+      case 'phone':
+        return FormTextField(
+          label: field.label,
+          value: _formData[field.name] ?? '',
+          type: FormTextFieldType.phone,
+          required: field.required,
+          placeholder: field.placeholder,
+          errorText: _fieldErrors[field.name],
+          onChanged: (value) {
+            setState(() {
+              _formData[field.name] = value;
+              _fieldErrors.remove(field.name);
+            });
+          },
+        );
+
+      case 'url':
+        return FormTextField(
+          label: field.label,
+          value: _formData[field.name] ?? '',
+          type: FormTextFieldType.url,
+          required: field.required,
+          placeholder: field.placeholder,
+          errorText: _fieldErrors[field.name],
+          onChanged: (value) {
+            setState(() {
+              _formData[field.name] = value;
+              _fieldErrors.remove(field.name);
+            });
+          },
         );
 
       default:
-        return TextFormField(
-          decoration: InputDecoration(
-            labelText: field.label,
-            hintText: field.placeholder,
-          ),
-          validator: field.required
-              ? (value) =>
-                  value?.isEmpty ?? true ? 'This field is required' : null
-              : null,
-          onChanged: (value) => _formData[field.name] = value,
+        return FormTextField(
+          label: field.label,
+          value: _formData[field.name] ?? '',
+          type: FormTextFieldType.text,
+          required: field.required,
+          placeholder: field.placeholder,
+          errorText: _fieldErrors[field.name],
+          onChanged: (value) {
+            setState(() {
+              _formData[field.name] = value;
+              _fieldErrors.remove(field.name);
+            });
+          },
         );
     }
   }
@@ -437,12 +446,43 @@ class _ContactSectionState extends State<ContactSection> {
     );
   }
 
+  /// Validate form using ContactService.
+  bool _validateForm() {
+    // Build ContactFormData from form fields
+    final formData = ContactFormData(
+      name: _formData['name'] ?? _formData['firstName'] ?? '',
+      email: _formData['email'] ?? '',
+      organization: _formData['organization'] ?? _formData['company'],
+      message: _formData['message'] ?? '',
+    );
+
+    final errors = ContactService.validateForm(formData);
+
+    setState(() {
+      _fieldErrors.clear();
+      if (errors.name != null) {
+        _fieldErrors['name'] = errors.name!;
+        _fieldErrors['firstName'] = errors.name!;
+      }
+      if (errors.email != null) _fieldErrors['email'] = errors.email!;
+      if (errors.organization != null) {
+        _fieldErrors['organization'] = errors.organization!;
+        _fieldErrors['company'] = errors.organization!;
+      }
+      if (errors.message != null) _fieldErrors['message'] = errors.message!;
+    });
+
+    return !errors.hasErrors;
+  }
+
   Future<void> _handleSubmit() async {
-    if (!_formKey.currentState!.validate()) return;
+    // Validate using ContactService
+    if (!_validateForm()) return;
 
     setState(() {
       _isSubmitting = true;
       _submitSuccess = null;
+      _successMessage = null;
       _errorMessage = null;
     });
 
@@ -456,11 +496,32 @@ class _ContactSectionState extends State<ContactSection> {
           _submitSuccess = success;
         });
       } else {
-        // Simulate submission
-        await Future<void>.delayed(const Duration(seconds: 1));
+        // Use ContactService for submission
+        final formData = ContactFormData(
+          name: _formData['name'] ?? _formData['firstName'] ?? '',
+          email: _formData['email'] ?? '',
+          organization: _formData['organization'] ?? _formData['company'],
+          message: _formData['message'] ?? '',
+        );
+
+        final payload = ContactFormPayload(formData: formData);
+        final response = await ContactService.submitForm(payload);
+
         setState(() {
           _isSubmitting = false;
-          _submitSuccess = true;
+          switch (response) {
+            case ContactFormSuccess(:final message):
+              _submitSuccess = true;
+              _successMessage = message;
+              // Clear form on success
+              _formData.clear();
+            case ContactFormError(:final error, :final fieldErrors):
+              _submitSuccess = false;
+              _errorMessage = error;
+              if (fieldErrors != null) {
+                _fieldErrors.addAll(fieldErrors);
+              }
+          }
         });
       }
     } catch (e) {
