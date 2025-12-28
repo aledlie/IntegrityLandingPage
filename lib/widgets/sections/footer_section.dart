@@ -248,35 +248,36 @@ class FooterSection extends StatelessWidget {
           );
         }
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return Wrap(
+          alignment: WrapAlignment.spaceBetween,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: AppSpacing.lg,
+          runSpacing: AppSpacing.sm,
           children: [
             Text(
               '$year Integrity Studio. All rights reserved.',
               style: AppTypography.caption,
             ),
-            Row(
+            Wrap(
+              spacing: AppSpacing.lg,
+              runSpacing: AppSpacing.sm,
               children: [
                 _FooterLink(
                   text: 'Privacy Policy',
                   onTap: () => Navigator.of(context).pushNamed('/privacy'),
                 ),
-                const SizedBox(width: AppSpacing.lg),
                 _FooterLink(
                   text: 'Terms of Service',
                   onTap: () => Navigator.of(context).pushNamed('/terms'),
                 ),
-                const SizedBox(width: AppSpacing.lg),
                 _FooterLink(
                   text: 'Cookie Policy',
                   onTap: () => Navigator.of(context).pushNamed('/cookies'),
                 ),
-                const SizedBox(width: AppSpacing.lg),
                 _FooterLink(
                   text: 'Accessibility',
                   onTap: () => Navigator.of(context).pushNamed('/accessibility'),
                 ),
-                const SizedBox(width: AppSpacing.lg),
                 _FooterLink(
                   text: 'Cookie Settings',
                   onTap: onCookieSettings,
