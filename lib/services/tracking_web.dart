@@ -3,7 +3,8 @@ import 'dart:js_interop';
 import 'package:web/web.dart' as web;
 
 /// GTM Container ID from Doppler (integrity-studio/prd)
-const String gtmContainerId = 'GTM-NR4GGH5K';
+/// Updated to new container (integritystudio.ai-v2) on 2025-12-28
+const String gtmContainerId = 'GTM-NLLQ5ZM3';
 
 /// GA4 Measurement ID from Doppler (integrity-studio/prd)
 const String ga4MeasurementId = 'G-J7TL7PQH7S';
