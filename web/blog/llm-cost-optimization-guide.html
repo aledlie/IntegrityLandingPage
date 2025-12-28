@@ -117,9 +117,9 @@
             --secondary: #334155;
             --accent: #3b82f6;
             --accent-light: #60a5fa;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
+            --success: #047857;
+            --warning: #d97706;
+            --error: #dc2626;
             --surface: #f8fafc;
             --surface-alt: #f1f5f9;
             --border: #e2e8f0;
@@ -421,9 +421,10 @@
             margin: 16px 0;
         }
 
-        .tip-card h4 {
+        .tip-card h3 {
             font-size: 1rem;
             margin-bottom: 8px;
+            margin-top: 0;
             color: var(--primary);
             display: flex;
             align-items: center;
@@ -438,8 +439,8 @@
 
         .tip-card .savings {
             display: inline-block;
-            background: #dcfce7;
-            color: var(--success);
+            background: #047857;
+            color: #ffffff;
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 12px;
@@ -457,9 +458,10 @@
             border-bottom: none;
         }
 
-        .faq-item h4 {
+        .faq-item h3 {
             font-size: 1.1rem;
             margin-bottom: 12px;
+            margin-top: 0;
             color: var(--primary);
         }
 
@@ -491,7 +493,7 @@
 
         .cta-box .cta-button {
             display: inline-block;
-            background: var(--accent);
+            background: #2563eb;
             color: #ffffff;
             padding: 16px 40px;
             border-radius: 8px;
@@ -499,7 +501,7 @@
             font-weight: 700;
             text-decoration: none;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
             letter-spacing: 0.02em;
         }
 
@@ -529,6 +531,15 @@
             margin-top: 32px;
             padding-top: 16px;
             border-top: 1px solid var(--border);
+        }
+
+        .last-updated a {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        .last-updated a:hover {
+            color: #1e40af;
         }
 
         @media (max-width: 600px) {
@@ -689,54 +700,54 @@
         <h2>5 Ways to Reduce LLM Costs</h2>
 
         <div class="tip-card">
-            <h4>1. Use smaller models for simple tasks <span class="savings">50-90% savings</span></h4>
+            <h3>1. Use smaller models for simple tasks <span class="savings">50-90% savings</span></h3>
             <p>GPT-4o mini handles classification, extraction, and simple Q&A just as well as GPT-4o at 94% less cost. Route complex reasoning to expensive models, everything else to cheap ones.</p>
         </div>
 
         <div class="tip-card">
-            <h4>2. Enable prompt caching <span class="savings">Up to 90% savings</span></h4>
+            <h3>2. Enable prompt caching <span class="savings">Up to 90% savings</span></h3>
             <p>Anthropic charges only 10% for cached prompt tokens. If you have repeated system prompts or context, caching can dramatically reduce input costs. OpenAI and Google offer similar features.</p>
         </div>
 
         <div class="tip-card">
-            <h4>3. Batch non-urgent requests <span class="savings">50% savings</span></h4>
+            <h3>3. Batch non-urgent requests <span class="savings">50% savings</span></h3>
             <p>OpenAI's Batch API offers 50% off for requests that can wait up to 24 hours. Perfect for content generation, data processing, or overnight analysis jobs.</p>
         </div>
 
         <div class="tip-card">
-            <h4>4. Consider DeepSeek for cost-sensitive workloads <span class="savings">80-90% savings</span></h4>
+            <h3>4. Consider DeepSeek for cost-sensitive workloads <span class="savings">80-90% savings</span></h3>
             <p>DeepSeek V3 benchmarks competitively with GPT-4o on many tasks at 1/10th the input cost. Test it on your use case—you might be surprised.</p>
         </div>
 
         <div class="tip-card">
-            <h4>5. Monitor and set budget alerts <span class="savings">Prevent overruns</span></h4>
+            <h3>5. Monitor and set budget alerts <span class="savings">Prevent overruns</span></h3>
             <p>Most teams discover cost issues after receiving a surprise invoice. Use tools like Helicone or your provider's built-in usage dashboards to set alerts before you hit limits.</p>
         </div>
 
         <h2>Frequently Asked Questions</h2>
 
         <div class="faq-item">
-            <h4>How much does GPT-4 cost per token?</h4>
+            <h3>How much does GPT-4 cost per token?</h3>
             <p>GPT-4o costs $2.50 per million input tokens and $10.00 per million output tokens. That's $0.0000025 per input token and $0.00001 per output token. GPT-4o mini is much cheaper at $0.15/$0.60 per million tokens.</p>
         </div>
 
         <div class="faq-item">
-            <h4>What is the cheapest LLM API in 2025?</h4>
+            <h3>What is the cheapest LLM API in 2025?</h3>
             <p>DeepSeek V3 is currently the cheapest major LLM API at $0.27 per million input tokens. Among major US providers, GPT-4o mini ($0.15 input) is the cheapest option from OpenAI, while Gemini 2.5 Flash ($0.30 input) is competitive from Google.</p>
         </div>
 
         <div class="faq-item">
-            <h4>How can I reduce my OpenAI API costs?</h4>
+            <h3>How can I reduce my OpenAI API costs?</h3>
             <p>The most effective methods are: use GPT-4o mini instead of GPT-4o for simpler tasks (94% cheaper), enable prompt caching for repeated context, use the Batch API for non-urgent requests (50% off), and optimize your prompts to use fewer tokens.</p>
         </div>
 
         <div class="faq-item">
-            <h4>Is Claude cheaper than GPT-4?</h4>
+            <h3>Is Claude cheaper than GPT-4?</h3>
             <p>Claude Sonnet 4.5 ($3.00/$15.00) is slightly more expensive than GPT-4o ($2.50/$10.00) for most workloads. However, Claude Haiku ($1.00/$5.00) is competitive with GPT-4o mini for lightweight tasks. The best choice depends on your quality requirements and use case.</p>
         </div>
 
         <div class="faq-item">
-            <h4>What is prompt caching?</h4>
+            <h3>What is prompt caching?</h3>
             <p>Prompt caching stores frequently-used prompt prefixes so you don't pay full price for repeated context. Anthropic charges only 10% for cached tokens—so if you have a 2,000 token system prompt that's repeated on every request, caching saves 90% on those tokens. Enable it by structuring prompts with static content first.</p>
         </div>
 
