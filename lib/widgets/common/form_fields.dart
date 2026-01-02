@@ -431,7 +431,7 @@ class FormSelect<T> extends StatelessWidget {
 
         // Dropdown
         DropdownButtonFormField<T>(
-          initialValue: value,
+          value: value,
           items: items,
           onChanged: enabled ? onChanged : null,
           hint: placeholder != null
