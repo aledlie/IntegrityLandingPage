@@ -533,9 +533,20 @@ class FacebookPixelService {
   }
 
   /// Track lead (form submission).
-  static void trackLead() {
+  static void trackLead({String? email}) {
     if (!isReady) return;
-    TrackingWeb.sendFBEvent('Lead');
+    TrackingWeb.sendFBEvent('Lead', email != null ? {'email': email} : null);
+    _log('Lead event sent');
+  }
+
+  /// Track contact form submission.
+  static void trackContact({String? email, String? name}) {
+    if (!isReady) return;
+    final params = <String, dynamic>{};
+    if (email != null) params['email'] = email;
+    if (name != null) params['content_name'] = name;
+    TrackingWeb.sendFBEvent('Contact', params.isNotEmpty ? params : null);
+    _log('Contact event sent');
   }
 
   /// Track view content.

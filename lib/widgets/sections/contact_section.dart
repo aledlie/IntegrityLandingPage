@@ -513,6 +513,12 @@ class _ContactSectionState extends State<ContactSection> {
             case ContactFormSuccess(:final message):
               _submitSuccess = true;
               _successMessage = message;
+              // Track Facebook Pixel events on success
+              FacebookPixelService.trackContact(
+                email: formData.email,
+                name: formData.name,
+              );
+              FacebookPixelService.trackLead(email: formData.email);
               // Clear form on success
               _formData.clear();
             case ContactFormError(:final error, :final fieldErrors):
