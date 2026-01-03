@@ -388,10 +388,13 @@ class PricingCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                price,
-                style: AppTypography.headingLG.copyWith(
-                  color: AppColors.textPrimary,
+              Flexible(
+                child: Text(
+                  price,
+                  style: AppTypography.headingLG.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               if (period != null)
@@ -414,10 +417,11 @@ class PricingCard extends StatelessWidget {
           const Divider(),
           const SizedBox(height: AppSpacing.lg),
 
-          // Features
+          // Features list
           ...features.map((feature) => Padding(
                 padding: const EdgeInsets.only(bottom: AppSpacing.sm),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Icon(
                       Icons.check_circle,
@@ -432,7 +436,7 @@ class PricingCard extends StatelessWidget {
                 ),
               )),
 
-          const SizedBox(height: AppSpacing.xl),
+          const SizedBox(height: AppSpacing.md),
 
           // CTA
           SizedBox(
