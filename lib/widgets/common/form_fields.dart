@@ -434,12 +434,14 @@ class FormSelect<T> extends StatelessWidget {
           value: value,
           items: items,
           onChanged: enabled ? onChanged : null,
+          isExpanded: true,
           hint: placeholder != null
               ? Text(
                   placeholder!,
                   style: AppTypography.bodyMD.copyWith(
                     color: AppColors.gray500,
                   ),
+                  overflow: TextOverflow.ellipsis,
                 )
               : null,
           dropdownColor: AppColors.gray800,

@@ -264,35 +264,41 @@ class AboutSection extends StatelessWidget {
           color: AppColors.gray700.withValues(alpha: 0.5),
         ),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: AppSpacing.sm,
+        runSpacing: AppSpacing.sm,
         children: [
-          const Icon(
-            Icons.location_on_outlined,
-            color: AppColors.gray400,
-            size: 20,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.location_on_outlined,
+                color: AppColors.gray400,
+                size: 20,
+              ),
+              const SizedBox(width: AppSpacing.sm),
+              Text(
+                '${_content.locationCity}, ${_content.locationRegion}',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+            ],
           ),
-          const SizedBox(width: AppSpacing.sm),
-          Text(
-            '${_content.locationCity}, ${_content.locationRegion}',
-            style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
-          ),
-          const SizedBox(width: AppSpacing.lg),
-          Container(
-            width: 1,
-            height: 20,
-            color: AppColors.gray600,
-          ),
-          const SizedBox(width: AppSpacing.lg),
-          const Icon(
-            Icons.calendar_today_outlined,
-            color: AppColors.gray400,
-            size: 18,
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          Text(
-            'Founded ${_content.foundedYear}',
-            style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.calendar_today_outlined,
+                color: AppColors.gray400,
+                size: 18,
+              ),
+              const SizedBox(width: AppSpacing.sm),
+              Text(
+                'Founded ${_content.foundedYear}',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+            ],
           ),
         ],
       ),
