@@ -105,11 +105,6 @@ void main() {
 
       testWidgets('content defines form fields with select type',
           (tester) async {
-        // Verify content has select fields defined
-        final selectFields = AppContent.contact.formFields
-            .where((f) => f.type == 'select')
-            .toList();
-
         // Content may or may not have select fields
         // This test verifies the content is accessible
         expect(AppContent.contact.formFields, isNotEmpty);
