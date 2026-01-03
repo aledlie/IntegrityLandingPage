@@ -111,11 +111,14 @@ class _StatusBadge extends StatelessWidget {
         children: [
           _StatusIndicator(color: _color, size: 8),
           const SizedBox(width: AppSpacing.sm),
-          Text(
-            text,
-            style: AppTypography.caption.copyWith(
-              color: _color,
-              fontWeight: FontWeight.w600,
+          Flexible(
+            child: Text(
+              text,
+              style: AppTypography.caption.copyWith(
+                color: _color,
+                fontWeight: FontWeight.w600,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
