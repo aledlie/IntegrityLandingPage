@@ -153,21 +153,18 @@ class _PricingSectionState extends State<PricingSection> {
       children: _content.tiers.map((tier) {
         return Padding(
           padding: const EdgeInsets.only(bottom: AppSpacing.lg),
-          child: SizedBox(
-            height: 520,
-            child: PricingCard(
-              tier: tier.name,
-              price: _isAnnual ? tier.annualPrice : tier.monthlyPrice,
-              period: tier.period,
-              description: tier.description,
-              features: tier.features,
-              isPopular: tier.isPopular,
-              ctaText: tier.ctaText,
-              onCtaPressed: () {
-                AnalyticsService.trackPricingView(tier.name);
-                widget.onSelectTier?.call(tier.name);
-              },
-            ),
+          child: PricingCard(
+            tier: tier.name,
+            price: _isAnnual ? tier.annualPrice : tier.monthlyPrice,
+            period: tier.period,
+            description: tier.description,
+            features: tier.features,
+            isPopular: tier.isPopular,
+            ctaText: tier.ctaText,
+            onCtaPressed: () {
+              AnalyticsService.trackPricingView(tier.name);
+              widget.onSelectTier?.call(tier.name);
+            },
           ),
         );
       }).toList(),
@@ -182,14 +179,13 @@ class _PricingSectionState extends State<PricingSection> {
         borderRadius: BorderRadius.circular(AppSpacing.radiusLG),
         border: Border.all(color: AppColors.gray700),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          Flexible(
-            child: Text(
-              _content.enterpriseNote,
-              style: AppTypography.bodyMD,
-            ),
+          Text(
+            _content.enterpriseNote,
+            style: AppTypography.bodyMD,
           ),
           TextButton(
             onPressed: () {

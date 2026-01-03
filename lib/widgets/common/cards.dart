@@ -432,8 +432,7 @@ class PricingCard extends StatelessWidget {
                 ),
               )),
 
-          const Spacer(),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.xl),
 
           // CTA
           SizedBox(

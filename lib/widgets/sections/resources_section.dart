@@ -184,8 +184,10 @@ class ResourcesSection extends StatelessWidget {
   }
 
   Widget _buildCTARow(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: AppSpacing.lg,
+      runSpacing: AppSpacing.md,
       children: [
         GradientButton(
           text: _content.docsCtaText,
@@ -196,7 +198,6 @@ class ResourcesSection extends StatelessWidget {
             );
           },
         ),
-        const SizedBox(width: AppSpacing.lg),
         OutlineButton(
           text: _content.blogCtaText,
           onPressed: () {
