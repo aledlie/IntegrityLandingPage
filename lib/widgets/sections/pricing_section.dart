@@ -121,30 +121,28 @@ class _PricingSectionState extends State<PricingSection> {
   }
 
   Widget _buildDesktopPricing() {
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: _content.tiers.map((tier) {
-          return Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-              child: PricingCard(
-                tier: tier.name,
-                price: _isAnnual ? tier.annualPrice : tier.monthlyPrice,
-                period: tier.period,
-                description: tier.description,
-                features: tier.features,
-                isPopular: tier.isPopular,
-                ctaText: tier.ctaText,
-                onCtaPressed: () {
-                  AnalyticsService.trackPricingView(tier.name);
-                  widget.onSelectTier?.call(tier.name);
-                },
-              ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _content.tiers.map((tier) {
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+            child: PricingCard(
+              tier: tier.name,
+              price: _isAnnual ? tier.annualPrice : tier.monthlyPrice,
+              period: tier.period,
+              description: tier.description,
+              features: tier.features,
+              isPopular: tier.isPopular,
+              ctaText: tier.ctaText,
+              onCtaPressed: () {
+                AnalyticsService.trackPricingView(tier.name);
+                widget.onSelectTier?.call(tier.name);
+              },
             ),
-          );
-        }).toList(),
-      ),
+          ),
+        );
+      }).toList(),
     );
   }
 

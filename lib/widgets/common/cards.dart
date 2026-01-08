@@ -438,7 +438,7 @@ class PricingCard extends StatelessWidget {
 
           const SizedBox(height: AppSpacing.md),
 
-          // CTA
+          // CTA - stays at bottom
           SizedBox(
             width: double.infinity,
             child: isPopular
