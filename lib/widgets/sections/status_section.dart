@@ -102,11 +102,7 @@ class _StatusBadge extends StatelessWidget {
         horizontal: AppSpacing.md,
         vertical: AppSpacing.sm,
       ),
-      decoration: BoxDecoration(
-        color: _color.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
-        border: Border.all(color: _color.withValues(alpha: 0.3)),
-      ),
+      decoration: AppDecorations.statusBadge(_color),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -145,19 +141,7 @@ class _StatusIndicator extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-        boxShadow: showGlow
-            ? [
-                BoxShadow(
-                  color: color.withValues(alpha: 0.4),
-                  blurRadius: 8,
-                  spreadRadius: 2,
-                ),
-              ]
-            : null,
-      ),
+      decoration: AppDecorations.dot(color, showGlow: showGlow),
     );
   }
 }

@@ -53,10 +53,10 @@ class SocialProofSection extends StatelessWidget {
         horizontal: AppSpacing.lg,
         vertical: AppSpacing.md,
       ),
-      decoration: BoxDecoration(
-        color: AppColors.gray900.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        border: Border.all(color: AppColors.gray700.withValues(alpha: 0.3)),
+      decoration: AppDecorations.card(
+        backgroundColor: AppColors.gray900.withValues(alpha: 0.5),
+        borderColor: AppColors.gray700.withValues(alpha: 0.3),
+        radius: AppSpacing.radiusSM,
       ),
       child: Text(
         AppStatistics.sourceDisclaimer,
@@ -231,11 +231,7 @@ class _StatCardState extends State<_StatCard> {
     return Tooltip(
       message: 'Source: ${widget.stat.source}',
       preferBelow: true,
-      decoration: BoxDecoration(
-        color: AppColors.gray800,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        border: Border.all(color: AppColors.gray700),
-      ),
+      decoration: AppDecorations.card(radius: AppSpacing.radiusSM),
       textStyle: AppTypography.caption.copyWith(
         color: AppColors.gray300,
         fontSize: 11,
@@ -258,10 +254,7 @@ class _StatCardState extends State<_StatCard> {
               // Icon with gradient background
               Container(
                 padding: const EdgeInsets.all(AppSpacing.sm),
-                decoration: BoxDecoration(
-                  gradient: AppColors.primaryGradient,
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-                ),
+                decoration: AppDecorations.gradientIconBox(radius: AppSpacing.radiusSM),
                 child: Icon(
                   widget.stat.icon,
                   size: 24,

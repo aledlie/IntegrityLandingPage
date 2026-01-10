@@ -101,10 +101,7 @@ class AboutSection extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(AppSpacing.sm),
-                decoration: BoxDecoration(
-                  color: AppColors.blue500.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                ),
+                decoration: AppDecorations.translucentIconBox(AppColors.blue500),
                 child: const Icon(
                   Icons.flag_outlined,
                   color: AppColors.blue400,
@@ -139,10 +136,7 @@ class AboutSection extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.all(AppSpacing.sm),
-                decoration: BoxDecoration(
-                  color: AppColors.indigo500.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                ),
+                decoration: AppDecorations.translucentIconBox(AppColors.indigo500),
                 child: const Icon(
                   Icons.visibility_outlined,
                   color: AppColors.indigo400,
@@ -322,10 +316,7 @@ class _ValueCard extends StatelessWidget {
           Container(
             width: 48,
             height: 48,
-            decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
-              borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-            ),
+            decoration: AppDecorations.gradientIconBox(radius: AppSpacing.radiusMD),
             child: Icon(
               value.icon,
               size: 24,

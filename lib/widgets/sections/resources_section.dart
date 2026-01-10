@@ -235,10 +235,7 @@ class _DocCategoryCard extends StatelessWidget {
           Container(
             width: 44,
             height: 44,
-            decoration: BoxDecoration(
-              color: AppColors.blue500.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-            ),
+            decoration: AppDecorations.translucentIconBox(AppColors.blue500),
             child: Icon(
               category.icon,
               size: 22,
@@ -268,9 +265,8 @@ class _DocCategoryCard extends StatelessWidget {
                   horizontal: AppSpacing.sm,
                   vertical: AppSpacing.xs,
                 ),
-                decoration: BoxDecoration(
-                  color: AppColors.gray700.withValues(alpha: 0.5),
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+                decoration: AppDecorations.chip(
+                  backgroundColor: AppColors.gray700.withValues(alpha: 0.5),
                 ),
                 child: Text(
                   topic,
@@ -310,10 +306,7 @@ class _LeadMagnetCard extends StatelessWidget {
               Container(
                 width: 48,
                 height: 48,
-                decoration: BoxDecoration(
-                  gradient: AppColors.primaryGradient,
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                ),
+                decoration: AppDecorations.gradientIconBox(radius: AppSpacing.radiusMD),
                 child: Icon(
                   magnet.icon,
                   size: 24,
@@ -335,10 +328,9 @@ class _LeadMagnetCard extends StatelessWidget {
                         horizontal: AppSpacing.sm,
                         vertical: 2,
                       ),
-                      decoration: BoxDecoration(
-                        color: AppColors.blue500.withValues(alpha: 0.15),
-                        borderRadius:
-                            BorderRadius.circular(AppSpacing.radiusSM),
+                      decoration: AppDecorations.translucentIconBox(
+                        AppColors.blue500,
+                        radius: AppSpacing.radiusSM,
                       ),
                       child: Text(
                         magnet.format,
@@ -410,9 +402,9 @@ class _BlogPostCard extends StatelessWidget {
               horizontal: AppSpacing.sm,
               vertical: AppSpacing.xs,
             ),
-            decoration: BoxDecoration(
-              color: _getCategoryColor(post.category).withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+            decoration: AppDecorations.translucentIconBox(
+              _getCategoryColor(post.category),
+              radius: AppSpacing.radiusSM,
             ),
             child: Text(
               post.category,
@@ -456,10 +448,7 @@ class _BlogPostCard extends StatelessWidget {
                 Container(
                   width: 4,
                   height: 4,
-                  decoration: const BoxDecoration(
-                    color: AppColors.gray600,
-                    shape: BoxShape.circle,
-                  ),
+                  decoration: AppDecorations.separatorDot,
                 ),
                 const SizedBox(width: AppSpacing.sm),
               ],

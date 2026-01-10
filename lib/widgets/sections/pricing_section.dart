@@ -91,10 +91,7 @@ class _PricingSectionState extends State<PricingSection> {
   Widget _buildBillingToggle() {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.xs),
-      decoration: BoxDecoration(
-        color: AppColors.gray800,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
-      ),
+      decoration: AppDecorations.chip(radius: AppSpacing.radiusFull),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -172,10 +169,10 @@ class _PricingSectionState extends State<PricingSection> {
   Widget _buildEnterpriseNote() {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.lg),
-      decoration: BoxDecoration(
-        color: AppColors.gray800.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(AppSpacing.radiusLG),
-        border: Border.all(color: AppColors.gray700),
+      decoration: AppDecorations.card(
+        backgroundColor: AppColors.gray800.withValues(alpha: 0.5),
+        borderColor: AppColors.gray700,
+        radius: AppSpacing.radiusLG,
       ),
       child: Wrap(
         alignment: WrapAlignment.center,
@@ -250,10 +247,7 @@ class _BillingOption extends StatelessWidget {
                   horizontal: AppSpacing.sm,
                   vertical: 2,
                 ),
-                decoration: BoxDecoration(
-                  gradient: AppColors.primaryGradient,
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-                ),
+                decoration: AppDecorations.gradientPill(),
                 child: Text(
                   badge!,
                   style: AppTypography.caption.copyWith(

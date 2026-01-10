@@ -57,9 +57,7 @@ class HeroSection extends StatelessWidget {
     final isTablet = ResponsiveUtils.isTablet(context);
 
     return Container(
-      decoration: const BoxDecoration(
-        gradient: AppColors.backgroundGradient,
-      ),
+      decoration: AppDecorations.gradientBackground,
       child: Stack(
         children: [
           // Decorative orbs
@@ -110,23 +108,14 @@ class HeroSection extends StatelessWidget {
         horizontal: AppSpacing.md,
         vertical: AppSpacing.xs,
       ),
-      decoration: BoxDecoration(
-        color: AppColors.blue500.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
-        border: Border.all(
-          color: AppColors.blue500.withValues(alpha: 0.3),
-        ),
-      ),
+      decoration: AppDecorations.statusBadge(AppColors.blue500, opacity: 0.1),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             width: 8,
             height: 8,
-            decoration: const BoxDecoration(
-              color: AppColors.success,
-              shape: BoxShape.circle,
-            ),
+            decoration: AppDecorations.successDot,
           ),
           const SizedBox(width: AppSpacing.sm),
           Text(
@@ -267,10 +256,7 @@ class HeroSection extends StatelessWidget {
               Container(
                 width: 4,
                 height: 4,
-                decoration: const BoxDecoration(
-                  color: AppColors.gray600,
-                  shape: BoxShape.circle,
-                ),
+                decoration: AppDecorations.separatorDot,
               ),
             ],
           ],

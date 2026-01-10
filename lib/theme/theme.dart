@@ -1,5 +1,6 @@
 // Re-export theme components for convenience
 export 'colors.dart';
+export 'decorations.dart';
 export 'typography.dart';
 export 'spacing.dart';
 

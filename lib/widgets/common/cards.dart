@@ -206,10 +206,7 @@ class FeatureCard extends StatelessWidget {
           Container(
             width: 48,
             height: 48,
-            decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
-              borderRadius: BorderRadius.circular(AppSpacing.radiusLG),
-            ),
+            decoration: AppDecorations.gradientIconBox(),
             child: Icon(
               icon,
               size: 24,
@@ -245,10 +242,7 @@ class FeatureCard extends StatelessWidget {
                         width: 6,
                         height: 6,
                         margin: const EdgeInsets.only(top: 6),
-                        decoration: const BoxDecoration(
-                          color: AppColors.blue500,
-                          shape: BoxShape.circle,
-                        ),
+                        decoration: AppDecorations.bulletDot,
                       ),
                       const SizedBox(width: AppSpacing.sm),
                       Expanded(
@@ -364,10 +358,7 @@ class PricingCard extends StatelessWidget {
                 horizontal: AppSpacing.sm,
                 vertical: AppSpacing.xs,
               ),
-              decoration: BoxDecoration(
-                gradient: AppColors.primaryGradient,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-              ),
+              decoration: AppDecorations.gradientPill(),
               child: Text(
                 'Most Popular',
                 style: AppTypography.caption.copyWith(
