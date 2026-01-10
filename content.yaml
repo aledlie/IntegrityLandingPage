@@ -27,10 +27,10 @@ urls:
   external:
     calendly_demo: "https://calendly.com/alyshialedlie/30min"
     status_page: "https://integritystudio.ai/status"
-    linkedin: "https://linkedin.com/company/integrity-studio"
+    linkedin: "https://linkedin.com/company/integrity-studio-ai"
     twitter: "https://twitter.com/integritystudio"
-    github: "https://github.com/integritystudio"
-    founder_linkedin: "https://linkedin.com/in/alyshialedlie"
+    github: "https://github.com/aledlie"
+    founder_linkedin: "https://linkedin.com/in/aledlie"
     founder_twitter: "https://twitter.com/alyshialedlie"
 
   internal:
@@ -493,19 +493,19 @@ social_proof:
 
   # Placeholder logos (to be replaced with real customers)
   logos:
-    - name: "Enterprise Client"
-      industry: "Finance"
-    - name: "Tech Startup"
+    - name: "Hines"
+      industry: "Real Estate"
+    - name: "DotFun LLC"
       industry: "SaaS"
-    - name: "Healthcare Co"
+    - name: "Leora Home Health Care"
       industry: "Healthcare"
 
   # Placeholder testimonial
   testimonials:
     - quote: "Integrity Studio gave us the visibility we needed to ship AI features with confidence. The compliance reports saved us weeks."
-      author: "Engineering Lead"
-      role: "VP Engineering"
-      company: "Tech Company"
+      author: "Alvin Cheung"
+      role: "CEO"
+      company: "DotFun LLC"
 
 # =============================================================================
 # STATUS SECTION
@@ -616,7 +616,7 @@ about:
       twitter_url: "https://twitter.com/alyshialedlie"
 
     - name: "Chandra Srivastava"
-      role: "Co-founder & CMO"
+      role: "Co-founder & Chief Marketing Officer"
       bio: >-
         Marketing leader with experience driving growth at early stage B2B technology companies.
         Expert in positioning AI products for enterprise adoption and building category-defining brands.
@@ -632,6 +632,13 @@ about:
       bio: >-
         Regulatory and compliance expert specializing in AI governance frameworks.
         Advises enterprises on EU AI Act preparation and responsible AI deployment.
+
+    - name: "Aaron Weise"
+      role: "Head of AI Compliance Development"
+      bio: >-
+        Brings decades of experiences in both cutting-edge AI development and legal operations.
+        An exceptional leader driving innovation the intersection of automation and Trust & Safety.
+
 
 # =============================================================================
 # CONTACT SECTION
