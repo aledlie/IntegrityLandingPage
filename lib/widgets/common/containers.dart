@@ -339,3 +339,336 @@ class LabeledDivider extends StatelessWidget {
     );
   }
 }
+
+/// Icon container with gradient background
+///
+/// Consolidates the common pattern of a sized container with gradient
+/// background containing a centered icon.
+///
+/// Variants:
+/// - Default: Primary gradient (blue to indigo)
+/// - Translucent: Semi-transparent colored background
+/// - Solid: Solid color background
+///
+/// Usage:
+/// ```dart
+/// GradientIconContainer(
+///   icon: LucideIcons.activity,
+/// )
+///
+/// GradientIconContainer.translucent(
+///   icon: Icons.flag_outlined,
+///   color: AppColors.blue500,
+/// )
+///
+/// GradientIconContainer(
+///   icon: LucideIcons.shield,
+///   size: 56,
+///   iconSize: 28,
+/// )
+/// ```
+class GradientIconContainer extends StatelessWidget {
+  final IconData icon;
+  final double size;
+  final double? iconSize;
+  final Color iconColor;
+  final Gradient? gradient;
+  final Color? backgroundColor;
+  final double borderRadius;
+
+  const GradientIconContainer({
+    super.key,
+    required this.icon,
+    this.size = 48,
+    this.iconSize,
+    this.iconColor = Colors.white,
+    this.gradient,
+    this.backgroundColor,
+    this.borderRadius = AppSpacing.radiusLG,
+  })  : _translucentColor = null,
+        _translucentOpacity = null;
+
+  /// Creates a translucent icon container with a semi-transparent colored background.
+  ///
+  /// Usage:
+  /// ```dart
+  /// GradientIconContainer.translucent(
+  ///   icon: Icons.flag_outlined,
+  ///   color: AppColors.blue500,
+  ///   iconColor: AppColors.blue400,
+  /// )
+  /// ```
+  const GradientIconContainer.translucent({
+    super.key,
+    required this.icon,
+    required Color color,
+    this.size = 48,
+    this.iconSize,
+    Color? iconColor,
+    this.borderRadius = AppSpacing.radiusMD,
+    double opacity = 0.15,
+  })  : gradient = null,
+        backgroundColor = null,
+        iconColor = iconColor ?? color,
+        _translucentColor = color,
+        _translucentOpacity = opacity;
+
+  // Private fields for translucent variant
+  final Color? _translucentColor;
+  final double? _translucentOpacity;
+
+  /// Creates a solid colored icon container.
+  ///
+  /// Usage:
+  /// ```dart
+  /// GradientIconContainer.solid(
+  ///   icon: Icons.check,
+  ///   color: AppColors.gray700,
+  /// )
+  /// ```
+  const GradientIconContainer.solid({
+    super.key,
+    required this.icon,
+    required Color color,
+    this.size = 48,
+    this.iconSize,
+    this.iconColor = Colors.white,
+    this.borderRadius = AppSpacing.radiusMD,
+  })  : gradient = null,
+        backgroundColor = color,
+        _translucentColor = null,
+        _translucentOpacity = null;
+
+  @override
+  Widget build(BuildContext context) {
+    final effectiveIconSize = iconSize ?? size * 0.5;
+
+    BoxDecoration decoration;
+    Color effectiveIconColor = iconColor;
+
+    if (_translucentColor != null) {
+      // Translucent variant
+      decoration = AppDecorations.translucentIconBox(
+        _translucentColor!,
+        opacity: _translucentOpacity ?? 0.15,
+        radius: borderRadius,
+      );
+      // For translucent, use a lighter shade of the color for the icon
+      effectiveIconColor = iconColor;
+    } else if (backgroundColor != null) {
+      // Solid variant
+      decoration = AppDecorations.iconBox(
+        backgroundColor: backgroundColor,
+        radius: borderRadius,
+      );
+    } else {
+      // Default gradient variant
+      decoration = AppDecorations.gradientIconBox(
+        gradient: gradient,
+        radius: borderRadius,
+      );
+    }
+
+    return Container(
+      width: size,
+      height: size,
+      decoration: decoration,
+      child: Icon(
+        icon,
+        size: effectiveIconSize,
+        color: effectiveIconColor,
+      ),
+    );
+  }
+}
+
+/// Bullet point row for feature lists
+///
+/// Consolidates the common pattern of a bullet indicator followed by text.
+/// Supports multiple bullet styles: dot, check icon, or custom icon.
+///
+/// Variants:
+/// - Default: Blue dot bullet
+/// - Check: Gradient circle with checkmark
+/// - Icon: Custom icon bullet
+///
+/// Usage:
+/// ```dart
+/// BulletPoint(text: 'Feature one')
+///
+/// BulletPoint.check(text: 'Benefit item')
+///
+/// BulletPoint.icon(
+///   icon: LucideIcons.zap,
+///   text: 'Custom bullet',
+/// )
+///
+/// // For lists:
+/// Column(
+///   children: features.map((f) => BulletPoint(text: f)).toList(),
+/// )
+/// ```
+class BulletPoint extends StatelessWidget {
+  final String text;
+  final TextStyle? textStyle;
+  final Color? dotColor;
+  final double dotSize;
+  final IconData? icon;
+  final bool useGradientCheck;
+  final EdgeInsetsGeometry padding;
+
+  /// Creates a bullet point with a simple colored dot.
+  const BulletPoint({
+    super.key,
+    required this.text,
+    this.textStyle,
+    this.dotColor,
+    this.dotSize = 6,
+    this.padding = const EdgeInsets.only(bottom: AppSpacing.xs),
+  })  : icon = null,
+        useGradientCheck = false;
+
+  /// Creates a bullet point with a gradient checkmark icon.
+  ///
+  /// Usage:
+  /// ```dart
+  /// BulletPoint.check(text: 'Completed feature')
+  /// ```
+  const BulletPoint.check({
+    super.key,
+    required this.text,
+    this.textStyle,
+    this.padding = const EdgeInsets.only(bottom: AppSpacing.sm),
+  })  : dotColor = null,
+        dotSize = 6,
+        icon = null,
+        useGradientCheck = true;
+
+  /// Creates a bullet point with a custom icon.
+  ///
+  /// Usage:
+  /// ```dart
+  /// BulletPoint.icon(
+  ///   icon: LucideIcons.star,
+  ///   text: 'Premium feature',
+  /// )
+  /// ```
+  const BulletPoint.icon({
+    super.key,
+    required this.text,
+    required IconData this.icon,
+    this.textStyle,
+    this.dotColor,
+    this.padding = const EdgeInsets.only(bottom: AppSpacing.xs),
+  })  : dotSize = 6,
+        useGradientCheck = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildBullet(),
+          const SizedBox(width: AppSpacing.sm),
+          Expanded(
+            child: Text(
+              text,
+              style: textStyle ?? AppTypography.bodySM,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBullet() {
+    if (useGradientCheck) {
+      // Gradient circle with checkmark
+      return Container(
+        margin: const EdgeInsets.only(top: 4),
+        padding: const EdgeInsets.all(2),
+        decoration: const BoxDecoration(
+          gradient: AppColors.primaryGradient,
+          shape: BoxShape.circle,
+        ),
+        child: const Icon(
+          Icons.check,
+          size: 12,
+          color: Colors.white,
+        ),
+      );
+    }
+
+    if (icon != null) {
+      // Custom icon bullet
+      return Container(
+        margin: const EdgeInsets.only(top: 2),
+        child: Icon(
+          icon,
+          size: 16,
+          color: dotColor ?? AppColors.blue500,
+        ),
+      );
+    }
+
+    // Simple dot bullet
+    return Container(
+      width: dotSize,
+      height: dotSize,
+      margin: const EdgeInsets.only(top: 6),
+      decoration: AppDecorations.bulletDot,
+    );
+  }
+}
+
+/// Convenience widget for rendering a list of bullet points
+///
+/// Usage:
+/// ```dart
+/// BulletList(
+///   items: ['Feature one', 'Feature two', 'Feature three'],
+/// )
+///
+/// BulletList.checks(
+///   items: ['Benefit one', 'Benefit two'],
+/// )
+/// ```
+class BulletList extends StatelessWidget {
+  final List<String> items;
+  final TextStyle? textStyle;
+  final Color? dotColor;
+  final bool useChecks;
+
+  const BulletList({
+    super.key,
+    required this.items,
+    this.textStyle,
+    this.dotColor,
+  }) : useChecks = false;
+
+  const BulletList.checks({
+    super.key,
+    required this.items,
+    this.textStyle,
+  })  : dotColor = null,
+        useChecks = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: items.map((item) {
+        if (useChecks) {
+          return BulletPoint.check(text: item, textStyle: textStyle);
+        }
+        return BulletPoint(
+          text: item,
+          textStyle: textStyle,
+          dotColor: dotColor,
+        );
+      }).toList(),
+    );
+  }
+}

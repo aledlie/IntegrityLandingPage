@@ -99,14 +99,11 @@ class AboutSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(AppSpacing.sm),
-                decoration: AppDecorations.translucentIconBox(AppColors.blue500),
-                child: const Icon(
-                  Icons.flag_outlined,
-                  color: AppColors.blue400,
-                  size: 24,
-                ),
+              GradientIconContainer.translucent(
+                icon: Icons.flag_outlined,
+                color: AppColors.blue500,
+                iconColor: AppColors.blue400,
+                size: 40,
               ),
               const SizedBox(width: AppSpacing.md),
               Text(
@@ -134,14 +131,11 @@ class AboutSection extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(AppSpacing.sm),
-                decoration: AppDecorations.translucentIconBox(AppColors.indigo500),
-                child: const Icon(
-                  Icons.visibility_outlined,
-                  color: AppColors.indigo400,
-                  size: 24,
-                ),
+              GradientIconContainer.translucent(
+                icon: Icons.visibility_outlined,
+                color: AppColors.indigo500,
+                iconColor: AppColors.indigo400,
+                size: 40,
               ),
               const SizedBox(width: AppSpacing.md),
               Text(
@@ -313,15 +307,9 @@ class _ValueCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: AppDecorations.gradientIconBox(radius: AppSpacing.radiusMD),
-            child: Icon(
-              value.icon,
-              size: 24,
-              color: Colors.white,
-            ),
+          GradientIconContainer(
+            icon: value.icon,
+            borderRadius: AppSpacing.radiusMD,
           ),
           const SizedBox(height: AppSpacing.md),
           Text(

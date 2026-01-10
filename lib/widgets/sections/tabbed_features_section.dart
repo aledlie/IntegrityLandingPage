@@ -251,36 +251,12 @@ class _TabbedFeaturesSectionState extends State<TabbedFeaturesSection> {
           ),
         ),
         const SizedBox(height: AppSpacing.lg),
-        ...feature.benefits.map((benefit) => Padding(
-              padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 4),
-                    padding: const EdgeInsets.all(2),
-                    decoration: const BoxDecoration(
-                      gradient: AppColors.primaryGradient,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      LucideIcons.check,
-                      size: 12,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: AppSpacing.sm),
-                  Expanded(
-                    child: Text(
-                      benefit,
-                      style: AppTypography.bodyMD.copyWith(
-                        color: AppColors.gray300,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )),
+        BulletList.checks(
+          items: feature.benefits,
+          textStyle: AppTypography.bodyMD.copyWith(
+            color: AppColors.gray300,
+          ),
+        ),
       ],
     );
   }
@@ -288,12 +264,9 @@ class _TabbedFeaturesSectionState extends State<TabbedFeaturesSection> {
   Widget _buildStatCard(_FeatureTab feature) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.xl),
-      decoration: BoxDecoration(
-        color: AppColors.gray800,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusLG),
-        border: Border.all(
-          color: AppColors.gray700.withValues(alpha: 0.5),
-        ),
+      decoration: AppDecorations.card(
+        borderColor: AppColors.gray700.withValues(alpha: 0.5),
+        radius: AppSpacing.radiusLG,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -322,17 +295,11 @@ class _TabbedFeaturesSectionState extends State<TabbedFeaturesSection> {
           ),
           const SizedBox(height: AppSpacing.xl),
           // Feature icon
-          Container(
-            padding: const EdgeInsets.all(AppSpacing.md),
-            decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
-              borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-            ),
-            child: Icon(
-              feature.icon,
-              size: 32,
-              color: Colors.white,
-            ),
+          GradientIconContainer(
+            icon: feature.icon,
+            size: 56,
+            iconSize: 32,
+            borderRadius: AppSpacing.radiusMD,
           ),
         ],
       ),

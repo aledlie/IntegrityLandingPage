@@ -369,18 +369,11 @@ class _ContactSectionState extends State<ContactSection> {
             tier: GlassCardTier.primary,
             child: Column(
               children: [
-                Container(
-                  width: 56,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    gradient: AppColors.primaryGradient,
-                    borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                  ),
-                  child: const Icon(
-                    Icons.video_call_outlined,
-                    size: 28,
-                    color: Colors.white,
-                  ),
+                GradientIconContainer(
+                  icon: Icons.video_call_outlined,
+                  size: 56,
+                  iconSize: 28,
+                  borderRadius: AppSpacing.radiusMD,
                 ),
                 const SizedBox(height: AppSpacing.md),
                 Text(
@@ -563,18 +556,12 @@ class _ContactMethodItem extends StatelessWidget {
                 }
               : null,
           borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-          child: Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              color: AppColors.gray700.withValues(alpha: 0.5),
-              borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-            ),
-            child: Icon(
-              method.icon,
-              size: 20,
-              color: AppColors.gray300,
-            ),
+          child: GradientIconContainer.solid(
+            icon: method.icon,
+            color: AppColors.gray700.withValues(alpha: 0.5),
+            size: 44,
+            iconSize: 20,
+            iconColor: AppColors.gray300,
           ),
         ),
       );
@@ -590,18 +577,12 @@ class _ContactMethodItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
       child: Row(
         children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              color: AppColors.blue500.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-            ),
-            child: Icon(
-              method.icon,
-              size: 22,
-              color: AppColors.blue400,
-            ),
+          GradientIconContainer.translucent(
+            icon: method.icon,
+            color: AppColors.blue500,
+            iconColor: AppColors.blue400,
+            size: 44,
+            iconSize: 22,
           ),
           const SizedBox(width: AppSpacing.md),
           Expanded(

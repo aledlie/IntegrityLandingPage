@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
+import 'containers.dart';
 
 /// Glass morphism card with performance optimization
 ///
@@ -203,16 +204,7 @@ class FeatureCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Icon container with gradient
-          Container(
-            width: 48,
-            height: 48,
-            decoration: AppDecorations.gradientIconBox(),
-            child: Icon(
-              icon,
-              size: 24,
-              color: Colors.white,
-            ),
-          ),
+          GradientIconContainer(icon: icon),
 
           const SizedBox(height: AppSpacing.md),
 
@@ -233,27 +225,7 @@ class FeatureCard extends StatelessWidget {
           if (features != null && features!.isNotEmpty) ...[
             const SizedBox(height: AppSpacing.md),
             // Feature bullets
-            ...features!.map((feature) => Padding(
-                  padding: const EdgeInsets.only(bottom: AppSpacing.xs),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 6,
-                        height: 6,
-                        margin: const EdgeInsets.only(top: 6),
-                        decoration: AppDecorations.bulletDot,
-                      ),
-                      const SizedBox(width: AppSpacing.sm),
-                      Expanded(
-                        child: Text(
-                          feature,
-                          style: AppTypography.bodySM,
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
+            BulletList(items: features!),
           ],
         ],
       ),

@@ -189,10 +189,10 @@ class FooterSection extends StatelessWidget {
         horizontal: isMobile ? AppSpacing.md : AppSpacing.xl,
         vertical: AppSpacing.md,
       ),
-      decoration: BoxDecoration(
-        color: AppColors.gray800.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        border: Border.all(color: AppColors.gray700.withValues(alpha: 0.5)),
+      decoration: AppDecorations.card(
+        backgroundColor: AppColors.gray800.withValues(alpha: 0.5),
+        borderColor: AppColors.gray700.withValues(alpha: 0.5),
+        radius: AppSpacing.radiusSM,
       ),
       child: Text(
         ComplianceDisclaimers.general,

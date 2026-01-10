@@ -252,14 +252,10 @@ class _StatCardState extends State<_StatCard> {
           child: Column(
             children: [
               // Icon with gradient background
-              Container(
-                padding: const EdgeInsets.all(AppSpacing.sm),
-                decoration: AppDecorations.gradientIconBox(radius: AppSpacing.radiusSM),
-                child: Icon(
-                  widget.stat.icon,
-                  size: 24,
-                  color: Colors.white,
-                ),
+              GradientIconContainer(
+                icon: widget.stat.icon,
+                size: 40,
+                borderRadius: AppSpacing.radiusSM,
               ),
               const SizedBox(height: AppSpacing.md),
               // Value with gradient text effect
@@ -359,10 +355,7 @@ class _TestimonialCardState extends State<_TestimonialCard> {
                 horizontal: AppSpacing.sm,
                 vertical: AppSpacing.xs,
               ),
-              decoration: BoxDecoration(
-                gradient: AppColors.primaryGradient,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
-              ),
+              decoration: AppDecorations.gradientPill(radius: AppSpacing.radiusFull),
               child: Text.rich(
                 TextSpan(
                   children: [

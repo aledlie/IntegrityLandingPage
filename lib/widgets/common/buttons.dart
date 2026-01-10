@@ -2,6 +2,175 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../theme/theme.dart';
 
+// =============================================================================
+// Button State Mixin & Wrapper
+// =============================================================================
+
+/// Mixin providing common button state management for hover, focus, and disabled states.
+///
+/// Use this mixin on StatefulWidget State classes that need button-like behavior.
+/// It provides:
+/// - `isHovered`: Whether the mouse is over the widget
+/// - `isFocused`: Whether the widget has keyboard focus
+/// - `isDisabled`: Abstract getter (implement based on widget props)
+/// - `cursor`: Mouse cursor based on disabled state
+///
+/// Usage:
+/// ```dart
+/// class _MyButtonState extends State<MyButton> with HoverableButtonMixin {
+///   @override
+///   bool get isDisabled => widget.onPressed == null;
+///
+///   @override
+///   Widget build(BuildContext context) {
+///     return buildHoverableButton(
+///       onTap: widget.onPressed,
+///       child: Container(...),
+///     );
+///   }
+/// }
+/// ```
+mixin HoverableButtonMixin<T extends StatefulWidget> on State<T> {
+  bool _isHovered = false;
+  bool _isFocused = false;
+
+  /// Whether the button is currently hovered
+  bool get isHovered => _isHovered;
+
+  /// Whether the button currently has focus
+  bool get isFocused => _isFocused;
+
+  /// Whether the button is disabled (implement in subclass)
+  bool get isDisabled;
+
+  /// Mouse cursor based on disabled state
+  MouseCursor get cursor =>
+      isDisabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click;
+
+  /// Handle hover state change
+  void setHovered(bool hovered) {
+    if (_isHovered != hovered) {
+      setState(() => _isHovered = hovered);
+    }
+  }
+
+  /// Handle focus state change
+  void setFocused(bool focused) {
+    if (_isFocused != focused) {
+      setState(() => _isFocused = focused);
+    }
+  }
+
+  /// Build the hoverable button wrapper with common behavior.
+  ///
+  /// This wraps the child with:
+  /// - Semantics for accessibility
+  /// - Focus handling for keyboard navigation
+  /// - MouseRegion for hover effects
+  /// - GestureDetector for tap handling
+  Widget buildHoverableButton({
+    required Widget child,
+    VoidCallback? onTap,
+    String? semanticLabel,
+    bool excludeSemantics = false,
+  }) {
+    Widget result = Focus(
+      onFocusChange: setFocused,
+      child: MouseRegion(
+        cursor: cursor,
+        onEnter: (_) => setHovered(true),
+        onExit: (_) => setHovered(false),
+        child: GestureDetector(
+          onTap: isDisabled ? null : onTap,
+          child: child,
+        ),
+      ),
+    );
+
+    if (!excludeSemantics && semanticLabel != null) {
+      result = Semantics(
+        button: true,
+        enabled: !isDisabled,
+        label: semanticLabel,
+        child: result,
+      );
+    }
+
+    return result;
+  }
+}
+
+/// Configuration for button content (text, icon, loading state)
+class ButtonContent {
+  final String text;
+  final IconData? icon;
+  final bool isLoading;
+  final bool fullWidth;
+  final Color textColor;
+  final Color? iconColor;
+
+  const ButtonContent({
+    required this.text,
+    this.icon,
+    this.isLoading = false,
+    this.fullWidth = false,
+    this.textColor = Colors.white,
+    this.iconColor,
+  });
+
+  /// Build the button's inner content (text, icon, loading indicator)
+  Widget build() {
+    return Row(
+      mainAxisSize: fullWidth ? MainAxisSize.max : MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (isLoading)
+          SizedBox(
+            width: 20,
+            height: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(textColor),
+            ),
+          )
+        else
+          Flexible(
+            child: Text(
+              text,
+              style: AppTypography.buttonText.copyWith(color: textColor),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        if (icon != null && !isLoading) ...[
+          const SizedBox(width: AppSpacing.sm),
+          Icon(
+            icon,
+            size: 20,
+            color: iconColor ?? textColor,
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// Standard button padding
+const EdgeInsets kButtonPadding = EdgeInsets.symmetric(
+  horizontal: AppSpacing.xl,
+  vertical: AppSpacing.md,
+);
+
+/// Hover lift transform for elevated buttons
+Matrix4 hoverLiftTransform(bool isHovered, bool isDisabled) {
+  return isHovered && !isDisabled
+      ? Matrix4.translationValues(0.0, -2.0, 0.0)
+      : Matrix4.identity();
+}
+
+// =============================================================================
+// Button Implementations
+// =============================================================================
+
 /// Animated gradient border button (AiSDR-inspired design)
 ///
 /// Features:
@@ -42,12 +211,11 @@ class AnimatedGradientBorderButton extends StatefulWidget {
 
 class _AnimatedGradientBorderButtonState
     extends State<AnimatedGradientBorderButton>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, HoverableButtonMixin {
   late AnimationController _controller;
-  bool _isHovered = false;
-  bool _isFocused = false;
 
-  bool get _isDisabled => widget.isLoading || widget.onPressed == null;
+  @override
+  bool get isDisabled => widget.isLoading || widget.onPressed == null;
 
   @override
   void initState() {
@@ -69,109 +237,62 @@ class _AnimatedGradientBorderButtonState
     final reduceMotion =
         MediaQuery.maybeOf(context)?.disableAnimations ?? false;
 
-    return Semantics(
-      button: true,
-      enabled: !_isDisabled,
-      label: widget.semanticLabel ?? widget.text,
-      child: Focus(
-        onFocusChange: (focused) => setState(() => _isFocused = focused),
-        child: MouseRegion(
-          cursor:
-              _isDisabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
-          onEnter: (_) => setState(() => _isHovered = true),
-          onExit: (_) => setState(() => _isHovered = false),
-          child: GestureDetector(
-            onTap: _isDisabled ? null : widget.onPressed,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOut,
-              transform: _isHovered && !_isDisabled
-                  ? Matrix4.translationValues(0.0, -2.0, 0.0)
-                  : Matrix4.identity(),
-              child: AnimatedBuilder(
-                animation: reduceMotion
-                    ? const AlwaysStoppedAnimation(0.0)
-                    : _controller,
-                builder: (context, child) {
-                  return CustomPaint(
-                    painter: _GradientBorderPainter(
-                      rotation: reduceMotion ? 0.0 : _controller.value * 2 * math.pi,
-                      borderRadius: AppSpacing.radiusMD,
-                      strokeWidth: 2.0,
-                      gradient: const SweepGradient(
-                        colors: [
-                          AppColors.blue500,
-                          AppColors.indigo500,
-                          AppColors.purple500,
-                          AppColors.blue500,
-                        ],
-                      ),
-                    ),
-                    child: child,
-                  );
-                },
-                child: Container(
-                  width: widget.fullWidth ? double.infinity : null,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.xl,
-                    vertical: AppSpacing.md,
-                  ),
-                  decoration: BoxDecoration(
-                    gradient: _isDisabled
-                        ? AppColors.disabledGradient
-                        : AppColors.primaryGradient,
-                    borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                    boxShadow: _isDisabled
-                        ? []
-                        : [
-                            BoxShadow(
-                              color: AppColors.shadowBlue,
-                              blurRadius: _isHovered ? 24 : 16,
-                              offset: Offset(0, _isHovered ? 6 : 4),
-                            ),
-                          ],
-                    border: _isFocused
-                        ? Border.all(color: AppColors.blue400, width: 2)
-                        : null,
-                  ),
-                  child: Row(
-                    mainAxisSize:
-                        widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (widget.isLoading)
-                        const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.white),
-                          ),
-                        )
-                      else
-                        Flexible(
-                          child: Text(
-                            widget.text,
-                            style: AppTypography.buttonText.copyWith(
-                              color: Colors.white,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      if (widget.icon != null && !widget.isLoading) ...[
-                        const SizedBox(width: AppSpacing.sm),
-                        Icon(
-                          widget.icon,
-                          size: 20,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ],
-                  ),
+    return buildHoverableButton(
+      onTap: widget.onPressed,
+      semanticLabel: widget.semanticLabel ?? widget.text,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+        transform: hoverLiftTransform(isHovered, isDisabled),
+        child: AnimatedBuilder(
+          animation: reduceMotion
+              ? const AlwaysStoppedAnimation(0.0)
+              : _controller,
+          builder: (context, child) {
+            return CustomPaint(
+              painter: _GradientBorderPainter(
+                rotation: reduceMotion ? 0.0 : _controller.value * 2 * math.pi,
+                borderRadius: AppSpacing.radiusMD,
+                strokeWidth: 2.0,
+                gradient: const SweepGradient(
+                  colors: [
+                    AppColors.blue500,
+                    AppColors.indigo500,
+                    AppColors.purple500,
+                    AppColors.blue500,
+                  ],
                 ),
               ),
+              child: child,
+            );
+          },
+          child: Container(
+            width: widget.fullWidth ? double.infinity : null,
+            padding: kButtonPadding,
+            decoration: BoxDecoration(
+              gradient: isDisabled
+                  ? AppColors.disabledGradient
+                  : AppColors.primaryGradient,
+              borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+              boxShadow: isDisabled
+                  ? []
+                  : [
+                      BoxShadow(
+                        color: AppColors.shadowBlue,
+                        blurRadius: isHovered ? 24 : 16,
+                        offset: Offset(0, isHovered ? 6 : 4),
+                      ),
+                    ],
+              border: isFocused
+                  ? Border.all(color: AppColors.blue400, width: 2)
+                  : null,
             ),
+            child: ButtonContent(
+              text: widget.text,
+              icon: widget.icon,
+              isLoading: widget.isLoading,
+              fullWidth: widget.fullWidth,
+            ).build(),
           ),
         ),
       ),
@@ -262,103 +383,54 @@ class GradientButton extends StatefulWidget {
   State<GradientButton> createState() => _GradientButtonState();
 }
 
-class _GradientButtonState extends State<GradientButton> {
-  bool _isHovered = false;
-  bool _isFocused = false;
-
-  bool get _isDisabled => widget.isLoading || widget.onPressed == null;
+class _GradientButtonState extends State<GradientButton>
+    with HoverableButtonMixin {
+  @override
+  bool get isDisabled => widget.isLoading || widget.onPressed == null;
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      enabled: !_isDisabled,
-      label: widget.semanticLabel ?? widget.text,
-      child: Focus(
-        onFocusChange: (focused) => setState(() => _isFocused = focused),
-        child: MouseRegion(
-          cursor: _isDisabled
-              ? SystemMouseCursors.forbidden
-              : SystemMouseCursors.click,
-          onEnter: (_) => setState(() => _isHovered = true),
-          onExit: (_) => setState(() => _isHovered = false),
-          child: GestureDetector(
-            onTap: _isDisabled ? null : widget.onPressed,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOut,
-              transform: _isHovered && !_isDisabled
-                  ? Matrix4.translationValues(0.0, -2.0, 0.0)
-                  : Matrix4.identity(),
-              decoration: BoxDecoration(
-                gradient: _isDisabled
-                    ? AppColors.disabledGradient
-                    : AppColors.primaryGradient,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                boxShadow: _isDisabled
-                    ? []
-                    : [
-                        BoxShadow(
-                          color: AppColors.shadowBlue,
-                          blurRadius: _isHovered ? 24 : 16,
-                          offset: Offset(0, _isHovered ? 6 : 4),
-                        ),
-                      ],
-                border: _isFocused
-                    ? Border.all(color: AppColors.blue400, width: 2)
-                    : null,
-              ),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: _isDisabled ? null : widget.onPressed,
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                  hoverColor: Colors.white.withValues(alpha: 0.1),
-                  focusColor: Colors.white.withValues(alpha: 0.1),
-                  child: Container(
-                    width: widget.fullWidth ? double.infinity : null,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.xl,
-                      vertical: AppSpacing.md,
-                    ),
-                    child: Row(
-                      mainAxisSize:
-                          widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (widget.isLoading)
-                          const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                            ),
-                          )
-                        else
-                          Flexible(
-                            child: Text(
-                              widget.text,
-                              style: AppTypography.buttonText.copyWith(
-                                color: Colors.white,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        if (widget.icon != null && !widget.isLoading) ...[
-                          const SizedBox(width: AppSpacing.sm),
-                          Icon(
-                            widget.icon,
-                            size: 20,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ],
-                    ),
+    return buildHoverableButton(
+      onTap: widget.onPressed,
+      semanticLabel: widget.semanticLabel ?? widget.text,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+        transform: hoverLiftTransform(isHovered, isDisabled),
+        decoration: BoxDecoration(
+          gradient: isDisabled
+              ? AppColors.disabledGradient
+              : AppColors.primaryGradient,
+          borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+          boxShadow: isDisabled
+              ? []
+              : [
+                  BoxShadow(
+                    color: AppColors.shadowBlue,
+                    blurRadius: isHovered ? 24 : 16,
+                    offset: Offset(0, isHovered ? 6 : 4),
                   ),
-                ),
-              ),
+                ],
+          border: isFocused
+              ? Border.all(color: AppColors.blue400, width: 2)
+              : null,
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: isDisabled ? null : widget.onPressed,
+            borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+            hoverColor: Colors.white.withValues(alpha: 0.1),
+            focusColor: Colors.white.withValues(alpha: 0.1),
+            child: Container(
+              width: widget.fullWidth ? double.infinity : null,
+              padding: kButtonPadding,
+              child: ButtonContent(
+                text: widget.text,
+                icon: widget.icon,
+                isLoading: widget.isLoading,
+                fullWidth: widget.fullWidth,
+              ).build(),
             ),
           ),
         ),
@@ -404,97 +476,51 @@ class OutlineButton extends StatefulWidget {
   State<OutlineButton> createState() => _OutlineButtonState();
 }
 
-class _OutlineButtonState extends State<OutlineButton> {
-  bool _isHovered = false;
-  bool _isFocused = false;
+class _OutlineButtonState extends State<OutlineButton>
+    with HoverableButtonMixin {
+  @override
+  bool get isDisabled => widget.isLoading || widget.onPressed == null;
 
-  bool get _isDisabled => widget.isLoading || widget.onPressed == null;
+  Color get _textColor => isDisabled ? AppColors.gray500 : AppColors.textPrimary;
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      enabled: !_isDisabled,
-      label: widget.semanticLabel ?? widget.text,
-      child: Focus(
-        onFocusChange: (focused) => setState(() => _isFocused = focused),
-        child: MouseRegion(
-          cursor: _isDisabled
-              ? SystemMouseCursors.forbidden
-              : SystemMouseCursors.click,
-          onEnter: (_) => setState(() => _isHovered = true),
-          onExit: (_) => setState(() => _isHovered = false),
-          child: GestureDetector(
-            onTap: _isDisabled ? null : widget.onPressed,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOut,
-              decoration: BoxDecoration(
-                color: _isHovered && !_isDisabled
-                    ? AppColors.gray800
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                border: Border.all(
-                  color: _isFocused
-                      ? AppColors.blue400
-                      : _isHovered && !_isDisabled
-                          ? AppColors.blue500
-                          : AppColors.gray700,
-                  width: _isFocused ? 2 : 1,
-                ),
-              ),
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: _isDisabled ? null : widget.onPressed,
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-                  hoverColor: Colors.transparent,
-                  child: Container(
-                    width: widget.fullWidth ? double.infinity : null,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.xl,
-                      vertical: AppSpacing.md,
-                    ),
-                    child: Row(
-                      mainAxisSize:
-                          widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (widget.isLoading)
-                          const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                AppColors.textPrimary,
-                              ),
-                            ),
-                          )
-                        else
-                          Text(
-                            widget.text,
-                            style: AppTypography.buttonText.copyWith(
-                              color: _isDisabled
-                                  ? AppColors.gray500
-                                  : AppColors.textPrimary,
-                            ),
-                          ),
-                        if (widget.icon != null && !widget.isLoading) ...[
-                          const SizedBox(width: AppSpacing.sm),
-                          Icon(
-                            widget.icon,
-                            size: 20,
-                            color: _isDisabled
-                                ? AppColors.gray500
-                                : AppColors.textPrimary,
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+    return buildHoverableButton(
+      onTap: widget.onPressed,
+      semanticLabel: widget.semanticLabel ?? widget.text,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+        decoration: BoxDecoration(
+          color: isHovered && !isDisabled
+              ? AppColors.gray800
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+          border: Border.all(
+            color: isFocused
+                ? AppColors.blue400
+                : isHovered && !isDisabled
+                    ? AppColors.blue500
+                    : AppColors.gray700,
+            width: isFocused ? 2 : 1,
+          ),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: isDisabled ? null : widget.onPressed,
+            borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+            hoverColor: Colors.transparent,
+            child: Container(
+              width: widget.fullWidth ? double.infinity : null,
+              padding: kButtonPadding,
+              child: ButtonContent(
+                text: widget.text,
+                icon: widget.icon,
+                isLoading: widget.isLoading,
+                fullWidth: widget.fullWidth,
+                textColor: _textColor,
+              ).build(),
             ),
           ),
         ),

@@ -232,15 +232,12 @@ class _DocCategoryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: AppDecorations.translucentIconBox(AppColors.blue500),
-            child: Icon(
-              category.icon,
-              size: 22,
-              color: AppColors.blue400,
-            ),
+          GradientIconContainer.translucent(
+            icon: category.icon,
+            color: AppColors.blue500,
+            iconColor: AppColors.blue400,
+            size: 44,
+            iconSize: 22,
           ),
           const SizedBox(height: AppSpacing.md),
           Text(
@@ -303,15 +300,9 @@ class _LeadMagnetCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: 48,
-                height: 48,
-                decoration: AppDecorations.gradientIconBox(radius: AppSpacing.radiusMD),
-                child: Icon(
-                  magnet.icon,
-                  size: 24,
-                  color: Colors.white,
-                ),
+              GradientIconContainer(
+                icon: magnet.icon,
+                borderRadius: AppSpacing.radiusMD,
               ),
               const SizedBox(width: AppSpacing.md),
               Expanded(
