@@ -327,7 +327,7 @@ void main() {
             PricingCard(
               tier: 'Pro',
               price: '\$99',
-              features: ['Feature 1'],
+              features: const ['Feature 1'],
               ctaText: 'Subscribe',
               onCtaPressed: () => pressed = true,
             ),

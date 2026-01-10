@@ -36,3 +36,9 @@ coverage/
 
 # Logs
 *.log
+
+# Playwright MCP
+.playwright-mcp/
+
+# Wrangler
+.wrangler/

@@ -1,0 +1,923 @@
+# =============================================================================
+# INTEGRITY STUDIO CONTENT CONFIGURATION
+# =============================================================================
+# All marketing copy, UI text, and content in one place.
+# Edit this file to update content across the entire application.
+# =============================================================================
+
+# =============================================================================
+# COMPANY INFORMATION
+# =============================================================================
+company:
+  name: "Integrity Studio"
+  tagline: "AI Observability That Proves Compliance"
+  copyright: "© 2024 Integrity Studio. All rights reserved."
+  founded_year: "2024"
+  location:
+    city: "Austin"
+    region: "Texas"
+  contact:
+    email: "hello@integritystudio.ai"
+    phone: "(512) 829-1644"
+
+# =============================================================================
+# EXTERNAL URLS
+# =============================================================================
+urls:
+  external:
+    calendly_demo: "https://calendly.com/alyshialedlie/30min"
+    status_page: "https://integritystudio.ai/status"
+    linkedin: "https://linkedin.com/company/integrity-studio"
+    twitter: "https://twitter.com/integritystudio"
+    github: "https://github.com/integritystudio"
+    founder_linkedin: "https://linkedin.com/in/alyshialedlie"
+    founder_twitter: "https://twitter.com/alyshialedlie"
+
+  internal:
+    home: "/"
+    blog: "/blog"
+    docs: "/docs"
+    pricing: "/pricing"
+    about: "/about"
+    contact: "/contact"
+    signup: "/signup"
+    features: "#features"
+    pricing_section: "#pricing"
+    services: "#services"
+    demo: "#demo"
+    docs_quickstart: "/docs/quickstart"
+    docs_api: "/docs/api"
+    docs_compliance: "/docs/compliance"
+    docs_integrations: "/docs/integrations"
+    docs_tracing: "/docs/tracing"
+    docs_agents: "/docs/agents"
+    docs_alerts: "/docs/alerts"
+    eu_ai_act: "/eu-ai-act"
+    changelog: "/changelog"
+    support: "/support"
+    api: "/api"
+    careers: "/careers"
+    privacy: "/privacy"
+    terms: "/terms"
+    cookies: "/cookies"
+    accessibility: "/accessibility"
+    whylabs_alternative: "/whylabs-alternative"
+    arize_alternative: "/compare/arize-ai-alternative"
+    sources: "/sources"
+
+# =============================================================================
+# CTA BUTTON TEXT
+# =============================================================================
+cta_text:
+  primary:
+    start_free_trial: "Start Free Trial"
+    get_started: "Get Started"
+    schedule_demo: "Schedule Demo"
+    request_demo: "Request Demo"
+    contact_sales: "Contact Sales"
+    learn_more: "Learn More"
+  navigation:
+    back_to_home: "Back to Home"
+    view_all: "View All"
+    view_docs: "View Documentation"
+  form:
+    send_message: "Send Message"
+    download_now: "Download Now"
+    calculate_savings: "Calculate Savings"
+
+# =============================================================================
+# TRUST INDICATORS
+# =============================================================================
+trust_indicators:
+  current:
+    - "EU AI Act Ready"
+    - "Enterprise Security"
+    - "99.9% Uptime"
+    - "5-min Setup"
+  legacy:
+    - "No credit card required"
+    - "14-day free trial"
+    - "Cancel anytime"
+
+# =============================================================================
+# PLATFORM METRICS
+# =============================================================================
+platform_metrics:
+  uptime: "99.9%"
+  uptime_sla: "SLA Guaranteed"
+  traces_processed: "10M+"
+  traces_processed_period: "Daily"
+  ai_teams: "500+"
+  setup_time: "5 min"
+  setup_time_label: "Average"
+
+# =============================================================================
+# PRICING CONSTANTS
+# =============================================================================
+pricing_constants:
+  annual_discount: "Save 20%"
+  monthly_label: "Monthly"
+  annual_label: "Annual"
+  enterprise_note: "Need custom solutions? "
+  enterprise_link: "Contact our sales team"
+  tiers:
+    free:
+      traces_limit: "50K traces/month"
+      retention: "7-day retention"
+    team:
+      traces_limit: "500K traces/month"
+      retention: "30-day retention"
+    enterprise:
+      traces_limit: "Unlimited traces"
+      retention: "1-year retention"
+
+# =============================================================================
+# FORM MESSAGES
+# =============================================================================
+form_messages:
+  contact:
+    success: "Thank you for reaching out! We'll get back to you within one business day."
+    error: "Something went wrong. Please try again or email us directly at hello@integritystudio.ai"
+  subscribe:
+    success: "Thanks for subscribing!"
+    error: "Could not subscribe. Please try again."
+
+# =============================================================================
+# PROMO CODES
+# =============================================================================
+promo_codes:
+  whylabs_migration:
+    code: "WHYLABS2025"
+    description: "Get 3 months free on Team tier when you migrate from WhyLabs. Use code WHYLABS2025 at checkout."
+
+# =============================================================================
+# COMPLIANCE DISCLAIMERS
+# =============================================================================
+disclaimers:
+  eu_ai_act: >-
+    Integrity Studio provides tools designed to support EU AI Act compliance efforts.
+    Actual compliance requires independent legal review, third-party assessment, and
+    organization-specific implementation. This platform does not constitute legal advice
+    or guarantee regulatory compliance.
+  eu_ai_act_short: "Tools to support EU AI Act compliance efforts."
+  security: >-
+    Security certifications in progress. Current measures include encryption at rest
+    and in transit, regular penetration testing, and adherence to OWASP guidelines.
+  human_oversight: >-
+    Human oversight tools provide technical infrastructure for approval workflows.
+    Organizations are responsible for defining oversight policies, training reviewers,
+    and ensuring meaningful human review of AI decisions.
+  general: >-
+    This platform provides tools to support AI governance and observability.
+    It does not guarantee regulatory compliance or constitute legal advice.
+
+# =============================================================================
+# CITED STATISTICS
+# =============================================================================
+statistics:
+  industry:
+    market_size:
+      value: "$2.9B+"
+      label: "market by 2030"
+      source: "Grand View Research, AI Observability Market Report 2024"
+      source_url: "https://www.grandviewresearch.com/industry-analysis/ai-observability-market"
+    market_growth:
+      value: "25.47%"
+      label: "CAGR growth rate"
+      source: "Grand View Research, AI Observability Market Report 2024"
+      source_url: "https://www.grandviewresearch.com/industry-analysis/ai-observability-market"
+    enterprise_budgets:
+      value: "98%"
+      label: "enterprises increasing AI budgets"
+      source: "Gartner CIO Survey 2024"
+      source_url: "https://www.gartner.com/en/information-technology/insights/cio-agenda"
+  customer_data:
+    debugging_improvement:
+      value: "73%"
+      label: "faster debugging"
+      source: "Aggregated customer data, Q4 2024"
+    cost_reduction:
+      value: "30-50%"
+      label: "LLM cost reduction"
+      source: "Customer-reported savings, 2024"
+  platform:
+    traces_processed:
+      value: "10M+"
+      label: "traces processed"
+      source: "Platform metrics, December 2024"
+    setup_time:
+      value: "5min"
+      label: "setup time"
+      source: "Median onboarding time, 2024"
+    uptime_target:
+      value: "99.9%"
+      label: "uptime SLA"
+      source: "Service Level Agreement target"
+  source_disclaimer: >-
+    Statistics from customer data are aggregated and anonymized.
+    Industry statistics sourced from third-party research reports.
+    See integritystudio.ai/sources for full methodology and citations.
+
+# =============================================================================
+# HERO SECTION
+# =============================================================================
+hero:
+  current:
+    badge: "EU AI Act Ready"
+    headline: "AI Observability That\nProves Compliance"
+    subheadline: >-
+      Full traceability for every LLM decision.
+      Automated risk documentation. Audit-ready from day one.
+      Enterprise-grade monitoring with compliance built-in.
+    primary_cta: "Start Free Trial"
+    secondary_cta: "Request Demo"
+
+  variants:
+    agent_first:
+      badge: "AI Observability Platform"
+      headline: "See Every Decision\nYour AI Agents Make"
+      subheadline: >-
+        End-to-end visibility into your AI agent workflows.
+        Track performance, debug issues, and optimize costs
+        with comprehensive tracing and analytics.
+      primary_cta: "Start Free Trial"
+      secondary_cta: "Request Demo"
+
+    cost_focused:
+      badge: "LLM Cost Intelligence"
+      headline: "Know Your AI Spend\nBefore It Surprises You"
+      subheadline: >-
+        Real-time cost tracking for every LLM call.
+        Set budgets, get alerts, and optimize spend
+        with granular token-level attribution.
+      primary_cta: "Start Free Trial"
+      secondary_cta: "Request Demo"
+
+    legacy:
+      badge: "AI Observability Platform"
+      headline: "Understand Your\nAI in Production"
+      subheadline: >-
+        Enterprise-grade observability for LLM applications.
+        Monitor performance, track costs, and debug issues
+        with comprehensive tracing and analytics.
+      primary_cta: "Start Free Trial"
+      secondary_cta: "Request Demo"
+
+# =============================================================================
+# PRICING SECTION
+# =============================================================================
+pricing:
+  title: "Simple, Transparent Pricing"
+  subtitle: "Start free, scale as you grow"
+
+  tiers:
+    - name: "Starter"
+      monthly_price: "Free"
+      annual_price: "Free"
+      description: "For individual developers"
+      cta_text: "Get Started"
+      features:
+        - "50K traces/month"
+        - "7-day retention"
+        - "Basic dashboards"
+        - "Email support"
+        - "Community access"
+
+    - name: "Team"
+      monthly_price: "$99"
+      annual_price: "$79"
+      period: "/month"
+      description: "For growing teams"
+      is_popular: true
+      cta_text: "Start Free Trial"
+      features:
+        - "500K traces/month"
+        - "30-day retention"
+        - "Advanced analytics"
+        - "Priority support"
+        - "Team collaboration"
+        - "Custom alerts"
+        - "EU AI Act reports"
+
+    - name: "Enterprise"
+      monthly_price: "Custom"
+      annual_price: "Custom"
+      description: "For large organizations"
+      cta_text: "Contact Sales"
+      features:
+        - "Unlimited traces"
+        - "1-year retention"
+        - "SSO/SAML"
+        - "Dedicated support"
+        - "Custom integrations"
+        - "SLA guarantee"
+        - "On-premise option"
+        - "Compliance dashboard"
+
+# =============================================================================
+# FEATURES SECTION
+# =============================================================================
+features:
+  title: "Platform Capabilities"
+  subtitle: "Comprehensive tools for AI application observability"
+
+  items:
+    - icon: "activity"
+      title: "LLM Monitoring"
+      description: "Track every LLM call with detailed performance metrics and cost attribution."
+      bullets:
+        - "Token usage tracking"
+        - "Latency monitoring"
+        - "Cost attribution per request"
+
+    - icon: "git-branch"
+      title: "Distributed Tracing"
+      description: "End-to-end visibility across your AI application with OpenTelemetry support."
+      bullets:
+        - "Request correlation"
+        - "Service dependency mapping"
+        - "Bottleneck identification"
+
+    - icon: "clipboard-check"
+      title: "Compliance Reporting"
+      description: "Automated documentation for EU AI Act Article 12 requirements."
+      bullets:
+        - "Audit trail generation"
+        - "Risk classification support"
+        - "Decision traceability"
+
+    - icon: "shield"
+      title: "Security & Privacy"
+      description: "Enterprise-grade security with PII detection and data masking."
+      bullets:
+        - "Automatic PII redaction"
+        - "Role-based access control"
+        - "GDPR compliance tools"
+
+    - icon: "bar-chart-3"
+      title: "Analytics Dashboard"
+      description: "Customizable dashboards with real-time metrics and historical trends."
+      bullets:
+        - "Custom visualizations"
+        - "Export capabilities"
+        - "Team collaboration"
+
+    - icon: "alert-triangle"
+      title: "Anomaly Detection"
+      description: "Automated detection of performance regressions and unusual patterns."
+      bullets:
+        - "Baseline comparison"
+        - "Custom alert thresholds"
+        - "Slack/PagerDuty integration"
+
+# =============================================================================
+# SERVICES SECTION
+# =============================================================================
+services:
+  section_id: "services"
+  title: "Platform Services"
+  subtitle: "Comprehensive AI Observability for Enterprise"
+  description: >-
+    From real-time LLM monitoring to automated compliance reporting,
+    Integrity Studio provides the complete toolkit for production AI systems.
+    Built for teams who need visibility, governance, and audit-ready documentation.
+  cta_text: "Start Free Trial"
+  cta_url: "/signup"
+
+  items:
+    - icon: "activity"
+      title: "LLM Monitoring & Tracing"
+      description: >-
+        Track every LLM call with sub-100ms latency. Capture prompts, completions,
+        tokens, costs, and performance metrics in real-time across all your models.
+      cta_text: "View Tracing Docs"
+      cta_url: "/docs/tracing"
+      capabilities:
+        - "Full request/response capture with token attribution"
+        - "Cost tracking per request, model, and team"
+        - "Latency percentiles and performance baselines"
+        - "Multi-provider support (OpenAI, Anthropic, Google, AWS Bedrock)"
+        - "OpenTelemetry-native instrumentation"
+
+    - icon: "bot"
+      title: "Agent Observability"
+      description: >-
+        Monitor multi-step AI agents, tool calls, and reasoning chains.
+        Debug complex autonomous workflows with full execution traces and decision visualization.
+      cta_text: "Explore Agent Features"
+      cta_url: "/docs/agents"
+      capabilities:
+        - "Multi-turn conversation tracking"
+        - "Tool call monitoring with input/output capture"
+        - "Reasoning chain visualization"
+        - "Agent decision tree analysis"
+        - "LangChain, LlamaIndex, and custom agent support"
+
+    - icon: "shield"
+      title: "Compliance & Governance"
+      description: >-
+        Built-in EU AI Act templates, automated audit trails, and framework mapping.
+        Prepare for regulatory requirements with documentation that stands up to scrutiny.
+      cta_text: "EU AI Act Guide"
+      cta_url: "/eu-ai-act"
+      disclaimer: "Tools to support EU AI Act compliance efforts."
+      capabilities:
+        - "EU AI Act Article 12 traceability requirements"
+        - "Automated risk classification support"
+        - "Audit trail generation with immutable logs"
+        - "Human oversight tracking and approval workflows"
+        - "GDPR-compliant data handling and retention"
+
+    - icon: "bar-chart-3"
+      title: "Analytics & Dashboards"
+      description: >-
+        Interactive dashboards for token usage, costs, latency distributions,
+        and model comparison analytics. Export data for stakeholder reporting.
+      cta_text: "See Dashboard Demo"
+      cta_url: "#demo"
+      capabilities:
+        - "Customizable KPI dashboards"
+        - "Historical trend analysis"
+        - "Model performance benchmarking"
+        - "Team and project attribution"
+        - "Export to CSV, JSON, and PDF"
+
+    - icon: "bell"
+      title: "Alerting & Incident Management"
+      description: >-
+        Proactive alerting for anomalies, budget thresholds, and performance degradation.
+        Intelligent routing to your existing incident management tools.
+      cta_text: "Configure Alerts"
+      cta_url: "/docs/alerts"
+      capabilities:
+        - "Budget alerts before cost overruns"
+        - "Anomaly detection for response quality"
+        - "Performance regression warnings"
+        - "Slack, PagerDuty, and webhook integrations"
+        - "Custom alert thresholds and schedules"
+
+    - icon: "code"
+      title: "Developer Experience"
+      description: >-
+        Drop-in SDKs for Python, TypeScript, and Go. OpenTelemetry-native with
+        minimal instrumentation required. Get to value in under 5 minutes.
+      cta_text: "Quick Start Guide"
+      cta_url: "/docs/quickstart"
+      capabilities:
+        - "Python, TypeScript, and Go SDKs"
+        - "Auto-instrumentation for popular frameworks"
+        - "OpenTelemetry compatibility"
+        - "Comprehensive API documentation"
+        - "Self-hosted and cloud deployment options"
+
+# =============================================================================
+# CTA SECTION
+# =============================================================================
+cta:
+  headline: "Ready to Gain Visibility Into Your AI?"
+  subheadline: "Join teams who trust Integrity Studio for AI observability with compliance built-in."
+  primary_cta: "Start Free Trial"
+  secondary_cta: "Schedule Demo"
+
+# =============================================================================
+# SOCIAL PROOF SECTION
+# =============================================================================
+social_proof:
+  title: "Trusted by AI Teams"
+  stats_headline: "Enterprise-Grade Performance"
+
+  stats:
+    traces_processed: "10M+"
+    uptime: "99.9%"
+    setup_time: "< 5 min"
+
+  # Placeholder logos (to be replaced with real customers)
+  logos:
+    - name: "Enterprise Client"
+      industry: "Finance"
+    - name: "Tech Startup"
+      industry: "SaaS"
+    - name: "Healthcare Co"
+      industry: "Healthcare"
+
+  # Placeholder testimonial
+  testimonials:
+    - quote: "Integrity Studio gave us the visibility we needed to ship AI features with confidence. The compliance reports saved us weeks."
+      author: "Engineering Lead"
+      role: "VP Engineering"
+      company: "Tech Company"
+
+# =============================================================================
+# STATUS SECTION
+# =============================================================================
+status:
+  title: "Platform Status"
+  subtitle: "Real-time operational health and performance metrics"
+  status_badge: "All Systems Operational"
+  all_operational: true
+  status_page_url: "https://integritystudio.ai/status"
+  status_page_cta: "View Full Status Page"
+
+  metrics:
+    - label: "Uptime"
+      value: "99.9%"
+      sublabel: "SLA Guaranteed"
+    - label: "Traces Processed"
+      value: "10M+"
+      sublabel: "Daily"
+    - label: "AI Teams"
+      value: "500+"
+      sublabel: "Trusted By"
+    - label: "Setup Time"
+      value: "5 min"
+      sublabel: "Average"
+
+  services:
+    - name: "Trace Ingestion API"
+      status: "Operational"
+    - name: "Dashboard & Analytics"
+      status: "Operational"
+    - name: "Compliance Reporting"
+      status: "Operational"
+    - name: "Alerting System"
+      status: "Operational"
+
+# =============================================================================
+# ABOUT SECTION
+# =============================================================================
+about:
+  section_id: "about"
+  title: "About Integrity Studio"
+  subtitle: "Building Trust in AI Systems"
+
+  mission_statement: >-
+    Empower enterprises to build trustworthy AI systems through comprehensive
+    observability and governance tools.
+
+  vision_statement: >-
+    To be the standard for enterprise AI observability, enabling organizations
+    to deploy AI confidently while meeting regulatory requirements.
+
+  story: >-
+    Integrity Studio was founded with a clear purpose: to solve the visibility problem
+    in production AI systems. As LLMs and AI agents became critical to business operations,
+    we saw teams struggling with black-box AI decisions, unpredictable costs, and looming
+    regulatory requirements like the EU AI Act.
+
+
+    Our founders built observability tools at scale before, and recognized that AI systems
+    needed purpose-built monitoring—not retrofitted APM solutions. We designed Integrity Studio
+    from the ground up for the unique challenges of LLM applications: token-level cost attribution,
+    multi-step agent tracing, and compliance documentation that satisfies auditors.
+
+
+    Today, we help AI teams ship reliable, compliant applications faster. Our platform provides
+    the visibility they need to debug issues, optimize costs, and demonstrate governance to
+    stakeholders—all from a single pane of glass.
+
+  values:
+    - icon: "eye"
+      title: "Transparency"
+      description: >-
+        We believe AI systems should be observable and explainable. Every decision,
+        every cost, every outcome should be visible to the teams responsible for them.
+
+    - icon: "shield-check"
+      title: "Trust"
+      description: >-
+        Trust is earned through reliability, security, and accountability. We build tools
+        that help our customers demonstrate trustworthiness to their users and regulators.
+
+    - icon: "users"
+      title: "Developer-First"
+      description: >-
+        Great tools should get out of the developer's way. We prioritize clean APIs,
+        fast integration, and minimal overhead so teams can focus on building.
+
+    - icon: "scale"
+      title: "Compliance by Design"
+      description: >-
+        Regulatory requirements shouldn't be an afterthought. We embed compliance
+        capabilities into the platform so governance happens automatically.
+
+  team:
+    - name: "Chase Hoffman"
+      role: "Co-Founder and President"
+      bio: >-
+        Seasoned technology executive with deep expertise in scaling enterprise software companies.
+        Focused on developing high-performance monitization systems and cost optimization that deliver exceptional customer success.
+
+    - name: "Alyshia Ledlie"
+      role: "Founder and CEO"
+      bio: >-
+        Deep experience building observability-first infrastructure at scale. Passionate about making
+        AI systems transparent and trustworthy for enterprises navigating regulatory change.
+      linkedin_url: "https://linkedin.com/in/alyshialedlie"
+      twitter_url: "https://twitter.com/alyshialedlie"
+
+    - name: "Chandra Srivastava"
+      role: "Co-founder & CMO"
+      bio: >-
+        Marketing leader with experience driving growth at early stage B2B technology companies.
+        Expert in positioning AI products for enterprise adoption and building category-defining brands.
+
+    - name: "Micah Lindsay"
+      role: "Chief Data Scientist"
+      bio: >-
+        Machine learning researcher focused on AI evaluation and observability.
+        Developed novel approaches to precise hallucination detection and model performance analysis.
+
+    - name: "John Skelton"
+      role: "Head of Policy"
+      bio: >-
+        Regulatory and compliance expert specializing in AI governance frameworks.
+        Advises enterprises on EU AI Act preparation and responsible AI deployment.
+
+# =============================================================================
+# CONTACT SECTION
+# =============================================================================
+contact:
+  section_id: "contact"
+  title: "Get in Touch"
+  subtitle: "Let's discuss how we can help"
+  description: >-
+    Whether you're evaluating AI observability solutions, have questions about
+    EU AI Act compliance, or want to see a demo, our team is here to help.
+    Reach out and we'll respond within one business day.
+
+  form:
+    submit_text: "Send Message"
+    success_message: "Thank you for reaching out! We'll get back to you within one business day."
+    error_message: "Something went wrong. Please try again or email us directly at hello@integritystudio.ai"
+    calendly_url: "https://calendly.com/alyshialedlie/30min"
+    calendly_cta_text: "Schedule Demo"
+
+    fields:
+      - name: "firstName"
+        label: "First Name"
+        placeholder: "John"
+        type: "text"
+        required: true
+
+      - name: "lastName"
+        label: "Last Name"
+        placeholder: "Smith"
+        type: "text"
+        required: true
+
+      - name: "email"
+        label: "Work Email"
+        placeholder: "john@company.com"
+        type: "email"
+        required: true
+
+      - name: "company"
+        label: "Company"
+        placeholder: "Acme Inc."
+        type: "text"
+        required: true
+
+      - name: "companySize"
+        label: "Company Size"
+        placeholder: "Select..."
+        type: "select"
+        required: true
+        options:
+          - "1-10 employees"
+          - "11-50 employees"
+          - "51-200 employees"
+          - "201-1,000 employees"
+          - "1,000+ employees"
+
+      - name: "useCase"
+        label: "Primary Interest"
+        placeholder: "Select..."
+        type: "select"
+        required: true
+        options:
+          - "LLM Monitoring & Cost Tracking"
+          - "Agent Observability"
+          - "EU AI Act Compliance"
+          - "General AI Observability"
+          - "Enterprise Evaluation"
+          - "Partnership Inquiry"
+
+      - name: "message"
+        label: "Message"
+        placeholder: "Tell us about your AI observability needs..."
+        type: "textarea"
+        required: false
+
+  contact_methods:
+    - icon: "mail"
+      label: "Email"
+      value: "hello@integritystudio.ai"
+      url: "mailto:hello@integritystudio.ai"
+      is_primary: true
+
+    - icon: "calendar"
+      label: "Schedule a Demo"
+      value: "Book a 30-minute call"
+      url: "https://calendly.com/alyshialedlie/30min"
+      is_primary: true
+
+    - icon: "map-pin"
+      label: "Location"
+      value: "Austin, Texas"
+
+    - icon: "linkedin"
+      label: "LinkedIn"
+      value: "Follow us"
+      url: "https://linkedin.com/company/integrity-studio"
+
+    - icon: "twitter"
+      label: "Twitter"
+      value: "@integritystudio"
+      url: "https://twitter.com/integritystudio"
+
+    - icon: "github"
+      label: "GitHub"
+      value: "integritystudio"
+      url: "https://github.com/integritystudio"
+
+# =============================================================================
+# FOOTER SECTION
+# =============================================================================
+footer:
+  privacy_link: "/privacy"
+  terms_link: "/terms"
+  cookies_link: "/cookies"
+  accessibility_link: "/accessibility"
+  cookie_settings_label: "Cookie Settings"
+
+  link_groups:
+    - title: "Product"
+      links:
+        - label: "Features"
+          url: "#features"
+        - label: "Pricing"
+          url: "#pricing"
+        - label: "Documentation"
+          url: "/docs"
+        - label: "Changelog"
+          url: "/changelog"
+
+    - title: "Company"
+      links:
+        - label: "About"
+          url: "/about"
+        - label: "Blog"
+          url: "/blog"
+        - label: "Careers"
+          url: "/careers"
+        - label: "Contact"
+          url: "/contact"
+
+    - title: "Resources"
+      links:
+        - label: "EU AI Act Guide"
+          url: "/eu-ai-act"
+        - label: "API Reference"
+          url: "/api"
+        - label: "Status"
+          url: "https://integritystudio.ai/status"
+          is_external: true
+        - label: "Support"
+          url: "/support"
+
+# =============================================================================
+# RESOURCES SECTION
+# =============================================================================
+resources:
+  section_id: "resources"
+  title: "Resources"
+  subtitle: "Guides, Documentation & Insights"
+  blog_cta_text: "View All Articles"
+  blog_cta_url: "/blog"
+  docs_cta_text: "Browse Documentation"
+  docs_cta_url: "/docs"
+
+  documentation:
+    - icon: "book-open"
+      title: "Getting Started"
+      description: "Quick start guides and tutorials to get your first traces flowing in under 5 minutes."
+      url: "/docs/quickstart"
+      popular_topics:
+        - "Python SDK Setup"
+        - "TypeScript Integration"
+        - "OpenTelemetry Configuration"
+        - "Dashboard Overview"
+
+    - icon: "code-2"
+      title: "API Reference"
+      description: "Complete API documentation with examples for all endpoints and SDK methods."
+      url: "/docs/api"
+      popular_topics:
+        - "Trace Ingestion API"
+        - "Query API"
+        - "Alerts API"
+        - "Authentication"
+
+    - icon: "shield"
+      title: "Compliance Guides"
+      description: "In-depth guides for EU AI Act preparation, audit trails, and governance configuration."
+      url: "/docs/compliance"
+      popular_topics:
+        - "EU AI Act Overview"
+        - "Risk Classification"
+        - "Audit Trail Setup"
+        - "Human Oversight Workflows"
+
+    - icon: "puzzle"
+      title: "Integrations"
+      description: "Connect Integrity Studio with your existing tools: Slack, PagerDuty, Datadog, and more."
+      url: "/docs/integrations"
+      popular_topics:
+        - "Slack Notifications"
+        - "PagerDuty Alerting"
+        - "Grafana Dashboards"
+        - "Webhook Configuration"
+
+  featured_posts:
+    - title: "Best LLM Monitoring Tools (2025 Guide)"
+      excerpt: >-
+        I tested 11 platforms so you can skip the free trial hamster wheel.
+        Includes pricing, features, and honest recommendations—from Phoenix (free)
+        to Arize ($50k+/year). Plus EU AI Act compliance considerations.
+      category: "Comparison Guide"
+      publish_date: "2024-12-24"
+      read_time: "18 min read"
+      slug: "best-llm-monitoring-tools-2025"
+      author: "Alyshia Ledlie"
+
+    - title: "End-to-End Agentic Observability: From Chaos to Control"
+      excerpt: >-
+        Your AI agent just autonomously decided to email your entire customer database
+        at 3 AM. Learn the Build, Test, Monitor, Analyze lifecycle that keeps agents
+        reliable, compliant, and not accidentally ordering 10,000 pizzas.
+      category: "Best Practices"
+      publish_date: "2024-12-24"
+      read_time: "12 min read"
+      slug: "end-to-end-agentic-observability-lifecycle"
+      author: "Alyshia Ledlie"
+
+    - title: "EU AI Act: What Engineering Teams Need to Know"
+      excerpt: >-
+        A practical guide to EU AI Act compliance for AI engineering teams.
+        Understand Article 12 traceability requirements, risk classifications,
+        and how to prepare your systems before enforcement begins.
+      category: "Compliance"
+      publish_date: "2024-12-15"
+      read_time: "12 min read"
+      slug: "eu-ai-act-engineering-guide"
+      author: "Alyshia Ledlie"
+
+    - title: "LLM Cost Calculator & Optimization Guide (2025)"
+      excerpt: >-
+        Compare API pricing for GPT-4, Claude, Gemini, and DeepSeek. Free calculator shows
+        monthly costs. Learn techniques to reduce AI spending by 40-80%, from prompt caching
+        to model routing.
+      category: "Cost Optimization"
+      publish_date: "2025-12-27"
+      read_time: "5 min read"
+      slug: "llm-cost-optimization-guide"
+      author: "Alyshia Ledlie"
+
+    - title: "Complete Guide to AI Agent Observability"
+      excerpt: >-
+        As autonomous AI agents become more complex, observability becomes critical.
+        Learn how to trace multi-step workflows, debug tool calls, and monitor agent performance.
+      category: "Best Practices"
+      publish_date: "2024-12-05"
+      read_time: "15 min read"
+      slug: "ai-agent-observability-guide"
+      author: "Alyshia Ledlie"
+
+  lead_magnets:
+    - icon: "clipboard-check"
+      title: "EU AI Act Compliance Checklist"
+      description: >-
+        A comprehensive checklist covering all EU AI Act requirements for high-risk AI systems.
+        Includes Article 12 traceability, documentation templates, and timeline milestones.
+      format: "PDF"
+      cta_text: "Download Checklist"
+      url: "/resources/eu-ai-act-checklist"
+
+    - icon: "calculator"
+      title: "LLM Cost Calculator"
+      description: >-
+        Compare pricing across GPT-4, Claude, Gemini, and DeepSeek.
+        Calculate monthly costs and discover optimization techniques to save 40-80%.
+      format: "Interactive Tool"
+      cta_text: "Calculate Savings"
+      url: "/blog/llm-cost-optimization-guide#calculator"
+      requires_email: false
+
+    - icon: "file-text"
+      title: "State of AI Observability 2025"
+      description: >-
+        Original research on AI observability trends, challenges, and best practices.
+        Data from 500+ AI teams on monitoring, compliance, and cost management.
+      format: "Report"
+      cta_text: "Get the Report"
+      url: "/reports/state-of-ai-observability-2025"
