@@ -6,6 +6,10 @@ import 'package:integrity_studio_ai/widgets/sections/tabbed_features_section.dar
 import '../helpers/test_helpers.dart';
 
 void main() {
+  setUpAll(() {
+    initializeTestContent();
+  });
+
   group('LandingPage', () {
     // Use pump with duration instead of pumpAndSettle to avoid animation timeouts
     Future<void> pumpLandingPage(WidgetTester tester,

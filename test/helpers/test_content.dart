@@ -4,6 +4,7 @@
 /// to render without requiring actual asset loading.
 library;
 
+import 'dart:io';
 import 'package:integrity_studio_ai/services/content_loader.dart';
 
 /// Minimal test content YAML that satisfies all Content getters.
@@ -181,27 +182,89 @@ about:
 contact:
   title: "Get in Touch"
   subtitle: "Let's discuss how we can help"
-  description: "Our team is here to help."
+  description: "Our team is here to help with demos and questions."
+  calendly_cta_text: "Schedule a Demo"
   form:
+    submit_text: "Send Message"
     fields:
+      - name: "firstName"
+        label: "First Name"
+        placeholder: "John"
+        type: "text"
+        required: true
+      - name: "lastName"
+        label: "Last Name"
+        placeholder: "Doe"
+        type: "text"
+        required: true
       - name: "email"
         label: "Email"
         placeholder: "your@email.com"
         type: "email"
         required: true
+      - name: "company"
+        label: "Company"
+        placeholder: "Acme Inc."
+        type: "text"
+        required: true
+      - name: "companySize"
+        label: "Company Size"
+        placeholder: "Select..."
+        type: "select"
+        required: false
+        options:
+          - "1-10"
+          - "11-50"
+          - "51-200"
+          - "201-1,000"
+          - "1,000+"
+      - name: "useCase"
+        label: "Use Case"
+        placeholder: "Select..."
+        type: "select"
+        required: false
+        options:
+          - "LLM Monitoring"
+          - "Compliance"
+          - "Cost Optimization"
+          - "Other"
       - name: "message"
         label: "Message"
         placeholder: "Your message"
         type: "textarea"
         required: false
-    success_message: "Thank you for reaching out!"
-    error_message: "Something went wrong."
+    success_message: "Thank you for reaching out! We'll be in touch soon."
+    error_message: "Something went wrong. Please email us directly."
   contact_methods:
     - icon: "mail"
       label: "Email"
       value: "test@example.com"
       url: "mailto:test@example.com"
       is_primary: true
+    - icon: "calendar"
+      label: "Schedule a Demo"
+      value: "Book a call"
+      url: "https://calendly.com/test"
+      is_primary: true
+    - icon: "map-pin"
+      label: "Location"
+      value: "Austin, TX"
+      is_primary: false
+    - icon: "linkedin"
+      label: "LinkedIn"
+      value: "@integritystudio"
+      url: "https://linkedin.com/company/test"
+      is_primary: false
+    - icon: "twitter"
+      label: "Twitter"
+      value: "@integritystudio"
+      url: "https://twitter.com/test"
+      is_primary: false
+    - icon: "github"
+      label: "GitHub"
+      value: "integrity-studio"
+      url: "https://github.com/test"
+      is_primary: false
 
 footer:
   privacy_link: "/privacy"
@@ -241,14 +304,43 @@ status:
 resources:
   title: "Resources"
   subtitle: "Guides, Documentation & Insights"
+  blog_cta_text: "View All Posts"
+  blog_cta_url: "/blog"
+  docs_cta_text: "Browse Documentation"
+  docs_cta_url: "/docs"
   documentation:
     - icon: "book-open"
       title: "Getting Started"
-      description: "Quick start guides."
+      description: "Quick start in under 5 minutes."
       url: "/docs/quickstart"
       popular_topics:
         - "Python SDK"
-        - "TypeScript"
+        - "TypeScript SDK"
+        - "OpenTelemetry"
+    - icon: "code"
+      title: "API Reference"
+      description: "Complete API documentation."
+      url: "/docs/api"
+      popular_topics:
+        - "REST API"
+        - "GraphQL"
+        - "Webhooks"
+    - icon: "shield"
+      title: "Compliance Guides"
+      description: "Regulatory compliance documentation."
+      url: "/docs/compliance"
+      popular_topics:
+        - "EU AI Act"
+        - "SOC 2"
+        - "GDPR"
+    - icon: "plug"
+      title: "Integrations"
+      description: "Third-party integrations."
+      url: "/docs/integrations"
+      popular_topics:
+        - "LangChain"
+        - "OpenAI"
+        - "Anthropic"
   featured_posts:
     - title: "Best LLM Monitoring Tools"
       excerpt: "A comprehensive guide."
@@ -302,4 +394,19 @@ void initializeTestContent() {
 /// Call this in tearDownAll or tearDown if needed.
 void resetTestContent() {
   Content.reset();
+}
+
+/// Load the real content.yaml file for unit tests.
+///
+/// Use this for tests that verify actual content quality (not widget rendering).
+/// This reads content.yaml directly from the file system.
+void loadRealContent() {
+  final file = File('content.yaml');
+  if (!file.existsSync()) {
+    throw StateError(
+      'content.yaml not found. Run tests from the project root directory.',
+    );
+  }
+  final yamlString = file.readAsStringSync();
+  Content.loadFromString(yamlString);
 }

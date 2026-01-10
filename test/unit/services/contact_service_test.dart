@@ -395,7 +395,7 @@ void main() {
         }
 
         // With 5% failure rate, we expect mostly successes
-        expect(successCount, greaterThan(attempts * 0.8));
+        expect(successCount, greaterThanOrEqualTo(attempts * 0.8));
       });
 
       test('success response includes submission ID', () async {

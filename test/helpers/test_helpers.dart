@@ -8,7 +8,8 @@ import 'mocks.dart';
 import 'test_content.dart';
 
 // Re-export test content helpers for convenience
-export 'test_content.dart' show initializeTestContent, resetTestContent;
+export 'test_content.dart'
+    show initializeTestContent, resetTestContent, loadRealContent;
 
 // Default theme for testing
 final ThemeData testTheme = ThemeData(

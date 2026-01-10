@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integrity_studio_ai/config/content.dart';
 import 'package:integrity_studio_ai/widgets/sections/services_section.dart';
+import '../../helpers/test_helpers.dart';
 
 void main() {
+  setUpAll(() {
+    initializeTestContent();
+  });
+
   group('ServicesSection', () {
     // Set up a large viewport to avoid overflow issues in tests
     setUp(() {

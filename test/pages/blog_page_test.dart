@@ -5,6 +5,10 @@ import 'package:integrity_studio_ai/pages/blog_page.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
+  setUpAll(() {
+    initializeTestContent();
+  });
+
   group('BlogPage', () {
     group('BlogPost model', () {
       test('creates with all required fields', () {

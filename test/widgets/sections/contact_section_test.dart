@@ -7,6 +7,10 @@ import 'package:integrity_studio_ai/widgets/common/form_fields.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+  setUpAll(() {
+    initializeTestContent();
+  });
+
   group('ContactSection', () {
     Widget buildTestWidget({
       Future<bool> Function(Map<String, String>)? onFormSubmit,

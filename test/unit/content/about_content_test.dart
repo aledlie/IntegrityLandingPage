@@ -1,8 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:integrity_studio_ai/config/content.dart';
+import '../../helpers/test_helpers.dart';
 
 void main() {
+  setUpAll(() {
+    loadRealContent();
+  });
+
   group('AboutContent', () {
     group('current content', () {
       test('has required fields', () {
