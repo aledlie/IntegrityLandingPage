@@ -3,7 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:integrity_studio_ai/theme/colors.dart';
 import 'package:integrity_studio_ai/controllers/landing_controller.dart';
+import 'package:integrity_studio_ai/services/content_loader.dart';
 import 'mocks.dart';
+import 'test_content.dart';
+
+// Re-export test content helpers for convenience
+export 'test_content.dart' show initializeTestContent, resetTestContent;
 
 // Default theme for testing
 final ThemeData testTheme = ThemeData(
@@ -17,11 +22,27 @@ final ThemeData testTheme = ThemeData(
 );
 
 // =============================================================================
+// Content Initialization
+// =============================================================================
+
+/// Ensure test content is loaded before widget tests.
+///
+/// This is called automatically by testableWidget/testableSection.
+void _ensureContentLoaded() {
+  if (!Content.isLoaded) {
+    initializeTestContent();
+  }
+}
+
+// =============================================================================
 // Widget Test Wrappers
 // =============================================================================
 
 /// Wraps a widget in MaterialApp for testing.
+///
+/// Automatically initializes test content if not already loaded.
 Widget testableWidget(Widget child, {ThemeData? theme}) {
+  _ensureContentLoaded();
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: theme ?? testTheme,
@@ -32,7 +53,9 @@ Widget testableWidget(Widget child, {ThemeData? theme}) {
 /// Wraps a section widget for testing.
 ///
 /// Provides scroll context since sections are typically in ScrollView.
+/// Automatically initializes test content if not already loaded.
 Widget testableSection(Widget section, {ThemeData? theme}) {
+  _ensureContentLoaded();
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: theme ?? testTheme,
@@ -45,11 +68,14 @@ Widget testableSection(Widget section, {ThemeData? theme}) {
 }
 
 /// Wraps widget with providers for testing.
+///
+/// Automatically initializes test content if not already loaded.
 Widget testableWidgetWithProviders(
   Widget child, {
   LandingController? landingController,
   MockConsentManager? consentManager,
 }) {
+  _ensureContentLoaded();
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: testTheme,

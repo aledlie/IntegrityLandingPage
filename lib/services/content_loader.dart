@@ -32,6 +32,22 @@ class ContentLoader {
     _isLoaded = true;
   }
 
+  /// Load content from a YAML string (for testing).
+  ///
+  /// This allows tests to inject content without requiring asset loading.
+  void loadFromString(String yamlString) {
+    _content = loadYaml(yamlString) as YamlMap;
+    _isLoaded = true;
+  }
+
+  /// Reset content state (for testing).
+  ///
+  /// Clears loaded content so it can be reloaded.
+  static void reset() {
+    _content = null;
+    _isLoaded = false;
+  }
+
   /// Get the raw YAML content.
   YamlMap? get rawContent => _content;
 
@@ -342,6 +358,13 @@ class Content {
 
   /// Load content from YAML. Call this before using any content.
   static Future<void> load() => _loader.load();
+
+  /// Load content from a YAML string (for testing).
+  static void loadFromString(String yamlString) =>
+      _loader.loadFromString(yamlString);
+
+  /// Reset content state (for testing).
+  static void reset() => ContentLoader.reset();
 
   /// Whether content has been loaded.
   static bool get isLoaded => _loader.isLoaded;
