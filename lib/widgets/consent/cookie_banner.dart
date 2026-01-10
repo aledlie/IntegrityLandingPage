@@ -263,7 +263,8 @@ class _CookieBannerState extends State<CookieBanner>
   }
 
   Widget _buildPreferencesView(bool isMobile) {
-    return Column(
+    // On mobile, constrain height and make scrollable to prevent overflow
+    final content = Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -360,6 +361,16 @@ class _CookieBannerState extends State<CookieBanner>
           ),
       ],
     );
+
+    // On mobile, make scrollable and constrain max height to prevent overflow
+    if (isMobile) {
+      return ConstrainedBox(
+        constraints: const BoxConstraints(maxHeight: 500),
+        child: SingleChildScrollView(child: content),
+      );
+    }
+
+    return content;
   }
 }
 

@@ -172,7 +172,11 @@ void main() {
         );
         await tester.pump(const Duration(milliseconds: 350));
 
-        expect(find.byType(Positioned), findsOneWidget);
+        // CookieBanner uses Column with MainAxisAlignment.end to position at bottom
+        final columnFinder = find.byWidgetPredicate((widget) =>
+            widget is Column &&
+            widget.mainAxisAlignment == MainAxisAlignment.end);
+        expect(columnFinder, findsOneWidget);
       });
 
       testWidgets('has slide and fade animations', (tester) async {
@@ -661,7 +665,12 @@ void main() {
         await tester.tap(find.text('Manage'));
         await tester.pump();
 
-        await tester.tap(find.text('Save Preferences'));
+        // Scroll to make Save Preferences button visible
+        final saveButton = find.text('Save Preferences');
+        await tester.ensureVisible(saveButton);
+        await tester.pumpAndSettle();
+
+        await tester.tap(saveButton);
         await tester.pumpAndSettle();
 
         expect(consentGiven, isTrue);
