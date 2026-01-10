@@ -110,39 +110,44 @@ class _CookieBannerState extends State<CookieBanner>
   Widget build(BuildContext context) {
     final isMobile = ResponsiveUtils.isMobile(context);
 
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: SlideTransition(
-        position: _slideAnimation,
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: Material(
-            elevation: 16,
-            color: AppColors.gray800,
-            child: SafeArea(
-              top: false,
-              child: Container(
-                padding: EdgeInsets.all(
-                  isMobile ? AppSpacing.md : AppSpacing.lg,
-                ),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: AppColors.gray700,
-                      width: 1,
+    // Use Column with Spacer to push banner to bottom while only capturing
+    // hits on its own content, allowing scroll gestures to pass through
+    // to the page below
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        // Spacer that ignores pointer events, allowing scrolling through
+        const Expanded(child: IgnorePointer(child: SizedBox.expand())),
+        SlideTransition(
+          position: _slideAnimation,
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Material(
+              elevation: 16,
+              color: AppColors.gray800,
+              child: SafeArea(
+                top: false,
+                child: Container(
+                  padding: EdgeInsets.all(
+                    isMobile ? AppSpacing.md : AppSpacing.lg,
+                  ),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: AppColors.gray700,
+                        width: 1,
+                      ),
                     ),
                   ),
+                  child: _showPreferences
+                      ? _buildPreferencesView(isMobile)
+                      : _buildMainView(isMobile),
                 ),
-                child: _showPreferences
-                    ? _buildPreferencesView(isMobile)
-                    : _buildMainView(isMobile),
               ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 
