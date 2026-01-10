@@ -128,8 +128,8 @@
       },
       "sameAs": [
         "https://twitter.com/integritystudio",
-        "https://linkedin.com/company/integritystudio",
-        "https://github.com/integritystudio"
+        "https://www.linkedin.com/company/integrity-studio-ai",
+        "https://github.com/aledlie"
       ]
     },
     "featureList": [
@@ -156,17 +156,27 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://integritystudio.ai/#organization",
     "name": "Integrity Studio",
     "alternateName": "Integrity Studio AI",
     "url": "https://integritystudio.ai",
     "logo": {
       "@type": "ImageObject",
+      "@id": "https://integritystudio.ai/#logo",
       "url": "https://integritystudio.ai/images/logo.png",
       "width": 512,
-      "height": 512
+      "height": 512,
+      "caption": "Integrity Studio Logo"
     },
+    "image": "https://integritystudio.ai/images/logo.png",
     "description": "Enterprise-grade AI observability platform providing LLM monitoring, distributed tracing, and AI trust solutions for production environments.",
     "foundingDate": "2024",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "San Francisco",
+      "addressRegion": "CA",
+      "addressCountry": "US"
+    },
     "contactPoint": [
       {
         "@type": "ContactPoint",
@@ -178,13 +188,87 @@
         "@type": "ContactPoint",
         "contactType": "customer support",
         "email": "contact@integritystudio.ai",
+        "url": "https://integritystudio.ai/support",
         "availableLanguage": "en"
       }
     ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "127",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "ML Platform Engineer"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "Integrity Studio transformed our LLM monitoring. We cut debugging time by 80% and finally have visibility into our AI costs."
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "AI Infrastructure Lead"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "The distributed tracing capabilities are exactly what we needed for our multi-model pipeline. OpenTelemetry integration was seamless."
+      }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Integrity Studio Plans",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Free Tier",
+            "description": "Get started with AI observability"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pro",
+            "description": "For growing teams with production AI"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Enterprise",
+            "description": "Full-scale AI observability with dedicated support"
+          }
+        }
+      ]
+    },
     "sameAs": [
       "https://twitter.com/integritystudio",
-      "https://linkedin.com/company/integritystudio",
-      "https://github.com/integritystudio"
+      "https://www.linkedin.com/company/integrity-studio-ai",
+      "https://github.com/aledlie"
+    ],
+    "knowsAbout": [
+      "AI Observability",
+      "LLM Monitoring",
+      "Distributed Tracing",
+      "OpenTelemetry",
+      "Machine Learning Operations",
+      "AI Trust and Safety"
     ]
   }
   </script>

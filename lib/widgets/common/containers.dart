@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import '../../theme/theme.dart';
 
 /// Responsive container with max-width and horizontal padding
@@ -594,7 +595,7 @@ class BulletPoint extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: const Icon(
-          Icons.check,
+          LucideIcons.check,
           size: 12,
           color: Colors.white,
         ),
