@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'app.dart';
+import 'services/content_loader.dart';
 import 'services/tracking.dart';
 
 // =============================================================================
@@ -57,6 +58,9 @@ abstract final class SentryConfig {
 /// 4. The main application widget
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Load content from YAML before app starts
+  await Content.load();
 
   // Initialize GTM Consent Mode with default denied state (GDPR requirement)
   // This MUST happen before GTM loads to ensure proper consent handling
