@@ -366,6 +366,7 @@ class TeamMemberContent {
   final String? linkedInUrl;
   final String? twitterUrl;
   final String? githubUrl;
+  final String? websiteUrl;
 
   const TeamMemberContent({
     required this.name,
@@ -375,6 +376,7 @@ class TeamMemberContent {
     this.linkedInUrl,
     this.twitterUrl,
     this.githubUrl,
+    this.websiteUrl,
   });
 }
 

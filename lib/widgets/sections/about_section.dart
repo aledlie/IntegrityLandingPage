@@ -400,6 +400,12 @@ class _TeamMemberCard extends StatelessWidget {
                   url: member.githubUrl!,
                   tooltip: 'GitHub',
                 ),
+              if (member.websiteUrl != null)
+                _SocialIconButton(
+                  icon: Icons.language,
+                  url: member.websiteUrl!,
+                  tooltip: 'Website',
+                ),
             ],
           ),
         ],

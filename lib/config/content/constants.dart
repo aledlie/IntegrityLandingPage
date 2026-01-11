@@ -63,7 +63,7 @@ abstract final class ExternalUrls {
   static const String github = 'https://github.com/integritystudio';
 
   // Personal (founder)
-  static const String founderLinkedIn = 'https://linkedin.com/in/alyshialedlie';
+  static const String founderLinkedIn = 'https://www.linkedin.com/in/aledlie';
   static const String founderTwitter = 'https://twitter.com/alyshialedlie';
 }
 
