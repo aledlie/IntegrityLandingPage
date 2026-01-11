@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../common/cards.dart';
@@ -427,9 +428,7 @@ class _SocialIconButton extends StatelessWidget {
         icon: Icon(icon, size: 20),
         color: AppColors.gray400,
         hoverColor: AppColors.blue500.withValues(alpha: 0.1),
-        onPressed: () {
-          // TODO: Launch URL
-        },
+        onPressed: () => launchUrl(Uri.parse(url)),
       ),
     );
   }
