@@ -530,8 +530,10 @@ class _StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveUtils.isMobile(context);
+
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: EdgeInsets.all(isMobile ? AppSpacing.md : AppSpacing.lg),
       decoration: BoxDecoration(
         color: AppColors.gray900.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(AppSpacing.radiusLG),
@@ -544,12 +546,16 @@ class _StatCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
-            stat.value,
-            style: AppTypography.headingLG.copyWith(
-              color: Colors.white,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              stat.value,
+              style: (isMobile ? AppTypography.headingMD : AppTypography.headingLG).copyWith(
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 1,
             ),
-            textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
@@ -558,6 +564,7 @@ class _StatCard extends StatelessWidget {
               color: AppColors.gray400,
             ),
             textAlign: TextAlign.center,
+            maxLines: 2,
           ),
         ],
       ),
