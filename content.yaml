@@ -735,7 +735,7 @@ contact:
     - icon: "linkedin"
       label: "LinkedIn"
       value: "Follow us"
-      url: "https://linkedin.com/company/integrity-studio"
+      url: "https://linkedin.com/company/integrity-studio-ai"
 
     - icon: "twitter"
       label: "Twitter"
@@ -745,7 +745,7 @@ contact:
     - icon: "github"
       label: "GitHub"
       value: "integritystudio"
-      url: "https://github.com/integritystudio"
+      url: "https://github.com/aledlie"
 
 # =============================================================================
 # FOOTER SECTION
