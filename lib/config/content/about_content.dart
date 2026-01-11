@@ -87,7 +87,6 @@ abstract final class AboutContentVariants {
           'Deep experience building observability-first infrastructure at scale. Passionate about making '
           'AI systems transparent and trustworthy for enterprises navigating regulatory change.',
       linkedInUrl: ExternalUrls.founderLinkedIn,
-      websiteUrl: ExternalUrls.founderTwitter,
     ),
     TeamMemberContent(
       name: 'Chandra Srivastava',
