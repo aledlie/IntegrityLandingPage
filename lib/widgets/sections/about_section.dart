@@ -336,26 +336,33 @@ class _TeamMemberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Generate default alt text if not provided
+    final altText = member.imageAlt ?? '${member.name}, ${member.role}';
+
     return GlassCard(
       tier: GlassCardTier.secondary,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Avatar placeholder (or actual image if asset provided)
-          CircleAvatar(
-            radius: 48,
-            backgroundColor: AppColors.gray700,
-            backgroundImage: member.avatarAsset != null
-                ? AssetImage(member.avatarAsset!)
-                : null,
-            child: member.avatarAsset == null
-                ? Text(
-                    member.name.split(' ').map((n) => n[0]).join(),
-                    style: AppTypography.headingMDResponsive(context).copyWith(
-                      color: AppColors.blue400,
-                    ),
-                  )
-                : null,
+          // Avatar with accessibility support
+          Semantics(
+            label: altText,
+            image: true,
+            child: CircleAvatar(
+              radius: 48,
+              backgroundColor: AppColors.gray700,
+              backgroundImage: member.avatarAsset != null
+                  ? AssetImage(member.avatarAsset!)
+                  : null,
+              child: member.avatarAsset == null
+                  ? Text(
+                      member.name.split(' ').map((n) => n[0]).join(),
+                      style: AppTypography.headingMDResponsive(context).copyWith(
+                        color: AppColors.blue400,
+                      ),
+                    )
+                  : null,
+            ),
           ),
           const SizedBox(height: AppSpacing.lg),
           Text(

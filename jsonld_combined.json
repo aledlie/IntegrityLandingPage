@@ -2886,7 +2886,14 @@
       "sameAs": [
         "https://www.linkedin.com/in/chandra-srivastava/",
         "https://www.chandrasrivastava.com/"
-      ]
+      ],
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://integritystudio.ai/images/team/chandra-srivastava.jpg",
+        "description": "Chandra Srivastava, Co-founder and CMO of Integrity Studio",
+        "width": 400,
+        "height": 400
+      }
     },
     {
       "@type": "Person",
@@ -2913,7 +2920,14 @@
       "sameAs": [
         "https://www.linkedin.com/in/micahlindsey/",
         "http://www.micahlindsey.com/"
-      ]
+      ],
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://integritystudio.ai/images/team/micah-lindsay.jpg",
+        "description": "Micah Lindsay, Chief Data Scientist at Integrity Studio",
+        "width": 400,
+        "height": 400
+      }
     },
     {
       "@type": "Person",
@@ -2935,7 +2949,14 @@
         "Responsible AI",
         "Policy Development",
         "Enterprise Compliance"
-      ]
+      ],
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://integritystudio.ai/images/team/john-skelton.jpg",
+        "description": "John Skelton, Head of Policy at Integrity Studio",
+        "width": 400,
+        "height": 400
+      }
     },
     {
       "@type": "Person",
@@ -2960,7 +2981,14 @@
       ],
       "sameAs": [
         "https://www.linkedin.com/in/aaron-weise-b8a82932/"
-      ]
+      ],
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://integritystudio.ai/images/team/aaron-weise.jpg",
+        "description": "Aaron Weise, Head of AI Compliance Development at Integrity Studio",
+        "width": 400,
+        "height": 400
+      }
     },
     {
       "@type": "Person",
@@ -2987,7 +3015,14 @@
       "sameAs": [
         "https://www.linkedin.com/in/hoffmanchase/",
         "https://www.hoffmanchase.com/"
-      ]
+      ],
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://integritystudio.ai/images/team/chase-hoffman.jpg",
+        "description": "Chase Hoffman, Co-Founder and President of Integrity Studio",
+        "width": 400,
+        "height": 400
+      }
     },
     {
       "@type": "LocalBusiness",
@@ -3590,6 +3625,7 @@
       "image": {
         "@type": "ImageObject",
         "url": "https://integritystudio.ai/images/team/alyshia-ledlie.jpg",
+        "description": "Alyshia Ledlie, Founder and CEO of Integrity Studio",
         "width": 400,
         "height": 400
       },

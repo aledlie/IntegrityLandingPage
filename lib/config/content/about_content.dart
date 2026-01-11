@@ -77,6 +77,7 @@ abstract final class AboutContentVariants {
       bio:
           'Seasoned technology executive with deep expertise in scaling enterprise software companies. '
           'Focused on developing high-performance monitization systems and cost optimization that deliver exceptional customer success.',
+      imageAlt: 'Chase Hoffman, Co-Founder and President of Integrity Studio',
       linkedInUrl: 'https://www.linkedin.com/in/hoffmanchase/',
       websiteUrl: 'https://www.hoffmanchase.com/',
     ),
@@ -86,6 +87,7 @@ abstract final class AboutContentVariants {
       bio:
           'Deep experience building observability-first infrastructure at scale. Passionate about making '
           'AI systems transparent and trustworthy for enterprises navigating regulatory change.',
+      imageAlt: 'Alyshia Ledlie, Founder and CEO of Integrity Studio',
       linkedInUrl: ExternalUrls.founderLinkedIn,
     ),
     TeamMemberContent(
@@ -94,6 +96,7 @@ abstract final class AboutContentVariants {
       bio:
           'Marketing leader with experience driving growth at early stage B2B technology companies. '
           'Expert in positioning AI products for enterprise adoption and building category-defining brands.',
+      imageAlt: 'Chandra Srivastava, Co-founder and CMO of Integrity Studio',
       linkedInUrl: 'https://www.linkedin.com/in/chandra-srivastava/',
       websiteUrl: 'https://www.chandrasrivastava.com/',
     ),
@@ -103,6 +106,7 @@ abstract final class AboutContentVariants {
       bio:
           'Machine learning researcher focused on AI evaluation and observability. '
           'Developed novel approaches to precise hallucination detection and model performance analysis.',
+      imageAlt: 'Micah Lindsay, Chief Data Scientist at Integrity Studio',
       linkedInUrl: 'https://www.linkedin.com/in/micahlindsey/',
       websiteUrl: 'http://www.micahlindsey.com/',
     ),
@@ -112,6 +116,7 @@ abstract final class AboutContentVariants {
       bio:
           'Regulatory and compliance expert specializing in AI governance frameworks. '
           'Advises enterprises on EU AI Act preparation and responsible AI deployment.',
+      imageAlt: 'John Skelton, Head of Policy at Integrity Studio',
     ),
     TeamMemberContent(
       name: 'Aaron Weise',
@@ -119,6 +124,7 @@ abstract final class AboutContentVariants {
       bio:
           'Brings decades of experience in both cutting-edge AI development and legal operations. '
           'An exceptional leader driving innovation at the intersection of automation and Trust & Safety.',
+      imageAlt: 'Aaron Weise, Head of AI Compliance Development at Integrity Studio',
       linkedInUrl: 'https://www.linkedin.com/in/aaron-weise-b8a82932/',
     ),
   ];

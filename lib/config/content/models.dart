@@ -363,6 +363,7 @@ class TeamMemberContent {
   final String role;
   final String bio;
   final String? avatarAsset;
+  final String? imageAlt;
   final String? linkedInUrl;
   final String? twitterUrl;
   final String? githubUrl;
@@ -373,6 +374,7 @@ class TeamMemberContent {
     required this.role,
     required this.bio,
     this.avatarAsset,
+    this.imageAlt,
     this.linkedInUrl,
     this.twitterUrl,
     this.githubUrl,
