@@ -79,7 +79,81 @@
           "contactType": "professional",
           "email": "alyshia@integritystudio.ai",
           "availableLanguage": "English"
-        }
+        },
+        "givenName": "Alyshia",
+        "familyName": "Ledlie",
+        "gender": "Female",
+        "birthDate": "1987-06-19",
+        "nationality": {
+          "@type": "Country",
+          "name": "United States",
+          "alternateName": "US"
+        },
+        "alumniOf": [
+          {
+            "@type": "HighSchool",
+            "name": "Westlake High School",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            }
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Texas at Austin",
+            "sameAs": "https://www.utexas.edu/"
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Cornell University",
+            "sameAs": "https://www.cornell.edu/"
+          }
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in History",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in Computer Science",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Juris Doctor (JD)",
+            "educationalLevel": "Doctoral Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Doctor of Philosophy (PhD) in Legal History",
+            "educationalLevel": "Doctoral Degree"
+          }
+        ],
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "English",
+            "alternateName": "en"
+          },
+          {
+            "@type": "Language",
+            "name": "Spanish",
+            "alternateName": "es"
+          },
+          {
+            "@type": "Language",
+            "name": "German",
+            "alternateName": "de"
+          }
+        ]
       },
       "publisher": {
         "@type": "Organization",
@@ -300,7 +374,81 @@
           "contactType": "professional",
           "email": "alyshia@integritystudio.ai",
           "availableLanguage": "English"
-        }
+        },
+        "givenName": "Alyshia",
+        "familyName": "Ledlie",
+        "gender": "Female",
+        "birthDate": "1987-06-19",
+        "nationality": {
+          "@type": "Country",
+          "name": "United States",
+          "alternateName": "US"
+        },
+        "alumniOf": [
+          {
+            "@type": "HighSchool",
+            "name": "Westlake High School",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            }
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Texas at Austin",
+            "sameAs": "https://www.utexas.edu/"
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Cornell University",
+            "sameAs": "https://www.cornell.edu/"
+          }
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in History",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in Computer Science",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Juris Doctor (JD)",
+            "educationalLevel": "Doctoral Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Doctor of Philosophy (PhD) in Legal History",
+            "educationalLevel": "Doctoral Degree"
+          }
+        ],
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "English",
+            "alternateName": "en"
+          },
+          {
+            "@type": "Language",
+            "name": "Spanish",
+            "alternateName": "es"
+          },
+          {
+            "@type": "Language",
+            "name": "German",
+            "alternateName": "de"
+          }
+        ]
       },
       "publisher": {
         "@type": "Organization",
@@ -447,7 +595,81 @@
           "contactType": "professional",
           "email": "alyshia@integritystudio.ai",
           "availableLanguage": "English"
-        }
+        },
+        "givenName": "Alyshia",
+        "familyName": "Ledlie",
+        "gender": "Female",
+        "birthDate": "1987-06-19",
+        "nationality": {
+          "@type": "Country",
+          "name": "United States",
+          "alternateName": "US"
+        },
+        "alumniOf": [
+          {
+            "@type": "HighSchool",
+            "name": "Westlake High School",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            }
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Texas at Austin",
+            "sameAs": "https://www.utexas.edu/"
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Cornell University",
+            "sameAs": "https://www.cornell.edu/"
+          }
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in History",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in Computer Science",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Juris Doctor (JD)",
+            "educationalLevel": "Doctoral Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Doctor of Philosophy (PhD) in Legal History",
+            "educationalLevel": "Doctoral Degree"
+          }
+        ],
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "English",
+            "alternateName": "en"
+          },
+          {
+            "@type": "Language",
+            "name": "Spanish",
+            "alternateName": "es"
+          },
+          {
+            "@type": "Language",
+            "name": "German",
+            "alternateName": "de"
+          }
+        ]
       },
       "publisher": {
         "@type": "Organization",
@@ -611,7 +833,81 @@
           "contactType": "professional",
           "email": "alyshia@integritystudio.ai",
           "availableLanguage": "English"
-        }
+        },
+        "givenName": "Alyshia",
+        "familyName": "Ledlie",
+        "gender": "Female",
+        "birthDate": "1987-06-19",
+        "nationality": {
+          "@type": "Country",
+          "name": "United States",
+          "alternateName": "US"
+        },
+        "alumniOf": [
+          {
+            "@type": "HighSchool",
+            "name": "Westlake High School",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            }
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Texas at Austin",
+            "sameAs": "https://www.utexas.edu/"
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Cornell University",
+            "sameAs": "https://www.cornell.edu/"
+          }
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in History",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in Computer Science",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Juris Doctor (JD)",
+            "educationalLevel": "Doctoral Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Doctor of Philosophy (PhD) in Legal History",
+            "educationalLevel": "Doctoral Degree"
+          }
+        ],
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "English",
+            "alternateName": "en"
+          },
+          {
+            "@type": "Language",
+            "name": "Spanish",
+            "alternateName": "es"
+          },
+          {
+            "@type": "Language",
+            "name": "German",
+            "alternateName": "de"
+          }
+        ]
       },
       "publisher": {
         "@type": "Organization",
@@ -1050,7 +1346,81 @@
           "contactType": "professional",
           "email": "alyshia@integritystudio.ai",
           "availableLanguage": "English"
-        }
+        },
+        "givenName": "Alyshia",
+        "familyName": "Ledlie",
+        "gender": "Female",
+        "birthDate": "1987-06-19",
+        "nationality": {
+          "@type": "Country",
+          "name": "United States",
+          "alternateName": "US"
+        },
+        "alumniOf": [
+          {
+            "@type": "HighSchool",
+            "name": "Westlake High School",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            }
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Texas at Austin",
+            "sameAs": "https://www.utexas.edu/"
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Cornell University",
+            "sameAs": "https://www.cornell.edu/"
+          }
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in History",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in Computer Science",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Juris Doctor (JD)",
+            "educationalLevel": "Doctoral Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Doctor of Philosophy (PhD) in Legal History",
+            "educationalLevel": "Doctoral Degree"
+          }
+        ],
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "English",
+            "alternateName": "en"
+          },
+          {
+            "@type": "Language",
+            "name": "Spanish",
+            "alternateName": "es"
+          },
+          {
+            "@type": "Language",
+            "name": "German",
+            "alternateName": "de"
+          }
+        ]
       },
       "publisher": {
         "@type": "Organization",
@@ -1261,7 +1631,81 @@
           "contactType": "professional",
           "email": "alyshia@integritystudio.ai",
           "availableLanguage": "English"
-        }
+        },
+        "givenName": "Alyshia",
+        "familyName": "Ledlie",
+        "gender": "Female",
+        "birthDate": "1987-06-19",
+        "nationality": {
+          "@type": "Country",
+          "name": "United States",
+          "alternateName": "US"
+        },
+        "alumniOf": [
+          {
+            "@type": "HighSchool",
+            "name": "Westlake High School",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            }
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Texas at Austin",
+            "sameAs": "https://www.utexas.edu/"
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Cornell University",
+            "sameAs": "https://www.cornell.edu/"
+          }
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in History",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in Computer Science",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Juris Doctor (JD)",
+            "educationalLevel": "Doctoral Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Doctor of Philosophy (PhD) in Legal History",
+            "educationalLevel": "Doctoral Degree"
+          }
+        ],
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "English",
+            "alternateName": "en"
+          },
+          {
+            "@type": "Language",
+            "name": "Spanish",
+            "alternateName": "es"
+          },
+          {
+            "@type": "Language",
+            "name": "German",
+            "alternateName": "de"
+          }
+        ]
       },
       "publisher": {
         "@type": "Organization",
@@ -1729,7 +2173,145 @@
         "@type": "Person",
         "@id": "https://www.aledlie.com#person",
         "name": "Alyshia Ledlie",
-        "url": "https://www.aledlie.com/"
+        "alternateName": [
+          "Alyshia"
+        ],
+        "url": "https://www.aledlie.com/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://www.aledlie.com/images/profile.jpg",
+          "width": 400,
+          "height": 400
+        },
+        "description": "I write code, make aggressively mediocre jokes, and scale companies.",
+        "email": "alyshia@integritystudio.ai",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "ATX"
+        },
+        "jobTitle": [
+          "Software Developer",
+          "Technology Consultant",
+          "Writer"
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Software Developer",
+            "occupationCategory": "Computer and Mathematical Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technology Consultant",
+            "occupationCategory": "Management Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technical Writer",
+            "occupationCategory": "Arts, Design, Entertainment, Sports, and Media Occupations"
+          }
+        ],
+        "worksFor": [
+          {
+            "@id": "https://integritystudio.ai/#organization"
+          }
+        ],
+        "knowsAbout": [
+          "Software Development",
+          "Web Development",
+          "Machine Learning",
+          "Artificial Intelligence",
+          "Technology Consulting",
+          "Business Automation",
+          "Technical Writing",
+          "Open Source Software"
+        ],
+        "sameAs": [
+          "mailto:alyshia@integritystudio.ai",
+          "https://github.com/aledlie",
+          "https://integritystudio.ai",
+          "https://amazing-froyo-8f05e0.netlify.app/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "professional",
+          "email": "alyshia@integritystudio.ai",
+          "availableLanguage": "English"
+        },
+        "givenName": "Alyshia",
+        "familyName": "Ledlie",
+        "gender": "Female",
+        "birthDate": "1987-06-19",
+        "nationality": {
+          "@type": "Country",
+          "name": "United States",
+          "alternateName": "US"
+        },
+        "alumniOf": [
+          {
+            "@type": "HighSchool",
+            "name": "Westlake High School",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            }
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Texas at Austin",
+            "sameAs": "https://www.utexas.edu/"
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Cornell University",
+            "sameAs": "https://www.cornell.edu/"
+          }
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in History",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in Computer Science",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Juris Doctor (JD)",
+            "educationalLevel": "Doctoral Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Doctor of Philosophy (PhD) in Legal History",
+            "educationalLevel": "Doctoral Degree"
+          }
+        ],
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "English",
+            "alternateName": "en"
+          },
+          {
+            "@type": "Language",
+            "name": "Spanish",
+            "alternateName": "es"
+          },
+          {
+            "@type": "Language",
+            "name": "German",
+            "alternateName": "de"
+          }
+        ]
       },
       "creator": {
         "@type": "Organization",
@@ -2012,7 +2594,81 @@
           "contactType": "professional",
           "email": "alyshia@integritystudio.ai",
           "availableLanguage": "English"
-        }
+        },
+        "givenName": "Alyshia",
+        "familyName": "Ledlie",
+        "gender": "Female",
+        "birthDate": "1987-06-19",
+        "nationality": {
+          "@type": "Country",
+          "name": "United States",
+          "alternateName": "US"
+        },
+        "alumniOf": [
+          {
+            "@type": "HighSchool",
+            "name": "Westlake High School",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            }
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Texas at Austin",
+            "sameAs": "https://www.utexas.edu/"
+          },
+          {
+            "@type": "CollegeOrUniversity",
+            "name": "Cornell University",
+            "sameAs": "https://www.cornell.edu/"
+          }
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in History",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Arts in Computer Science",
+            "educationalLevel": "Bachelor's Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Juris Doctor (JD)",
+            "educationalLevel": "Doctoral Degree"
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Doctor of Philosophy (PhD) in Legal History",
+            "educationalLevel": "Doctoral Degree"
+          }
+        ],
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "English",
+            "alternateName": "en"
+          },
+          {
+            "@type": "Language",
+            "name": "Spanish",
+            "alternateName": "es"
+          },
+          {
+            "@type": "Language",
+            "name": "German",
+            "alternateName": "de"
+          }
+        ]
       },
       "publisher": {
         "@type": "Organization",
@@ -2203,6 +2859,107 @@
             "text": "Let us know! Our roadmap is responsive to customer needs. If there's a WhyLabs feature critical to your workflow that we don't currently offer, email product@integritystudio.ai."
           }
         }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.chandrasrivastava.com/#person",
+      "name": "Chandra Srivastava",
+      "givenName": "Chandra",
+      "familyName": "Srivastava",
+      "url": "https://www.chandrasrivastava.com/",
+      "description": "Marketing leader with experience driving growth at early stage B2B technology companies. Expert in positioning AI products for enterprise adoption and building category-defining brands.",
+      "jobTitle": "Co-founder & Chief Marketing Officer",
+      "worksFor": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio"
+      },
+      "knowsAbout": [
+        "B2B Marketing",
+        "Growth Marketing",
+        "AI Product Marketing",
+        "Enterprise Sales",
+        "Brand Strategy",
+        "Category Creation"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/chandra-srivastava/",
+        "https://www.chandrasrivastava.com/"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "http://www.micahlindsey.com/#person",
+      "name": "Micah Lindsay",
+      "givenName": "Micah",
+      "familyName": "Lindsay",
+      "url": "http://www.micahlindsey.com/",
+      "description": "Machine learning researcher focused on AI evaluation and observability. Developed novel approaches to precise hallucination detection and model performance analysis.",
+      "jobTitle": "Chief Data Scientist",
+      "worksFor": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio"
+      },
+      "knowsAbout": [
+        "Machine Learning",
+        "AI Evaluation",
+        "AI Observability",
+        "Hallucination Detection",
+        "Model Performance Analysis",
+        "Data Science"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/micahlindsey/",
+        "http://www.micahlindsey.com/"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://integritystudio.ai/team/john-skelton#person",
+      "name": "John Skelton",
+      "givenName": "John",
+      "familyName": "Skelton",
+      "description": "Regulatory and compliance expert specializing in AI governance frameworks. Advises enterprises on EU AI Act preparation and responsible AI deployment.",
+      "jobTitle": "Head of Policy",
+      "worksFor": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio"
+      },
+      "knowsAbout": [
+        "AI Governance",
+        "Regulatory Compliance",
+        "EU AI Act",
+        "Responsible AI",
+        "Policy Development",
+        "Enterprise Compliance"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://integritystudio.ai/team/aaron-weise#person",
+      "name": "Aaron Weise",
+      "givenName": "Aaron",
+      "familyName": "Weise",
+      "description": "Brings decades of experience in both cutting-edge AI development and legal operations. An exceptional leader driving innovation at the intersection of automation and Trust & Safety.",
+      "jobTitle": "Head of AI Compliance Development",
+      "worksFor": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio"
+      },
+      "knowsAbout": [
+        "AI Development",
+        "Legal Operations",
+        "Trust & Safety",
+        "Automation",
+        "AI Compliance",
+        "Innovation Leadership"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/aaron-weise-b8a82932/"
       ]
     }
   ]
