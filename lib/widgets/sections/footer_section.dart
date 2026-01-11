@@ -171,6 +171,8 @@ class FooterSection extends StatelessWidget {
                     }
                   } else if (link.url == '/sources') {
                     Navigator.of(context).pushNamed('/sources');
+                  } else if (link.url == '/about') {
+                    Navigator.of(context).pushNamed('/about');
                   } else if (link.isInternal) {
                     // Internal links - no action for now
                   } else {

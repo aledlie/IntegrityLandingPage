@@ -6,6 +6,7 @@ import 'pages/blog_page.dart';
 import 'pages/comparison_page.dart';
 import 'pages/sources_page.dart';
 import 'pages/legal_page.dart';
+import 'pages/about_page.dart';
 import 'services/analytics.dart';
 import 'services/consent_manager.dart';
 import 'services/tracking.dart';
@@ -121,6 +122,22 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
               children: [
                 SourcesPage(
                   onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Handle About page
+        if (settings.name == '/about') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                AboutPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                  onShowCookieSettings: _showCookieSettings,
                 ),
                 if (_showCookieBanner)
                   CookieBanner(onConsentGiven: _handleConsentGiven),
