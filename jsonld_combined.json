@@ -1,0 +1,2209 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy#collectionpage",
+      "headline": "AI Observability Market Analysis & Platform Strategy 2025",
+      "description": "Comprehensive market research and strategic analysis for AI Observability and Trust Platform positioning, with regulatory compliance insights and competitive landscape analysis.",
+      "url": "https://integritystudio.ai/blog/ai-observability-platform-strategy/",
+      "datePublished": "2025-12-08T00:00:00Z",
+      "dateModified": "2025-12-08T00:00:00Z",
+      "inLanguage": "en-US",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.aledlie.com#person",
+        "name": "Alyshia Ledlie",
+        "alternateName": [
+          "Alyshia"
+        ],
+        "url": "https://www.aledlie.com/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://www.aledlie.com/images/profile.jpg",
+          "width": 400,
+          "height": 400
+        },
+        "description": "I write code, make aggressively mediocre jokes, and scale companies.",
+        "email": "alyshia@integritystudio.ai",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "ATX"
+        },
+        "jobTitle": [
+          "Software Developer",
+          "Technology Consultant",
+          "Writer"
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Software Developer",
+            "occupationCategory": "Computer and Mathematical Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technology Consultant",
+            "occupationCategory": "Management Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technical Writer",
+            "occupationCategory": "Arts, Design, Entertainment, Sports, and Media Occupations"
+          }
+        ],
+        "worksFor": [
+          {
+            "@id": "https://integritystudio.ai/#organization"
+          }
+        ],
+        "knowsAbout": [
+          "Software Development",
+          "Web Development",
+          "Machine Learning",
+          "Artificial Intelligence",
+          "Technology Consulting",
+          "Business Automation",
+          "Technical Writing",
+          "Open Source Software"
+        ],
+        "sameAs": [
+          "mailto:alyshia@integritystudio.ai",
+          "https://github.com/aledlie",
+          "https://integritystudio.ai",
+          "https://amazing-froyo-8f05e0.netlify.app/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "professional",
+          "email": "alyshia@integritystudio.ai",
+          "availableLanguage": "English"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio",
+        "url": "https://integritystudio.ai",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/logo.png"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "248 Addie Roy Road",
+          "addressLocality": "Austin",
+          "addressRegion": "TX",
+          "postalCode": "78746",
+          "addressCountry": "US"
+        },
+        "telephone": "(512) 829-1644",
+        "sameAs": [
+          "https://twitter.com/integritystudio",
+          "https://www.linkedin.com/company/integrity-studio-ai",
+          "https://github.com/aledlie"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Integrity Studio Plans",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Free Tier",
+                "description": "Get started with AI observability"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Pro",
+                "description": "For growing teams with production AI"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Enterprise",
+                "description": "Full-scale AI observability with dedicated support"
+              }
+            }
+          ]
+        }
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy#itemlist",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://integritystudio.ai/blog/ai-observability-platform-strategy/market-analysis.html",
+            "name": "AI Observability Market Analysis"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://integritystudio.ai/blog/ai-observability-platform-strategy/regulatory-drivers.html",
+            "name": "EU AI Act Regulatory Drivers"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://integritystudio.ai/blog/ai-observability-platform-strategy/competitive-landscape.html",
+            "name": "Competitive Landscape Analysis"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://integritystudio.ai/blog/ai-observability-platform-strategy/growth-strategy.html",
+            "name": "Product-Led Growth Strategy"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://integritystudio.ai/blog/ai-observability-platform-strategy/recommendations.html",
+            "name": "Strategic Recommendations"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://integritystudio.ai/blog/ai-observability-platform-strategy/sources.html",
+            "name": "Research Sources"
+          }
+        ]
+      },
+      "hasPart": [
+        {
+          "@type": "TechArticle",
+          "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy/market-analysis#techarticle"
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy/regulatory-drivers.html"
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy/competitive-landscape.html"
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy/growth-strategy.html"
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy/recommendations.html"
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy/sources.html"
+        }
+      ],
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "AI Observability",
+          "description": "Monitoring and understanding AI system behavior in production"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Platform Strategy",
+          "description": "Strategic planning for AI platform development and market positioning"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Regulatory Compliance",
+          "description": "Compliance with AI regulations including EU AI Act"
+        }
+      ],
+      "keywords": "AI observability market analysis, AI platform strategy, AI regulatory compliance, EU AI Act, MLOps, AI governance, product-led growth"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy/market-analysis#techarticle",
+      "headline": "AI Observability Market Size: $2.9B by 2030 (25.47% CAGR)",
+      "description": "Comprehensive market size validation, enterprise budget allocation trends, and growth projections for AI observability and governance platforms.",
+      "url": "https://integritystudio.ai/blog/ai-observability-platform-strategy/market-analysis.html",
+      "datePublished": "2025-12-08T00:00:00Z",
+      "dateModified": "2025-12-08T00:00:00Z",
+      "inLanguage": "en-US",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.aledlie.com#person",
+        "name": "Alyshia Ledlie",
+        "alternateName": [
+          "Alyshia"
+        ],
+        "url": "https://www.aledlie.com/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://www.aledlie.com/images/profile.jpg",
+          "width": 400,
+          "height": 400
+        },
+        "description": "I write code, make aggressively mediocre jokes, and scale companies.",
+        "email": "alyshia@integritystudio.ai",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "ATX"
+        },
+        "jobTitle": [
+          "Software Developer",
+          "Technology Consultant",
+          "Writer"
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Software Developer",
+            "occupationCategory": "Computer and Mathematical Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technology Consultant",
+            "occupationCategory": "Management Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technical Writer",
+            "occupationCategory": "Arts, Design, Entertainment, Sports, and Media Occupations"
+          }
+        ],
+        "worksFor": [
+          {
+            "@id": "https://integritystudio.ai/#organization"
+          }
+        ],
+        "knowsAbout": [
+          "Software Development",
+          "Web Development",
+          "Machine Learning",
+          "Artificial Intelligence",
+          "Technology Consulting",
+          "Business Automation",
+          "Technical Writing",
+          "Open Source Software"
+        ],
+        "sameAs": [
+          "mailto:alyshia@integritystudio.ai",
+          "https://github.com/aledlie",
+          "https://integritystudio.ai",
+          "https://amazing-froyo-8f05e0.netlify.app/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "professional",
+          "email": "alyshia@integritystudio.ai",
+          "availableLanguage": "English"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio",
+        "url": "https://integritystudio.ai",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/logo.png"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "248 Addie Roy Road",
+          "addressLocality": "Austin",
+          "addressRegion": "TX",
+          "postalCode": "78746",
+          "addressCountry": "US"
+        },
+        "telephone": "(512) 829-1644",
+        "sameAs": [
+          "https://twitter.com/integritystudio",
+          "https://www.linkedin.com/company/integrity-studio-ai",
+          "https://github.com/aledlie"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Integrity Studio Plans",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Free Tier",
+                "description": "Get started with AI observability"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Pro",
+                "description": "For growing teams with production AI"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Enterprise",
+                "description": "Full-scale AI observability with dedicated support"
+              }
+            }
+          ]
+        }
+      },
+      "isPartOf": {
+        "@type": "CollectionPage",
+        "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy#collectionpage",
+        "name": "AI Observability Platform Strategy"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "AI Observability Market Analysis",
+          "description": "Market size, growth projections, and enterprise budget trends for AI observability platforms"
+        }
+      ],
+      "keywords": "AI observability market analysis, market size validation, enterprise budget allocation, MLOps funding, AI governance market"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy#techarticle",
+      "headline": "AI Observability Strategy & Market Analysis",
+      "alternativeHeadline": "Comprehensive Product Strategy for AI Observability Platform",
+      "description": "AI observability strategy with competitive landscape analysis, EU AI Act compliance, and market positioning. Enterprise AI platform roadmap with regulatory drivers and trust framework.",
+      "datePublished": "2025-12-08T00:00:00Z",
+      "dateModified": "2025-12-08T00:00:00Z",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.aledlie.com#person",
+        "name": "Alyshia Ledlie",
+        "alternateName": [
+          "Alyshia"
+        ],
+        "url": "https://www.aledlie.com/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://www.aledlie.com/images/profile.jpg",
+          "width": 400,
+          "height": 400
+        },
+        "description": "I write code, make aggressively mediocre jokes, and scale companies.",
+        "email": "alyshia@integritystudio.ai",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "ATX"
+        },
+        "jobTitle": [
+          "Software Developer",
+          "Technology Consultant",
+          "Writer"
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Software Developer",
+            "occupationCategory": "Computer and Mathematical Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technology Consultant",
+            "occupationCategory": "Management Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technical Writer",
+            "occupationCategory": "Arts, Design, Entertainment, Sports, and Media Occupations"
+          }
+        ],
+        "worksFor": [
+          {
+            "@id": "https://integritystudio.ai/#organization"
+          }
+        ],
+        "knowsAbout": [
+          "Software Development",
+          "Web Development",
+          "Machine Learning",
+          "Artificial Intelligence",
+          "Technology Consulting",
+          "Business Automation",
+          "Technical Writing",
+          "Open Source Software"
+        ],
+        "sameAs": [
+          "mailto:alyshia@integritystudio.ai",
+          "https://github.com/aledlie",
+          "https://integritystudio.ai",
+          "https://amazing-froyo-8f05e0.netlify.app/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "professional",
+          "email": "alyshia@integritystudio.ai",
+          "availableLanguage": "English"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio",
+        "url": "https://integritystudio.ai",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "248 Addie Roy Road",
+          "addressLocality": "Austin",
+          "addressRegion": "TX",
+          "postalCode": "78746",
+          "addressCountry": "US"
+        },
+        "telephone": "(512) 829-1644",
+        "sameAs": [
+          "https://twitter.com/integritystudio",
+          "https://www.linkedin.com/company/integrity-studio-ai",
+          "https://github.com/aledlie"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Integrity Studio Plans",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Free Tier",
+                "description": "Get started with AI observability"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Pro",
+                "description": "For growing teams with production AI"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Enterprise",
+                "description": "Full-scale AI observability with dedicated support"
+              }
+            }
+          ]
+        }
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "AI Observability",
+          "description": "Monitoring and analysis systems for artificial intelligence and machine learning models in production"
+        },
+        {
+          "@type": "Thing",
+          "name": "Market Strategy",
+          "description": "Competitive positioning and market analysis for AI observability platforms"
+        },
+        {
+          "@type": "Thing",
+          "name": "EU AI Act",
+          "description": "European Union regulatory framework for artificial intelligence governance and compliance"
+        },
+        {
+          "@type": "Thing",
+          "name": "Enterprise AI",
+          "description": "Artificial intelligence systems deployed at enterprise scale with governance requirements"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Trust Framework",
+          "description": "Systems and processes for establishing trust and transparency in AI systems"
+        }
+      ],
+      "keywords": "AI observability strategy, AI platform market analysis, AI observability competitive landscape, EU AI Act compliance, enterprise AI monitoring, AI governance platform, ML observability market, AI trust framework",
+      "articleSection": "AI Strategy",
+      "inLanguage": "en-US",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy.html"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://integritystudio.ai/blog/best-llm-monitoring-tools-2025#techarticle",
+      "headline": "Best LLM Monitoring Tools 2025: Langfuse vs LangSmith Compared",
+      "description": "Compare 11 LLM monitoring tools in 2025. Expert analysis of Langfuse vs LangSmith, Phoenix, Helicone, and more AI observability platforms with pricing, features, and use cases.",
+      "image": "https://integritystudio.ai/images/llm-monitoring-tools-2025.png",
+      "datePublished": "2025-12-01T00:00:00Z",
+      "dateModified": "2025-12-15T00:00:00Z",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.aledlie.com#person",
+        "name": "Alyshia Ledlie",
+        "alternateName": [
+          "Alyshia"
+        ],
+        "url": "https://www.aledlie.com/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://www.aledlie.com/images/profile.jpg",
+          "width": 400,
+          "height": 400
+        },
+        "description": "I write code, make aggressively mediocre jokes, and scale companies.",
+        "email": "alyshia@integritystudio.ai",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "ATX"
+        },
+        "jobTitle": [
+          "Software Developer",
+          "Technology Consultant",
+          "Writer"
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Software Developer",
+            "occupationCategory": "Computer and Mathematical Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technology Consultant",
+            "occupationCategory": "Management Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technical Writer",
+            "occupationCategory": "Arts, Design, Entertainment, Sports, and Media Occupations"
+          }
+        ],
+        "worksFor": [
+          {
+            "@id": "https://integritystudio.ai/#organization"
+          }
+        ],
+        "knowsAbout": [
+          "Software Development",
+          "Web Development",
+          "Machine Learning",
+          "Artificial Intelligence",
+          "Technology Consulting",
+          "Business Automation",
+          "Technical Writing",
+          "Open Source Software"
+        ],
+        "sameAs": [
+          "mailto:alyshia@integritystudio.ai",
+          "https://github.com/aledlie",
+          "https://integritystudio.ai",
+          "https://amazing-froyo-8f05e0.netlify.app/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "professional",
+          "email": "alyshia@integritystudio.ai",
+          "availableLanguage": "English"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/images/logo.png"
+        },
+        "url": "https://integritystudio.ai",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "248 Addie Roy Road",
+          "addressLocality": "Austin",
+          "addressRegion": "TX",
+          "postalCode": "78746",
+          "addressCountry": "US"
+        },
+        "telephone": "(512) 829-1644",
+        "sameAs": [
+          "https://twitter.com/integritystudio",
+          "https://www.linkedin.com/company/integrity-studio-ai",
+          "https://github.com/aledlie"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Integrity Studio Plans",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Free Tier",
+                "description": "Get started with AI observability"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Pro",
+                "description": "For growing teams with production AI"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Enterprise",
+                "description": "Full-scale AI observability with dedicated support"
+              }
+            }
+          ]
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://integritystudio.ai/blog/best-llm-monitoring-tools-2025"
+      },
+      "articleSection": "AI Observability",
+      "keywords": "LLM monitoring tools 2025, Langfuse vs LangSmith, best AI observability tools, Phoenix, Helicone, Arize AI, Datadog LLM, Fiddler AI",
+      "wordCount": 3500,
+      "timeRequired": "PT18M",
+      "inLanguage": "en-US"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "@id": "https://integritystudio.ai/blog/best-llm-monitoring-tools-2025#itemlist",
+      "name": "Best LLM Monitoring Tools 2025",
+      "description": "Comprehensive comparison of 11 leading LLM monitoring and observability platforms",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Phoenix by Arize",
+            "description": "Open-source LLM observability platform with full tracing, evaluations, and prompt management",
+            "applicationCategory": "DeveloperApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": "Tracing, Evaluations, Prompt Management, Hallucination Detection, OpenTelemetry Support",
+            "operatingSystem": "Cross-platform"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Helicone",
+            "description": "Fastest setup LLM monitoring with proxy architecture and 2-minute integration",
+            "applicationCategory": "DeveloperApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "25",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "25",
+                "priceCurrency": "USD",
+                "billingDuration": "P1M"
+              }
+            },
+            "featureList": "Proxy Architecture, Cost Tracking, Caching, Rate Limiting, Threat Detection",
+            "operatingSystem": "Cross-platform"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "LangSmith",
+            "description": "Best LLM monitoring for LangChain users with seamless integration and debugging",
+            "applicationCategory": "DeveloperApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "39",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "39",
+                "priceCurrency": "USD",
+                "billingDuration": "P1M",
+                "referenceQuantity": {
+                  "@type": "QuantitativeValue",
+                  "value": "1",
+                  "unitText": "user"
+                }
+              }
+            },
+            "featureList": "LangChain Integration, Debugging, Conversation Insights, Cost Tracking, OpenTelemetry Support",
+            "operatingSystem": "Cross-platform"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Langfuse",
+            "description": "Open-source alternative to LangSmith with MIT license and framework-agnostic design",
+            "applicationCategory": "DeveloperApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": "Prompt Versioning, Multi-turn Conversations, LLM-as-a-Judge Evaluations, Self-hosting, Framework Agnostic",
+            "operatingSystem": "Cross-platform"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Datadog LLM Observability",
+            "description": "Unified LLM monitoring for Datadog users with AI Agent Console and PII detection",
+            "applicationCategory": "DeveloperApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD",
+              "description": "Per-span pricing, contact sales"
+            },
+            "featureList": "Unified Dashboards, PII Detection, AI Agent Console, LLM Experiments, 15-month Retention",
+            "operatingSystem": "Cross-platform"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Fiddler AI",
+            "description": "Best for compliance with sub-100ms guardrails and EU AI Act support",
+            "applicationCategory": "DeveloperApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "50",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "50",
+                "priceCurrency": "USD",
+                "billingDuration": "P1M"
+              }
+            },
+            "featureList": "Guardrails, EU AI Act Compliance, SOC 2, HIPAA, Root Cause Analysis, Trust Service",
+            "operatingSystem": "Cross-platform"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Arize AI",
+            "description": "Enterprise AI observability platform with comprehensive features and compliance",
+            "applicationCategory": "DeveloperApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "50000",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "50000",
+                "priceCurrency": "USD",
+                "billingDuration": "P1Y"
+              }
+            },
+            "featureList": "Agent-level Tracing, LLM Evaluations, OpenTelemetry, SOC 2, HIPAA, GDPR, Enterprise Deployment",
+            "operatingSystem": "Cross-platform"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "OpenLLMetry",
+            "description": "OpenTelemetry-native LLM instrumentation for avoiding vendor lock-in",
+            "applicationCategory": "DeveloperApplication",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": "OpenTelemetry Native, Multi-language Support, 20+ Provider Integrations, Vendor Lock-in Avoidance",
+            "operatingSystem": "Cross-platform"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Braintrust",
+            "description": "LLM monitoring with strong evaluation framework and prompt playground",
+            "applicationCategory": "DeveloperApplication",
+            "featureList": "Evaluation Framework, Prompt Playground, A/B Testing",
+            "operatingSystem": "Cross-platform"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Weights & Biases Weave",
+            "description": "LLM monitoring for ML teams already using W&B for experiment tracking",
+            "applicationCategory": "DeveloperApplication",
+            "featureList": "Experiment Tracking Integration, Academic Programs, Startup Programs",
+            "operatingSystem": "Cross-platform"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Honeycomb",
+            "description": "High-cardinality observability platform with LLM monitoring capabilities",
+            "applicationCategory": "DeveloperApplication",
+            "featureList": "High-cardinality Data, Gartner Visionary 2025",
+            "operatingSystem": "Cross-platform"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": "https://integritystudio.ai/blog/best-llm-monitoring-tools-2025#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the best free LLM monitoring tool in 2025?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Phoenix by Arize is the best free LLM monitoring tool in 2025. It's completely open source with no restrictions, offering tracing, evaluations, prompt management, and hallucination detection. You can self-host it anywhere (Docker, Kubernetes, cloud) and it's built on OpenTelemetry to avoid vendor lock-in."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Langfuse compare to LangSmith?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Langfuse vs LangSmith comparison: Langfuse is open-source (MIT license) and framework-agnostic, while LangSmith is proprietary and optimized for LangChain. Langfuse offers self-hosting without restrictions and costs less at scale. LangSmith has better debugging for LangChain users and tighter integration. Choose Langfuse if you want data ownership and flexibility, LangSmith if you're deep in the LangChain ecosystem."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which LLM monitoring tool has the fastest setup?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Helicone has the fastest setup among LLM monitoring tools - typically under 2 minutes. You simply change your API base URL and you're done. No SDK installation, no code changes required. The proxy architecture adds only 50-80ms latency while providing caching, rate limiting, and threat detection out of the box."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What LLM monitoring tools support EU AI Act compliance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For EU AI Act compliance, Fiddler AI, Arize AI, and Langtrace offer explicit support. They provide immutable audit trails, transparency logging (Articles 50-56), bias detection, hallucination tracking, and human-in-the-loop tracking. The EU AI Act penalties are up to \u20ac35 million or 7% of global annual turnover, making compliant monitoring critical for regulated industries."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I reduce LLM costs with observability tools?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LLM observability tools reduce costs through: 1) Response caching (15-30% reduction with Helicone or Langfuse), 2) Smart routing to cheaper models for simple queries, 3) Prompt optimization (30-50% reduction via better engineering), and 4) Output token monitoring since output tokens cost 3-5x more than input tokens. Most teams discover cost issues after receiving unexpected $3,600+ invoices."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which LLM monitoring tool is best for enterprises?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For enterprises, Arize AI offers the most comprehensive platform ($50k+/year) with agent-level tracing, SOC 2/HIPAA/GDPR compliance, and enterprise deployment options. Datadog LLM Observability is best if you're already using Datadog for infrastructure. Fiddler AI is optimal if compliance and guardrails are your top priority with sub-100ms response times."
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://integritystudio.ai/blog/best-llm-monitoring-tools-2025#breadcrumblist",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@id": "https://integritystudio.ai",
+            "name": "Home"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://integritystudio.ai/blog",
+            "name": "Blog"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@id": "https://integritystudio.ai/blog/best-llm-monitoring-tools-2025",
+            "name": "Best LLM Monitoring Tools 2025"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://integritystudio.ai/blog/end-to-end-agentic-observability-lifecycle#techarticle",
+      "headline": "End-to-End Agentic Observability: From Chaos to Control",
+      "alternativeHeadline": "6-Stage Agentic AI Observability Lifecycle",
+      "description": "A practical guide to the 6-stage agentic observability lifecycle: Compress, Build, Launch, Monitor, Optimize, and Automate. Learn how to ship reliable AI agents without losing your mind or your compliance standing.",
+      "image": "https://integritystudio.ai/assets/og-agentic-observability.png",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.aledlie.com#person",
+        "name": "Alyshia Ledlie",
+        "alternateName": [
+          "Alyshia"
+        ],
+        "url": "https://www.aledlie.com/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://www.aledlie.com/images/profile.jpg",
+          "width": 400,
+          "height": 400
+        },
+        "description": "I write code, make aggressively mediocre jokes, and scale companies.",
+        "email": "alyshia@integritystudio.ai",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "ATX"
+        },
+        "jobTitle": [
+          "Software Developer",
+          "Technology Consultant",
+          "Writer"
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Software Developer",
+            "occupationCategory": "Computer and Mathematical Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technology Consultant",
+            "occupationCategory": "Management Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technical Writer",
+            "occupationCategory": "Arts, Design, Entertainment, Sports, and Media Occupations"
+          }
+        ],
+        "worksFor": [
+          {
+            "@id": "https://integritystudio.ai/#organization"
+          }
+        ],
+        "knowsAbout": [
+          "Software Development",
+          "Web Development",
+          "Machine Learning",
+          "Artificial Intelligence",
+          "Technology Consulting",
+          "Business Automation",
+          "Technical Writing",
+          "Open Source Software"
+        ],
+        "sameAs": [
+          "mailto:alyshia@integritystudio.ai",
+          "https://github.com/aledlie",
+          "https://integritystudio.ai",
+          "https://amazing-froyo-8f05e0.netlify.app/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "professional",
+          "email": "alyshia@integritystudio.ai",
+          "availableLanguage": "English"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio",
+        "url": "https://integritystudio.ai",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/assets/logo.png",
+          "width": 600,
+          "height": 60
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "248 Addie Roy Road",
+          "addressLocality": "Austin",
+          "addressRegion": "TX",
+          "postalCode": "78746",
+          "addressCountry": "US"
+        },
+        "telephone": "(512) 829-1644",
+        "sameAs": [
+          "https://twitter.com/integritystudio",
+          "https://www.linkedin.com/company/integrity-studio-ai",
+          "https://github.com/aledlie"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Integrity Studio Plans",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Free Tier",
+                "description": "Get started with AI observability"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Pro",
+                "description": "For growing teams with production AI"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Enterprise",
+                "description": "Full-scale AI observability with dedicated support"
+              }
+            }
+          ]
+        }
+      },
+      "datePublished": "2025-12-24T00:00:00Z",
+      "dateModified": "2025-12-24T00:00:00Z",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://integritystudio.ai/blog/end-to-end-agentic-observability-lifecycle.html"
+      },
+      "articleSection": "AI Observability",
+      "keywords": [
+        "agentic AI observability",
+        "AI agent monitoring",
+        "6-stage observability lifecycle",
+        "LLM agents",
+        "autonomous AI",
+        "EU AI Act compliance",
+        "agent monitoring",
+        "AI debugging"
+      ],
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Agentic AI",
+          "description": "Autonomous artificial intelligence systems that can make decisions and take actions"
+        },
+        {
+          "@type": "Thing",
+          "name": "AI Observability",
+          "description": "Monitoring and understanding AI system behavior and decisions"
+        },
+        {
+          "@type": "Thing",
+          "name": "EU AI Act",
+          "description": "European Union regulation on artificial intelligence systems"
+        }
+      ],
+      "teaches": {
+        "@type": "Thing",
+        "name": "6-Stage Agentic AI Observability Lifecycle",
+        "description": "A systematic approach to compressing, building, launching, monitoring, optimizing, and automating AI agents for reliability and compliance"
+      },
+      "educationalLevel": "Intermediate",
+      "proficiencyLevel": "Intermediate",
+      "timeRequired": "PT12M",
+      "wordCount": 2800,
+      "articleBody": "Your AI agent just autonomously decided to email your entire customer database at 3 AM. With a coupon code that doesn't exist. In French. The problem with agentic AI isn't that it doesn't work. The problem is that when it fails, it fails spectacularly...",
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "learningResourceType": "Article",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "AI Engineers, DevOps Engineers, Technical Leaders"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://integritystudio.ai/blog/end-to-end-agentic-observability-lifecycle#breadcrumblist",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://integritystudio.ai/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://integritystudio.ai/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Agentic AI Observability Lifecycle",
+          "item": "https://integritystudio.ai/blog/end-to-end-agentic-observability-lifecycle.html"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#techarticle",
+      "headline": "Setting Up Compliance Logging for EU AI Act Article 12",
+      "alternativeHeadline": "Production-Ready Guide to EU AI Act Article 12 Compliance Logging Implementation",
+      "description": "Complete technical guide to implementing EU AI Act Article 12 compliant logging for LLM systems. Includes Python and TypeScript code examples, JSON schemas, hash chains, storage architecture, and testing patterns for high-risk AI compliance.",
+      "image": "https://integritystudio.ai/images/eu-ai-act-compliance-logging.png",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.aledlie.com#person",
+        "name": "Alyshia Ledlie",
+        "alternateName": [
+          "Alyshia"
+        ],
+        "url": "https://www.aledlie.com/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://www.aledlie.com/images/profile.jpg",
+          "width": 400,
+          "height": 400
+        },
+        "description": "I write code, make aggressively mediocre jokes, and scale companies.",
+        "email": "alyshia@integritystudio.ai",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "ATX"
+        },
+        "jobTitle": [
+          "Software Developer",
+          "Technology Consultant",
+          "Writer"
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Software Developer",
+            "occupationCategory": "Computer and Mathematical Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technology Consultant",
+            "occupationCategory": "Management Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technical Writer",
+            "occupationCategory": "Arts, Design, Entertainment, Sports, and Media Occupations"
+          }
+        ],
+        "worksFor": [
+          {
+            "@id": "https://integritystudio.ai/#organization"
+          }
+        ],
+        "knowsAbout": [
+          "Software Development",
+          "Web Development",
+          "Machine Learning",
+          "Artificial Intelligence",
+          "Technology Consulting",
+          "Business Automation",
+          "Technical Writing",
+          "Open Source Software"
+        ],
+        "sameAs": [
+          "mailto:alyshia@integritystudio.ai",
+          "https://github.com/aledlie",
+          "https://integritystudio.ai",
+          "https://amazing-froyo-8f05e0.netlify.app/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "professional",
+          "email": "alyshia@integritystudio.ai",
+          "availableLanguage": "English"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/images/logo.png"
+        },
+        "url": "https://integritystudio.ai",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "248 Addie Roy Road",
+          "addressLocality": "Austin",
+          "addressRegion": "TX",
+          "postalCode": "78746",
+          "addressCountry": "US"
+        },
+        "telephone": "(512) 829-1644",
+        "sameAs": [
+          "https://twitter.com/integritystudio",
+          "https://www.linkedin.com/company/integrity-studio-ai",
+          "https://github.com/aledlie"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Integrity Studio Plans",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Free Tier",
+                "description": "Get started with AI observability"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Pro",
+                "description": "For growing teams with production AI"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Enterprise",
+                "description": "Full-scale AI observability with dedicated support"
+              }
+            }
+          ]
+        }
+      },
+      "datePublished": "2025-12-26T00:00:00Z",
+      "dateModified": "2025-12-26T00:00:00Z",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup"
+      },
+      "articleSection": "AI Compliance",
+      "keywords": [
+        "EU AI Act compliance logging",
+        "Article 12 AI Act",
+        "AI compliance implementation",
+        "LLM traceability",
+        "high-risk AI systems",
+        "record-keeping requirements",
+        "ISO 24970",
+        "compliance monitoring",
+        "AI observability",
+        "audit trails"
+      ],
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "EU AI Act",
+          "description": "European Union regulation on artificial intelligence"
+        },
+        {
+          "@type": "Thing",
+          "name": "Article 12",
+          "description": "Record-keeping requirements for high-risk AI systems"
+        },
+        {
+          "@type": "Thing",
+          "name": "Compliance Logging",
+          "description": "Automatic event recording for regulatory compliance"
+        }
+      ],
+      "proficiencyLevel": "Expert",
+      "dependencies": "Python 3.8+, Node.js 18+, TypeScript 4.5+",
+      "timeRequired": "PT45M"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "@id": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#howto",
+      "name": "How to Implement EU AI Act Article 12 Compliance Logging",
+      "description": "Step-by-step implementation guide for EU AI Act Article 12 compliant logging with code examples for Python and TypeScript applications.",
+      "image": "https://integritystudio.ai/images/eu-ai-act-compliance-logging.png",
+      "totalTime": "PT45M",
+      "prepTime": "PT10M",
+      "performTime": "PT35M",
+      "estimatedCost": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": "0"
+      },
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "Python 3.8 or higher"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "Node.js 18 or higher"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "TypeScript 4.5 or higher"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "JSON Schema validator"
+        }
+      ],
+      "supply": [
+        {
+          "@type": "HowToSupply",
+          "name": "Log storage backend (PostgreSQL, MongoDB, or S3)"
+        },
+        {
+          "@type": "HowToSupply",
+          "name": "Immutable storage for compliance logs"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Design Your Log Schema",
+          "text": "Create a JSON schema that captures all Article 12 required fields including event_id, timestamp, event_type, system_id, session data, input/output hashes, model information, human oversight records, and risk indicators.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#log-schema",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Define required fields: event_id (UUID), timestamp (ISO 8601), event_type (enum), system_id"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Add session tracking: session_id, start_time, end_time"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Include input/output data: hashes instead of raw content for privacy, token counts, content types"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Record model information: name, version, provider"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Track human oversight: verifier_id, action, timestamp"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Add risk indicators: confidence thresholds, anomaly detection, review flags"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Implement Compliance Logger (Python)",
+          "text": "Build a Python compliance logger class that automatically records all AI operations with proper traceability, including inference events, human overrides, errors, and system changes.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#python-implementation",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Create ComplianceLogEntry dataclass with all required fields"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Implement ComplianceLogger class with automatic event recording"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Add methods for log_inference, log_human_override, log_error, log_system_change"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Use SHA-256 hashing for input/output content to avoid storing PII"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Implement confidence threshold checking with automatic review flags"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Implement Compliance Logger (TypeScript)",
+          "text": "Create TypeScript/Node.js version of the compliance logger with type-safe interfaces and async storage operations for enterprise applications.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#typescript-implementation",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Define TypeScript interfaces for ComplianceLogEntry and LogStorageBackend"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Create ComplianceLogger class with async methods"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Implement logInference, logHumanOverride, logError with Promise returns"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Use crypto module for SHA-256 hashing and UUID generation"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Configure Storage and Retention",
+          "text": "Set up tiered storage architecture with hot, warm, cold, and archive tiers to manage compliance logs over system lifetime with appropriate retention policies.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#storage-retention",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Configure hot storage (0-30 days) using PostgreSQL or MongoDB for fast queries"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Set up warm storage (30-365 days) with S3 or Azure Blob for compressed JSON"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Implement cold storage (1-7+ years) using Glacier or archive tier"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Configure regulatory hold with WORM storage for legal requirements"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Set retention policies: minimum system lifetime, recommended 7-10 years"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Build Audit Trails with Hash Chains",
+          "text": "Implement hash-chained logging to create tamper-evident audit trails without blockchain complexity, ensuring log integrity for regulatory inspection.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#audit-trails",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Create HashChainedLogger class wrapping ComplianceLogger"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Add chain metadata to each log entry: previous_hash, sequence, entry_hash"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Compute deterministic SHA-256 hash of each entry"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Link entries by including previous entry hash"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Implement verify_chain method for integrity validation"
+            }
+          ]
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "Test and Validate Compliance",
+          "text": "Write comprehensive test suite to verify Article 12 compliance including required fields, timestamp formats, risk detection, human oversight tracking, and hash integrity.",
+          "url": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#testing-validation",
+          "itemListElement": [
+            {
+              "@type": "HowToDirection",
+              "text": "Test all required fields are present in logged events"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Verify timestamps are ISO 8601 with timezone"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Validate low confidence triggers review flags"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Test human override links to original events"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Verify input hashing provides deterministic traceability"
+            },
+            {
+              "@type": "HowToDirection",
+              "text": "Run compliance checklist before production deployment"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup#breadcrumblist",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://integritystudio.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://integritystudio.ai/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "EU AI Act Compliance Logging Setup",
+          "item": "https://integritystudio.ai/blog/eu-ai-act-compliance-logging-setup"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": "https://integritystudio.ai/blog/llm-cost-optimization-guide#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does GPT-4 cost per token?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GPT-4o costs $2.50 per million input tokens and $10.00 per million output tokens. GPT-4o mini is significantly cheaper at $0.15 per million input tokens and $0.60 per million output tokens."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the cheapest LLM API in 2025?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DeepSeek V3 is currently the cheapest major LLM API at $0.27 per million input tokens and $1.10 per million output tokens, making it roughly 10x cheaper than GPT-4o for input-heavy workloads."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I reduce my OpenAI API costs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The most effective ways to reduce OpenAI costs are: 1) Use GPT-4o mini instead of GPT-4o for simpler tasks (94% cheaper), 2) Enable prompt caching for repeated context (90% savings on cache hits), 3) Use the Batch API for non-urgent requests (50% discount), and 4) Optimize prompts to reduce token usage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Claude cheaper than GPT-4?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Claude Sonnet 4.5 costs $3.00/$15.00 per million tokens (input/output) compared to GPT-4o at $2.50/$10.00. GPT-4o is slightly cheaper for most workloads, but Claude Haiku at $1.00/$5.00 is competitive with GPT-4o mini for lightweight tasks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is prompt caching and how much does it save?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Prompt caching stores frequently-used prompt prefixes so you don't pay full price for repeated context. Anthropic's prompt caching charges 90% less for cached tokens. For applications with system prompts or repeated context, this can reduce input costs by 50-90%."
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://integritystudio.ai/blog/llm-cost-optimization-guide#breadcrumblist",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@id": "https://integritystudio.ai",
+            "name": "Home"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://integritystudio.ai/blog",
+            "name": "Blog"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@id": "https://integritystudio.ai/blog/llm-cost-optimization-guide",
+            "name": "LLM Cost Optimization Guide"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://integritystudio.ai#website",
+      "name": "Integrity Studio",
+      "alternateName": "Integrity Studio AI Observability Platform",
+      "url": "https://integritystudio.ai",
+      "description": "Enterprise AI observability platform for LLM monitoring and AI trust",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Integrity Studio",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/images/logo.png",
+          "width": 512,
+          "height": 512
+        }
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://integritystudio.ai/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "@id": "https://integritystudio.ai#softwareapplication",
+      "name": "Integrity Studio",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "AI Observability Platform",
+      "operatingSystem": "Web",
+      "description": "Enterprise-grade AI observability platform for LLM applications. Monitor performance, track costs, and debug issues with comprehensive tracing and analytics. Trusted AI trust platform for production environments.",
+      "url": "https://integritystudio.ai",
+      "softwareVersion": "1.0",
+      "keywords": "AI observability platform, LLM monitoring, AI trust platform, distributed tracing, OpenTelemetry, MLOps",
+      "datePublished": "2024-06-01",
+      "dateModified": "2025-01-10",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.aledlie.com#person",
+        "name": "Alyshia Ledlie",
+        "url": "https://www.aledlie.com/"
+      },
+      "creator": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio"
+      },
+      "maintainer": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio",
+        "email": "support@integritystudio.ai",
+        "url": "https://integritystudio.ai/support"
+      },
+      "screenshot": [
+        {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/images/screenshots/dashboard.png",
+          "caption": "Integrity Studio Dashboard - Real-time LLM monitoring overview",
+          "width": 634,
+          "height": 436
+        },
+        {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/images/screenshots/tracing.png",
+          "caption": "Distributed Tracing - OpenTelemetry trace visualization",
+          "width": 1364,
+          "height": 1232
+        },
+        {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/images/screenshots/cost-analytics.png",
+          "caption": "Cost Analytics - Token usage and cost attribution",
+          "width": 1200,
+          "height": 674
+        }
+      ],
+      "releaseNotes": "https://integritystudio.ai/changelog",
+      "softwareHelp": {
+        "@type": "CreativeWork",
+        "name": "Integrity Studio Documentation",
+        "url": "https://integritystudio.ai/docs",
+        "description": "Comprehensive documentation for Integrity Studio including getting started guides, API reference, and integration tutorials"
+      },
+      "softwareRequirements": "Modern web browser (Chrome, Firefox, Safari, Edge)",
+      "installUrl": "https://integritystudio.ai/signup",
+      "license": "https://integritystudio.ai/terms",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "lowPrice": "0",
+        "highPrice": "99",
+        "offerCount": "3",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Integrity Studio",
+        "url": "https://integritystudio.ai",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://integritystudio.ai/images/logo.png",
+          "width": 512,
+          "height": 512
+        },
+        "sameAs": [
+          "https://twitter.com/integritystudio",
+          "https://www.linkedin.com/company/integrity-studio-ai",
+          "https://github.com/aledlie"
+        ]
+      },
+      "featureList": [
+        "LLM Monitoring and Observability",
+        "Distributed Tracing with OpenTelemetry",
+        "Cost Attribution and Tracking",
+        "Performance Analytics and Metrics",
+        "Anomaly Detection and Alerting",
+        "PII Detection and Redaction",
+        "AI Trust and Compliance"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "127",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://integritystudio.ai/#organization",
+      "name": "Integrity Studio",
+      "alternateName": "Integrity Studio AI",
+      "url": "https://integritystudio.ai",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://integritystudio.ai/#logo",
+        "url": "https://integritystudio.ai/images/logo.png",
+        "width": 512,
+        "height": 512,
+        "caption": "Integrity Studio Logo"
+      },
+      "image": "https://integritystudio.ai/images/logo.png",
+      "description": "Enterprise-grade AI observability platform providing LLM monitoring, distributed tracing, and AI trust solutions for production environments.",
+      "foundingDate": "2024",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "248 Addie Roy Road",
+        "addressLocality": "Austin",
+        "addressRegion": "TX",
+        "postalCode": "78746",
+        "addressCountry": "US"
+      },
+      "telephone": "(512) 829-1644",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "email": "sales@integritystudio.ai",
+          "availableLanguage": "en"
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "email": "contact@integritystudio.ai",
+          "url": "https://integritystudio.ai/support",
+          "availableLanguage": "en"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "127",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "ML Platform Engineer"
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "reviewBody": "Integrity Studio transformed our LLM monitoring. We cut debugging time by 80% and finally have visibility into our AI costs."
+        },
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "AI Infrastructure Lead"
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "reviewBody": "The distributed tracing capabilities are exactly what we needed for our multi-model pipeline. OpenTelemetry integration was seamless."
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Integrity Studio Plans",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Free Tier",
+              "description": "Get started with AI observability"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Pro",
+              "description": "For growing teams with production AI"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Enterprise",
+              "description": "Full-scale AI observability with dedicated support"
+            }
+          }
+        ]
+      },
+      "sameAs": [
+        "https://twitter.com/integritystudio",
+        "https://www.linkedin.com/company/integrity-studio-ai",
+        "https://github.com/aledlie"
+      ],
+      "knowsAbout": [
+        "AI Observability",
+        "LLM Monitoring",
+        "Distributed Tracing",
+        "OpenTelemetry",
+        "Machine Learning Operations",
+        "AI Trust and Safety"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "@id": "https://integritystudio.ai/resources/whylabs-migration-guide#article",
+      "headline": "Migrating from WhyLabs to Integrity Studio",
+      "description": "Complete guide for migrating from WhyLabs to Integrity Studio. Feature mapping, code examples, and step-by-step migration instructions for teams affected by the WhyLabs shutdown.",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.aledlie.com#person",
+        "name": "Alyshia Ledlie",
+        "alternateName": [
+          "Alyshia"
+        ],
+        "url": "https://www.aledlie.com/",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://www.aledlie.com/images/profile.jpg",
+          "width": 400,
+          "height": 400
+        },
+        "description": "I write code, make aggressively mediocre jokes, and scale companies.",
+        "email": "alyshia@integritystudio.ai",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "ATX"
+        },
+        "jobTitle": [
+          "Software Developer",
+          "Technology Consultant",
+          "Writer"
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Software Developer",
+            "occupationCategory": "Computer and Mathematical Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technology Consultant",
+            "occupationCategory": "Management Occupations"
+          },
+          {
+            "@type": "Occupation",
+            "name": "Technical Writer",
+            "occupationCategory": "Arts, Design, Entertainment, Sports, and Media Occupations"
+          }
+        ],
+        "worksFor": [
+          {
+            "@id": "https://integritystudio.ai/#organization"
+          }
+        ],
+        "knowsAbout": [
+          "Software Development",
+          "Web Development",
+          "Machine Learning",
+          "Artificial Intelligence",
+          "Technology Consulting",
+          "Business Automation",
+          "Technical Writing",
+          "Open Source Software"
+        ],
+        "sameAs": [
+          "mailto:alyshia@integritystudio.ai",
+          "https://github.com/aledlie",
+          "https://integritystudio.ai",
+          "https://amazing-froyo-8f05e0.netlify.app/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "professional",
+          "email": "alyshia@integritystudio.ai",
+          "availableLanguage": "English"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://integritystudio.ai/#organization",
+        "name": "Integrity Studio",
+        "url": "https://integritystudio.ai",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "248 Addie Roy Road",
+          "addressLocality": "Austin",
+          "addressRegion": "TX",
+          "postalCode": "78746",
+          "addressCountry": "US"
+        },
+        "telephone": "(512) 829-1644",
+        "sameAs": [
+          "https://twitter.com/integritystudio",
+          "https://www.linkedin.com/company/integrity-studio-ai",
+          "https://github.com/aledlie"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Integrity Studio Plans",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Free Tier",
+                "description": "Get started with AI observability"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Pro",
+                "description": "For growing teams with production AI"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Enterprise",
+                "description": "Full-scale AI observability with dedicated support"
+              }
+            }
+          ]
+        }
+      },
+      "datePublished": "2025-01-15",
+      "dateModified": "2025-01-15",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://integritystudio.ai/resources/whylabs-migration-guide"
+      },
+      "keywords": [
+        "WhyLabs alternative",
+        "WhyLabs migration",
+        "AI observability",
+        "LLM monitoring",
+        "OpenTelemetry",
+        "agent monitoring",
+        "agentic AI observability"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "@id": "https://integritystudio.ai/resources/whylabs-migration-guide#howto",
+      "name": "How to Migrate from WhyLabs to Integrity Studio",
+      "description": "Step-by-step guide to migrate your AI observability from WhyLabs to Integrity Studio before the March 9, 2025 shutdown deadline.",
+      "image": "https://integritystudio.ai/images/whylabs-migration-guide.png",
+      "totalTime": "P14D",
+      "prepTime": "P2D",
+      "performTime": "P12D",
+      "estimatedCost": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": "0"
+      },
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "WhyLabs API access"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "Integrity Studio account"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "Python 3.8+ or Node.js 18+"
+        }
+      ],
+      "supply": [
+        {
+          "@type": "HowToSupply",
+          "name": "Exported WhyLabs data profiles"
+        },
+        {
+          "@type": "HowToSupply",
+          "name": "Alert configuration documentation"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Export Your WhyLabs Data",
+          "text": "Download data profiles, export alert configurations, save custom metric definitions, and document monitoring thresholds.",
+          "position": 1
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Create Integrity Studio Account",
+          "text": "Sign up at integritystudio.ai, configure organization and team members, set up SSO if needed, and generate API keys.",
+          "position": 2
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Install SDK and Update Integration Code",
+          "text": "Install Integrity Studio SDK, update import statements, migrate logging calls, and configure environment variables.",
+          "position": 3
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Recreate Monitors and Alerts",
+          "text": "Configure drift monitors, set up data quality checks, create alert rules and notification channels.",
+          "position": 4
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Run Parallel Monitoring",
+          "text": "Send data to both platforms, compare drift detection results, verify alert thresholds, train team on new dashboard.",
+          "position": 5
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Complete Migration",
+          "text": "Remove WhyLabs SDK, update documentation, verify all monitors are active, archive exported data.",
+          "position": 6
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": "https://integritystudio.ai/resources/whylabs-migration-guide#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I keep using whylogs with Integrity Studio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! whylogs remains open source and actively maintained. Integrity Studio can ingest whylogs profiles directly, so you can keep your existing data logging code and only change where profiles are sent."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What about LangKit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LangKit also remains open source. However, Integrity Studio includes equivalent (and enhanced) LLM metrics built-in, so you may not need LangKit at all. If you prefer LangKit's specific metrics, you can use both together."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a free tier for WhyLabs refugees?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. We're offering an extended free trial (60 days vs standard 14 days) for teams migrating from WhyLabs. Contact us with your WhyLabs organization ID for verification."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does migration typically take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For most teams, the full migration takes 1-2 weeks. Day 1 for data export and account setup, Days 2-3 for code updates, Days 4-5 for monitors and alerts, and Days 6-14 for parallel monitoring and validation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I need features WhyLabs had that you don't?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Let us know! Our roadmap is responsive to customer needs. If there's a WhyLabs feature critical to your workflow that we don't currently offer, email product@integritystudio.ai."
+          }
+        }
+      ]
+    }
+  ]
+}
