@@ -730,7 +730,8 @@ contact:
 
     - icon: "map-pin"
       label: "Location"
-      value: "Austin, Texas"
+      value: "248 Addie Roy Road, Austin, TX 78746"
+      url: "https://www.google.com/maps/place/248+Addie+Roy+Rd,+Austin,+TX+78746"
 
     - icon: "linkedin"
       label: "LinkedIn"
