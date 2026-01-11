@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import '../theme/theme.dart';
+import '../config/content.dart';
 import '../services/analytics.dart';
 import '../widgets/sections/hero_section.dart';
 import '../widgets/sections/tabbed_features_section.dart';
@@ -86,12 +88,17 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveUtils.isMobile(context);
+
     return Scaffold(
       backgroundColor: AppColors.gray900,
       body: SelectionArea(
         child: CustomScrollView(
           controller: _scrollController,
           slivers: [
+            // Header navigation
+            _buildHeaderNav(context, isMobile),
+
             _buildSection(
               key: _sectionKeys['hero']!,
               label: 'Hero section',
@@ -192,6 +199,132 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
+  Widget _buildHeaderNav(BuildContext context, bool isMobile) {
+    return SliverAppBar(
+      backgroundColor: AppColors.gray900.withValues(alpha: 0.95),
+      floating: true,
+      pinned: true,
+      elevation: 0,
+      toolbarHeight: isMobile ? 56 : 64,
+      title: Row(
+        children: [
+          // Logo/Brand
+          GestureDetector(
+            onTap: () => _scrollController.animateTo(
+              0,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  LucideIcons.shield,
+                  color: AppColors.blue500,
+                  size: isMobile ? 24 : 28,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Text(
+                  CompanyInfo.name,
+                  style: (isMobile ? AppTypography.headingSM : AppTypography.headingMD).copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      actions: isMobile
+          ? [
+              // Mobile: hamburger menu
+              PopupMenuButton<String>(
+                icon: const Icon(LucideIcons.menu, color: Colors.white),
+                color: AppColors.gray800,
+                onSelected: _handleNavItemSelected,
+                itemBuilder: (context) => [
+                  _buildPopupMenuItem('Features', 'features'),
+                  _buildPopupMenuItem('Pricing', 'pricing'),
+                  _buildPopupMenuItem('About', 'about-page'),
+                  _buildPopupMenuItem('Blog', 'blog'),
+                  _buildPopupMenuItem('Contact', 'contact'),
+                ],
+              ),
+            ]
+          : [
+              // Desktop: inline nav links
+              _NavLink(
+                text: 'Features',
+                onTap: () => _scrollToSection('features'),
+              ),
+              _NavLink(
+                text: 'Pricing',
+                onTap: () => _scrollToSection('pricing'),
+              ),
+              _NavLink(
+                text: 'About',
+                onTap: () => Navigator.of(context).pushNamed('/about'),
+              ),
+              _NavLink(
+                text: 'Blog',
+                onTap: () => Navigator.of(context).pushNamed('/blog'),
+              ),
+              _NavLink(
+                text: 'Contact',
+                onTap: () => _scrollToSection('contact'),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              // CTA button
+              Padding(
+                padding: const EdgeInsets.only(right: AppSpacing.md),
+                child: TextButton(
+                  onPressed: () => _scrollToSection('pricing'),
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppColors.blue600,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.lg,
+                      vertical: AppSpacing.sm,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+                    ),
+                  ),
+                  child: Text(
+                    'Get Started',
+                    style: AppTypography.bodySM.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+    );
+  }
+
+  PopupMenuItem<String> _buildPopupMenuItem(String text, String value) {
+    return PopupMenuItem<String>(
+      value: value,
+      child: Text(
+        text,
+        style: AppTypography.bodySM.copyWith(color: Colors.white),
+      ),
+    );
+  }
+
+  void _handleNavItemSelected(String value) {
+    switch (value) {
+      case 'about-page':
+        Navigator.of(context).pushNamed('/about');
+        break;
+      case 'blog':
+        Navigator.of(context).pushNamed('/blog');
+        break;
+      default:
+        _scrollToSection(value);
+    }
+  }
+
   void _handleWatchDemo() {
     // TODO: Implement demo modal or video player
     AnalyticsService.trackDemoRequest();
@@ -200,5 +333,44 @@ class _LandingPageState extends State<LandingPage> {
   void _handleSelectTier(String tier) {
     // TODO: Navigate to signup with tier selection
     AnalyticsService.trackPricingView(tier);
+  }
+}
+
+/// Navigation link for header
+class _NavLink extends StatefulWidget {
+  final String text;
+  final VoidCallback onTap;
+
+  const _NavLink({
+    required this.text,
+    required this.onTap,
+  });
+
+  @override
+  State<_NavLink> createState() => _NavLinkState();
+}
+
+class _NavLinkState extends State<_NavLink> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+          child: Text(
+            widget.text,
+            style: AppTypography.bodySM.copyWith(
+              color: _isHovered ? AppColors.blue400 : AppColors.gray300,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
