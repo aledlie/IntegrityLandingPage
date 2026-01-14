@@ -153,6 +153,8 @@ abstract final class AppContent {
             author: t['author'] as String? ?? '',
             role: t['role'] as String? ?? '',
             company: t['company'] as String? ?? '',
+            metric: t['metric'] as String?,
+            metricContext: t['metric_context'] as String?,
           );
         }).toList(),
         statsHeadline: 'Enterprise-Grade Performance',

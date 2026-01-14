@@ -162,6 +162,8 @@ class TestimonialContent {
   final String role;
   final String company;
   final String? avatarAsset;
+  final String? metric;
+  final String? metricContext;
 
   const TestimonialContent({
     required this.quote,
@@ -169,6 +171,8 @@ class TestimonialContent {
     required this.role,
     required this.company,
     this.avatarAsset,
+    this.metric,
+    this.metricContext,
   });
 }
 
