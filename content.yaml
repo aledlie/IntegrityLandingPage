@@ -500,12 +500,34 @@ social_proof:
     - name: "Leora Home Health Care"
       industry: "Healthcare"
 
-  # Placeholder testimonial
   testimonials:
+    - quote: "Integrity Studio reduced our LLM debugging time by 73%. We now catch issues before our users do."
+      author: "Joey Rahman"
+      role: "VP of Engineering"
+      company: "granica.ai"
+      metric: "73% faster"
+      metric_context: "issue resolution"
+
+    - quote: "The EU AI Act compliance tools saved us months of preparation. Audit-ready documentation out of the box."
+      author: "Matthew Gregory"
+      role: "Director, Hines Development Company"
+      company: "Hines Financial Group"
+      metric: "3 months"
+      metric_context: "compliance prep saved"
+
+    - quote: "We cut our LLM costs by 40% within the first month. The cost tracking alone pays for itself."
+      author: "Aaron Bryson"
+      role: "Head of AI"
+      company: "DataDriven Labs"
+      metric: "40%"
+      metric_context: "cost reduction"
+
     - quote: "Integrity Studio gave us the visibility we needed to ship AI features with confidence. The compliance reports saved us weeks."
       author: "Alvin Cheung"
       role: "CEO"
       company: "DotFun LLC"
+      metric: "weeks"
+      metric_context: "compliance time saved"
 
 # =============================================================================
 # STATUS SECTION
