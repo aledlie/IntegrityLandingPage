@@ -118,35 +118,15 @@ class SocialProofSection extends StatelessWidget {
   }
 
   Widget _buildTestimonials(BuildContext context, bool isMobile) {
-    const testimonials = [
-      _Testimonial(
-        quote: 'Integrity Studio reduced our LLM debugging time by 73%. '
-            'We now catch issues before our users do.',
-        author: 'Sarah Chen',
-        title: 'VP of Engineering',
-        company: 'TechScale AI',
-        metric: '73% faster',
-        metricContext: 'issue resolution',
-      ),
-      _Testimonial(
-        quote: 'The EU AI Act compliance tools saved us months of preparation. '
-            'Audit-ready documentation out of the box.',
-        author: 'Marcus Weber',
-        title: 'CTO',
-        company: 'FinanceAI GmbH',
-        metric: '3 months',
-        metricContext: 'compliance prep saved',
-      ),
-      _Testimonial(
-        quote: 'We cut our LLM costs by 40% within the first month. '
-            'The cost tracking alone pays for itself.',
-        author: 'Emily Rodriguez',
-        title: 'Head of AI',
-        company: 'DataDriven Labs',
-        metric: '40%',
-        metricContext: 'cost reduction',
-      ),
-    ];
+    final contentTestimonials = AppContent.socialProof.testimonials;
+    final testimonials = contentTestimonials.map((t) => _Testimonial(
+      quote: t.quote,
+      author: t.author,
+      title: t.role,
+      company: t.company,
+      metric: t.metric ?? '',
+      metricContext: t.metricContext ?? '',
+    )).toList();
 
     if (isMobile) {
       return Column(

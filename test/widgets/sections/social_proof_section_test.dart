@@ -79,9 +79,9 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        expect(find.textContaining('Sarah Chen'), findsOneWidget);
-        expect(find.textContaining('Marcus Weber'), findsOneWidget);
-        expect(find.textContaining('Emily Rodriguez'), findsOneWidget);
+        expect(find.textContaining('Joey Rahman'), findsOneWidget);
+        expect(find.textContaining('Matthew Gregory'), findsOneWidget);
+        expect(find.textContaining('Aaron Bryson'), findsOneWidget);
       });
 
       testWidgets('renders testimonial quotes', (tester) async {
@@ -115,7 +115,7 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.textContaining('VP of Engineering'), findsOneWidget);
-        expect(find.textContaining('CTO'), findsOneWidget);
+        expect(find.textContaining('Director, Hines Development Company'), findsOneWidget);
         expect(find.textContaining('Head of AI'), findsOneWidget);
       });
 
@@ -127,8 +127,8 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        expect(find.textContaining('TechScale AI'), findsOneWidget);
-        expect(find.textContaining('FinanceAI GmbH'), findsOneWidget);
+        expect(find.textContaining('granica.ai'), findsOneWidget);
+        expect(find.textContaining('Hines Financial Group'), findsOneWidget);
         expect(find.textContaining('DataDriven Labs'), findsOneWidget);
       });
 
@@ -170,9 +170,9 @@ void main() {
         await tester.pumpAndSettle();
 
         // First letter of each author name
-        expect(find.text('S'), findsOneWidget); // Sarah
-        expect(find.text('M'), findsOneWidget); // Marcus
-        expect(find.text('E'), findsOneWidget); // Emily
+        expect(find.text('J'), findsOneWidget); // Joey
+        expect(find.text('M'), findsOneWidget); // Matthew
+        expect(find.text('A'), findsOneWidget); // Aaron
       });
     });
 
@@ -228,7 +228,7 @@ void main() {
 
         // Core elements should be present
         expect(find.text('73%'), findsOneWidget);
-        expect(find.textContaining('Sarah Chen'), findsOneWidget);
+        expect(find.textContaining('Joey Rahman'), findsOneWidget);
         expect(find.text('Enterprise Security'), findsOneWidget);
       });
 
@@ -302,7 +302,7 @@ void main() {
       });
 
       test('testimonials array has 3 items', () {
-        const testimonialAuthors = ['Sarah Chen', 'Marcus Weber', 'Emily Rodriguez'];
+        const testimonialAuthors = ['Joey Rahman', 'Matthew Gregory', 'Aaron Bryson'];
         expect(testimonialAuthors.length, equals(3));
       });
 
