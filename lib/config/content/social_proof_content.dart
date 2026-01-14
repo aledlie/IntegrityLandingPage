@@ -1,16 +1,21 @@
 /// Social proof section content.
+///
+/// NOTE: Testimonials are now sourced from content.yaml via AppContent.socialProof.
+/// This file contains only legacy placeholder content for reference.
 library;
 
 import 'models.dart';
 import 'constants.dart';
 
-/// Social proof content.
+/// Social proof content variants.
+///
+/// @deprecated Use AppContent.socialProof instead, which loads from content.yaml.
 abstract final class SocialProofContentVariants {
-  /// Placeholder content (to be replaced with real customers)
+  /// Placeholder content (legacy - use AppContent.socialProof instead)
   static const placeholder = SocialProofContent(
     title: 'Trusted by AI Teams',
     logos: _placeholderLogos,
-    testimonials: _placeholderTestimonials,
+    testimonials: [], // Testimonials now sourced from content.yaml
     statsHeadline: 'Enterprise-Grade Performance',
     stats: {
       'Traces Processed': PlatformMetrics.tracesProcessed,
@@ -23,15 +28,5 @@ abstract final class SocialProofContentVariants {
     CustomerLogoContent(name: 'Enterprise Client', industry: 'Finance'),
     CustomerLogoContent(name: 'Tech Startup', industry: 'SaaS'),
     CustomerLogoContent(name: 'Healthcare Co', industry: 'Healthcare'),
-  ];
-
-  static const _placeholderTestimonials = [
-    TestimonialContent(
-      quote: '${CompanyInfo.name} gave us the visibility we needed to ship AI '
-          'features with confidence. The compliance reports saved us weeks.',
-      author: 'Engineering Lead',
-      role: 'VP Engineering',
-      company: 'Tech Company',
-    ),
   ];
 }
