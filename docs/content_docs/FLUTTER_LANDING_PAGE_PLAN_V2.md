@@ -1473,7 +1473,7 @@ class _ComplianceCountdown extends StatelessWidget {
     "logo": "https://integritystudio.ai/images/logo.png",
     "description": "Enterprise AI Observability Platform",
     "sameAs": [
-      "https://www.linkedin.com/company/integrity-studio",
+      "https://www.linkedin.com/company/integrity-studio-ai",
       "https://twitter.com/integritystudio",
       "https://github.com/integritystudio"
     ],

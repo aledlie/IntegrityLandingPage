@@ -58,7 +58,7 @@ abstract final class ExternalUrls {
   static const String statusPage = 'https://integritystudio.ai/status';
 
   // Social media
-  static const String linkedIn = 'https://linkedin.com/company/integrity-studio';
+  static const String linkedIn = 'https://linkedin.com/company/integrity-studio-ai';
   static const String twitter = 'https://twitter.com/integritystudio';
   static const String github = 'https://github.com/integritystudio';
 
