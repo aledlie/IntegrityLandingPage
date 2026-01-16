@@ -1,0 +1,2538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Practices for Legal Intern Capstone Projects at AI Companies | Integrity Studio</title>
+    <meta name="description" content="A comprehensive guide for designing capstone projects for interns with legal backgrounds entering the AI industry. Covers EU AI Act compliance, ethics, governance, and career development.">
+    <meta name="keywords" content="legal internship, AI companies, capstone projects, EU AI Act, legal tech, AI ethics, compliance">
+    <link rel="canonical" href="https://www.integritystudio.ai/internship">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Best Practices for Legal Intern Capstone Projects at AI Companies">
+    <meta property="og:description" content="A comprehensive guide for interns with legal backgrounds entering the AI industry.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.integritystudio.ai/internship">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           CSS CUSTOM PROPERTIES
+           ============================================ */
+        :root {
+            /* Brand Colors */
+            --blue-400: #60A5FA;
+            --blue-500: #3B82F6;
+            --blue-600: #2563EB;
+            --blue-900: #1E3A8A;
+            --indigo-400: #818CF8;
+            --indigo-500: #6366F1;
+            --indigo-600: #4F46E5;
+            --purple-400: #C084FC;
+            --purple-500: #A855F7;
+            --purple-600: #9333EA;
+
+            /* Neutrals */
+            --gray-900: #111827;
+            --gray-850: #151B2B;
+            --gray-800: #1F2937;
+            --gray-700: #374151;
+            --gray-600: #4B5563;
+            --gray-500: #6B7280;
+            --gray-400: #9CA3AF;
+            --gray-300: #D1D5DB;
+            --gray-200: #E5E7EB;
+            --gray-100: #F3F4F6;
+
+            /* Semantic */
+            --success: #22C55E;
+            --success-light: #4ADE80;
+            --warning: #F59E0B;
+            --warning-light: #FBBF24;
+            --error: #EF4444;
+
+            /* Backgrounds */
+            --bg-primary: var(--gray-900);
+            --bg-secondary: var(--gray-850);
+            --bg-card: rgba(31, 41, 55, 0.5);
+            --bg-card-hover: rgba(31, 41, 55, 0.7);
+
+            /* Text */
+            --text-primary: #FFFFFF;
+            --text-secondary: var(--gray-300);
+            --text-tertiary: var(--gray-400);
+            --text-link: var(--blue-400);
+
+            /* Borders */
+            --border-subtle: rgba(99, 102, 241, 0.15);
+            --border-hover: rgba(99, 102, 241, 0.3);
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.15);
+
+            /* Typography */
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+            /* Spacing */
+            --sidebar-width: 300px;
+            --content-max-width: 820px;
+            --header-height: 72px;
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--header-height) + 24px);
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Subtle background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 100%, rgba(168, 85, 247, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--indigo-500), var(--purple-500));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.375rem;
+            margin: 2rem 0 1rem;
+            color: var(--blue-400);
+        }
+
+        h4 {
+            font-size: 1.125rem;
+            margin: 1.5rem 0 0.75rem;
+            font-weight: 500;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--text-link);
+            text-decoration: none;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--blue-600);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        em {
+            font-style: italic;
+            color: var(--gray-300);
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: rgba(17, 24, 39, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--indigo-500), var(--purple-600));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.375rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .logo-badge {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid var(--border-subtle);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--blue-400);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .page-wrapper {
+            display: flex;
+            min-height: 100vh;
+            padding-top: var(--header-height);
+        }
+
+        /* ============================================
+           SIDEBAR / TABLE OF CONTENTS
+           ============================================ */
+        .sidebar {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height));
+            background: rgba(21, 27, 43, 0.6);
+            border-right: 1px solid var(--border-subtle);
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--gray-700);
+            border-radius: 2px;
+        }
+
+        .toc-title {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin-bottom: 0.25rem;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            color: var(--gray-400);
+            border-left: 2px solid transparent;
+            border-radius: 0 4px 4px 0;
+            transition: all 0.2s ease;
+        }
+
+        .toc-link:hover {
+            color: var(--blue-400);
+            background: rgba(99, 102, 241, 0.05);
+            border-left-color: var(--indigo-500);
+        }
+
+        .toc-link.active {
+            color: var(--blue-400);
+            background: rgba(99, 102, 241, 0.1);
+            border-left-color: var(--blue-500);
+            font-weight: 500;
+        }
+
+        .toc-link--sub {
+            padding-left: 1.5rem;
+            font-size: 0.8125rem;
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 3rem 4rem;
+            max-width: calc(var(--content-max-width) + var(--sidebar-width) + 8rem);
+        }
+
+        .content-wrapper {
+            max-width: var(--content-max-width);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            margin-bottom: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border-subtle);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--indigo-400);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 24px;
+            height: 2px;
+            background: var(--indigo-500);
+        }
+
+        .hero h1 {
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--indigo-400) 40%, var(--purple-400) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-300);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            font-family: var(--font-display);
+        }
+
+        .hero-meta {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        /* ============================================
+           SECTIONS
+           ============================================ */
+        .section {
+            margin-bottom: 4rem;
+            animation: fadeIn 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.15s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.25s; }
+        .section:nth-child(5) { animation-delay: 0.3s; }
+
+        /* ============================================
+           CARDS
+           ============================================ */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        /* ============================================
+           CALLOUTS
+           ============================================ */
+        .callout {
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+            position: relative;
+        }
+
+        .callout-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .callout-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .callout p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Callout variants */
+        .callout--key {
+            background: rgba(34, 197, 94, 0.08);
+            border-left-color: var(--success);
+        }
+
+        .callout--key .callout-title {
+            color: var(--success);
+        }
+
+        .callout--info {
+            background: rgba(96, 165, 250, 0.08);
+            border-left-color: var(--blue-400);
+        }
+
+        .callout--info .callout-title {
+            color: var(--blue-400);
+        }
+
+        .callout--best-practice {
+            background: rgba(99, 102, 241, 0.08);
+            border-left-color: var(--indigo-500);
+        }
+
+        .callout--best-practice .callout-title {
+            color: var(--indigo-400);
+        }
+
+        .callout--resource {
+            background: rgba(168, 85, 247, 0.08);
+            border-left-color: var(--purple-500);
+        }
+
+        .callout--resource .callout-title {
+            color: var(--purple-400);
+        }
+
+        .callout--warning {
+            background: rgba(245, 158, 11, 0.08);
+            border-left-color: var(--warning);
+        }
+
+        .callout--warning .callout-title {
+            color: var(--warning);
+        }
+
+        /* ============================================
+           TABLES
+           ============================================ */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9375rem;
+        }
+
+        thead {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(79, 70, 229, 0.1));
+        }
+
+        th {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--blue-400);
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.08);
+            color: var(--text-secondary);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        /* ============================================
+           LISTS
+           ============================================ */
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        ul li::marker {
+            color: var(--indigo-500);
+        }
+
+        ol li::marker {
+            color: var(--indigo-500);
+            font-weight: 600;
+        }
+
+        /* ============================================
+           ACCORDIONS
+           ============================================ */
+        .accordion {
+            margin: 1.5rem 0;
+        }
+
+        .accordion-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item:hover {
+            border-color: var(--border-hover);
+        }
+
+        .accordion-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            color: var(--blue-400);
+        }
+
+        .accordion-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--indigo-500);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 2000px;
+        }
+
+        .accordion-body {
+            padding: 0 1.5rem 1.5rem;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 1.25rem;
+        }
+
+        /* ============================================
+           BADGES
+           ============================================ */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+        }
+
+        .badge--blue {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--blue-400);
+        }
+
+        .badge--indigo {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--indigo-400);
+        }
+
+        .badge--purple {
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--purple-400);
+        }
+
+        .badge--green {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+        }
+
+        /* ============================================
+           TARGET PROFILE CARD
+           ============================================ */
+        .profile-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.08));
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .profile-card h3 {
+            margin-top: 0;
+        }
+
+        .profile-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .profile-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .profile-list li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--indigo-500);
+            border-radius: 50%;
+            margin-top: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        /* ============================================
+           LINK CARDS (for resources)
+           ============================================ */
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            transform: translateX(4px);
+        }
+
+        .link-card-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--indigo-500), var(--purple-500));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .link-card-icon svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
+        .link-card-content {
+            flex: 1;
+        }
+
+        .link-card-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .link-card-desc {
+            font-size: 0.875rem;
+            color: var(--gray-400);
+        }
+
+        .link-card-arrow {
+            color: var(--indigo-500);
+            transition: transform 0.2s ease;
+        }
+
+        .link-card:hover .link-card-arrow {
+            transform: translateX(4px);
+        }
+
+        /* ============================================
+           CODE BLOCKS (for templates)
+           ============================================ */
+        pre {
+            background: var(--gray-800);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.875em;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            color: var(--indigo-400);
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--gray-850);
+            border-top: 1px solid var(--border-subtle);
+            padding: 3rem 4rem;
+            margin-left: var(--sidebar-width);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: var(--content-max-width);
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer a {
+            color: var(--blue-400);
+        }
+
+        /* ============================================
+           MOBILE SIDEBAR OVERLAY
+           ============================================ */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 99;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1200px) {
+            .main-content {
+                padding: 2.5rem 3rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 260px;
+            }
+
+            .logo-badge {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 2rem;
+            }
+
+            .footer {
+                margin-left: 0;
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 64px;
+            }
+
+            .header {
+                padding: 0 1rem;
+            }
+
+            .logo-text {
+                font-size: 1.125rem;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .hero {
+                margin-bottom: 2.5rem;
+                padding-bottom: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .card {
+                padding: 1.25rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-card {
+                padding: 1.5rem;
+            }
+
+            .table-wrapper {
+                font-size: 0.875rem;
+            }
+
+            th, td {
+                padding: 0.75rem;
+            }
+
+            .footer {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .callout {
+                padding: 1rem;
+            }
+
+            .accordion-header {
+                padding: 1rem;
+            }
+
+            .accordion-body {
+                padding: 0 1rem 1rem;
+            }
+        }
+
+        /* ============================================
+           REDUCED MOTION
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ============================================
+           PRINT STYLES
+           ============================================ */
+        @media print {
+            .header, .sidebar, .mobile-menu-btn {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 0;
+            }
+
+            .card, .callout {
+                break-inside: avoid;
+            }
+
+            body {
+                color: #000;
+                background: #fff;
+            }
+
+            a {
+                color: #000;
+                text-decoration: underline;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">IS</div>
+                <span class="logo-text">Integrity Studio</span>
+                <span class="logo-badge">Legal Tech Internship Guide</span>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation" onclick="toggleSidebar()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+        <!-- Sidebar / TOC -->
+        <aside class="sidebar" id="sidebar">
+            <div class="toc-title">Table of Contents</div>
+            <nav>
+                <ul class="toc-list">
+                    <li class="toc-item">
+                        <a href="#executive-summary" class="toc-link">Executive Summary</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#best-practices" class="toc-link">1. Best Practices</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#legal-expertise" class="toc-link">2. Leveraging Legal Expertise</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#law-ai-intersection" class="toc-link">3. Law &amp; AI Intersection</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#successful-examples" class="toc-link">4. Successful Examples</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#skills-development" class="toc-link">5. Skills Development</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#project-scoping" class="toc-link">6. Project Scoping &amp; Mentorship</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#deliverables" class="toc-link">7. Deliverable Formats</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#evaluation" class="toc-link">8. Evaluation Criteria</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#project-ideas" class="toc-link">9. Project Ideas</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#resources" class="toc-link">10. Resources &amp; References</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#appendix-a" class="toc-link toc-link--sub">Appendix A: Proposal Template</a>
+                    </li>
+                    <li class="toc-item">
+                        <a href="#appendix-b" class="toc-link toc-link--sub">Appendix B: Evaluation Rubric</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Hero Section -->
+                <section class="hero">
+                    <div class="hero-eyebrow">Comprehensive Guide</div>
+                    <h1>Best Practices for Designing Capstone Projects for Legal Interns at AI Companies</h1>
+                    <p class="hero-subtitle">A Comprehensive Guide for Interns with Legal Backgrounds Entering the AI Industry</p>
+                    <p class="hero-meta">Prepared: January 2026</p>
+                </section>
+
+                <!-- Executive Summary -->
+                <section class="section" id="executive-summary">
+                    <h2>Executive Summary</h2>
+                    <p>This guide provides comprehensive best practices for designing capstone projects for interns at AI companies who come from legal backgrounds, such as law students or recent law graduates. It is particularly relevant for candidates with LLM degrees in International Commercial Arbitration, backgrounds in International and European Law, multilingual capabilities, and coursework in AI regulation (including the EU AI Act).</p>
+
+                    <h3>Key Takeaways</h3>
+                    <div class="card-grid">
+                        <div class="callout callout--key">
+                            <div class="callout-title">
+                                <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Legal Expertise Valued
+                            </div>
+                            <p>Legal expertise is highly valued in AI companies for compliance, policy, ethics, and governance roles.</p>
+                        </div>
+                        <div class="callout callout--key">
+                            <div class="callout-title">
+                                <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                EU AI Act Demand
+                            </div>
+                            <p>The EU AI Act creates urgent demand for professionals who understand both legal frameworks and AI systems.</p>
+                        </div>
+                        <div class="callout callout--key">
+                            <div class="callout-title">
+                                <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Hybrid Roles Emerging
+                            </div>
+                            <p>Hybrid roles are emerging that combine legal knowledge with technical understanding.</p>
+                        </div>
+                        <div class="callout callout--key">
+                            <div class="callout-title">
+                                <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Project Demonstration
+                            </div>
+                            <p>Capstone projects should demonstrate both legal analytical skills and ability to translate complex regulations into actionable guidance.</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-card">
+                        <h3>Target Profile</h3>
+                        <p>This guide is tailored for candidates with:</p>
+                        <ul class="profile-list">
+                            <li>LLM in International Commercial Arbitration</li>
+                            <li>Background in International and European Law</li>
+                            <li>Multilingual skills (valuable for international compliance work)</li>
+                            <li>AI regulation coursework (EU AI Act)</li>
+                            <li>Interest in the intersection of law and technology</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Section 1: Best Practices -->
+                <section class="section" id="best-practices">
+                    <h2>1. Best Practices for Intern Capstone Projects at Tech/AI Companies</h2>
+
+                    <h3>1.1 Project Planning and Alignment</h3>
+                    <p>Effective capstone projects share several characteristics that maximize both learning outcomes and organizational value:</p>
+
+                    <h4>Strategic Alignment</h4>
+                    <ul>
+                        <li>Align capstone projects with organizational Key Results (OKRs) to increase business relevance</li>
+                        <li>Connect project outcomes to strategic business priorities that executives genuinely value</li>
+                        <li>Balance personal interests with organizational needs for optimal engagement</li>
+                    </ul>
+
+                    <h4>Clear Scope and Objectives</h4>
+                    <ul>
+                        <li>Identify a real-world challenge or business need</li>
+                        <li>Define scope, objectives, and success metrics upfront</li>
+                        <li>Write a formal project proposal and problem statement</li>
+                        <li>Establish measurable outcomes that demonstrate impact</li>
+                    </ul>
+
+                    <h4>Timeline and Milestones</h4>
+                    <ul>
+                        <li>Typical capstone projects last 6-12 weeks depending on breadth and depth</li>
+                        <li>MIT Sloan's Analytics Capstone runs 7 months for comprehensive industry projects</li>
+                        <li>Structure projects with clear milestones and checkpoints</li>
+                        <li>Build in time for iteration and refinement</li>
+                    </ul>
+
+                    <h3>1.2 Demonstrating Business Impact</h3>
+                    <p>According to a <a href="https://www.nace.org/" target="_blank" rel="noopener">2025 NACE survey</a>, nearly 90% of employers seek evidence that students can effectively solve problems. To demonstrate impact:</p>
+                    <ul>
+                        <li><strong>Quantify outcomes</strong>: Show measurable results tied to business values</li>
+                        <li><strong>Establish baselines</strong>: Compare performance against what would have occurred without the project</li>
+                        <li><strong>Document the "why"</strong>: Focus on purpose and impact, not just deliverables</li>
+                        <li><strong>Create portfolio-ready artifacts</strong>: Develop tangible examples to showcase in interviews</li>
+                    </ul>
+
+                    <h3>1.3 Industry Best Practices</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Practice</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Real-world application</strong></td>
+                                    <td>Work on actual business problems, not hypothetical scenarios</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cross-functional collaboration</strong></td>
+                                    <td>Engage with multiple teams and stakeholders</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mentor guidance</strong></td>
+                                    <td>Receive support from experienced practitioners</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Presentation and communication</strong></td>
+                                    <td>Culminate in final presentations and deliverables</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Portfolio building</strong></td>
+                                    <td>Create artifacts that demonstrate job-readiness</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Section 2: Leveraging Legal Expertise -->
+                <section class="section" id="legal-expertise">
+                    <h2>2. Leveraging Legal Expertise in AI Company Settings</h2>
+
+                    <h3>2.1 Where Legal Skills Add Value</h3>
+                    <p>Legal professionals bring unique capabilities to AI companies across multiple domains:</p>
+
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-title">AI Ethics and Responsible AI</div>
+                            <ul>
+                                <li>Developing ethical guidelines for AI use</li>
+                                <li>Creating internal policies on AI in legal processes</li>
+                                <li>Advising on AI ethics governance frameworks</li>
+                                <li>Supporting Constitutional AI evaluation</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Compliance and Regulatory Affairs</div>
+                            <ul>
+                                <li>Interpreting legal statutes and regulations relevant to AI</li>
+                                <li>Conducting risk assessments for AI systems</li>
+                                <li>Ensuring compliance with EU AI Act, GDPR, CCPA</li>
+                                <li>Developing compliance management systems</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Policy and Government Affairs</div>
+                            <ul>
+                                <li>Working on AI governance and policy projects</li>
+                                <li>Engaging with regulators and shaping global AI norms</li>
+                                <li>Supporting government relations initiatives</li>
+                                <li>Contributing to industry standards development</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Contracts and Commercial</div>
+                            <ul>
+                                <li>Drafting AI-related contracts and licensing agreements</li>
+                                <li>Reviewing vendor agreements for AI tools</li>
+                                <li>Negotiating data sharing arrangements</li>
+                                <li>Managing intellectual property considerations</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>2.2 Key Organizations Hiring Legal Interns</h3>
+
+                    <h4>Major Tech Companies</h4>
+                    <a href="https://careers.microsoft.com/v2/global/en/celainternship" target="_blank" rel="noopener" class="link-card">
+                        <div class="link-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </div>
+                        <div class="link-card-content">
+                            <div class="link-card-title">Microsoft Legal Intern Program</div>
+                            <div class="link-card-desc">12-week program with placement in specific practice groups, providing hands-on experience on cutting-edge legal issues in technology</div>
+                        </div>
+                        <svg class="link-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+
+                    <h4>AI-Focused Companies</h4>
+                    <a href="https://openai.com/residency/" target="_blank" rel="noopener" class="link-card">
+                        <div class="link-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </div>
+                        <div class="link-card-content">
+                            <div class="link-card-title">OpenAI Residency</div>
+                            <div class="link-card-desc">Six-month program with $18,300/month stipend (primarily technical focus)</div>
+                        </div>
+                        <svg class="link-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+
+                    <h4>Research Institutes and Think Tanks</h4>
+                    <a href="https://governance.ai/" target="_blank" rel="noopener" class="link-card">
+                        <div class="link-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </div>
+                        <div class="link-card-content">
+                            <div class="link-card-title">Institute for AI Policy and Strategy (IAPS)</div>
+                            <div class="link-card-desc">3-month AI Policy Fellowship with $15,000 stipend</div>
+                        </div>
+                        <svg class="link-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+
+                    <a href="https://fpf.org/us-policy-internships/" target="_blank" rel="noopener" class="link-card">
+                        <div class="link-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </div>
+                        <div class="link-card-content">
+                            <div class="link-card-title">Future of Privacy Forum</div>
+                            <div class="link-card-desc">Legal, policy, and technical interns for AI, privacy, and emerging technology issues</div>
+                        </div>
+                        <svg class="link-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+
+                    <a href="https://www.governance.ai/post/summer-fellowship-2026-applied-track" target="_blank" rel="noopener" class="link-card">
+                        <div class="link-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </div>
+                        <div class="link-card-content">
+                            <div class="link-card-title">GovAI Summer Fellowship</div>
+                            <div class="link-card-desc">Applied track for AI governance research</div>
+                        </div>
+                        <svg class="link-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+
+                    <h3>2.3 Typical Responsibilities</h3>
+                    <p>Legal interns at AI companies may:</p>
+                    <ul>
+                        <li>Research legal issues impacting business strategy</li>
+                        <li>Draft guidelines for ethical AI use and compliance</li>
+                        <li>Test and refine legal tech products</li>
+                        <li>Develop AI-driven compliance reporting tools</li>
+                        <li>Attend client meetings and product reviews</li>
+                        <li>Collaborate on cross-functional projects</li>
+                    </ul>
+                </section>
+
+                <!-- Section 3: Intersection of Law and AI -->
+                <section class="section" id="law-ai-intersection">
+                    <h2>3. Intersection of Law and AI: Relevant Project Areas</h2>
+
+                    <h3>3.1 EU AI Act Compliance</h3>
+                    <p>The <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener">EU AI Act</a> is the first comprehensive legal framework on AI worldwide, creating significant opportunities for legal professionals.</p>
+
+                    <div class="callout callout--warning">
+                        <div class="callout-title">
+                            <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            Key Compliance Milestones
+                        </div>
+                        <ul>
+                            <li><strong>February 2025:</strong> Prohibitions became effective</li>
+                            <li><strong>August 2025:</strong> Key obligations binding; penalty regime in effect</li>
+                            <li><strong>Ongoing:</strong> Implementation of transparency and documentation requirements</li>
+                        </ul>
+                    </div>
+
+                    <h4>Compliance Actions Requiring Legal Expertise</h4>
+                    <ul>
+                        <li>Establishing AI inventory with risk classification</li>
+                        <li>Clarifying company roles (supplier, modifier, or deployer)</li>
+                        <li>Preparing technical and transparency documentation</li>
+                        <li>Implementing copyright and data protection requirements</li>
+                        <li>Training employees on AI competence requirements</li>
+                        <li>Adapting internal governance structures</li>
+                    </ul>
+
+                    <div class="callout callout--info">
+                        <div class="callout-title">
+                            <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            Penalties for Non-Compliance
+                        </div>
+                        <p>Up to <strong>EUR 35 million</strong> or <strong>7% of global annual turnover</strong> for prohibited AI practices. Up to EUR 15 million or 3% for certain other obligations.</p>
+                    </div>
+
+                    <h3>3.2 AI Ethics and Governance</h3>
+                    <h4>Key Frameworks</h4>
+                    <ul>
+                        <li><a href="https://www.unesco.org/en/artificial-intelligence/recommendation-ethics" target="_blank" rel="noopener">UNESCO Recommendation on the Ethics of AI</a>: First global standard, applicable to 194 member states</li>
+                        <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener">NIST AI Risk Management Framework</a></li>
+                        <li><a href="https://www.microsoft.com/en-us/ai/responsible-ai" target="_blank" rel="noopener">Microsoft Responsible AI Standard</a>: Six principles (fairness, reliability, inclusiveness, privacy, transparency, accountability)</li>
+                    </ul>
+
+                    <h4>Project Areas</h4>
+                    <ul>
+                        <li>Algorithmic auditing frameworks</li>
+                        <li>Bias mitigation strategies</li>
+                        <li>Transparency and explainability mechanisms</li>
+                        <li>Human oversight protocols</li>
+                        <li>AI impact assessments</li>
+                    </ul>
+
+                    <h3>3.3 Data Privacy and AI</h3>
+                    <p>The intersection of data protection and AI presents numerous project opportunities:</p>
+                    <ul>
+                        <li>GDPR "right to explanation" for AI decision-making</li>
+                        <li>Data quality and protection in AI training</li>
+                        <li>Cross-border data transfer issues</li>
+                        <li>Privacy-by-design for AI systems</li>
+                        <li>Consent mechanisms for AI-processed data</li>
+                    </ul>
+
+                    <h3>3.4 AI in International Arbitration</h3>
+                    <p>This is a particularly relevant area for candidates with International Commercial Arbitration backgrounds:</p>
+
+                    <h4>Recent Developments</h4>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Organization</th>
+                                    <th>Development</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://www.adr.org/press-releases/aaa-icdr-to-launch-ai-native-arbitrator-transforming-dispute-resolution/" target="_blank" rel="noopener">AAA-ICDR AI Arbitrator</a></td>
+                                    <td>Launched November 2025 for documents-only construction cases</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://www.whitecase.com/insight-our-thinking/2025-international-arbitration-survey-arbitration-and-ai" target="_blank" rel="noopener">ICC Commission Task Force</a></td>
+                                    <td>Launched 2025 to consider AI use in arbitration</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://svamc.org/" target="_blank" rel="noopener">Silicon Valley Arbitration &amp; Mediation Center</a></td>
+                                    <td>Standardized methods for handling AI in arbitration</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://www.freshfields.com/en/our-thinking/campaigns/international-arbitration-in-2025/ai-in-international-arbitration-a-fast-evolving-landscape" target="_blank" rel="noopener">Dubai International Arbitration Centre</a></td>
+                                    <td>Partnered with Jus Mundi and Jus AI for case management</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>Project Opportunities</h4>
+                    <ul>
+                        <li>AI applications in arbitrator selection</li>
+                        <li>Predictive analytics for case outcomes</li>
+                        <li>AI-assisted evidence collection and review</li>
+                        <li>Ethical guidelines for AI in arbitration proceedings</li>
+                        <li>Cross-jurisdictional AI governance in dispute resolution</li>
+                    </ul>
+
+                    <h3>3.5 Algorithmic Accountability</h3>
+                    <ul>
+                        <li>Developing audit frameworks for AI systems</li>
+                        <li>Creating accountability measures for AI outcomes</li>
+                        <li>Establishing independent oversight mechanisms</li>
+                        <li>Designing algorithmic impact assessments</li>
+                        <li>Comparing regulatory approaches (EU AI Act vs. US Algorithmic Accountability Act)</li>
+                    </ul>
+                </section>
+
+                <!-- Section 4: Successful Examples -->
+                <section class="section" id="successful-examples">
+                    <h2>4. Successful Examples of Legal-Tech Intern Projects</h2>
+
+                    <h3>4.1 Project Types from Industry</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-title">Compliance Framework Development</div>
+                            <ul>
+                                <li>Creating internal AI governance policies</li>
+                                <li>Developing EU AI Act compliance checklists</li>
+                                <li>Building risk classification matrices for AI systems</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Policy Research and Analysis</div>
+                            <ul>
+                                <li>Comparative analysis of global AI regulations</li>
+                                <li>Impact assessments of proposed legislation</li>
+                                <li>Regulatory landscape mapping for specific AI applications</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Product-Related Legal Work</div>
+                            <ul>
+                                <li>Testing legal AI products for accuracy</li>
+                                <li>Providing law student perspective on feature development</li>
+                                <li>Drafting user-facing terms and disclosures</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Process Improvement</div>
+                            <ul>
+                                <li>Automating compliance reporting workflows</li>
+                                <li>Developing AI-driven contract review processes</li>
+                                <li>Creating templates for AI-related documentation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>4.2 Success Story Elements</h3>
+                    <div class="callout callout--resource">
+                        <div class="callout-title">
+                            <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                            Industry Insight
+                        </div>
+                        <p><em>"Interning at a legal tech company is an exciting way to learn about the possibilities of different ways of working as a lawyer. It teaches you to look at processes and think 'could this be done better?'"</em></p>
+                        <p style="margin-bottom: 0;"><strong>— Nathan Corr, LLB Student</strong></p>
+                    </div>
+
+                    <p>Key success factors include:</p>
+                    <ul>
+                        <li>Working alongside software engineers and data scientists</li>
+                        <li>Providing legal perspective that technical teams lack</li>
+                        <li>Contributing to product development from a user standpoint</li>
+                        <li>Building relationships that lead to references or job offers</li>
+                    </ul>
+
+                    <h3>4.3 Sample Project Structures</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Duration</th>
+                                    <th>Project Types</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge badge--blue">Short-term (6-8 weeks)</span></td>
+                                    <td>EU AI Act compliance gap analysis, comparative memo on international AI regulation, internal policy draft for responsible AI use</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge--indigo">Medium-term (10-12 weeks)</span></td>
+                                    <td>Comprehensive AI governance framework development, multi-jurisdictional compliance assessment, AI ethics training program creation</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge--purple">Extended (4-6 months)</span></td>
+                                    <td>End-to-end compliance implementation project, cross-functional AI risk assessment initiative, external-facing responsible AI guidelines publication</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Section 5: Skills Development -->
+                <section class="section" id="skills-development">
+                    <h2>5. Skills Development Goals for Legal Professionals Entering Tech</h2>
+
+                    <h3>5.1 Core Competencies to Develop</h3>
+
+                    <h4>Technical Fluency</h4>
+                    <ul>
+                        <li>Understanding how AI and machine learning systems work (conceptually)</li>
+                        <li>Familiarity with software development lifecycle</li>
+                        <li>Basic knowledge of data processing and model training</li>
+                        <li>Ability to communicate with technical teams</li>
+                    </ul>
+
+                    <div class="callout callout--best-practice">
+                        <div class="callout-title">
+                            <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            Expert Insight
+                        </div>
+                        <p><em>"Lawyers in the technology sector benefit from developing technical fluency and translation skills, which decreases the barrier of communication across disciplines."</em></p>
+                        <p style="margin-bottom: 0;"><strong>— Vanderbilt Law School</strong></p>
+                    </div>
+
+                    <h4>Translation Skills</h4>
+                    <ul>
+                        <li>Breaking down complex tech concepts into legal/policy strategies</li>
+                        <li>Explaining legal requirements to non-legal stakeholders</li>
+                        <li>Converting regulatory text into actionable technical requirements</li>
+                        <li>Facilitating communication between legal, policy, and engineering teams</li>
+                    </ul>
+
+                    <h4>Adaptability</h4>
+                    <ul>
+                        <li>Comfort with rapid technological change</li>
+                        <li>Willingness to learn continuously</li>
+                        <li>Ability to work in ambiguous environments</li>
+                        <li>Openness to non-traditional career paths</li>
+                    </ul>
+
+                    <h3>5.2 Emerging Hybrid Roles</h3>
+                    <p>The <a href="https://www.everlaw.com/blog/career-growth/a-2025-in-house-legal-career-roadmap-for-the-age-of-ai/" target="_blank" rel="noopener">ACC/Everlaw report</a> identifies new roles combining legal and technical expertise:</p>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Role</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Legal Knowledge Engineer</strong></td>
+                                    <td>Structures legal information for machine consumption</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Legal Process Designer</strong></td>
+                                    <td>Reimagines service delivery models</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Legal Data Analyst</strong></td>
+                                    <td>Extracts insights from legal data</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>AI Ethics Counsel</strong></td>
+                                    <td>Specializes in governance of automated systems</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Policy Analyst</strong></td>
+                                    <td>Guides organizations through new AI rules</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>5.3 Training and Development Resources</h3>
+
+                    <h4>Formal Programs</h4>
+                    <ul>
+                        <li>Suffolk University Law School LIT Certificate (6-course online program)</li>
+                        <li>Technology policy and AI governance certifications</li>
+                        <li>PMI CPMAI for AI project management</li>
+                    </ul>
+
+                    <h4>Self-Directed Learning</h4>
+                    <ul>
+                        <li>Reading technical documentation and research papers</li>
+                        <li>Attending AI and legal tech conferences</li>
+                        <li>Participating in webinars and workshops</li>
+                        <li>Engaging with developer communities</li>
+                    </ul>
+
+                    <h3>5.4 Industry Survey Insights</h3>
+                    <div class="callout callout--info">
+                        <div class="callout-title">
+                            <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                            Recent Survey Findings
+                        </div>
+                        <ul>
+                            <li><strong>52%</strong> of law firm managers have shifted hiring criteria due to AI advances</li>
+                            <li><strong>66%</strong> of in-house legal managers seek different skills due to automation</li>
+                            <li><strong>97%</strong> of developers now use AI assistants</li>
+                            <li>Legal professionals who embrace AI tools gain competitive advantage</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Section 6: Project Scoping -->
+                <section class="section" id="project-scoping">
+                    <h2>6. Project Scoping and Mentorship Best Practices</h2>
+
+                    <h3>6.1 Effective Project Scoping</h3>
+
+                    <div class="callout callout--best-practice">
+                        <div class="callout-title">
+                            <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            Guiding Principle
+                        </div>
+                        <p><em>"Reduce scope rather than compromise on good development practices."</em></p>
+                    </div>
+
+                    <h4>Principles</h4>
+                    <ul>
+                        <li>Ensure tasks are appropriately challenging without being overwhelming</li>
+                        <li>Build in flexibility for unexpected complexity</li>
+                        <li>Communicate transparently about delays or scope changes</li>
+                    </ul>
+
+                    <h4>Scoping Framework</h4>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Element</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Problem Statement</strong></td>
+                                    <td>Clear articulation of the challenge or need</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Objectives</strong></td>
+                                    <td>Specific, measurable goals</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Deliverables</strong></td>
+                                    <td>Concrete outputs expected</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Timeline</strong></td>
+                                    <td>Realistic schedule with milestones</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Resources</strong></td>
+                                    <td>Tools, data, and support available</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Success Criteria</strong></td>
+                                    <td>How outcomes will be evaluated</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Constraints</strong></td>
+                                    <td>Limitations and boundaries</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>6.2 Mentorship Best Practices</h3>
+
+                    <h4>Setting Clear Expectations</h4>
+                    <ul>
+                        <li>Define roles and responsibilities to avoid confusion</li>
+                        <li>Collaborate on measurable skill-building objectives</li>
+                        <li>Explain how intern work impacts project and company goals</li>
+                        <li>Establish regular check-in cadence</li>
+                    </ul>
+
+                    <h4>Progressive Autonomy</h4>
+                    <ul>
+                        <li>Start with close supervision and clear instructions</li>
+                        <li>Encourage independent problem-solving before seeking help</li>
+                        <li>Assign small decision-making opportunities</li>
+                        <li>Debrief outcomes to enhance learning</li>
+                        <li>Build confidence through increasing independence</li>
+                    </ul>
+
+                    <h3>6.3 Program Design Elements</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-title">Orientation and Onboarding</div>
+                            <ul>
+                                <li>Introduction to company culture and values</li>
+                                <li>Overview of legal/compliance function</li>
+                                <li>Technical systems training</li>
+                                <li>Project briefing and context-setting</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Learning Opportunities</div>
+                            <ul>
+                                <li>Social and networking events</li>
+                                <li>Exposure to different practice areas</li>
+                                <li>Mentorship from senior professionals</li>
+                                <li>Skills workshops and training sessions</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Project Support</div>
+                            <ul>
+                                <li>Regular one-on-one meetings with mentor</li>
+                                <li>Access to resources and documentation</li>
+                                <li>Clear escalation paths for blockers</li>
+                                <li>Opportunities for feedback and iteration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 7: Deliverables -->
+                <section class="section" id="deliverables">
+                    <h2>7. Deliverable Formats That Showcase Hybrid Competencies</h2>
+
+                    <h3>7.1 Written Deliverables</h3>
+
+                    <h4>Legal Analysis Documents</h4>
+                    <ul>
+                        <li>Regulatory compliance memos</li>
+                        <li>Policy analysis papers</li>
+                        <li>Comparative law research</li>
+                        <li>Risk assessment reports</li>
+                    </ul>
+
+                    <h4>Business-Oriented Documents</h4>
+                    <ul>
+                        <li>Executive summaries for leadership</li>
+                        <li>Implementation roadmaps</li>
+                        <li>Training materials</li>
+                        <li>Process documentation</li>
+                    </ul>
+
+                    <div class="callout callout--best-practice">
+                        <div class="callout-title">
+                            <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            Best Practice: Legal Writing Samples
+                        </div>
+                        <ul>
+                            <li>Have both persuasive and objective writing samples ready</li>
+                            <li>Open memoranda (with original research) are preferred by employers</li>
+                            <li>Use Context-Action-Result (CAR) framework to show impact</li>
+                            <li>Quantify outcomes where possible (e.g., "reducing case preparation time by 30%")</li>
+                        </ul>
+                    </div>
+
+                    <h3>7.2 Presentation Deliverables</h3>
+
+                    <h4>Stakeholder Presentations</h4>
+                    <ul>
+                        <li>Board-level compliance briefings</li>
+                        <li>Cross-functional project updates</li>
+                        <li>Final capstone presentations</li>
+                        <li>Training and education sessions</li>
+                    </ul>
+
+                    <h4>Visual Communications</h4>
+                    <ul>
+                        <li>Compliance frameworks and flowcharts</li>
+                        <li>Risk classification matrices</li>
+                        <li>Process maps and decision trees</li>
+                        <li>Timeline and milestone visualizations</li>
+                    </ul>
+
+                    <h3>7.3 Technical Deliverables</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-title">Policy and Governance Artifacts</div>
+                            <ul>
+                                <li>AI ethics guidelines</li>
+                                <li>Compliance checklists and templates</li>
+                                <li>Standard operating procedures</li>
+                                <li>Audit frameworks</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Product Contributions</div>
+                            <ul>
+                                <li>Feature requirements from legal perspective</li>
+                                <li>User experience feedback</li>
+                                <li>Documentation improvements</li>
+                                <li>Test case development</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>7.4 Portfolio Building</h3>
+                    <h4>Elements to Include</h4>
+                    <ul>
+                        <li>Writing samples demonstrating legal analysis</li>
+                        <li>Project summaries showing cross-functional collaboration</li>
+                        <li>Presentations highlighting communication skills</li>
+                        <li>Metrics demonstrating business impact</li>
+                    </ul>
+
+                    <h4>Showcase Hybrid Skills Through</h4>
+                    <ul>
+                        <li>AI-assisted case analysis (e.g., "reducing processing time through AI-driven tools")</li>
+                        <li>Digital literacy with legal technology platforms</li>
+                        <li>Cross-disciplinary collaboration examples</li>
+                        <li>Translation of technical concepts to legal frameworks</li>
+                    </ul>
+                </section>
+
+                <!-- Section 8: Evaluation -->
+                <section class="section" id="evaluation">
+                    <h2>8. Evaluation Criteria</h2>
+
+                    <h3>8.1 Performance Assessment Framework</h3>
+                    <p>Rather than binary pass/fail judgments, use rubrics with multiple performance levels:</p>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Level</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge badge--green">Exceptional</span></td>
+                                    <td>Exceeds all expectations; demonstrates innovation</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge--blue">Proficient</span></td>
+                                    <td>Meets all expectations; solid professional work</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge--indigo">Developing</span></td>
+                                    <td>Meets most expectations; areas for growth identified</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge--purple">Needs Improvement</span></td>
+                                    <td>Below expectations; significant development required</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>8.2 Evaluation Dimensions</h3>
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-title">Legal Competencies</div>
+                            <ul>
+                                <li>Quality of legal research and analysis</li>
+                                <li>Accuracy in regulatory interpretation</li>
+                                <li>Clarity of legal writing</li>
+                                <li>Risk identification and assessment</li>
+                                <li>Attention to detail and precision</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Technical Competencies</div>
+                            <ul>
+                                <li>Understanding of AI/technology concepts</li>
+                                <li>Ability to translate between legal and technical domains</li>
+                                <li>Comfort with technical documentation</li>
+                                <li>Digital tool proficiency</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Professional Competencies</div>
+                            <ul>
+                                <li>Communication effectiveness</li>
+                                <li>Collaboration and teamwork</li>
+                                <li>Initiative and problem-solving</li>
+                                <li>Time management and organization</li>
+                                <li>Adaptability and learning agility</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Business Impact</div>
+                            <ul>
+                                <li>Alignment with organizational objectives</li>
+                                <li>Quantifiable outcomes achieved</li>
+                                <li>Stakeholder satisfaction</li>
+                                <li>Portfolio-ready deliverables created</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>8.3 Success Metrics</h3>
+
+                    <h4>Quantitative Measures</h4>
+                    <ul>
+                        <li>Deliverables completed on time</li>
+                        <li>Stakeholder feedback scores</li>
+                        <li>Compliance gaps identified/addressed</li>
+                        <li>Documentation accuracy rates</li>
+                    </ul>
+
+                    <h4>Qualitative Measures</h4>
+                    <ul>
+                        <li>Quality of analysis and recommendations</li>
+                        <li>Effectiveness of communication</li>
+                        <li>Integration with team dynamics</li>
+                        <li>Professional growth demonstrated</li>
+                    </ul>
+
+                    <h4>Career Outcome Indicators</h4>
+                    <ul>
+                        <li>Intern-to-full-time conversion potential</li>
+                        <li>Portfolio strength for future applications</li>
+                        <li>Network and relationship building</li>
+                        <li>Skill development achievement</li>
+                    </ul>
+                </section>
+
+                <!-- Section 9: Project Ideas -->
+                <section class="section" id="project-ideas">
+                    <h2>9. Specific Project Ideas for Legal Interns at AI Companies</h2>
+
+                    <div class="accordion">
+                        <!-- EU AI Act Compliance Projects -->
+                        <div class="accordion-item">
+                            <button class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>9.1 EU AI Act Compliance Projects</span>
+                                <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <h4>Project: EU AI Act Compliance Readiness Assessment</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Analyze company AI systems against EU AI Act requirements</li>
+                                        <li><strong>Deliverables:</strong> Gap analysis report, risk classification matrix, remediation roadmap</li>
+                                        <li><strong>Duration:</strong> 8-10 weeks</li>
+                                        <li><strong>Skills developed:</strong> Regulatory analysis, risk assessment, stakeholder communication</li>
+                                    </ul>
+
+                                    <h4>Project: High-Risk AI Documentation Framework</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Develop documentation templates for high-risk AI systems</li>
+                                        <li><strong>Deliverables:</strong> Template library, process guide, training materials</li>
+                                        <li><strong>Duration:</strong> 6-8 weeks</li>
+                                        <li><strong>Skills developed:</strong> Technical writing, compliance documentation, process design</li>
+                                    </ul>
+
+                                    <h4>Project: AI Act Penalty Risk Analysis</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Map potential liability exposure under EU AI Act</li>
+                                        <li><strong>Deliverables:</strong> Risk matrix, mitigation recommendations, board presentation</li>
+                                        <li><strong>Duration:</strong> 4-6 weeks</li>
+                                        <li><strong>Skills developed:</strong> Legal analysis, executive communication, risk quantification</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Ethics and Governance Projects -->
+                        <div class="accordion-item">
+                            <button class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>9.2 AI Ethics and Governance Projects</span>
+                                <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <h4>Project: Responsible AI Policy Development</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Create internal guidelines for ethical AI development and deployment</li>
+                                        <li><strong>Deliverables:</strong> Policy document, implementation guide, approval workflow</li>
+                                        <li><strong>Duration:</strong> 10-12 weeks</li>
+                                        <li><strong>Skills developed:</strong> Policy drafting, stakeholder alignment, ethics frameworks</li>
+                                    </ul>
+
+                                    <h4>Project: Algorithmic Bias Audit Framework</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Design methodology for assessing AI systems for bias</li>
+                                        <li><strong>Deliverables:</strong> Audit protocol, assessment tools, reporting templates</li>
+                                        <li><strong>Duration:</strong> 8-10 weeks</li>
+                                        <li><strong>Skills developed:</strong> Audit methodology, technical collaboration, fairness concepts</li>
+                                    </ul>
+
+                                    <h4>Project: AI Transparency Guidelines</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Develop user-facing disclosures for AI-powered features</li>
+                                        <li><strong>Deliverables:</strong> Disclosure templates, guidance document, implementation checklist</li>
+                                        <li><strong>Duration:</strong> 6-8 weeks</li>
+                                        <li><strong>Skills developed:</strong> Consumer protection law, plain language writing, UX collaboration</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- International Arbitration and AI Projects -->
+                        <div class="accordion-item">
+                            <button class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>9.3 International Arbitration and AI Projects</span>
+                                <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <h4>Project: AI in Arbitration Comparative Analysis</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Research global approaches to AI use in international arbitration</li>
+                                        <li><strong>Deliverables:</strong> Comparative memo, best practices guide, presentation to dispute resolution team</li>
+                                        <li><strong>Duration:</strong> 8-10 weeks</li>
+                                        <li><strong>Skills developed:</strong> Comparative law, arbitration procedure, emerging technology research</li>
+                                    </ul>
+
+                                    <h4>Project: AI-Assisted Evidence Review Protocol</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Develop guidelines for using AI in arbitration document review</li>
+                                        <li><strong>Deliverables:</strong> Protocol document, ethical guidelines, training materials</li>
+                                        <li><strong>Duration:</strong> 6-8 weeks</li>
+                                        <li><strong>Skills developed:</strong> Evidence rules, AI tool evaluation, procedural design</li>
+                                    </ul>
+
+                                    <h4>Project: Cross-Border AI Dispute Resolution Framework</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Analyze jurisdictional issues in AI-related disputes</li>
+                                        <li><strong>Deliverables:</strong> Research memo, decision tree for jurisdiction analysis, case studies</li>
+                                        <li><strong>Duration:</strong> 10-12 weeks</li>
+                                        <li><strong>Skills developed:</strong> Private international law, AI governance, complex legal analysis</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data Privacy and AI Projects -->
+                        <div class="accordion-item">
+                            <button class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>9.4 Data Privacy and AI Projects</span>
+                                <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <h4>Project: AI Training Data Compliance Review</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Assess data sources used in AI training for legal compliance</li>
+                                        <li><strong>Deliverables:</strong> Compliance checklist, risk assessment, remediation recommendations</li>
+                                        <li><strong>Duration:</strong> 6-8 weeks</li>
+                                        <li><strong>Skills developed:</strong> Data protection law, copyright analysis, vendor management</li>
+                                    </ul>
+
+                                    <h4>Project: GDPR Right to Explanation Implementation</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Develop process for providing explanations of AI decisions</li>
+                                        <li><strong>Deliverables:</strong> Explanation templates, process documentation, technical requirements</li>
+                                        <li><strong>Duration:</strong> 8-10 weeks</li>
+                                        <li><strong>Skills developed:</strong> GDPR compliance, technical translation, product collaboration</li>
+                                    </ul>
+
+                                    <h4>Project: Cross-Border Data Transfer Assessment for AI Systems</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Analyze data transfer mechanisms for AI training and deployment</li>
+                                        <li><strong>Deliverables:</strong> Transfer impact assessment, mechanism recommendations, implementation guide</li>
+                                        <li><strong>Duration:</strong> 8-10 weeks</li>
+                                        <li><strong>Skills developed:</strong> International data transfers, SCCs, adequacy decisions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Policy and Advocacy Projects -->
+                        <div class="accordion-item">
+                            <button class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>9.5 Policy and Advocacy Projects</span>
+                                <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <h4>Project: Regulatory Landscape Mapping</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Create comprehensive overview of global AI regulations</li>
+                                        <li><strong>Deliverables:</strong> Interactive map/database, summary reports, update protocol</li>
+                                        <li><strong>Duration:</strong> 10-12 weeks</li>
+                                        <li><strong>Skills developed:</strong> Regulatory research, information design, ongoing monitoring</li>
+                                    </ul>
+
+                                    <h4>Project: Position Paper Development</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Draft company position on proposed AI legislation</li>
+                                        <li><strong>Deliverables:</strong> Position paper, supporting research, stakeholder briefing</li>
+                                        <li><strong>Duration:</strong> 6-8 weeks</li>
+                                        <li><strong>Skills developed:</strong> Policy advocacy, strategic communication, stakeholder management</li>
+                                    </ul>
+
+                                    <h4>Project: Industry Standards Contribution</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Support company participation in AI standards development</li>
+                                        <li><strong>Deliverables:</strong> Standards analysis, contribution drafts, meeting preparation materials</li>
+                                        <li><strong>Duration:</strong> Ongoing/flexible</li>
+                                        <li><strong>Skills developed:</strong> Standards processes, coalition building, technical writing</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Multilingual/International Projects -->
+                        <div class="accordion-item">
+                            <button class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>9.6 Multilingual/International Projects</span>
+                                <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <p>For interns with multilingual capabilities:</p>
+
+                                    <h4>Project: Multi-Jurisdictional Compliance Comparison</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Compare AI regulations across EU member states (using original language sources)</li>
+                                        <li><strong>Deliverables:</strong> Comparative analysis, jurisdiction-specific guidance, translation of key provisions</li>
+                                        <li><strong>Duration:</strong> 10-12 weeks</li>
+                                        <li><strong>Skills developed:</strong> Comparative law, multilingual research, regulatory harmonization</li>
+                                    </ul>
+
+                                    <h4>Project: International Customer Terms Localization</h4>
+                                    <ul>
+                                        <li><strong>Scope:</strong> Review and adapt AI-related terms for different markets</li>
+                                        <li><strong>Deliverables:</strong> Localized terms, cultural considerations guide, compliance verification</li>
+                                        <li><strong>Duration:</strong> 8-10 weeks</li>
+                                        <li><strong>Skills developed:</strong> Contract drafting, localization, consumer protection across jurisdictions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 10: Resources -->
+                <section class="section" id="resources">
+                    <h2>10. Resources and References</h2>
+
+                    <h3>10.1 Regulatory Frameworks</h3>
+                    <h4>EU AI Act</h4>
+                    <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener" class="link-card">
+                        <div class="link-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        </div>
+                        <div class="link-card-content">
+                            <div class="link-card-title">EU AI Act Official Text</div>
+                            <div class="link-card-desc">Official EU regulatory framework for artificial intelligence</div>
+                        </div>
+                        <svg class="link-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+
+                    <a href="https://artificialintelligenceact.eu/high-level-summary/" target="_blank" rel="noopener" class="link-card">
+                        <div class="link-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        </div>
+                        <div class="link-card-content">
+                            <div class="link-card-title">AI Act High-Level Summary</div>
+                            <div class="link-card-desc">Comprehensive overview and explanation of the EU AI Act</div>
+                        </div>
+                        <svg class="link-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+
+                    <h4>Other Key Regulations</h4>
+                    <ul>
+                        <li>GDPR (General Data Protection Regulation)</li>
+                        <li>CCPA (California Consumer Privacy Act)</li>
+                        <li>Colorado AI Act</li>
+                        <li><a href="https://www.unesco.org/en/artificial-intelligence/recommendation-ethics" target="_blank" rel="noopener">UNESCO AI Ethics Recommendation</a></li>
+                    </ul>
+
+                    <h3>10.2 Industry Resources</h3>
+                    <h4>AI Ethics and Governance</h4>
+                    <a href="https://cyber.harvard.edu/topics/ethics-and-governance-ai" target="_blank" rel="noopener" class="link-card">
+                        <div class="link-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        </div>
+                        <div class="link-card-content">
+                            <div class="link-card-title">Berkman Klein Center - Ethics and Governance of AI</div>
+                            <div class="link-card-desc">Harvard research on AI ethics and governance</div>
+                        </div>
+                        <svg class="link-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+
+                    <a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener" class="link-card">
+                        <div class="link-card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        </div>
+                        <div class="link-card-content">
+                            <div class="link-card-title">NIST AI Risk Management Framework</div>
+                            <div class="link-card-desc">US standards for managing AI risks</div>
+                        </div>
+                        <svg class="link-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </a>
+
+                    <h3>10.3 Fellowship and Internship Programs</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Program</th>
+                                    <th>Organization</th>
+                                    <th>Focus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="https://www.governance.ai/post/summer-fellowship-2026-applied-track" target="_blank" rel="noopener">GovAI Summer Fellowship</a></td>
+                                    <td>Centre for the Governance of AI</td>
+                                    <td>AI governance research</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://www.constellation.org/programs/astra-fellowship" target="_blank" rel="noopener">Astra Fellowship</a></td>
+                                    <td>Constellation Research Center</td>
+                                    <td>AI policy and security</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://fpf.org/us-policy-internships/" target="_blank" rel="noopener">FPF Internships</a></td>
+                                    <td>Future of Privacy Forum</td>
+                                    <td>Privacy and AI policy</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://careers.microsoft.com/v2/global/en/celainternship" target="_blank" rel="noopener">Microsoft CELA</a></td>
+                                    <td>Microsoft</td>
+                                    <td>Corporate and legal affairs</td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://openai.com/residency/" target="_blank" rel="noopener">OpenAI Residency</a></td>
+                                    <td>OpenAI</td>
+                                    <td>AI research (technical)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>10.4 AI in Arbitration Resources</h3>
+                    <ul>
+                        <li><a href="https://www.whitecase.com/insight-our-thinking/2025-international-arbitration-survey-arbitration-and-ai" target="_blank" rel="noopener">White &amp; Case - 2025 International Arbitration Survey</a></li>
+                        <li><a href="https://www.adr.org/press-releases/aaa-icdr-to-launch-ai-native-arbitrator-transforming-dispute-resolution/" target="_blank" rel="noopener">AAA-ICDR AI Arbitrator Announcement</a></li>
+                        <li><a href="https://www.freshfields.com/en/our-thinking/campaigns/international-arbitration-in-2025/ai-in-international-arbitration-a-fast-evolving-landscape" target="_blank" rel="noopener">Freshfields - AI in International Arbitration</a></li>
+                        <li><a href="https://www.klgates.com/Arbitration-and-AI-From-Data-Processing-to-Deepfakes-Outlining-the-Potential-and-Pitfalls-of-AI-in-Arbitration-10-27-2025" target="_blank" rel="noopener">K&amp;L Gates - Arbitration and AI</a></li>
+                    </ul>
+
+                    <h3>10.5 Skills Development</h3>
+                    <ul>
+                        <li><a href="https://www.clio.com/blog/legal-technology-trends/" target="_blank" rel="noopener">Clio - Legal Technology Trends</a></li>
+                        <li><a href="https://www.jdjournal.com/2025/11/24/growing-legal-careers-in-tech/" target="_blank" rel="noopener">JD Journal - Growing Legal Careers in Tech</a></li>
+                        <li><a href="https://www.everlaw.com/blog/career-growth/a-2025-in-house-legal-career-roadmap-for-the-age-of-ai/" target="_blank" rel="noopener">Everlaw - In-House Legal Career Roadmap for AI Era</a></li>
+                        <li><a href="https://law.vanderbilt.edu/navigating-different-paths-to-legal-careers-in-ai-and-technology-policy/" target="_blank" rel="noopener">Vanderbilt Law - Paths to Legal Careers in AI</a></li>
+                    </ul>
+
+                    <h3>10.6 Professional Organizations</h3>
+                    <ul>
+                        <li>International Association of Privacy Professionals (IAPP)</li>
+                        <li>ABA Science &amp; Technology Law Section</li>
+                        <li>IEEE Global Initiative on Ethics of Autonomous and Intelligent Systems</li>
+                        <li>Partnership on AI</li>
+                        <li>World Economic Forum AI Governance Alliance</li>
+                    </ul>
+                </section>
+
+                <!-- Appendix A -->
+                <section class="section" id="appendix-a">
+                    <h2>Appendix A: Project Proposal Template</h2>
+                    <pre><code># Capstone Project Proposal
+
+## Project Title
+[Descriptive title]
+
+## Intern Information
+- Name:
+- Background:
+- Relevant coursework/experience:
+
+## Problem Statement
+[Clear articulation of the challenge or business need]
+
+## Objectives
+1. [Specific objective 1]
+2. [Specific objective 2]
+3. [Specific objective 3]
+
+## Deliverables
+| Deliverable | Description | Due Date |
+|-------------|-------------|----------|
+|             |             |          |
+
+## Timeline
+| Week | Activities | Milestone |
+|------|------------|-----------|
+| 1-2  |            |           |
+| 3-4  |            |           |
+
+## Resources Required
+- Access to:
+- Tools:
+- SME support:
+
+## Success Criteria
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+## Risks and Mitigation
+| Risk | Mitigation |
+|------|------------|
+|      |            |
+
+## Mentor Sign-off
+Date:
+Signature:</code></pre>
+                </section>
+
+                <!-- Appendix B -->
+                <section class="section" id="appendix-b">
+                    <h2>Appendix B: Evaluation Rubric Template</h2>
+                    <pre><code># Intern Capstone Evaluation Rubric
+
+## Legal Competencies (25%)
+| Criterion | Exceptional (4) | Proficient (3) | Developing (2) | Needs Improvement (1) |
+|-----------|-----------------|----------------|----------------|----------------------|
+| Legal Research Quality |  |  |  |  |
+| Regulatory Analysis |  |  |  |  |
+| Writing Clarity |  |  |  |  |
+| Risk Assessment |  |  |  |  |
+
+## Technical Competencies (25%)
+| Criterion | Exceptional (4) | Proficient (3) | Developing (2) | Needs Improvement (1) |
+|-----------|-----------------|----------------|----------------|----------------------|
+| AI/Tech Understanding |  |  |  |  |
+| Translation Skills |  |  |  |  |
+| Digital Tools |  |  |  |  |
+
+## Professional Competencies (25%)
+| Criterion | Exceptional (4) | Proficient (3) | Developing (2) | Needs Improvement (1) |
+|-----------|-----------------|----------------|----------------|----------------------|
+| Communication |  |  |  |  |
+| Collaboration |  |  |  |  |
+| Initiative |  |  |  |  |
+| Adaptability |  |  |  |  |
+
+## Business Impact (25%)
+| Criterion | Exceptional (4) | Proficient (3) | Developing (2) | Needs Improvement (1) |
+|-----------|-----------------|----------------|----------------|----------------------|
+| Alignment with Objectives |  |  |  |  |
+| Deliverable Quality |  |  |  |  |
+| Stakeholder Satisfaction |  |  |  |  |
+
+## Overall Score: ___/4.0
+
+## Comments:
+
+## Development Recommendations:</code></pre>
+                </section>
+
+                <div class="callout callout--info" style="margin-top: 3rem;">
+                    <div class="callout-title">
+                        <svg class="callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        Document Information
+                    </div>
+                    <p style="margin-bottom: 0;"><em>Document prepared January 2026. Information reflects current best practices and regulatory landscape as of publication date.</em></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Best Practices for Legal Intern Capstone Projects at AI Companies</p>
+            <p>&copy; 2026 <a href="https://www.integritystudio.ai">Integrity Studio</a>. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile sidebar toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+        }
+
+        // Accordion toggle
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const wasActive = item.classList.contains('active');
+
+            // Close all accordions in the same group
+            const accordionItems = item.parentElement.querySelectorAll('.accordion-item');
+            accordionItems.forEach(i => i.classList.remove('active'));
+
+            // Open clicked one if it wasn't already open
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Active TOC link tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-link');
+
+            const observerOptions = {
+                rootMargin: '-100px 0px -66%',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        tocLinks.forEach(link => link.classList.remove('active'));
+                        const activeLink = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+
+            // Close sidebar on link click (mobile)
+            tocLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        toggleSidebar();
+                    }
+                });
+            });
+        });
+
+        // Smooth scroll with offset for sticky header
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'));
+                    const targetPosition = target.offsetTop - headerHeight - 24;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
