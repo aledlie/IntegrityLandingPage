@@ -290,6 +290,39 @@ void main() {
         expect(true, isTrue);
       });
 
+      test('trackLead accepts optional email', () {
+        FacebookPixelService.trackLead(email: 'test@example.com');
+
+        expect(true, isTrue);
+      });
+
+      test('trackContact does not throw when not ready', () {
+        FacebookPixelService.trackContact();
+
+        expect(true, isTrue);
+      });
+
+      test('trackContact accepts optional email and name', () {
+        FacebookPixelService.trackContact(
+          email: 'test@example.com',
+          name: 'Test User',
+        );
+
+        expect(true, isTrue);
+      });
+
+      test('trackContact accepts only email', () {
+        FacebookPixelService.trackContact(email: 'test@example.com');
+
+        expect(true, isTrue);
+      });
+
+      test('trackContact accepts only name', () {
+        FacebookPixelService.trackContact(name: 'Test User');
+
+        expect(true, isTrue);
+      });
+
       test('trackViewContent does not throw when not ready', () {
         FacebookPixelService.trackViewContent('product');
 
@@ -317,6 +350,228 @@ void main() {
 
     test('fatal maps to SentryLevel.fatal', () {
       expect(ErrorSeverity.fatal.sentryLevel.name, equals('fatal'));
+    });
+  });
+
+  group('ErrorTrackingService', () {
+    group('captureException', () {
+      test('completes without error', () async {
+        await expectLater(
+          ErrorTrackingService.captureException(
+            Exception('Test exception'),
+          ),
+          completes,
+        );
+      });
+
+      test('accepts optional stackTrace', () async {
+        try {
+          throw Exception('Test');
+        } catch (e, stackTrace) {
+          await expectLater(
+            ErrorTrackingService.captureException(
+              e,
+              stackTrace: stackTrace,
+            ),
+            completes,
+          );
+        }
+      });
+
+      test('accepts optional context', () async {
+        await expectLater(
+          ErrorTrackingService.captureException(
+            Exception('Test'),
+            context: 'TestClass.method',
+          ),
+          completes,
+        );
+      });
+
+      test('accepts optional extra data', () async {
+        await expectLater(
+          ErrorTrackingService.captureException(
+            Exception('Test'),
+            extra: {'userId': '123', 'action': 'submit'},
+          ),
+          completes,
+        );
+      });
+
+      test('accepts all optional parameters', () async {
+        try {
+          throw Exception('Full test');
+        } catch (e, stackTrace) {
+          await expectLater(
+            ErrorTrackingService.captureException(
+              e,
+              stackTrace: stackTrace,
+              context: 'TestClass.fullMethod',
+              extra: {'debug': true},
+            ),
+            completes,
+          );
+        }
+      });
+    });
+
+    group('captureMessage', () {
+      test('completes with default severity', () async {
+        await expectLater(
+          ErrorTrackingService.captureMessage('Test message'),
+          completes,
+        );
+      });
+
+      test('completes with custom severity', () async {
+        await expectLater(
+          ErrorTrackingService.captureMessage(
+            'Warning message',
+            severity: ErrorSeverity.warning,
+          ),
+          completes,
+        );
+      });
+
+      test('completes with extra data', () async {
+        await expectLater(
+          ErrorTrackingService.captureMessage(
+            'Info message',
+            extra: {'component': 'analytics'},
+          ),
+          completes,
+        );
+      });
+
+      test('works with all severity levels', () async {
+        for (final severity in ErrorSeverity.values) {
+          await expectLater(
+            ErrorTrackingService.captureMessage(
+              'Test ${severity.name}',
+              severity: severity,
+            ),
+            completes,
+          );
+        }
+      });
+    });
+
+    group('breadcrumbs', () {
+      test('addBreadcrumb does not throw', () {
+        ErrorTrackingService.addBreadcrumb(
+          message: 'User clicked button',
+        );
+
+        expect(true, isTrue);
+      });
+
+      test('addBreadcrumb accepts category', () {
+        ErrorTrackingService.addBreadcrumb(
+          message: 'Button click',
+          category: 'ui.click',
+        );
+
+        expect(true, isTrue);
+      });
+
+      test('addBreadcrumb accepts data', () {
+        ErrorTrackingService.addBreadcrumb(
+          message: 'API call',
+          category: 'http',
+          data: {'url': '/api/users', 'method': 'GET'},
+        );
+
+        expect(true, isTrue);
+      });
+
+      test('addNavigationBreadcrumb does not throw', () {
+        ErrorTrackingService.addNavigationBreadcrumb(
+          from: '/home',
+          to: '/profile',
+        );
+
+        expect(true, isTrue);
+      });
+
+      test('addUserActionBreadcrumb does not throw', () {
+        ErrorTrackingService.addUserActionBreadcrumb(
+          action: 'Submit form',
+        );
+
+        expect(true, isTrue);
+      });
+
+      test('addUserActionBreadcrumb accepts target', () {
+        ErrorTrackingService.addUserActionBreadcrumb(
+          action: 'Click',
+          target: 'submit_button',
+        );
+
+        expect(true, isTrue);
+      });
+    });
+
+    group('user context', () {
+      test('setUser does not throw', () {
+        ErrorTrackingService.setUser(
+          id: 'user_123',
+          email: 'test@example.com',
+        );
+
+        expect(true, isTrue);
+      });
+
+      test('setUser accepts username', () {
+        ErrorTrackingService.setUser(
+          id: 'user_123',
+          username: 'testuser',
+        );
+
+        expect(true, isTrue);
+      });
+
+      test('setUser accepts custom data', () {
+        ErrorTrackingService.setUser(
+          id: 'user_123',
+          data: {'plan': 'enterprise', 'role': 'admin'},
+        );
+
+        expect(true, isTrue);
+      });
+
+      test('clearUser does not throw', () {
+        ErrorTrackingService.clearUser();
+
+        expect(true, isTrue);
+      });
+    });
+
+    group('performance monitoring', () {
+      test('startTransaction returns a span', () {
+        final transaction = ErrorTrackingService.startTransaction(
+          name: 'testOperation',
+          operation: 'test',
+        );
+
+        expect(transaction, isNotNull);
+      });
+    });
+
+    group('tags', () {
+      test('setTag does not throw', () {
+        ErrorTrackingService.setTag('environment', 'test');
+
+        expect(true, isTrue);
+      });
+
+      test('setTags does not throw', () {
+        ErrorTrackingService.setTags({
+          'version': '1.0.0',
+          'platform': 'web',
+        });
+
+        expect(true, isTrue);
+      });
     });
   });
 }

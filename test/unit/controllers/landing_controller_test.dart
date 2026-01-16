@@ -77,10 +77,46 @@ void main() {
       });
     });
 
+    group('initialization', () {
+      test('initialize can be called', () {
+        expect(() => controller.initialize(), returnsNormally);
+      });
+
+      test('initialize can be called multiple times', () {
+        controller.initialize();
+        controller.initialize();
+
+        // Should not throw
+        expect(true, isTrue);
+      });
+    });
+
     group('scroll tracking', () {
       test('resetScrollTracking clears tracked milestones', () {
         // This tests internal state, verifying the method runs without error
         expect(() => controller.resetScrollTracking(), returnsNormally);
+      });
+
+      test('resetScrollTracking can be called multiple times', () {
+        controller.resetScrollTracking();
+        controller.resetScrollTracking();
+
+        expect(true, isTrue);
+      });
+    });
+
+    group('navigation methods', () {
+      test('scrollToSection handles unregistered section', () {
+        // Should not throw when section is not registered
+        expect(() => controller.scrollToSection('nonexistent'), returnsNormally);
+      });
+
+      test('scrollToPricing can be called', () {
+        expect(() => controller.scrollToPricing(), returnsNormally);
+      });
+
+      test('scrollToCTA can be called', () {
+        expect(() => controller.scrollToCTA(), returnsNormally);
       });
     });
 
