@@ -2956,7 +2956,10 @@
         "description": "John Skelton, Head of Policy at Integrity Studio",
         "width": 400,
         "height": 400
-      }
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/johnskelton-ai-policy"
+      ]
     },
     {
       "@type": "Person",
@@ -4131,7 +4134,21 @@
       "author": {
         "@type": "Organization",
         "@id": "https://integritystudio.ai/#organization"
-      }
+      },
+      "prepTime": "PT2M",
+      "performTime": "PT3M",
+      "supply": [
+        {
+          "@type": "HowToSupply",
+          "name": "Development environment",
+          "description": "Python 3.8+ or Node.js 16+ with package manager"
+        },
+        {
+          "@type": "HowToSupply",
+          "name": "Integrity Studio API key",
+          "description": "Free API key from your dashboard"
+        }
+      ]
     },
     {
       "@type": "HowTo",
@@ -4185,7 +4202,26 @@
       "author": {
         "@type": "Organization",
         "@id": "https://integritystudio.ai/#organization"
-      }
+      },
+      "prepTime": "PT10M",
+      "performTime": "PT20M",
+      "supply": [
+        {
+          "@type": "HowToSupply",
+          "name": "Admin account credentials",
+          "description": "Integrity Studio account with admin access"
+        },
+        {
+          "@type": "HowToSupply",
+          "name": "AI system inventory",
+          "description": "List of AI systems requiring compliance tracking"
+        },
+        {
+          "@type": "HowToSupply",
+          "name": "Risk classification documentation",
+          "description": "EU AI Act risk level determination for your systems"
+        }
+      ]
     },
     {
       "@type": "HowTo",
@@ -4233,7 +4269,21 @@
       "author": {
         "@type": "Organization",
         "@id": "https://integritystudio.ai/#organization"
-      }
+      },
+      "prepTime": "PT3M",
+      "performTime": "PT7M",
+      "supply": [
+        {
+          "@type": "HowToSupply",
+          "name": "Slack workspace admin access",
+          "description": "Admin permissions to create Slack apps or webhooks"
+        },
+        {
+          "@type": "HowToSupply",
+          "name": "Integrity Studio API credentials",
+          "description": "API key with webhook permissions"
+        }
+      ]
     },
     {
       "@type": "WebAPI",
