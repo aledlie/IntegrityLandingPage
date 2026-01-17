@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
@@ -188,12 +189,13 @@ class _ServiceCard extends StatelessWidget {
           if (service.ctaText != null && service.ctaUrl != null) ...[
             const SizedBox(height: AppSpacing.md),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 AnalyticsService.trackCTAClick(
                   buttonName: service.ctaText!,
                   location: 'service_card_${service.title}',
                 );
-                // TODO: Navigate to URL
+                final uri = Uri.parse(service.ctaUrl!);
+                await launchUrl(uri, mode: LaunchMode.externalApplication);
               },
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,

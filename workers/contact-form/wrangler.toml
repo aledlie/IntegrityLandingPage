@@ -1,0 +1,7 @@
+name = "integrity-studio-contact"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+RECIPIENT_EMAIL = "hello@integritystudio.ai"
+SENDER_EMAIL = "contact@integritystudio.ai"

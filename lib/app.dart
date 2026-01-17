@@ -7,6 +7,7 @@ import 'pages/comparison_page.dart';
 import 'pages/sources_page.dart';
 import 'pages/legal_page.dart';
 import 'pages/about_page.dart';
+import 'pages/signup_page.dart';
 import 'services/analytics.dart';
 import 'services/consent_manager.dart';
 import 'services/tracking.dart';
@@ -138,6 +139,24 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
                 AboutPage(
                   onBack: () => Navigator.of(context).pushReplacementNamed('/'),
                   onShowCookieSettings: _showCookieSettings,
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Handle Signup page with tier parameter
+        if (settings.name?.startsWith('/signup') == true) {
+          final uri = Uri.parse(settings.name!);
+          final tier = uri.queryParameters['tier'] ?? 'starter';
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                SignupPage(
+                  tier: tier,
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
                 ),
                 if (_showCookieBanner)
                   CookieBanner(onConsentGiven: _handleConsentGiven),

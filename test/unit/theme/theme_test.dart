@@ -154,25 +154,25 @@ void main() {
 
     group('orb colors', () {
       test('orbBlue has reduced alpha', () {
-        expect(AppColors.orbBlue.alpha, lessThan(255));
+        expect((AppColors.orbBlue.a * 255).round(), lessThan(255));
       });
 
       test('orbIndigo has reduced alpha', () {
-        expect(AppColors.orbIndigo.alpha, lessThan(255));
+        expect((AppColors.orbIndigo.a * 255).round(), lessThan(255));
       });
 
       test('orbPurple has reduced alpha', () {
-        expect(AppColors.orbPurple.alpha, lessThan(255));
+        expect((AppColors.orbPurple.a * 255).round(), lessThan(255));
       });
     });
 
     group('shadow colors', () {
       test('shadowDefault has reduced alpha', () {
-        expect(AppColors.shadowDefault.alpha, lessThan(255));
+        expect((AppColors.shadowDefault.a * 255).round(), lessThan(255));
       });
 
       test('shadowBlue has reduced alpha', () {
-        expect(AppColors.shadowBlue.alpha, lessThan(255));
+        expect((AppColors.shadowBlue.a * 255).round(), lessThan(255));
       });
     });
   });

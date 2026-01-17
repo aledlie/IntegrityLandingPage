@@ -65,8 +65,7 @@ void main() {
       });
 
       testWidgets('creates with onBack callback', (tester) async {
-        var backCalled = false;
-        await pumpAboutPage(tester, onBack: () => backCalled = true);
+        await pumpAboutPage(tester, onBack: () {});
         expect(find.byType(AboutPage), findsOneWidget);
       });
 

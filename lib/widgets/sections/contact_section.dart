@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
@@ -392,12 +393,13 @@ class _ContactSectionState extends State<ContactSection> {
                   width: double.infinity,
                   child: GradientButton(
                     text: _content.calendlyCtaText,
-                    onPressed: () {
+                    onPressed: () async {
                       AnalyticsService.trackCTAClick(
                         buttonName: _content.calendlyCtaText,
                         location: 'contact_section',
                       );
-                      // TODO: Open Calendly
+                      final uri = Uri.parse(_content.calendlyUrl);
+                      await launchUrl(uri, mode: LaunchMode.externalApplication);
                     },
                   ),
                 ),
@@ -551,8 +553,9 @@ class _ContactMethodItem extends StatelessWidget {
         message: method.label,
         child: InkWell(
           onTap: method.url != null
-              ? () {
-                  // TODO: Launch URL
+              ? () async {
+                  final uri = Uri.parse(method.url!);
+                  await launchUrl(uri, mode: LaunchMode.externalApplication);
                 }
               : null,
           borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
@@ -570,8 +573,9 @@ class _ContactMethodItem extends StatelessWidget {
     // Primary contact method with full details
     return InkWell(
       onTap: method.url != null
-          ? () {
-              // TODO: Launch URL
+          ? () async {
+              final uri = Uri.parse(method.url!);
+              await launchUrl(uri, mode: LaunchMode.externalApplication);
             }
           : null,
       borderRadius: BorderRadius.circular(AppSpacing.radiusMD),

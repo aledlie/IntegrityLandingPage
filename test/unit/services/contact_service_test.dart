@@ -1,6 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integrity_studio_ai/services/contact_service.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+import 'contact_service_test.mocks.dart';
+
+@GenerateMocks([Dio])
 void main() {
   group('ContactFormData', () {
     test('creates instance with required fields', () {
@@ -353,7 +359,19 @@ void main() {
     });
 
     group('submitForm', () {
+      late MockDio mockDio;
+
+      setUp(() {
+        mockDio = MockDio();
+        ContactService.setDioForTesting(mockDio);
+      });
+
+      tearDown(() {
+        ContactService.resetDio();
+      });
+
       test('returns error for invalid form data', () async {
+        // No mock setup needed - validation happens before HTTP call
         final payload = ContactFormPayload(
           formData: const ContactFormData(
             name: '',
@@ -372,58 +390,127 @@ void main() {
         expect(error.fieldErrors!.containsKey('message'), isTrue);
       });
 
-      test('returns success for valid form data (most of the time)',
-          () async {
-        // Run multiple times since there's a 5% simulated failure rate
-        int successCount = 0;
-        const attempts = 20;
+      test('returns success for valid form data', () async {
+        // Mock successful API response
+        when(mockDio.post(
+          any,
+          data: anyNamed('data'),
+          options: anyNamed('options'),
+        )).thenAnswer((_) async => Response(
+              requestOptions: RequestOptions(path: ''),
+              statusCode: 200,
+              data: {
+                'success': true,
+                'message': 'Thank you for your message!',
+                'submissionId': 'sub_test_123',
+              },
+            ));
 
-        for (int i = 0; i < attempts; i++) {
-          final payload = ContactFormPayload(
-            formData: const ContactFormData(
-              name: 'John Doe',
-              email: 'john@example.com',
-              message: 'This is a valid message for testing.',
-            ),
-          );
+        final payload = ContactFormPayload(
+          formData: const ContactFormData(
+            name: 'John Doe',
+            email: 'john@example.com',
+            message: 'This is a valid message for testing.',
+          ),
+        );
 
-          final response = await ContactService.submitForm(payload);
+        final response = await ContactService.submitForm(payload);
 
-          if (response is ContactFormSuccess) {
-            successCount++;
-          }
-        }
-
-        // With 5% failure rate, we expect mostly successes
-        expect(successCount, greaterThanOrEqualTo(attempts * 0.8));
+        expect(response, isA<ContactFormSuccess>());
+        final success = response as ContactFormSuccess;
+        expect(success.message, equals('Thank you for your message!'));
+        expect(success.submissionId, equals('sub_test_123'));
       });
 
       test('success response includes submission ID', () async {
-        // Keep trying until we get a success (avoiding random failures)
-        ContactFormResponse? successResponse;
-        for (int i = 0; i < 50; i++) {
-          final payload = ContactFormPayload(
-            formData: const ContactFormData(
-              name: 'John Doe',
-              email: 'john@example.com',
-              message: 'This is a valid message for testing.',
-            ),
-          );
+        // Mock successful API response
+        when(mockDio.post(
+          any,
+          data: anyNamed('data'),
+          options: anyNamed('options'),
+        )).thenAnswer((_) async => Response(
+              requestOptions: RequestOptions(path: ''),
+              statusCode: 200,
+              data: {
+                'success': true,
+                'message': 'Your message has been received.',
+                'submissionId': 'sub_mock_456',
+              },
+            ));
 
-          final response = await ContactService.submitForm(payload);
-          if (response is ContactFormSuccess) {
-            successResponse = response;
-            break;
-          }
-        }
+        final payload = ContactFormPayload(
+          formData: const ContactFormData(
+            name: 'John Doe',
+            email: 'john@example.com',
+            message: 'This is a valid message for testing.',
+          ),
+        );
 
-        expect(successResponse, isNotNull);
-        expect(successResponse, isA<ContactFormSuccess>());
+        final response = await ContactService.submitForm(payload);
 
-        final success = successResponse as ContactFormSuccess;
+        expect(response, isNotNull);
+        expect(response, isA<ContactFormSuccess>());
+
+        final success = response as ContactFormSuccess;
         expect(success.submissionId, isNotNull);
         expect(success.submissionId, startsWith('sub_'));
         expect(success.message, isNotNull);
+      });
+
+      test('returns error when API returns error response', () async {
+        // Mock error API response
+        when(mockDio.post(
+          any,
+          data: anyNamed('data'),
+          options: anyNamed('options'),
+        )).thenAnswer((_) async => Response(
+              requestOptions: RequestOptions(path: ''),
+              statusCode: 400,
+              data: {
+                'success': false,
+                'error': 'Invalid request',
+              },
+            ));
+
+        final payload = ContactFormPayload(
+          formData: const ContactFormData(
+            name: 'John Doe',
+            email: 'john@example.com',
+            message: 'This is a valid message for testing.',
+          ),
+        );
+
+        final response = await ContactService.submitForm(payload);
+
+        expect(response, isA<ContactFormError>());
+        final error = response as ContactFormError;
+        expect(error.error, equals('Invalid request'));
+      });
+
+      test('returns error on network failure', () async {
+        // Mock network error
+        when(mockDio.post(
+          any,
+          data: anyNamed('data'),
+          options: anyNamed('options'),
+        )).thenThrow(DioException(
+          type: DioExceptionType.connectionTimeout,
+          requestOptions: RequestOptions(path: ''),
+        ));
+
+        final payload = ContactFormPayload(
+          formData: const ContactFormData(
+            name: 'John Doe',
+            email: 'john@example.com',
+            message: 'This is a valid message for testing.',
+          ),
+        );
+
+        final response = await ContactService.submitForm(payload);
+
+        expect(response, isA<ContactFormError>());
+        final error = response as ContactFormError;
+        expect(error.error, contains('timed out'));
       });
     });
   });

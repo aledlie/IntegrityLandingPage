@@ -100,10 +100,25 @@ class ContactFormErrors {
 class ContactService {
   ContactService._();
 
-  static final _dio = Dio(BaseOptions(
+  static Dio _dio = Dio(BaseOptions(
     connectTimeout: const Duration(seconds: 10),
     receiveTimeout: const Duration(seconds: 10),
   ));
+
+  /// Set a custom Dio instance for testing.
+  /// @visibleForTesting
+  static void setDioForTesting(Dio dio) {
+    _dio = dio;
+  }
+
+  /// Reset Dio to default instance.
+  /// @visibleForTesting
+  static void resetDio() {
+    _dio = Dio(BaseOptions(
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+    ));
+  }
 
   /// Validate email format.
   static bool isValidEmail(String email) {

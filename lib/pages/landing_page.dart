@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../theme/theme.dart';
 import '../config/content.dart';
+import '../config/content/constants.dart';
 import '../services/analytics.dart';
+import '../widgets/modals/demo_modal.dart';
 import '../widgets/sections/hero_section.dart';
 import '../widgets/sections/tabbed_features_section.dart';
 import '../widgets/sections/social_proof_section.dart';
@@ -326,13 +329,21 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   void _handleWatchDemo() {
-    // TODO: Implement demo modal or video player
     AnalyticsService.trackDemoRequest();
+    DemoModal.show(
+      context,
+      onScheduleDemo: () => _launchCalendly(),
+    );
   }
 
   void _handleSelectTier(String tier) {
-    // TODO: Navigate to signup with tier selection
     AnalyticsService.trackPricingView(tier);
+    Navigator.of(context).pushNamed('/signup?tier=$tier');
+  }
+
+  Future<void> _launchCalendly() async {
+    final uri = Uri.parse(ExternalUrls.calendlyDemo);
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 }
 
