@@ -1,4 +1,9 @@
-import 'dart:math';
+import 'dart:convert';
+import 'package:dio/dio.dart';
+import 'analytics.dart';
+
+/// Contact form API endpoint (Cloudflare Worker).
+const _contactApiUrl = 'https://integrity-studio-contact.alyshia-b38.workers.dev';
 
 /// Contact form data model.
 class ContactFormData {
@@ -95,6 +100,11 @@ class ContactFormErrors {
 class ContactService {
   ContactService._();
 
+  static final _dio = Dio(BaseOptions(
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+  ));
+
   /// Validate email format.
   static bool isValidEmail(String email) {
     final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
@@ -136,10 +146,10 @@ class ContactService {
     return !validateForm(formData).hasErrors;
   }
 
-  /// Submit contact form.
+  /// Submit contact form to Cloudflare Worker endpoint.
   ///
-  /// Sends contact form data to the backend API.
-  /// Currently simulates API call for demonstration purposes.
+  /// Sends contact form data via POST request to the contact API.
+  /// The worker handles email delivery via Resend.
   static Future<ContactFormResponse> submitForm(
     ContactFormPayload payload,
   ) async {
@@ -152,34 +162,55 @@ class ContactService {
       );
     }
 
-    // Simulate network delay
-    await Future<void>.delayed(const Duration(seconds: 1));
+    try {
+      final response = await _dio.post(
+        _contactApiUrl,
+        data: jsonEncode(payload.formData.toJson()),
+        options: Options(
+          headers: {'Content-Type': 'application/json'},
+          validateStatus: (status) => status != null && status < 500,
+        ),
+      );
 
-    // TODO: Replace with actual API call when backend is ready
-    // final response = await http.post(
-    //   Uri.parse('/api/contact'),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     if (payload.csrfToken != null) 'X-CSRF-Token': payload.csrfToken!,
-    //   },
-    //   body: jsonEncode({
-    //     ...payload.formData.toJson(),
-    //     'timestamp': payload.timestamp,
-    //     'userAgent': payload.userAgent,
-    //   }),
-    // );
+      final data = response.data as Map<String, dynamic>;
 
-    // Simulate random errors (5% failure rate for testing)
-    if (Random().nextDouble() < 0.05) {
+      if (response.statusCode == 200 && data['success'] == true) {
+        return ContactFormSuccess(
+          message: data['message'] as String? ??
+              "Thank you for your message! We'll respond within 24 hours.",
+          submissionId: data['submissionId'] as String? ??
+              'sub_${DateTime.now().millisecondsSinceEpoch}',
+        );
+      } else {
+        return ContactFormError(
+          error: data['error'] as String? ?? 'Unable to submit form',
+        );
+      }
+    } on DioException catch (e) {
+      // Log to Sentry
+      ErrorTrackingService.captureException(
+        e,
+        stackTrace: e.stackTrace,
+        context: 'ContactService.submitForm',
+        extra: {'endpoint': _contactApiUrl, 'type': 'contact_form'},
+      );
+
+      // Return user-friendly error
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
+        return const ContactFormError(
+          error: 'Connection timed out. Please check your internet and try again.',
+        );
+      }
       return const ContactFormError(
         error: 'Network error: Unable to submit form. Please try again.',
       );
+    } catch (e, stackTrace) {
+      // Log unexpected errors to Sentry
+      ErrorTrackingService.captureException(e, stackTrace: stackTrace);
+      return const ContactFormError(
+        error: 'An unexpected error occurred. Please try again.',
+      );
     }
-
-    // Return successful response
-    return ContactFormSuccess(
-      message: "Thank you for your message! We'll respond within 24 hours.",
-      submissionId: 'sub_${DateTime.now().millisecondsSinceEpoch}',
-    );
   }
 }
