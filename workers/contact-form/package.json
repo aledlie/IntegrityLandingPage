@@ -18,5 +18,8 @@
   },
   "dependencies": {
     "resend": "^4.0.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-darwin-arm64": "^4.55.1"
   }
 }
