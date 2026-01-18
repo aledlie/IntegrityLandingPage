@@ -1,54 +1,108 @@
 /// Widget tests for Integrity Studio AI landing page.
 ///
 /// These tests verify the app loads correctly and basic UI elements render.
-/// NOTE: Full app widget tests are skipped because the responsive layout
-/// overflows in Flutter's default 800x600 test viewport. The hero section
-/// and other responsive components are designed for larger screens.
-/// Use integration_test/ for full app E2E testing in real browsers.
+/// Tests now use proper viewport sizing to avoid responsive layout overflow.
 library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:integrity_studio_ai/app.dart';
+import 'helpers/test_helpers.dart';
 
 void main() {
-  // Full app widget tests are skipped due to responsive layout overflow
-  // in Flutter's 800x600 test viewport. The landing page is designed for
-  // larger screen sizes and overflows in the small test viewport.
-  //
-  // For proper app-level testing, use:
-  // - integration_test/e2e/landing_page_test.dart (runs in Chrome)
-  // - flutter test integration_test/ -d chrome
+  setUpAll(() {
+    initializeTestContent();
+  });
+
+  /// Helper to set proper viewport size for full app tests
+  void setLargeViewport(WidgetTester tester) {
+    tester.view.physicalSize = const Size(1920, 1080);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+  }
+
   group('IntegrityStudioApp', () {
-    testWidgets(
-      'renders without errors',
-      (tester) async {
-        await tester.pumpWidget(const IntegrityStudioApp());
-        await tester.pump(const Duration(seconds: 1));
-        expect(find.byType(IntegrityStudioApp), findsOneWidget);
-      },
-      skip: true, // Skipped: hero section overflows in 800x600 test viewport
-    );
+    testWidgets('renders without errors', (tester) async {
+      setLargeViewport(tester);
+      await tester.pumpWidget(const IntegrityStudioApp());
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byType(IntegrityStudioApp), findsOneWidget);
+    });
+
+    testWidgets('contains MaterialApp', (tester) async {
+      setLargeViewport(tester);
+      await tester.pumpWidget(const IntegrityStudioApp());
+      expect(find.byType(MaterialApp), findsOneWidget);
+    });
+
+    testWidgets('uses dark theme background', (tester) async {
+      setLargeViewport(tester);
+      await tester.pumpWidget(const IntegrityStudioApp());
+      await tester.pump(const Duration(seconds: 1));
+      final scaffoldFinder = find.byType(Scaffold);
+      expect(scaffoldFinder, findsWidgets);
+    });
+
+    testWidgets('hero section renders on large viewport', (tester) async {
+      setLargeViewport(tester);
+      await tester.pumpWidget(const IntegrityStudioApp());
+      await tester.pump(const Duration(seconds: 1));
+
+      // Hero section should be visible with AI Observability text
+      expect(find.textContaining('AI Observability'), findsOneWidget);
+    });
+
+    testWidgets('app contains scrollable content', (tester) async {
+      setLargeViewport(tester);
+      await tester.pumpWidget(const IntegrityStudioApp());
+      await tester.pump(const Duration(seconds: 1));
+
+      // App should have scrollable content
+      expect(find.byType(Scrollable), findsWidgets);
+    });
+  });
+
+  group('IntegrityStudioApp Responsive', () {
+    // Note: Mobile/tablet viewports have known overflow issues in AppBar
+    // These tests are skipped until the responsive layout is fixed
+    // Use integration_test/e2e tests for true responsive testing in browser
 
     testWidgets(
-      'contains MaterialApp',
+      'renders on mobile viewport',
       (tester) async {
+        setMobileSize(tester);
         await tester.pumpWidget(const IntegrityStudioApp());
+        await tester.pump(const Duration(seconds: 1));
+
+        expect(find.byType(IntegrityStudioApp), findsOneWidget);
         expect(find.byType(MaterialApp), findsOneWidget);
       },
-      skip: true, // Skipped: hero section overflows in 800x600 test viewport
+      skip: true, // Known overflow in AppBar at mobile size
     );
 
     testWidgets(
-      'uses dark theme background',
+      'renders on tablet viewport',
       (tester) async {
+        setTabletSize(tester);
         await tester.pumpWidget(const IntegrityStudioApp());
         await tester.pump(const Duration(seconds: 1));
-        final scaffoldFinder = find.byType(Scaffold);
-        expect(scaffoldFinder, findsWidgets);
+
+        expect(find.byType(IntegrityStudioApp), findsOneWidget);
+        expect(find.byType(MaterialApp), findsOneWidget);
       },
-      skip: true, // Skipped: hero section overflows in 800x600 test viewport
+      skip: true, // Known overflow in AppBar at tablet size
     );
+
+    testWidgets('renders on desktop viewport', (tester) async {
+      // Use large viewport to avoid AppBar overflow issues
+      setLargeViewport(tester);
+      await tester.pumpWidget(const IntegrityStudioApp());
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byType(IntegrityStudioApp), findsOneWidget);
+      expect(find.byType(MaterialApp), findsOneWidget);
+    });
   });
 }
