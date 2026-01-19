@@ -108,9 +108,12 @@ class _SignupPageState extends State<SignupPage> {
                 children: [
                   Icon(LucideIcons.shield, color: AppColors.blue500, size: 24),
                   const SizedBox(width: AppSpacing.sm),
-                  Text(
-                    CompanyInfo.name,
-                    style: AppTypography.headingSM.copyWith(color: Colors.white),
+                  Flexible(
+                    child: Text(
+                      CompanyInfo.name,
+                      style: AppTypography.headingSM.copyWith(color: Colors.white),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
@@ -310,22 +313,24 @@ class _SignupPageState extends State<SignupPage> {
       'Cancel anytime',
     ];
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: AppSpacing.md,
+      runSpacing: AppSpacing.sm,
       children: features.map((feature) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(LucideIcons.check, color: AppColors.success, size: 14),
-              const SizedBox(width: AppSpacing.xs),
-              Text(
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(LucideIcons.check, color: AppColors.success, size: 14),
+            const SizedBox(width: AppSpacing.xs),
+            Flexible(
+              child: Text(
                 feature,
                 style: AppTypography.caption.copyWith(color: AppColors.gray400),
+                overflow: TextOverflow.ellipsis,
               ),
-            ],
-          ),
+            ),
+          ],
         );
       }).toList(),
     );

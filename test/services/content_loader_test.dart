@@ -731,4 +731,594 @@ void main() {
       expect(() => Content.ctaSectionSubheadline, isA<Function>());
     });
   });
+
+  group('ContentLoader with loaded content', () {
+    setUp(() {
+      ContentLoader.reset();
+      Content.loadFromString(_testYamlContent);
+    });
+
+    tearDown(() {
+      ContentLoader.reset();
+    });
+
+    group('company getters', () {
+      test('companyName returns correct value', () {
+        expect(ContentLoader.instance.companyName, equals('Test Company'));
+      });
+
+      test('companyTagline returns correct value', () {
+        expect(ContentLoader.instance.companyTagline, equals('Test Tagline'));
+      });
+
+      test('companyCopyright returns correct value', () {
+        expect(ContentLoader.instance.companyCopyright, equals('© 2024 Test'));
+      });
+
+      test('companyEmail returns correct value', () {
+        expect(ContentLoader.instance.companyEmail, equals('test@example.com'));
+      });
+
+      test('companyPhone returns correct value', () {
+        expect(ContentLoader.instance.companyPhone, equals('555-1234'));
+      });
+
+      test('companyCity returns correct value', () {
+        expect(ContentLoader.instance.companyCity, equals('Austin'));
+      });
+
+      test('companyRegion returns correct value', () {
+        expect(ContentLoader.instance.companyRegion, equals('Texas'));
+      });
+
+      test('companyFoundedYear returns correct value', () {
+        expect(ContentLoader.instance.companyFoundedYear, equals('2024'));
+      });
+
+      test('company returns map with all company data', () {
+        final company = ContentLoader.instance.company;
+        expect(company, isA<Map<String, dynamic>>());
+        expect(company['name'], equals('Test Company'));
+        expect(company['tagline'], equals('Test Tagline'));
+      });
+    });
+
+    group('URL getters', () {
+      test('calendlyUrl returns correct value', () {
+        expect(ContentLoader.instance.calendlyUrl, equals('https://calendly.com/test'));
+      });
+
+      test('statusPageUrl returns correct value', () {
+        expect(ContentLoader.instance.statusPageUrl, equals('https://status.test.com'));
+      });
+
+      test('linkedInUrl returns correct value', () {
+        expect(ContentLoader.instance.linkedInUrl, equals('https://linkedin.com/test'));
+      });
+
+      test('twitterUrl returns correct value', () {
+        expect(ContentLoader.instance.twitterUrl, equals('https://twitter.com/test'));
+      });
+
+      test('githubUrl returns correct value', () {
+        expect(ContentLoader.instance.githubUrl, equals('https://github.com/test'));
+      });
+
+      test('founderLinkedInUrl returns correct value', () {
+        expect(ContentLoader.instance.founderLinkedInUrl, equals('https://linkedin.com/in/founder'));
+      });
+
+      test('founderTwitterUrl returns correct value', () {
+        expect(ContentLoader.instance.founderTwitterUrl, equals('https://twitter.com/founder'));
+      });
+    });
+
+    group('CTA text getters', () {
+      test('ctaStartFreeTrial returns correct value', () {
+        expect(ContentLoader.instance.ctaStartFreeTrial, equals('Start Free Trial'));
+      });
+
+      test('ctaGetStarted returns correct value', () {
+        expect(ContentLoader.instance.ctaGetStarted, equals('Get Started'));
+      });
+
+      test('ctaScheduleDemo returns correct value', () {
+        expect(ContentLoader.instance.ctaScheduleDemo, equals('Schedule Demo'));
+      });
+
+      test('ctaRequestDemo returns correct value', () {
+        expect(ContentLoader.instance.ctaRequestDemo, equals('Request Demo'));
+      });
+
+      test('ctaContactSales returns correct value', () {
+        expect(ContentLoader.instance.ctaContactSales, equals('Contact Sales'));
+      });
+
+      test('ctaLearnMore returns correct value', () {
+        expect(ContentLoader.instance.ctaLearnMore, equals('Learn More'));
+      });
+
+      test('ctaSendMessage returns correct value', () {
+        expect(ContentLoader.instance.ctaSendMessage, equals('Send Message'));
+      });
+    });
+
+    group('trust indicators', () {
+      test('trustIndicators returns list of strings', () {
+        final indicators = ContentLoader.instance.trustIndicators;
+        expect(indicators, isA<List<String>>());
+        expect(indicators.length, equals(3));
+        expect(indicators, contains('Feature A'));
+        expect(indicators, contains('Feature B'));
+        expect(indicators, contains('Feature C'));
+      });
+
+      test('legacyTrustIndicators returns list of strings', () {
+        final indicators = ContentLoader.instance.legacyTrustIndicators;
+        expect(indicators, isA<List<String>>());
+        expect(indicators.length, equals(2));
+        expect(indicators, contains('Old Feature 1'));
+        expect(indicators, contains('Old Feature 2'));
+      });
+    });
+
+    group('platform metrics', () {
+      test('metricsUptime returns correct value', () {
+        expect(ContentLoader.instance.metricsUptime, equals('99.9%'));
+      });
+
+      test('metricsTracesProcessed returns correct value', () {
+        expect(ContentLoader.instance.metricsTracesProcessed, equals('10M+'));
+      });
+
+      test('metricsAiTeams returns correct value', () {
+        expect(ContentLoader.instance.metricsAiTeams, equals('500+'));
+      });
+
+      test('metricsSetupTime returns correct value', () {
+        expect(ContentLoader.instance.metricsSetupTime, equals('5 min'));
+      });
+    });
+
+    group('pricing', () {
+      test('pricingTitle returns correct value', () {
+        expect(ContentLoader.instance.pricingTitle, equals('Test Pricing'));
+      });
+
+      test('pricingSubtitle returns correct value', () {
+        expect(ContentLoader.instance.pricingSubtitle, equals('Test pricing subtitle'));
+      });
+
+      test('pricingAnnualDiscount returns correct value', () {
+        expect(ContentLoader.instance.pricingAnnualDiscount, equals('Save 20%'));
+      });
+
+      test('pricingTiers returns list of maps', () {
+        final tiers = ContentLoader.instance.pricingTiers;
+        expect(tiers, isA<List<Map<String, dynamic>>>());
+        expect(tiers.length, equals(2));
+        expect(tiers[0]['name'], equals('Free'));
+        expect(tiers[1]['name'], equals('Pro'));
+        expect(tiers[1]['is_popular'], isTrue);
+      });
+    });
+
+    group('hero', () {
+      test('heroBadge returns correct value', () {
+        expect(ContentLoader.instance.heroBadge, equals('Test Badge'));
+      });
+
+      test('heroHeadline returns correct value', () {
+        expect(ContentLoader.instance.heroHeadline, equals('Test Headline'));
+      });
+
+      test('heroSubheadline returns correct value', () {
+        expect(ContentLoader.instance.heroSubheadline, equals('Test Subheadline'));
+      });
+
+      test('heroPrimaryCta returns correct value', () {
+        expect(ContentLoader.instance.heroPrimaryCta, equals('Primary CTA'));
+      });
+
+      test('heroSecondaryCta returns correct value', () {
+        expect(ContentLoader.instance.heroSecondaryCta, equals('Secondary CTA'));
+      });
+
+      test('heroCurrent returns map with current hero data', () {
+        final hero = ContentLoader.instance.heroCurrent;
+        expect(hero, isA<Map<String, dynamic>>());
+        expect(hero['badge'], equals('Test Badge'));
+        expect(hero['headline'], equals('Test Headline'));
+      });
+
+      test('getHeroVariant returns current variant', () {
+        final hero = ContentLoader.instance.getHeroVariant('current');
+        expect(hero['badge'], equals('Test Badge'));
+      });
+
+      test('getHeroVariant returns alternate variant', () {
+        final hero = ContentLoader.instance.getHeroVariant('alternate');
+        expect(hero['badge'], equals('Alt Badge'));
+        expect(hero['headline'], equals('Alt Headline'));
+      });
+    });
+
+    group('features', () {
+      test('featuresTitle returns correct value', () {
+        expect(ContentLoader.instance.featuresTitle, equals('Features Title'));
+      });
+
+      test('featuresSubtitle returns correct value', () {
+        expect(ContentLoader.instance.featuresSubtitle, equals('Features Subtitle'));
+      });
+
+      test('featuresItems returns list of maps', () {
+        final items = ContentLoader.instance.featuresItems;
+        expect(items, isA<List<Map<String, dynamic>>>());
+        expect(items.length, equals(2));
+        expect(items[0]['title'], equals('Feature 1'));
+        expect(items[0]['bullets'], isA<List>());
+        expect((items[0]['bullets'] as List).length, equals(2));
+      });
+    });
+
+    group('services', () {
+      test('servicesTitle returns correct value', () {
+        expect(ContentLoader.instance.servicesTitle, equals('Services Title'));
+      });
+
+      test('servicesSubtitle returns correct value', () {
+        expect(ContentLoader.instance.servicesSubtitle, equals('Services Subtitle'));
+      });
+
+      test('servicesDescription returns correct value', () {
+        expect(ContentLoader.instance.servicesDescription, equals('Services Description'));
+      });
+
+      test('servicesItems returns list of maps', () {
+        final items = ContentLoader.instance.servicesItems;
+        expect(items, isA<List<Map<String, dynamic>>>());
+        expect(items.length, equals(1));
+        expect(items[0]['title'], equals('Service 1'));
+      });
+    });
+
+    group('CTA section', () {
+      test('ctaSectionHeadline returns correct value', () {
+        expect(ContentLoader.instance.ctaSectionHeadline, equals('CTA Headline'));
+      });
+
+      test('ctaSectionSubheadline returns correct value', () {
+        expect(ContentLoader.instance.ctaSectionSubheadline, equals('CTA Subheadline'));
+      });
+    });
+
+    group('about', () {
+      test('aboutTitle returns correct value', () {
+        expect(ContentLoader.instance.aboutTitle, equals('About Title'));
+      });
+
+      test('aboutSubtitle returns correct value', () {
+        expect(ContentLoader.instance.aboutSubtitle, equals('About Subtitle'));
+      });
+
+      test('aboutMission returns correct value', () {
+        expect(ContentLoader.instance.aboutMission, equals('Our mission'));
+      });
+
+      test('aboutVision returns correct value', () {
+        expect(ContentLoader.instance.aboutVision, equals('Our vision'));
+      });
+
+      test('aboutStory returns correct value', () {
+        expect(ContentLoader.instance.aboutStory, equals('Our story'));
+      });
+
+      test('aboutValues returns list of maps', () {
+        final values = ContentLoader.instance.aboutValues;
+        expect(values, isA<List<Map<String, dynamic>>>());
+        expect(values.length, equals(1));
+        expect(values[0]['title'], equals('Transparency'));
+      });
+
+      test('aboutTeam returns list of maps', () {
+        final team = ContentLoader.instance.aboutTeam;
+        expect(team, isA<List<Map<String, dynamic>>>());
+        expect(team.length, equals(1));
+        expect(team[0]['name'], equals('John Doe'));
+        expect(team[0]['role'], equals('CEO'));
+      });
+    });
+
+    group('contact', () {
+      test('contactTitle returns correct value', () {
+        expect(ContentLoader.instance.contactTitle, equals('Contact Title'));
+      });
+
+      test('contactSubtitle returns correct value', () {
+        expect(ContentLoader.instance.contactSubtitle, equals('Contact Subtitle'));
+      });
+
+      test('contactDescription returns correct value', () {
+        expect(ContentLoader.instance.contactDescription, equals('Contact Description'));
+      });
+
+      test('contactFormFields returns list of maps', () {
+        final fields = ContentLoader.instance.contactFormFields;
+        expect(fields, isA<List<Map<String, dynamic>>>());
+        expect(fields.length, equals(1));
+        expect(fields[0]['name'], equals('email'));
+        expect(fields[0]['type'], equals('email'));
+        expect(fields[0]['required'], isTrue);
+      });
+
+      test('contactMethods returns list of maps', () {
+        final methods = ContentLoader.instance.contactMethods;
+        expect(methods, isA<List<Map<String, dynamic>>>());
+        expect(methods.length, equals(1));
+        expect(methods[0]['label'], equals('Email'));
+        expect(methods[0]['is_primary'], isTrue);
+      });
+
+      test('contactSuccessMessage returns correct value', () {
+        expect(ContentLoader.instance.contactSuccessMessage, equals('Success!'));
+      });
+
+      test('contactErrorMessage returns correct value', () {
+        expect(ContentLoader.instance.contactErrorMessage, equals('Error!'));
+      });
+    });
+
+    group('footer', () {
+      test('footerLinkGroups returns list of maps', () {
+        final groups = ContentLoader.instance.footerLinkGroups;
+        expect(groups, isA<List<Map<String, dynamic>>>());
+        expect(groups.length, equals(1));
+        expect(groups[0]['title'], equals('Product'));
+        expect(groups[0]['links'], isA<List>());
+      });
+
+      test('footerPrivacyLink returns correct value', () {
+        expect(ContentLoader.instance.footerPrivacyLink, equals('/privacy'));
+      });
+
+      test('footerTermsLink returns correct value', () {
+        expect(ContentLoader.instance.footerTermsLink, equals('/terms'));
+      });
+
+      test('footerCookiesLink returns correct value', () {
+        expect(ContentLoader.instance.footerCookiesLink, equals('/cookies'));
+      });
+    });
+
+    group('status', () {
+      test('statusTitle returns correct value', () {
+        expect(ContentLoader.instance.statusTitle, equals('Status Title'));
+      });
+
+      test('statusSubtitle returns correct value', () {
+        expect(ContentLoader.instance.statusSubtitle, equals('Status Subtitle'));
+      });
+
+      test('statusBadge returns correct value', () {
+        expect(ContentLoader.instance.statusBadge, equals('All Operational'));
+      });
+
+      test('statusMetrics returns list of maps', () {
+        final metrics = ContentLoader.instance.statusMetrics;
+        expect(metrics, isA<List<Map<String, dynamic>>>());
+        expect(metrics.length, equals(1));
+        expect(metrics[0]['label'], equals('Uptime'));
+        expect(metrics[0]['value'], equals('99.9%'));
+      });
+
+      test('statusServices returns list of maps', () {
+        final services = ContentLoader.instance.statusServices;
+        expect(services, isA<List<Map<String, dynamic>>>());
+        expect(services.length, equals(1));
+        expect(services[0]['name'], equals('API'));
+        expect(services[0]['status'], equals('Operational'));
+      });
+    });
+
+    group('resources', () {
+      test('resourcesTitle returns correct value', () {
+        expect(ContentLoader.instance.resourcesTitle, equals('Resources Title'));
+      });
+
+      test('resourcesSubtitle returns correct value', () {
+        expect(ContentLoader.instance.resourcesSubtitle, equals('Resources Subtitle'));
+      });
+
+      test('resourcesDocumentation returns list of maps', () {
+        final docs = ContentLoader.instance.resourcesDocumentation;
+        expect(docs, isA<List<Map<String, dynamic>>>());
+        expect(docs.length, equals(1));
+        expect(docs[0]['title'], equals('Getting Started'));
+        expect(docs[0]['popular_topics'], isA<List>());
+      });
+
+      test('resourcesFeaturedPosts returns list of maps', () {
+        final posts = ContentLoader.instance.resourcesFeaturedPosts;
+        expect(posts, isA<List<Map<String, dynamic>>>());
+        expect(posts.length, equals(1));
+        expect(posts[0]['title'], equals('Test Post'));
+        expect(posts[0]['slug'], equals('test-post'));
+      });
+
+      test('resourcesLeadMagnets returns list of maps', () {
+        final magnets = ContentLoader.instance.resourcesLeadMagnets;
+        expect(magnets, isA<List<Map<String, dynamic>>>());
+        expect(magnets.length, equals(1));
+        expect(magnets[0]['title'], equals('Test Guide'));
+        expect(magnets[0]['requires_email'], isTrue);
+      });
+    });
+
+    group('social proof', () {
+      test('socialProofTitle returns correct value', () {
+        expect(ContentLoader.instance.socialProofTitle, equals('Social Proof Title'));
+      });
+
+      test('socialProofStats returns map of string to string', () {
+        final stats = ContentLoader.instance.socialProofStats;
+        expect(stats, isA<Map<String, String>>());
+        expect(stats['uptime'], equals('99.9%'));
+        expect(stats['traces'], equals('10M+'));
+      });
+
+      test('socialProofTestimonials returns list of maps', () {
+        final testimonials = ContentLoader.instance.socialProofTestimonials;
+        expect(testimonials, isA<List<Map<String, dynamic>>>());
+        expect(testimonials.length, equals(1));
+        expect(testimonials[0]['quote'], equals('Great product!'));
+        expect(testimonials[0]['author'], equals('Jane Doe'));
+      });
+    });
+
+    group('disclaimers', () {
+      test('disclaimerEuAiAct returns correct value', () {
+        expect(ContentLoader.instance.disclaimerEuAiAct, equals('EU AI Act disclaimer'));
+      });
+
+      test('disclaimerEuAiActShort returns correct value', () {
+        expect(ContentLoader.instance.disclaimerEuAiActShort, equals('Short disclaimer'));
+      });
+
+      test('disclaimerSecurity returns correct value', () {
+        expect(ContentLoader.instance.disclaimerSecurity, equals('Security disclaimer'));
+      });
+
+      test('disclaimerGeneral returns correct value', () {
+        expect(ContentLoader.instance.disclaimerGeneral, equals('General disclaimer'));
+      });
+    });
+
+    group('promo codes', () {
+      test('promoWhylabsCode returns correct value', () {
+        expect(ContentLoader.instance.promoWhylabsCode, equals('TEST2025'));
+      });
+
+      test('promoWhylabsDescription returns correct value', () {
+        expect(ContentLoader.instance.promoWhylabsDescription, equals('Test promo'));
+      });
+    });
+
+    group('rawContent', () {
+      test('rawContent returns YamlMap after loading', () {
+        expect(ContentLoader.instance.rawContent, isNotNull);
+      });
+
+      test('isLoaded returns true after loading', () {
+        expect(ContentLoader.instance.isLoaded, isTrue);
+      });
+    });
+  });
+
+  group('Content static methods with loaded content', () {
+    setUp(() {
+      ContentLoader.reset();
+      Content.loadFromString(_testYamlContent);
+    });
+
+    tearDown(() {
+      ContentLoader.reset();
+    });
+
+    test('Content.isLoaded returns true after loading', () {
+      expect(Content.isLoaded, isTrue);
+    });
+
+    test('Content.reset clears loaded state', () {
+      Content.reset();
+      expect(Content.isLoaded, isFalse);
+    });
+
+    test('Content.companyName returns correct value', () {
+      expect(Content.companyName, equals('Test Company'));
+    });
+
+    test('Content.trustIndicators returns correct values', () {
+      expect(Content.trustIndicators, contains('Feature A'));
+    });
+
+    test('Content.getHeroVariant returns correct variant', () {
+      final hero = Content.getHeroVariant('alternate');
+      expect(hero['badge'], equals('Alt Badge'));
+    });
+  });
+
+  group('ContentLoader edge cases', () {
+    setUp(() {
+      ContentLoader.reset();
+    });
+
+    tearDown(() {
+      ContentLoader.reset();
+    });
+
+    test('_getValue returns null for non-existent path', () {
+      Content.loadFromString(_testYamlContent);
+      // Access a non-existent path should return empty string (from _getString)
+      // which wraps _getValue and returns '' if value is null
+      expect(ContentLoader.instance.companyName, isNotEmpty);
+    });
+
+    test('_getMap returns empty map for non-existent path', () {
+      Content.loadFromString('''
+company:
+  name: "Test"
+''');
+      // Access a non-existent nested map
+      final loader = ContentLoader.instance;
+      final result = loader.heroCurrent; // This path doesn't exist
+      expect(result, isA<Map<String, dynamic>>());
+      expect(result, isEmpty);
+    });
+
+    test('_getStringList returns empty list for non-existent path', () {
+      Content.loadFromString('''
+company:
+  name: "Test"
+''');
+      final loader = ContentLoader.instance;
+      final result = loader.trustIndicators;
+      expect(result, isA<List<String>>());
+      expect(result, isEmpty);
+    });
+
+    test('_getMapList returns empty list for non-existent path', () {
+      Content.loadFromString('''
+company:
+  name: "Test"
+''');
+      final loader = ContentLoader.instance;
+      final result = loader.pricingTiers;
+      expect(result, isA<List<Map<String, dynamic>>>());
+      expect(result, isEmpty);
+    });
+
+    test('loadFromString overwrites previous content', () {
+      Content.loadFromString('''
+company:
+  name: "First"
+''');
+      expect(ContentLoader.instance.companyName, equals('First'));
+
+      Content.loadFromString('''
+company:
+  name: "Second"
+''');
+      expect(ContentLoader.instance.companyName, equals('Second'));
+    });
+
+    test('deeply nested YAML is handled correctly', () {
+      Content.loadFromString('''
+company:
+  contact:
+    email: "deep@nested.com"
+''');
+      expect(ContentLoader.instance.companyEmail, equals('deep@nested.com'));
+    });
+  });
 }

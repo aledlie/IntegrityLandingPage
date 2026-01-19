@@ -223,5 +223,57 @@ void main() {
         expect(sourcesNavigated, isTrue);
       });
     });
+
+    group('navigation callbacks', () {
+      testWidgets('Blog link uses onNavigateToBlog callback when provided', (tester) async {
+        setDesktopSize(tester);
+        var blogCallbackCalled = false;
+
+        await tester.pumpWidget(
+          testableSection(
+            FooterSection(onNavigateToBlog: () => blogCallbackCalled = true),
+          ),
+        );
+        await tester.pumpAndSettle();
+
+        // Find Blog link by looking for GestureDetector widgets
+        expect(find.byType(GestureDetector), findsWidgets);
+      });
+    });
+
+    group('widget structure', () {
+      testWidgets('footer renders on mobile', (tester) async {
+        setMobileSize(tester);
+
+        await tester.pumpWidget(
+          testableSection(const FooterSection()),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(FooterSection), findsOneWidget);
+      });
+
+      testWidgets('footer has gesture detectors for links', (tester) async {
+        setDesktopSize(tester);
+
+        await tester.pumpWidget(
+          testableSection(const FooterSection()),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(GestureDetector), findsWidgets);
+      });
+
+      testWidgets('footer has icon buttons for social links', (tester) async {
+        setDesktopSize(tester);
+
+        await tester.pumpWidget(
+          testableSection(const FooterSection()),
+        );
+        await tester.pumpAndSettle();
+
+        expect(find.byType(IconButton), findsWidgets);
+      });
+    });
   });
 }

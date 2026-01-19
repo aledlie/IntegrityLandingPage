@@ -204,6 +204,198 @@ void main() {
     });
   });
 
+  group('ErrorTrackingService', () {
+    group('exception capture', () {
+      test('captureException accepts exception', () async {
+        await ErrorTrackingService.captureException(
+          Exception('Test exception'),
+        );
+        // Should not throw
+        expect(true, isTrue);
+      });
+
+      test('captureException accepts context', () async {
+        await ErrorTrackingService.captureException(
+          Exception('Test'),
+          context: 'test.dart:testMethod',
+        );
+        expect(true, isTrue);
+      });
+
+      test('captureException accepts extra data', () async {
+        await ErrorTrackingService.captureException(
+          Exception('Test'),
+          extra: {'user_id': '123', 'action': 'test'},
+        );
+        expect(true, isTrue);
+      });
+
+      test('captureException accepts stack trace', () async {
+        try {
+          throw Exception('Test error');
+        } catch (e, stackTrace) {
+          await ErrorTrackingService.captureException(
+            e,
+            stackTrace: stackTrace,
+          );
+        }
+        expect(true, isTrue);
+      });
+    });
+
+    group('message capture', () {
+      test('captureMessage accepts message', () async {
+        await ErrorTrackingService.captureMessage('Test message');
+        expect(true, isTrue);
+      });
+
+      test('captureMessage accepts severity', () async {
+        await ErrorTrackingService.captureMessage(
+          'Test warning',
+          severity: ErrorSeverity.warning,
+        );
+        expect(true, isTrue);
+      });
+
+      test('captureMessage accepts extra data', () async {
+        await ErrorTrackingService.captureMessage(
+          'Test message',
+          extra: {'context': 'unit_test'},
+        );
+        expect(true, isTrue);
+      });
+
+      test('captureMessage with all severity levels', () async {
+        for (final severity in ErrorSeverity.values) {
+          await ErrorTrackingService.captureMessage(
+            'Test ${severity.name}',
+            severity: severity,
+          );
+        }
+        expect(true, isTrue);
+      });
+    });
+
+    group('breadcrumbs', () {
+      test('addBreadcrumb accepts message', () {
+        expect(
+          () => ErrorTrackingService.addBreadcrumb(
+            message: 'Test breadcrumb',
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('addBreadcrumb accepts category', () {
+        expect(
+          () => ErrorTrackingService.addBreadcrumb(
+            message: 'Test breadcrumb',
+            category: 'ui.click',
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('addBreadcrumb accepts data', () {
+        expect(
+          () => ErrorTrackingService.addBreadcrumb(
+            message: 'Test breadcrumb',
+            data: {'target': 'button'},
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('addNavigationBreadcrumb works', () {
+        expect(
+          () => ErrorTrackingService.addNavigationBreadcrumb(
+            from: '/home',
+            to: '/about',
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('addUserActionBreadcrumb works', () {
+        expect(
+          () => ErrorTrackingService.addUserActionBreadcrumb(
+            action: 'clicked button',
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('addUserActionBreadcrumb accepts target', () {
+        expect(
+          () => ErrorTrackingService.addUserActionBreadcrumb(
+            action: 'clicked button',
+            target: '#submit-btn',
+          ),
+          returnsNormally,
+        );
+      });
+    });
+
+    group('user context', () {
+      test('setUser accepts id', () {
+        expect(
+          () => ErrorTrackingService.setUser(id: '123'),
+          returnsNormally,
+        );
+      });
+
+      test('setUser accepts all parameters', () {
+        expect(
+          () => ErrorTrackingService.setUser(
+            id: '123',
+            email: 'test@example.com',
+            username: 'testuser',
+            data: {'plan': 'pro'},
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('clearUser works', () {
+        expect(
+          () => ErrorTrackingService.clearUser(),
+          returnsNormally,
+        );
+      });
+    });
+
+    group('performance', () {
+      test('startTransaction returns span', () {
+        final span = ErrorTrackingService.startTransaction(
+          name: 'test-transaction',
+          operation: 'test.operation',
+        );
+        expect(span, isNotNull);
+        span.finish();
+      });
+    });
+
+    group('tags', () {
+      test('setTag works', () {
+        expect(
+          () => ErrorTrackingService.setTag('env', 'test'),
+          returnsNormally,
+        );
+      });
+
+      test('setTags works with multiple tags', () {
+        expect(
+          () => ErrorTrackingService.setTags({
+            'env': 'test',
+            'version': '1.0.0',
+            'region': 'us-east',
+          }),
+          returnsNormally,
+        );
+      });
+    });
+  });
+
   group('FacebookPixelService', () {
     group('lifecycle', () {
       test('isReady returns false before initialization', () {
@@ -215,6 +407,11 @@ void main() {
         FacebookPixelService.disable();
         expect(FacebookPixelService.isReady, isFalse);
         FacebookPixelService.enable();
+      });
+
+      test('initialize completes on non-web', () async {
+        await FacebookPixelService.initialize();
+        expect(true, isTrue);
       });
     });
 
@@ -229,6 +426,30 @@ void main() {
       test('trackLead works', () {
         expect(
           () => FacebookPixelService.trackLead(),
+          returnsNormally,
+        );
+      });
+
+      test('trackLead with email works', () {
+        expect(
+          () => FacebookPixelService.trackLead(email: 'test@example.com'),
+          returnsNormally,
+        );
+      });
+
+      test('trackContact works', () {
+        expect(
+          () => FacebookPixelService.trackContact(),
+          returnsNormally,
+        );
+      });
+
+      test('trackContact with email and name works', () {
+        expect(
+          () => FacebookPixelService.trackContact(
+            email: 'test@example.com',
+            name: 'Test User',
+          ),
           returnsNormally,
         );
       });

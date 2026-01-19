@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:integrity_studio_ai/pages/landing_page.dart';
 import 'package:integrity_studio_ai/widgets/sections/hero_section.dart';
 import 'package:integrity_studio_ai/widgets/sections/tabbed_features_section.dart';
@@ -281,6 +282,83 @@ void main() {
           (tester) async {
         setDesktopSize(tester);
         await pumpLandingPage(tester, onShowCookieSettings: () {});
+        expect(find.byType(LandingPage), findsOneWidget);
+      });
+    });
+
+    group('navigation header', () {
+      testWidgets('renders SliverAppBar', (tester) async {
+        setDesktopSize(tester);
+        await pumpLandingPage(tester);
+
+        expect(find.byType(SliverAppBar), findsOneWidget);
+      });
+
+      testWidgets('renders logo/brand with icon', (tester) async {
+        setDesktopSize(tester);
+        await pumpLandingPage(tester);
+
+        // Should have shield icon
+        expect(find.byIcon(LucideIcons.shield), findsWidgets);
+      });
+
+      testWidgets('renders desktop navigation links', (tester) async {
+        setDesktopSize(tester);
+        await pumpLandingPage(tester);
+
+        // Desktop should show nav links
+        expect(find.byType(TextButton), findsWidgets);
+      });
+
+      testWidgets('renders mobile hamburger menu', (tester) async {
+        setMobileSize(tester);
+        await pumpLandingPage(tester);
+
+        // Mobile should show PopupMenuButton
+        expect(find.byType(PopupMenuButton<String>), findsOneWidget);
+      });
+
+      testWidgets('mobile menu icon is visible', (tester) async {
+        setMobileSize(tester);
+        await pumpLandingPage(tester);
+
+        // Should have menu icon
+        expect(find.byIcon(LucideIcons.menu), findsOneWidget);
+      });
+    });
+
+    group('scroll interactions', () {
+      testWidgets('triggers scroll depth tracking on scroll', (tester) async {
+        setDesktopSize(tester);
+        await pumpLandingPage(tester);
+
+        // Scroll down to trigger scroll listener
+        await tester.drag(find.byType(CustomScrollView), const Offset(0, -500));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
+
+        // Page should still be rendered
+        expect(find.byType(LandingPage), findsOneWidget);
+      });
+
+      testWidgets('logo tap scrolls to top', (tester) async {
+        setDesktopSize(tester);
+        await pumpLandingPage(tester);
+
+        // First scroll down
+        await tester.drag(find.byType(CustomScrollView), const Offset(0, -500));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
+
+        // Find the logo GestureDetector (first one in header)
+        final gestureDetectors = find.byType(GestureDetector);
+        expect(gestureDetectors, findsWidgets);
+
+        // Tapping logo should trigger scroll animation
+        await tester.tap(gestureDetectors.first);
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
+
         expect(find.byType(LandingPage), findsOneWidget);
       });
     });

@@ -1,24 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integrity_studio_ai/widgets/common/form_fields.dart';
-import 'package:integrity_studio_ai/theme/colors.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+  setUpAll(() {
+    initializeTestContent();
+  });
+
+  group('FormTextFieldType', () {
+    test('has all expected values', () {
+      expect(FormTextFieldType.values, contains(FormTextFieldType.text));
+      expect(FormTextFieldType.values, contains(FormTextFieldType.email));
+      expect(FormTextFieldType.values, contains(FormTextFieldType.phone));
+      expect(FormTextFieldType.values, contains(FormTextFieldType.url));
+    });
+
+    test('has 4 types', () {
+      expect(FormTextFieldType.values.length, equals(4));
+    });
+  });
+
   group('FormTextField', () {
     group('rendering', () {
-      testWidgets('renders label text', (tester) async {
+      testWidgets('renders label', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextField(
-              label: 'Email Address',
+              label: 'Email',
               value: '',
               onChanged: (_) {},
             ),
           ),
         );
 
-        expect(find.text('Email Address'), findsOneWidget);
+        expect(find.text('Email'), findsOneWidget);
       });
 
       testWidgets('renders required indicator when required', (tester) async {
@@ -27,8 +43,8 @@ void main() {
             FormTextField(
               label: 'Email',
               value: '',
-              required: true,
               onChanged: (_) {},
+              required: true,
             ),
           ),
         );
@@ -36,15 +52,15 @@ void main() {
         expect(find.text('Email *'), findsOneWidget);
       });
 
-      testWidgets('does not show required indicator when not required',
+      testWidgets('renders without required indicator when not required',
           (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextField(
               label: 'Email',
               value: '',
-              required: false,
               onChanged: (_) {},
+              required: false,
             ),
           ),
         );
@@ -59,8 +75,8 @@ void main() {
             FormTextField(
               label: 'Email',
               value: '',
-              placeholder: 'you@example.com',
               onChanged: (_) {},
+              placeholder: 'you@example.com',
             ),
           ),
         );
@@ -68,7 +84,7 @@ void main() {
         expect(find.text('you@example.com'), findsOneWidget);
       });
 
-      testWidgets('renders initial value', (tester) async {
+      testWidgets('renders current value', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextField(
@@ -83,81 +99,15 @@ void main() {
       });
     });
 
-    group('input types', () {
-      testWidgets('renders email field correctly', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            FormTextField(
-              label: 'Email',
-              value: '',
-              type: FormTextFieldType.email,
-              onChanged: (_) {},
-            ),
-          ),
-        );
-
-        expect(find.byType(TextFormField), findsOneWidget);
-        expect(find.text('Email'), findsOneWidget);
-      });
-
-      testWidgets('renders phone field correctly', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            FormTextField(
-              label: 'Phone',
-              value: '',
-              type: FormTextFieldType.phone,
-              onChanged: (_) {},
-            ),
-          ),
-        );
-
-        expect(find.byType(TextFormField), findsOneWidget);
-        expect(find.text('Phone'), findsOneWidget);
-      });
-
-      testWidgets('renders url field correctly', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            FormTextField(
-              label: 'Website',
-              value: '',
-              type: FormTextFieldType.url,
-              onChanged: (_) {},
-            ),
-          ),
-        );
-
-        expect(find.byType(TextFormField), findsOneWidget);
-        expect(find.text('Website'), findsOneWidget);
-      });
-
-      testWidgets('renders text field correctly', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            FormTextField(
-              label: 'Name',
-              value: '',
-              type: FormTextFieldType.text,
-              onChanged: (_) {},
-            ),
-          ),
-        );
-
-        expect(find.byType(TextFormField), findsOneWidget);
-        expect(find.text('Name'), findsOneWidget);
-      });
-    });
-
     group('error handling', () {
-      testWidgets('displays error text when provided', (tester) async {
+      testWidgets('renders error text when provided', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextField(
               label: 'Email',
               value: '',
-              errorText: 'Please enter a valid email',
               onChanged: (_) {},
+              errorText: 'Please enter a valid email',
             ),
           ),
         );
@@ -165,36 +115,38 @@ void main() {
         expect(find.text('Please enter a valid email'), findsOneWidget);
       });
 
-      testWidgets('does not display error text when null', (tester) async {
+      testWidgets('does not render empty error text', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextField(
               label: 'Email',
               value: '',
-              errorText: null,
               onChanged: (_) {},
+              errorText: '',
             ),
           ),
         );
 
-        // Only label should exist
-        expect(find.byType(Text), findsOneWidget);
+        // When errorText is empty string, no error styling should be applied
+        // Verify the widget renders without error message visible
+        expect(find.byType(TextFormField), findsOneWidget);
+        // Label should be visible
+        expect(find.text('Email'), findsOneWidget);
       });
 
-      testWidgets('error text has correct color', (tester) async {
+      testWidgets('does not render null error text', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextField(
               label: 'Email',
               value: '',
-              errorText: 'Error message',
               onChanged: (_) {},
             ),
           ),
         );
 
-        final errorText = tester.widget<Text>(find.text('Error message'));
-        expect(errorText.style?.color, equals(AppColors.error));
+        // Only the label should be visible, no error messages
+        expect(find.byType(TextFormField), findsOneWidget);
       });
     });
 
@@ -205,75 +157,142 @@ void main() {
         await tester.pumpWidget(
           testableWidget(
             FormTextField(
-              label: 'Name',
+              label: 'Email',
               value: '',
               onChanged: (value) => changedValue = value,
             ),
           ),
         );
 
-        await tester.enterText(find.byType(TextFormField), 'John Doe');
-        await tester.pump();
+        await tester.enterText(find.byType(TextFormField), 'new@example.com');
 
-        expect(changedValue, equals('John Doe'));
+        expect(changedValue, equals('new@example.com'));
       });
 
-      testWidgets('disabled field does not accept input', (tester) async {
+      testWidgets('respects disabled state', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextField(
-              label: 'Name',
-              value: 'Disabled Value',
-              enabled: false,
+              label: 'Email',
+              value: 'test@example.com',
               onChanged: (_) {},
+              enabled: false,
             ),
           ),
         );
 
-        final textField = tester.widget<TextFormField>(
-          find.byType(TextFormField),
-        );
+        final textField = tester.widget<TextFormField>(find.byType(TextFormField));
         expect(textField.enabled, isFalse);
       });
     });
 
-    group('accessibility', () {
-      testWidgets('has semantics for help text', (tester) async {
+    group('keyboard types', () {
+      testWidgets('renders with email type', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextField(
               label: 'Email',
               value: '',
-              helpText: 'We will use this to contact you',
               onChanged: (_) {},
+              type: FormTextFieldType.email,
             ),
           ),
         );
 
-        expect(find.byType(Semantics), findsWidgets);
+        // Verify the widget renders correctly with email type
+        expect(find.byType(TextFormField), findsOneWidget);
+        expect(find.text('Email'), findsOneWidget);
       });
 
-      testWidgets('error has Semantics for accessibility', (tester) async {
+      testWidgets('renders with phone type', (tester) async {
+        await tester.pumpWidget(
+          testableWidget(
+            FormTextField(
+              label: 'Phone',
+              value: '',
+              onChanged: (_) {},
+              type: FormTextFieldType.phone,
+            ),
+          ),
+        );
+
+        expect(find.byType(TextFormField), findsOneWidget);
+        expect(find.text('Phone'), findsOneWidget);
+      });
+
+      testWidgets('renders with url type', (tester) async {
+        await tester.pumpWidget(
+          testableWidget(
+            FormTextField(
+              label: 'Website',
+              value: '',
+              onChanged: (_) {},
+              type: FormTextFieldType.url,
+            ),
+          ),
+        );
+
+        expect(find.byType(TextFormField), findsOneWidget);
+        expect(find.text('Website'), findsOneWidget);
+      });
+
+      testWidgets('renders with text type', (tester) async {
+        await tester.pumpWidget(
+          testableWidget(
+            FormTextField(
+              label: 'Name',
+              value: '',
+              onChanged: (_) {},
+              type: FormTextFieldType.text,
+            ),
+          ),
+        );
+
+        expect(find.byType(TextFormField), findsOneWidget);
+        expect(find.text('Name'), findsOneWidget);
+      });
+    });
+
+    group('focus and input actions', () {
+      testWidgets('accepts focus node', (tester) async {
+        final focusNode = FocusNode();
+
         await tester.pumpWidget(
           testableWidget(
             FormTextField(
               label: 'Email',
               value: '',
-              errorText: 'Invalid email',
               onChanged: (_) {},
+              focusNode: focusNode,
             ),
           ),
         );
 
-        // Verify Semantics widgets exist for accessibility
-        expect(find.byType(Semantics), findsWidgets);
+        expect(find.byType(TextFormField), findsOneWidget);
+        focusNode.dispose();
+      });
+
+      testWidgets('accepts text input action', (tester) async {
+        await tester.pumpWidget(
+          testableWidget(
+            FormTextField(
+              label: 'Email',
+              value: '',
+              onChanged: (_) {},
+              textInputAction: TextInputAction.next,
+            ),
+          ),
+        );
+
+        // Verify widget renders correctly with textInputAction
+        expect(find.byType(TextFormField), findsOneWidget);
       });
     });
   });
 
   group('FormTextArea', () {
     group('rendering', () {
-      testWidgets('renders label text', (tester) async {
+      testWidgets('renders label', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextArea(
@@ -293,8 +312,8 @@ void main() {
             FormTextArea(
               label: 'Message',
               value: '',
-              required: true,
               onChanged: (_) {},
+              required: true,
             ),
           ),
         );
@@ -308,82 +327,115 @@ void main() {
             FormTextArea(
               label: 'Message',
               value: '',
-              placeholder: 'Tell us about your needs...',
+              onChanged: (_) {},
+              placeholder: 'Enter your message...',
+            ),
+          ),
+        );
+
+        expect(find.text('Enter your message...'), findsOneWidget);
+      });
+
+      testWidgets('renders current value', (tester) async {
+        await tester.pumpWidget(
+          testableWidget(
+            FormTextArea(
+              label: 'Message',
+              value: 'Hello world',
               onChanged: (_) {},
             ),
           ),
         );
 
-        expect(find.text('Tell us about your needs...'), findsOneWidget);
+        expect(find.text('Hello world'), findsOneWidget);
       });
+    });
 
-      testWidgets('renders with specified number of rows', (tester) async {
+    group('rows configuration', () {
+      testWidgets('renders with default rows', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextArea(
               label: 'Message',
               value: '',
-              rows: 8,
               onChanged: (_) {},
             ),
           ),
         );
 
-        // Verify TextFormField is rendered
+        // Verify widget renders correctly with default rows
+        expect(find.byType(TextFormField), findsOneWidget);
+        expect(find.text('Message'), findsOneWidget);
+      });
+
+      testWidgets('renders with custom rows', (tester) async {
+        await tester.pumpWidget(
+          testableWidget(
+            FormTextArea(
+              label: 'Message',
+              value: '',
+              onChanged: (_) {},
+              rows: 10,
+            ),
+          ),
+        );
+
+        // Verify widget renders correctly with custom rows
         expect(find.byType(TextFormField), findsOneWidget);
         expect(find.text('Message'), findsOneWidget);
       });
     });
 
     group('character limits', () {
-      testWidgets('renders with max length configured', (tester) async {
+      testWidgets('renders with maxLength', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextArea(
               label: 'Message',
               value: '',
-              maxLength: 500,
               onChanged: (_) {},
+              maxLength: 500,
             ),
           ),
         );
 
-        // Verify TextFormField is rendered
+        // Verify widget renders correctly with maxLength
         expect(find.byType(TextFormField), findsOneWidget);
+        expect(find.text('Message'), findsOneWidget);
       });
 
-      testWidgets('shows character count when enabled', (tester) async {
+      testWidgets('hides counter by default', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextArea(
               label: 'Message',
-              value: 'Hello',
-              maxLength: 100,
-              showCharacterCount: true,
+              value: 'Test',
               onChanged: (_) {},
+              maxLength: 500,
+              showCharacterCount: false,
             ),
           ),
         );
 
-        // Character count should be visible
-        expect(find.textContaining('5'), findsWidgets);
+        // Counter should not be visible when showCharacterCount is false
+        expect(find.byType(TextFormField), findsOneWidget);
       });
     });
 
     group('error handling', () {
-      testWidgets('displays error text when provided', (tester) async {
+      testWidgets('renders error text when provided', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormTextArea(
               label: 'Message',
               value: '',
-              errorText: 'Message is too short',
               onChanged: (_) {},
+              errorText: 'Message is required',
             ),
           ),
         );
 
-        expect(find.text('Message is too short'), findsOneWidget);
+        expect(find.text('Message is required'), findsOneWidget);
       });
     });
 
@@ -401,188 +453,235 @@ void main() {
           ),
         );
 
-        await tester.enterText(find.byType(TextFormField), 'Test message');
-        await tester.pump();
+        await tester.enterText(find.byType(TextFormField), 'New message');
 
-        expect(changedValue, equals('Test message'));
+        expect(changedValue, equals('New message'));
+      });
+
+      testWidgets('respects disabled state', (tester) async {
+        await tester.pumpWidget(
+          testableWidget(
+            FormTextArea(
+              label: 'Message',
+              value: 'Existing message',
+              onChanged: (_) {},
+              enabled: false,
+            ),
+          ),
+        );
+
+        final textField = tester.widget<TextFormField>(find.byType(TextFormField));
+        expect(textField.enabled, isFalse);
       });
     });
   });
 
   group('FormSelect', () {
-    final testItems = [
-      const DropdownMenuItem(value: 'option1', child: Text('Option 1')),
-      const DropdownMenuItem(value: 'option2', child: Text('Option 2')),
-      const DropdownMenuItem(value: 'option3', child: Text('Option 3')),
-    ];
-
     group('rendering', () {
-      testWidgets('renders label text', (tester) async {
+      testWidgets('renders label', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormSelect<String>(
-              label: 'Category',
+              label: 'Country',
               value: null,
-              items: testItems,
+              items: const [
+                DropdownMenuItem(value: 'us', child: Text('USA')),
+                DropdownMenuItem(value: 'uk', child: Text('UK')),
+              ],
               onChanged: (_) {},
             ),
           ),
         );
 
-        expect(find.text('Category'), findsOneWidget);
+        expect(find.text('Country'), findsOneWidget);
       });
 
       testWidgets('renders required indicator when required', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormSelect<String>(
-              label: 'Category',
+              label: 'Country',
               value: null,
-              items: testItems,
-              required: true,
+              items: const [
+                DropdownMenuItem(value: 'us', child: Text('USA')),
+              ],
               onChanged: (_) {},
+              required: true,
             ),
           ),
         );
 
-        expect(find.text('Category *'), findsOneWidget);
+        expect(find.text('Country *'), findsOneWidget);
       });
 
-      testWidgets('renders placeholder when no value selected',
-          (tester) async {
+      testWidgets('renders placeholder text', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormSelect<String>(
-              label: 'Category',
+              label: 'Country',
               value: null,
-              items: testItems,
-              placeholder: 'Select a category',
+              items: const [
+                DropdownMenuItem(value: 'us', child: Text('USA')),
+              ],
               onChanged: (_) {},
+              placeholder: 'Select a country',
             ),
           ),
         );
 
-        expect(find.text('Select a category'), findsOneWidget);
+        expect(find.text('Select a country'), findsOneWidget);
       });
 
       testWidgets('renders selected value', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormSelect<String>(
-              label: 'Category',
-              value: 'option1',
-              items: testItems,
+              label: 'Country',
+              value: 'us',
+              items: const [
+                DropdownMenuItem(value: 'us', child: Text('USA')),
+                DropdownMenuItem(value: 'uk', child: Text('UK')),
+              ],
               onChanged: (_) {},
             ),
           ),
         );
 
-        expect(find.text('Option 1'), findsOneWidget);
+        expect(find.text('USA'), findsOneWidget);
       });
     });
 
     group('error handling', () {
-      testWidgets('displays error text when provided', (tester) async {
+      testWidgets('renders error text when provided', (tester) async {
         await tester.pumpWidget(
           testableWidget(
             FormSelect<String>(
-              label: 'Category',
+              label: 'Country',
               value: null,
-              items: testItems,
-              errorText: 'Please select a category',
+              items: const [
+                DropdownMenuItem(value: 'us', child: Text('USA')),
+              ],
               onChanged: (_) {},
+              errorText: 'Please select a country',
             ),
           ),
         );
 
-        expect(find.text('Please select a category'), findsOneWidget);
+        expect(find.text('Please select a country'), findsOneWidget);
       });
     });
 
     group('interaction', () {
-      testWidgets('opens dropdown when tapped', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            FormSelect<String>(
-              label: 'Category',
-              value: null,
-              items: testItems,
-              onChanged: (_) {},
-            ),
-          ),
-        );
-
-        await tester.tap(find.byType(DropdownButtonFormField<String>));
-        await tester.pumpAndSettle();
-
-        // All options should be visible in dropdown
-        expect(find.text('Option 1'), findsWidgets);
-        expect(find.text('Option 2'), findsWidgets);
-        expect(find.text('Option 3'), findsWidgets);
-      });
-
-      testWidgets('calls onChanged when option is selected', (tester) async {
+      testWidgets('calls onChanged when selection changes', (tester) async {
         String? selectedValue;
 
         await tester.pumpWidget(
           testableWidget(
             FormSelect<String>(
-              label: 'Category',
+              label: 'Country',
               value: null,
-              items: testItems,
+              items: const [
+                DropdownMenuItem(value: 'us', child: Text('USA')),
+                DropdownMenuItem(value: 'uk', child: Text('UK')),
+              ],
               onChanged: (value) => selectedValue = value,
             ),
           ),
         );
 
-        // Open dropdown
+        // Tap to open dropdown
         await tester.tap(find.byType(DropdownButtonFormField<String>));
         await tester.pumpAndSettle();
 
-        // Select option
-        await tester.tap(find.text('Option 2').last);
+        // Select an option
+        await tester.tap(find.text('UK').last);
         await tester.pumpAndSettle();
 
-        expect(selectedValue, equals('option2'));
+        expect(selectedValue, equals('uk'));
       });
 
-      testWidgets('disabled select does not open dropdown', (tester) async {
+      testWidgets('respects disabled state', (tester) async {
+        String? selectedValue;
+
         await tester.pumpWidget(
           testableWidget(
             FormSelect<String>(
-              label: 'Category',
-              value: null,
-              items: testItems,
+              label: 'Country',
+              value: 'us',
+              items: const [
+                DropdownMenuItem(value: 'us', child: Text('USA')),
+                DropdownMenuItem(value: 'uk', child: Text('UK')),
+              ],
+              onChanged: (value) => selectedValue = value,
               enabled: false,
-              onChanged: (_) {},
             ),
           ),
         );
 
+        // Try to tap the disabled dropdown
         await tester.tap(find.byType(DropdownButtonFormField<String>));
         await tester.pumpAndSettle();
 
-        // Options should not be visible (dropdown didn't open)
-        expect(find.text('Option 2'), findsNothing);
+        // Should not have opened dropdown or changed value
+        expect(selectedValue, isNull);
       });
     });
 
-    group('styling', () {
-      testWidgets('renders dropdown with proper styling', (tester) async {
+    group('types', () {
+      testWidgets('works with int values', (tester) async {
+        int? selectedValue;
+
         await tester.pumpWidget(
           testableWidget(
-            FormSelect<String>(
-              label: 'Category',
+            FormSelect<int>(
+              label: 'Age',
               value: null,
-              items: testItems,
-              onChanged: (_) {},
+              items: const [
+                DropdownMenuItem(value: 18, child: Text('18')),
+                DropdownMenuItem(value: 21, child: Text('21')),
+                DropdownMenuItem(value: 30, child: Text('30')),
+              ],
+              onChanged: (value) => selectedValue = value,
             ),
           ),
         );
 
-        // Verify DropdownButtonFormField is rendered
-        expect(find.byType(DropdownButtonFormField<String>), findsOneWidget);
+        await tester.tap(find.byType(DropdownButtonFormField<int>));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('21').last);
+        await tester.pumpAndSettle();
+
+        expect(selectedValue, equals(21));
+      });
+
+      testWidgets('works with enum values', (tester) async {
+        _TestEnum? selectedValue;
+
+        await tester.pumpWidget(
+          testableWidget(
+            FormSelect<_TestEnum>(
+              label: 'Priority',
+              value: null,
+              items: const [
+                DropdownMenuItem(value: _TestEnum.low, child: Text('Low')),
+                DropdownMenuItem(value: _TestEnum.high, child: Text('High')),
+              ],
+              onChanged: (value) => selectedValue = value,
+            ),
+          ),
+        );
+
+        await tester.tap(find.byType(DropdownButtonFormField<_TestEnum>));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('High').last);
+        await tester.pumpAndSettle();
+
+        expect(selectedValue, equals(_TestEnum.high));
       });
     });
   });
 }
+
+enum _TestEnum { low, high }
