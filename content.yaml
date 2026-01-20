@@ -177,15 +177,15 @@ disclaimers:
 statistics:
   industry:
     market_size:
-      value: "$2.9B+"
-      label: "market by 2030"
-      source: "Grand View Research, AI Observability Market Report 2024"
-      source_url: "https://www.grandviewresearch.com/industry-analysis/ai-observability-market"
+      value: "$8.1B"
+      label: "market by 2034"
+      source: "Market.us, LLM Observability Platform Market Report 2025"
+      source_url: "https://market.us/report/llm-observability-platform-market/"
     market_growth:
-      value: "25.47%"
-      label: "CAGR growth rate"
-      source: "Grand View Research, AI Observability Market Report 2024"
-      source_url: "https://www.grandviewresearch.com/industry-analysis/ai-observability-market"
+      value: "44%"
+      label: "YoY AI spending growth"
+      source: "Gartner AI Spending Forecast, January 2026"
+      source_url: "https://www.gartner.com/en/newsroom/press-releases/2026-1-15-gartner-says-worldwide-ai-spending-will-total-2-point-5-trillion-dollars-in-2026"
     enterprise_budgets:
       value: "98%"
       label: "enterprises increasing AI budgets"
