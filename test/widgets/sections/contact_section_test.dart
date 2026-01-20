@@ -318,8 +318,8 @@ void main() {
         setLargeViewport(tester);
         await tester.pumpWidget(buildTestWidget());
 
-        // Email field should be rendered
-        expect(find.text('Email *'), findsWidgets);
+        // Email field should be rendered (label from content.yaml)
+        expect(find.text('Work Email *'), findsWidgets);
       });
 
       testWidgets('renders textarea field type', (tester) async {

@@ -70,7 +70,8 @@ void main() {
       });
     });
 
-    group('testimonials', () {
+    // Testimonials hidden until we have real customer testimonials
+    group('testimonials', skip: 'Testimonials hidden in UI', () {
       testWidgets('renders all 3 testimonials on desktop', (tester) async {
         setLargeDesktopSize(tester);
 
@@ -226,9 +227,8 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        // Core elements should be present
+        // Core elements should be present (stats and trust badges)
         expect(find.text('73%'), findsOneWidget);
-        expect(find.textContaining('Joey Rahman'), findsOneWidget);
         expect(find.text('Enterprise Security'), findsOneWidget);
       });
 
@@ -329,7 +329,8 @@ void main() {
     });
 
     group('accessibility', () {
-      testWidgets('testimonials are readable', (tester) async {
+      // Skip until testimonials are re-enabled
+      testWidgets('testimonials are readable', skip: true, (tester) async {
         setLargeDesktopSize(tester);
 
         await tester.pumpWidget(
