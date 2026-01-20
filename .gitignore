@@ -49,3 +49,6 @@ package-lock.json
 
 # Claude Code
 .claude/
+
+# Repomix output files
+repomix-output.xml
