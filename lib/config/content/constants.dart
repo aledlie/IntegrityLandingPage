@@ -306,14 +306,14 @@ abstract final class AppStatistics {
   static const debuggingImprovement = CitedStatistic(
     value: '73%',
     label: 'faster debugging',
-    source: 'Aggregated customer data, Q4 2024',
+    source: 'Aggregated customer data, Q4 2025',
     type: StatisticType.customerData,
   );
 
   static const costReduction = CitedStatistic(
     value: '30-50%',
     label: 'LLM cost reduction',
-    source: 'Customer-reported savings, 2024',
+    source: 'Customer-reported savings, 2025',
     type: StatisticType.customerData,
   );
 
@@ -321,14 +321,14 @@ abstract final class AppStatistics {
   static const tracesProcessed = CitedStatistic(
     value: '10M+',
     label: 'traces processed',
-    source: 'Platform metrics, December 2024',
+    source: 'Platform metrics, December 2025',
     type: StatisticType.platformMetric,
   );
 
   static const setupTime = CitedStatistic(
     value: '5min',
     label: 'setup time',
-    source: 'Median onboarding time, 2024',
+    source: 'Median onboarding time, 2025',
     type: StatisticType.platformMetric,
   );
 

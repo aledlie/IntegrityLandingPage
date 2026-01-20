@@ -31,10 +31,9 @@ class SocialProofSection extends StatelessWidget {
 
           const SizedBox(height: AppSpacing.xxl),
 
-          // Testimonials
-          _buildTestimonials(context, isMobile),
-
-          const SizedBox(height: AppSpacing.xxl),
+          // Testimonials - hidden until we have real customer testimonials
+          // _buildTestimonials(context, isMobile),
+          // const SizedBox(height: AppSpacing.xxl),
 
           // Trust badges
           _buildTrustBadges(context),
