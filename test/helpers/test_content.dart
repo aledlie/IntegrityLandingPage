@@ -394,13 +394,55 @@ promo_codes:
   whylabs_migration:
     code: "WHYLABS2025"
     description: "Get 3 months free on Team tier."
+
+statistics:
+  industry:
+    market_size:
+      value: "\$8.1B"
+      label: "market by 2034"
+      source: "Market.us, LLM Observability Platform Market Report 2025"
+      source_url: "https://market.us/report/llm-observability-platform-market/"
+    market_growth:
+      value: "44%"
+      label: "YoY AI spending growth"
+      source: "Gartner AI Spending Forecast, January 2026"
+      source_url: "https://www.gartner.com/en/newsroom/press-releases/2026-1-15-gartner-says-worldwide-ai-spending-will-total-2-point-5-trillion-dollars-in-2026"
+    enterprise_budgets:
+      value: "98%"
+      label: "enterprises increasing AI budgets"
+      source: "Gartner CIO Survey 2024"
+      source_url: "https://www.gartner.com/en/information-technology/insights/cio-agenda"
+  customer_data:
+    debugging_improvement:
+      value: "73%"
+      label: "faster debugging"
+      source: "Aggregated customer data, Q4 2025"
+    cost_reduction:
+      value: "30-50%"
+      label: "LLM cost reduction"
+      source: "Customer-reported savings, 2025"
+  platform:
+    traces_processed:
+      value: "10M+"
+      label: "traces processed"
+      source: "Platform metrics, December 2025"
+    setup_time:
+      value: "5min"
+      label: "setup time"
+      source: "Median onboarding time, 2025"
+    uptime_target:
+      value: "99.9%"
+      label: "uptime SLA"
+      source: "Service Level Agreement target"
+  source_disclaimer: "Statistics from customer data are aggregated and anonymized."
 ''';
 
 /// Initialize test content before running widget tests.
 ///
+/// Loads from the real content.yaml file to ensure tests use actual values.
 /// Call this in setUpAll or setUp for test files that use Content.
 void initializeTestContent() {
-  Content.loadFromString(testContentYaml);
+  loadRealContent();
 }
 
 /// Reset content state after tests.
@@ -412,7 +454,6 @@ void resetTestContent() {
 
 /// Load the real content.yaml file for unit tests.
 ///
-/// Use this for tests that verify actual content quality (not widget rendering).
 /// This reads content.yaml directly from the file system.
 void loadRealContent() {
   final file = File('content.yaml');
@@ -423,4 +464,12 @@ void loadRealContent() {
   }
   final yamlString = file.readAsStringSync();
   Content.loadFromString(yamlString);
+}
+
+/// Initialize with minimal test content (for isolated widget tests).
+///
+/// Use this when you need deterministic test values that don't depend on
+/// the real content.yaml file.
+void initializeMinimalTestContent() {
+  Content.loadFromString(testContentYaml);
 }

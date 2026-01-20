@@ -3,7 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:integrity_studio_ai/pages/sources_page.dart';
 import 'package:integrity_studio_ai/config/content.dart';
+import 'package:integrity_studio_ai/services/content_loader.dart';
 import '../helpers/test_helpers.dart';
+
+/// Matcher that validates a string is a valid URL with http/https scheme.
+final isValidUrl = predicate<String?>(
+  (url) {
+    if (url == null || url.isEmpty) return false;
+    final uri = Uri.tryParse(url);
+    return uri != null && (uri.scheme == 'http' || uri.scheme == 'https');
+  },
+  'is a valid URL',
+);
 
 void main() {
   setUpAll(() {
@@ -113,8 +124,10 @@ void main() {
       });
 
       test('market size statistic has external source', () {
-        expect(AppStatistics.marketSize.source, contains('Grand View Research'));
+        expect(AppStatistics.marketSize.source, isNotEmpty);
         expect(AppStatistics.marketSize.sourceUrl, isNotNull);
+        expect(AppStatistics.marketSize.sourceUrl, isNotEmpty);
+        expect(AppStatistics.marketSize.sourceUrl, isValidUrl);
       });
     });
 
@@ -264,10 +277,10 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        // Check for market size statistic
-        expect(find.text('\$2.9B+'), findsOneWidget);
-        expect(find.text('25.47%'), findsOneWidget);
-        expect(find.text('98%'), findsOneWidget);
+        // Check for market size statistic (values come from content.yaml)
+        expect(find.text(Content.statisticsMarketSizeValue), findsOneWidget);
+        expect(find.text(Content.statisticsMarketGrowthValue), findsOneWidget);
+        expect(find.text(Content.statisticsEnterpriseBudgetsValue), findsOneWidget);
       });
 
       testWidgets('renders customer statistic values', (tester) async {

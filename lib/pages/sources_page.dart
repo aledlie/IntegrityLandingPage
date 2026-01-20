@@ -89,7 +89,7 @@ class SourcesPage extends StatelessWidget {
               subtitle: 'Internal platform measurements',
               icon: LucideIcons.activity,
               iconColor: AppColors.purple400,
-              statistics: const [
+              statistics: [
                 AppStatistics.tracesProcessed,
                 AppStatistics.setupTime,
               ],
@@ -104,7 +104,7 @@ class SourcesPage extends StatelessWidget {
               subtitle: 'Contractual service targets',
               icon: LucideIcons.shield,
               iconColor: AppColors.warning,
-              statistics: const [AppStatistics.uptimeTarget],
+              statistics: [AppStatistics.uptimeTarget],
               isMobile: isMobile,
             ),
           ),

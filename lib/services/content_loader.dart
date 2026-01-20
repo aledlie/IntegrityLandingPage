@@ -239,6 +239,55 @@ class ContentLoader {
   String get promoWhylabsDescription => _getString('promo_codes.whylabs_migration.description');
 
   // ===========================================================================
+  // STATISTICS - INDUSTRY
+  // ===========================================================================
+
+  String get statisticsMarketSizeValue => _getString('statistics.industry.market_size.value');
+  String get statisticsMarketSizeLabel => _getString('statistics.industry.market_size.label');
+  String get statisticsMarketSizeSource => _getString('statistics.industry.market_size.source');
+  String get statisticsMarketSizeSourceUrl => _getString('statistics.industry.market_size.source_url');
+
+  String get statisticsMarketGrowthValue => _getString('statistics.industry.market_growth.value');
+  String get statisticsMarketGrowthLabel => _getString('statistics.industry.market_growth.label');
+  String get statisticsMarketGrowthSource => _getString('statistics.industry.market_growth.source');
+  String get statisticsMarketGrowthSourceUrl => _getString('statistics.industry.market_growth.source_url');
+
+  String get statisticsEnterpriseBudgetsValue => _getString('statistics.industry.enterprise_budgets.value');
+  String get statisticsEnterpriseBudgetsLabel => _getString('statistics.industry.enterprise_budgets.label');
+  String get statisticsEnterpriseBudgetsSource => _getString('statistics.industry.enterprise_budgets.source');
+  String get statisticsEnterpriseBudgetsSourceUrl => _getString('statistics.industry.enterprise_budgets.source_url');
+
+  // ===========================================================================
+  // STATISTICS - CUSTOMER DATA
+  // ===========================================================================
+
+  String get statisticsDebuggingValue => _getString('statistics.customer_data.debugging_improvement.value');
+  String get statisticsDebuggingLabel => _getString('statistics.customer_data.debugging_improvement.label');
+  String get statisticsDebuggingSource => _getString('statistics.customer_data.debugging_improvement.source');
+
+  String get statisticsCostReductionValue => _getString('statistics.customer_data.cost_reduction.value');
+  String get statisticsCostReductionLabel => _getString('statistics.customer_data.cost_reduction.label');
+  String get statisticsCostReductionSource => _getString('statistics.customer_data.cost_reduction.source');
+
+  // ===========================================================================
+  // STATISTICS - PLATFORM
+  // ===========================================================================
+
+  String get statisticsTracesValue => _getString('statistics.platform.traces_processed.value');
+  String get statisticsTracesLabel => _getString('statistics.platform.traces_processed.label');
+  String get statisticsTracesSource => _getString('statistics.platform.traces_processed.source');
+
+  String get statisticsSetupTimeValue => _getString('statistics.platform.setup_time.value');
+  String get statisticsSetupTimeLabel => _getString('statistics.platform.setup_time.label');
+  String get statisticsSetupTimeSource => _getString('statistics.platform.setup_time.source');
+
+  String get statisticsUptimeValue => _getString('statistics.platform.uptime_target.value');
+  String get statisticsUptimeLabel => _getString('statistics.platform.uptime_target.label');
+  String get statisticsUptimeSource => _getString('statistics.platform.uptime_target.source');
+
+  String get statisticsSourceDisclaimer => _getString('statistics.source_disclaimer');
+
+  // ===========================================================================
   // HELPER METHODS
   // ===========================================================================
 
@@ -497,4 +546,44 @@ class Content {
   // Promo Codes
   static String get promoWhylabsCode => _loader.promoWhylabsCode;
   static String get promoWhylabsDescription => _loader.promoWhylabsDescription;
+
+  // Statistics - Industry
+  static String get statisticsMarketSizeValue => _loader.statisticsMarketSizeValue;
+  static String get statisticsMarketSizeLabel => _loader.statisticsMarketSizeLabel;
+  static String get statisticsMarketSizeSource => _loader.statisticsMarketSizeSource;
+  static String get statisticsMarketSizeSourceUrl => _loader.statisticsMarketSizeSourceUrl;
+
+  static String get statisticsMarketGrowthValue => _loader.statisticsMarketGrowthValue;
+  static String get statisticsMarketGrowthLabel => _loader.statisticsMarketGrowthLabel;
+  static String get statisticsMarketGrowthSource => _loader.statisticsMarketGrowthSource;
+  static String get statisticsMarketGrowthSourceUrl => _loader.statisticsMarketGrowthSourceUrl;
+
+  static String get statisticsEnterpriseBudgetsValue => _loader.statisticsEnterpriseBudgetsValue;
+  static String get statisticsEnterpriseBudgetsLabel => _loader.statisticsEnterpriseBudgetsLabel;
+  static String get statisticsEnterpriseBudgetsSource => _loader.statisticsEnterpriseBudgetsSource;
+  static String get statisticsEnterpriseBudgetsSourceUrl => _loader.statisticsEnterpriseBudgetsSourceUrl;
+
+  // Statistics - Customer Data
+  static String get statisticsDebuggingValue => _loader.statisticsDebuggingValue;
+  static String get statisticsDebuggingLabel => _loader.statisticsDebuggingLabel;
+  static String get statisticsDebuggingSource => _loader.statisticsDebuggingSource;
+
+  static String get statisticsCostReductionValue => _loader.statisticsCostReductionValue;
+  static String get statisticsCostReductionLabel => _loader.statisticsCostReductionLabel;
+  static String get statisticsCostReductionSource => _loader.statisticsCostReductionSource;
+
+  // Statistics - Platform
+  static String get statisticsTracesValue => _loader.statisticsTracesValue;
+  static String get statisticsTracesLabel => _loader.statisticsTracesLabel;
+  static String get statisticsTracesSource => _loader.statisticsTracesSource;
+
+  static String get statisticsSetupTimeValue => _loader.statisticsSetupTimeValue;
+  static String get statisticsSetupTimeLabel => _loader.statisticsSetupTimeLabel;
+  static String get statisticsSetupTimeSource => _loader.statisticsSetupTimeSource;
+
+  static String get statisticsUptimeValue => _loader.statisticsUptimeValue;
+  static String get statisticsUptimeLabel => _loader.statisticsUptimeLabel;
+  static String get statisticsUptimeSource => _loader.statisticsUptimeSource;
+
+  static String get statisticsSourceDisclaimer => _loader.statisticsSourceDisclaimer;
 }

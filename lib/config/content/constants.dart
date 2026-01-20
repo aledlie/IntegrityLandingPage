@@ -4,6 +4,8 @@
 /// Update these values in one place to change them across the entire app.
 library;
 
+import '../../services/content_loader.dart';
+
 // =============================================================================
 // COMPANY INFORMATION
 // =============================================================================
@@ -276,75 +278,73 @@ class CitedStatistic {
 /// Centralized statistics with source citations.
 ///
 /// IMPORTANT: All statistics MUST be verifiable.
+/// Statistics are loaded from content.yaml at runtime.
 abstract final class AppStatistics {
-  // Market Statistics (Industry Reports)
-  static const marketSize = CitedStatistic(
-    value: '\$2.9B+',
-    label: 'market by 2030',
-    source: 'Grand View Research, AI Observability Market Report 2024',
-    sourceUrl: 'https://www.grandviewresearch.com/industry-analysis/ai-observability-market',
+  // Market Statistics (Industry Reports) - loaded from content.yaml
+  static CitedStatistic get marketSize => CitedStatistic(
+    value: Content.statisticsMarketSizeValue,
+    label: Content.statisticsMarketSizeLabel,
+    source: Content.statisticsMarketSizeSource,
+    sourceUrl: Content.statisticsMarketSizeSourceUrl,
     type: StatisticType.industry,
   );
 
-  static const marketGrowth = CitedStatistic(
-    value: '25.47%',
-    label: 'CAGR growth rate',
-    source: 'Grand View Research, AI Observability Market Report 2024',
-    sourceUrl: 'https://www.grandviewresearch.com/industry-analysis/ai-observability-market',
+  static CitedStatistic get marketGrowth => CitedStatistic(
+    value: Content.statisticsMarketGrowthValue,
+    label: Content.statisticsMarketGrowthLabel,
+    source: Content.statisticsMarketGrowthSource,
+    sourceUrl: Content.statisticsMarketGrowthSourceUrl,
     type: StatisticType.industry,
   );
 
-  static const enterpriseBudgets = CitedStatistic(
-    value: '98%',
-    label: 'enterprises increasing AI budgets',
-    source: 'Gartner CIO Survey 2024',
-    sourceUrl: 'https://www.gartner.com/en/information-technology/insights/cio-agenda',
+  static CitedStatistic get enterpriseBudgets => CitedStatistic(
+    value: Content.statisticsEnterpriseBudgetsValue,
+    label: Content.statisticsEnterpriseBudgetsLabel,
+    source: Content.statisticsEnterpriseBudgetsSource,
+    sourceUrl: Content.statisticsEnterpriseBudgetsSourceUrl,
     type: StatisticType.industry,
   );
 
-  // Customer Results (Aggregated Internal Data)
-  static const debuggingImprovement = CitedStatistic(
-    value: '73%',
-    label: 'faster debugging',
-    source: 'Aggregated customer data, Q4 2025',
+  // Customer Results (Aggregated Internal Data) - loaded from content.yaml
+  static CitedStatistic get debuggingImprovement => CitedStatistic(
+    value: Content.statisticsDebuggingValue,
+    label: Content.statisticsDebuggingLabel,
+    source: Content.statisticsDebuggingSource,
     type: StatisticType.customerData,
   );
 
-  static const costReduction = CitedStatistic(
-    value: '30-50%',
-    label: 'LLM cost reduction',
-    source: 'Customer-reported savings, 2025',
+  static CitedStatistic get costReduction => CitedStatistic(
+    value: Content.statisticsCostReductionValue,
+    label: Content.statisticsCostReductionLabel,
+    source: Content.statisticsCostReductionSource,
     type: StatisticType.customerData,
   );
 
-  // Platform Metrics
-  static const tracesProcessed = CitedStatistic(
-    value: '10M+',
-    label: 'traces processed',
-    source: 'Platform metrics, December 2025',
+  // Platform Metrics - loaded from content.yaml
+  static CitedStatistic get tracesProcessed => CitedStatistic(
+    value: Content.statisticsTracesValue,
+    label: Content.statisticsTracesLabel,
+    source: Content.statisticsTracesSource,
     type: StatisticType.platformMetric,
   );
 
-  static const setupTime = CitedStatistic(
-    value: '5min',
-    label: 'setup time',
-    source: 'Median onboarding time, 2025',
+  static CitedStatistic get setupTime => CitedStatistic(
+    value: Content.statisticsSetupTimeValue,
+    label: Content.statisticsSetupTimeLabel,
+    source: Content.statisticsSetupTimeSource,
     type: StatisticType.platformMetric,
   );
 
-  // SLA Targets
-  static const uptimeTarget = CitedStatistic(
-    value: '99.9%',
-    label: 'uptime SLA',
-    source: 'Service Level Agreement target',
+  // SLA Targets - loaded from content.yaml
+  static CitedStatistic get uptimeTarget => CitedStatistic(
+    value: Content.statisticsUptimeValue,
+    label: Content.statisticsUptimeLabel,
+    source: Content.statisticsUptimeSource,
     type: StatisticType.slaTarget,
   );
 
-  /// Footer disclaimer for statistics.
-  static const sourceDisclaimer =
-      'Statistics from customer data are aggregated and anonymized. '
-      'Industry statistics sourced from third-party research reports. '
-      'See integritystudio.ai/sources for full methodology and citations.';
+  /// Footer disclaimer for statistics - loaded from content.yaml.
+  static String get sourceDisclaimer => Content.statisticsSourceDisclaimer;
 
   /// Get all industry statistics.
   static List<CitedStatistic> get industryStats => [

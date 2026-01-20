@@ -116,12 +116,12 @@ class _LandingPageState extends State<LandingPage> {
               label: 'Feature explorer section',
               child: const TabbedFeaturesSection(),
             ),
-            // Social proof with quantified metrics (AiSDR-inspired)
-            _buildSection(
-              key: _sectionKeys['social-proof']!,
-              label: 'Social proof section',
-              child: const SocialProofSection(),
-            ),
+            // Social proof section - hidden until we have real testimonials
+            // _buildSection(
+            //   key: _sectionKeys['social-proof']!,
+            //   label: 'Social proof section',
+            //   child: const SocialProofSection(),
+            // ),
             _buildSection(
               key: _sectionKeys['features']!,
               label: 'Features section',
