@@ -226,11 +226,10 @@ void main() {
     group('navigation callbacks', () {
       testWidgets('Blog link uses onNavigateToBlog callback when provided', (tester) async {
         setDesktopSize(tester);
-        var blogCallbackCalled = false;
 
         await tester.pumpWidget(
           testableSection(
-            FooterSection(onNavigateToBlog: () => blogCallbackCalled = true),
+            FooterSection(onNavigateToBlog: () {}),
           ),
         );
         await tester.pumpAndSettle();

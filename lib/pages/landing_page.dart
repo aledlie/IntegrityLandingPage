@@ -8,7 +8,6 @@ import '../services/analytics.dart';
 import '../widgets/modals/demo_modal.dart';
 import '../widgets/sections/hero_section.dart';
 import '../widgets/sections/tabbed_features_section.dart';
-import '../widgets/sections/social_proof_section.dart';
 import '../widgets/sections/features_section.dart';
 import '../widgets/sections/services_section.dart';
 import '../widgets/sections/about_section.dart';

@@ -55,10 +55,8 @@ void main() {
         find.textContaining('Email'),
       ];
 
-      var foundContact = false;
       for (final indicator in contactIndicators) {
         if (indicator.evaluate().isNotEmpty) {
-          foundContact = true;
           break;
         }
       }
@@ -84,10 +82,8 @@ void main() {
         find.byType(TextField),
       ];
 
-      var foundFormElement = false;
       for (final indicator in formIndicators) {
         if (indicator.evaluate().isNotEmpty) {
-          foundFormElement = true;
           break;
         }
       }
@@ -247,10 +243,8 @@ void main() {
         find.textContaining('Live Demo'),
       ];
 
-      var foundCalendlyCta = false;
       for (final finder in scheduleDemoText) {
         if (finder.evaluate().isNotEmpty) {
-          foundCalendlyCta = true;
           break;
         }
       }
@@ -274,10 +268,8 @@ void main() {
         find.byIcon(Icons.email_outlined),
       ];
 
-      var foundContactMethod = false;
       for (final indicator in contactMethodIndicators) {
         if (indicator.evaluate().isNotEmpty) {
-          foundContactMethod = true;
           break;
         }
       }

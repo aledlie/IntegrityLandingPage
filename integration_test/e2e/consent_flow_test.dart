@@ -118,10 +118,8 @@ void main() {
         find.textContaining('Decline'),
       ];
 
-      var foundEssentialOption = false;
       for (final option in essentialOptions) {
         if (option.evaluate().isNotEmpty) {
-          foundEssentialOption = true;
           break;
         }
       }
@@ -226,21 +224,8 @@ void main() {
       app.main();
       await pumpFrames(tester, frames: 20);
 
-      // If cookie banner is shown, it should have privacy info link
-      final acceptButton = find.text('Accept All');
-
-      if (acceptButton.evaluate().isNotEmpty) {
-        // Banner is showing, look for info/learn more links
-        final infoLinks = [
-          find.textContaining('Learn'),
-          find.textContaining('More'),
-          find.textContaining('Info'),
-          find.byIcon(Icons.info_outline),
-        ];
-
-        // App should render regardless
-        expect(find.byType(MaterialApp), findsOneWidget);
-      }
+      // App should render regardless
+      expect(find.byType(MaterialApp), findsOneWidget);
     });
   });
 

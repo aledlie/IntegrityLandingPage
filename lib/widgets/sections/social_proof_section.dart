@@ -116,43 +116,6 @@ class SocialProofSection extends StatelessWidget {
     );
   }
 
-  Widget _buildTestimonials(BuildContext context, bool isMobile) {
-    final contentTestimonials = AppContent.socialProof.testimonials;
-    final testimonials = contentTestimonials.map((t) => _Testimonial(
-      quote: t.quote,
-      author: t.author,
-      title: t.role,
-      company: t.company,
-      metric: t.metric ?? '',
-      metricContext: t.metricContext ?? '',
-    )).toList();
-
-    if (isMobile) {
-      return Column(
-        children: testimonials.asMap().entries.map((entry) {
-          return Padding(
-            padding: EdgeInsets.only(
-              bottom: entry.key < testimonials.length - 1 ? AppSpacing.lg : 0,
-            ),
-            child: _TestimonialCard(testimonial: entry.value),
-          );
-        }).toList(),
-      );
-    }
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: testimonials.map((t) {
-        return Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-            child: _TestimonialCard(testimonial: t),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
   Widget _buildTrustBadges(BuildContext context) {
     return Column(
       children: [

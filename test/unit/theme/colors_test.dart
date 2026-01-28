@@ -219,25 +219,25 @@ void main() {
 
     group('Orb Colors', () {
       test('orbBlue is blue500 with 15% opacity', () {
-        expect(AppColors.orbBlue.alpha, closeTo(0.15 * 255, 1));
+        expect((AppColors.orbBlue.a * 255.0).round().clamp(0, 255), closeTo(0.15 * 255, 1));
       });
 
       test('orbIndigo is indigo500 with 15% opacity', () {
-        expect(AppColors.orbIndigo.alpha, closeTo(0.15 * 255, 1));
+        expect((AppColors.orbIndigo.a * 255.0).round().clamp(0, 255), closeTo(0.15 * 255, 1));
       });
 
       test('orbPurple is purple500 with 15% opacity', () {
-        expect(AppColors.orbPurple.alpha, closeTo(0.15 * 255, 1));
+        expect((AppColors.orbPurple.a * 255.0).round().clamp(0, 255), closeTo(0.15 * 255, 1));
       });
     });
 
     group('Shadow Colors', () {
       test('shadowDefault is gray900 with 30% opacity', () {
-        expect(AppColors.shadowDefault.alpha, closeTo(0.3 * 255, 1));
+        expect((AppColors.shadowDefault.a * 255.0).round().clamp(0, 255), closeTo(0.3 * 255, 1));
       });
 
       test('shadowBlue is blue500 with 30% opacity', () {
-        expect(AppColors.shadowBlue.alpha, closeTo(0.3 * 255, 1));
+        expect((AppColors.shadowBlue.a * 255.0).round().clamp(0, 255), closeTo(0.3 * 255, 1));
       });
     });
 

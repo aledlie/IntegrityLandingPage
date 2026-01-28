@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integrity_studio_ai/services/consent_manager.dart';
-import 'package:integrity_studio_ai/models/consent_preferences.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
