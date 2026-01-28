@@ -4,6 +4,62 @@ All notable changes to the IntegrityStudio.ai Flutter project.
 
 ---
 
+## [2026-01-28] - Security Page & Contact Improvements
+
+### New Features
+
+**Security Page (`/security`):**
+- Converted static `security.html` to Flutter page with consistent styling
+- Added enterprise security sections:
+  - Our Security Commitment (stats overview)
+  - Authentication Security (OAuth 2.0, MFA, session management)
+  - Data Protection (encryption, database security)
+  - Access Control (RBAC)
+  - Enterprise Identity & Access (SSO/SAML, audit logging)
+  - Compliance & Governance (data retention, PII detection)
+  - Enterprise-Grade Capabilities (anomaly detection, SLA dashboards)
+  - API Security
+  - Best Practices
+  - Production Checklist
+  - Vulnerability Reporting
+- Content externalized to `lib/config/content/security_content.dart`
+- Added route in `lib/app.dart`
+
+**Contact Section Updates:**
+- Added phone number with `tel:` link
+- Added Google Maps URL for location button
+- Updated Calendly demo link from 30min to 15min
+
+### Bug Fixes
+
+**TypeScript:**
+- Fixed type errors in contact form worker tests (added response type assertions)
+
+**Footer:**
+- Fixed hardcoded social URLs to use `ExternalUrls` constants
+- Corrected LinkedIn URL mismatch
+
+### Content Updates
+
+- Commented out SOC 2 Type II certification (pending)
+- Commented out VPC/private deployment (not yet implemented)
+- Updated SOC 2 stat to show "Certification Pending"
+- Updated token rotation from 90 days to 60 days
+
+### Files Added/Modified
+
+- `lib/pages/security_page.dart` (new)
+- `lib/config/content/security_content.dart` (new)
+- `lib/config/content.dart` (export added)
+- `lib/config/content/constants.dart` (routes, URLs)
+- `lib/config/content/contact_content.dart` (phone, location URL)
+- `lib/widgets/sections/footer_section.dart` (use constants)
+- `lib/app.dart` (security route)
+- `workers/contact-form/src/index.test.ts` (type fixes)
+- Deleted `security.html`
+
+---
+
 ## [2025-12-26] - WhyLabs Migration Guide & Team Updates
 
 ### New Content Published
@@ -216,6 +272,7 @@ All notable changes to the IntegrityStudio.ai Flutter project.
 
 | Date | Version | Changes |
 |------|---------|---------|
+| 2026-01-28 | 1.5 | Security page, contact improvements, TypeScript fixes |
 | 2025-12-26 | 1.4 | WhyLabs migration guide, team members, LinkedIn post, blog fixes |
 | 2024-12-24 | 1.3 | Brand assets (logo, favicon, og-image), legal pages, infrastructure |
 | 2024-12-24 | 1.2 | Legal compliance fixes (SOC 2, EU AI Act disclaimers, statistics citations) |
