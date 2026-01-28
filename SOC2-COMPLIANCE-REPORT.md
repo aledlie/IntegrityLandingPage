@@ -193,11 +193,11 @@
 | **Resend (Email)** | Covered | Resend DPA | Available at resend.com/legal/dpa |
 
 **Action Items:**
-- [ ] Verify DPA acceptance in Google Cloud Console (Admin > Account > Legal)
-- [ ] Verify DPA acceptance in Meta Business Settings (Business Settings > Data Sources)
-- [ ] Download and sign Calendly DPA if not already on file
-- [ ] Confirm Cloudflare DPA is active in dashboard
-- [ ] Confirm Resend DPA is signed in account settings
+- [x] Verify DPA acceptance in Google Cloud Console (verified 2026-01-28)
+- [x] Verify DPA acceptance in Meta Business Settings (verified 2026-01-28)
+- [x] Calendly DPA confirmed (auto-included in Terms of Use, verified 2026-01-28)
+- [x] Confirm Cloudflare DPA is active in dashboard (verified 2026-01-28, v6.3)
+- [x] Confirm Resend DPA is signed in account settings (verified 2026-01-28)
 
 ---
 
