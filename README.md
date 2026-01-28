@@ -89,7 +89,6 @@ lib/
 |-------|--------|
 | `/docs` | Implemented (Documentation Index) |
 | `/docs/quickstart` | Implemented (Quick Start) |
-| `/docs/api` | Implemented (API Reference) |
 | `/docs/integrations` | Implemented (Interoperability) |
 | `/docs/alerts` | Implemented (Alerts Guide) |
 | `/docs/tracing` | Implemented (Tracing Guide) |
@@ -101,7 +100,7 @@ lib/
 
 | Route | Status |
 |-------|--------|
-| `/api` | Not implemented |
+| `/api` | Implemented (API Reference) |
 | `/support` | Not implemented |
 | `/eu-ai-act` | Not implemented |
 

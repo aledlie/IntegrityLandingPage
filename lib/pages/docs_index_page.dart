@@ -270,7 +270,7 @@ class _DocsGrid extends StatelessWidget {
         icon: LucideIcons.code2,
         title: 'API Reference',
         description: 'Complete API documentation with examples for all endpoints and SDK methods.',
-        url: '/docs/api',
+        url: '/api',
         color: const Color(0xFF06B6D4),
         topics: ['Trace Ingestion', 'Query API', 'Alerts API', 'Auth'],
       ),

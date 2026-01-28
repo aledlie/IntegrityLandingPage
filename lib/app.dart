@@ -359,8 +359,8 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
           );
         }
 
-        // Handle Docs API page
-        if (settings.name == '/docs/api') {
+        // Handle API Reference page
+        if (settings.name == '/api') {
           return MaterialPageRoute(
             builder: (context) => Stack(
               children: [
