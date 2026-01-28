@@ -98,7 +98,7 @@ lib/
 | `/docs/compliance` | Not implemented |
 | `/docs/integrations` | Implemented (Interoperability) |
 | `/docs/agents` | Not implemented |
-| `/docs/alerts` | Not implemented |
+| `/docs/alerts` | Implemented (Alerts Guide) |
 
 ### Footer Links Status
 
