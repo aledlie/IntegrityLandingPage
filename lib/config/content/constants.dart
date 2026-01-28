@@ -95,11 +95,12 @@ abstract final class Routes {
   static const String demo = '#demo';
 
   // Documentation
+  static const String docsObservability = '/docs/claude-code-observability';
+  static const String docsTracing = '/docs/tracing';
   static const String docsQuickstart = '/docs/quickstart';
   static const String docsApi = '/docs/api';
   static const String docsCompliance = '/docs/compliance';
   static const String docsIntegrations = '/docs/integrations';
-  static const String docsTracing = '/docs/tracing';
   static const String docsAgents = '/docs/agents';
   static const String docsAlerts = '/docs/alerts';
 
