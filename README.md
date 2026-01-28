@@ -61,6 +61,55 @@ lib/
     └── sections/     # Hero, features, pricing, etc.
 ```
 
+## Route Status
+
+### Implemented Routes
+
+| Route | Page |
+|-------|------|
+| `/` | Landing page |
+| `/blog` | Blog page |
+| `/about` | About page |
+| `/pricing` | Pricing page |
+| `/contact` | Contact page |
+| `/careers` | Careers page |
+| `/security` | Security page |
+| `/signup` | Signup page |
+| `/privacy` | Privacy policy |
+| `/terms` | Terms of service |
+| `/cookies` | Cookies policy |
+| `/accessibility` | Accessibility statement |
+| `/sources` | Sources page |
+| `/whylabs-alternative` | WhyLabs comparison |
+| `/compare/arize-ai-alternative` | Arize comparison |
+| `/docs/claude-code-observability` | Observability guide |
+| `/docs/tracing` | Tracing & EU AI Act guide |
+
+### Not Implemented (will redirect to home)
+
+| Route | Status |
+|-------|--------|
+| `/docs` | No landing page (only sub-routes) |
+| `/api` | Not implemented |
+| `/support` | Not implemented |
+| `/changelog` | Not implemented |
+| `/eu-ai-act` | Not implemented |
+| `/docs/quickstart` | Not implemented |
+| `/docs/api` | Not implemented |
+| `/docs/compliance` | Not implemented |
+| `/docs/integrations` | Not implemented |
+| `/docs/agents` | Not implemented |
+| `/docs/alerts` | Not implemented |
+
+### Footer Links Status
+
+| Link | Target | Status |
+|------|--------|--------|
+| Features | `#features` | Anchor (doesn't scroll from footer) |
+| API Reference | `/api` | Not implemented |
+| Help Center | `/support` | Not implemented |
+| Changelog | `/changelog` | Not implemented |
+
 ## Test Coverage
 
 Coverage reports are automatically generated and deployed to GitHub Pages on every push to main. Reports include function-level coverage metrics.
