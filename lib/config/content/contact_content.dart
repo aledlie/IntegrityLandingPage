@@ -111,6 +111,7 @@ abstract final class ContactContentVariants {
       icon: LucideIcons.mapPin,
       label: 'Location',
       value: '${CompanyInfo.locationCity}, ${CompanyInfo.locationRegion}',
+      url: ExternalUrls.googleMaps,
     ),
     ContactMethodContent(
       icon: LucideIcons.linkedin,

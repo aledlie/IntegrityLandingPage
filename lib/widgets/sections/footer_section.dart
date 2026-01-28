@@ -124,19 +124,19 @@ class FooterSection extends StatelessWidget {
           children: [
             _SocialLink(
               icon: LucideIcons.twitter,
-              url: 'https://twitter.com/integritystudio',
+              url: ExternalUrls.twitter,
               label: 'Twitter',
             ),
             SizedBox(width: AppSpacing.md),
             _SocialLink(
               icon: LucideIcons.linkedin,
-              url: 'https://linkedin.com/company/integritystudio',
+              url: ExternalUrls.linkedIn,
               label: 'LinkedIn',
             ),
             SizedBox(width: AppSpacing.md),
             _SocialLink(
               icon: LucideIcons.github,
-              url: 'https://github.com/integritystudio',
+              url: ExternalUrls.github,
               label: 'GitHub',
             ),
           ],

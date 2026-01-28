@@ -54,7 +54,7 @@ abstract final class CTAText {
 /// External URLs and links used throughout the application.
 abstract final class ExternalUrls {
   // Calendly
-  static const String calendlyDemo = 'https://calendly.com/alyshialedlie/30min';
+  static const String calendlyDemo = 'https://calendly.com/alyshialedlie/15min';
 
   // Status page
   static const String statusPage = 'https://integritystudio.ai/status';
@@ -67,6 +67,10 @@ abstract final class ExternalUrls {
   // Personal (founder)
   static const String founderLinkedIn = 'https://www.linkedin.com/in/aledlie';
   static const String founderTwitter = 'https://twitter.com/alyshialedlie';
+
+  // Location
+  static const String googleMaps =
+      'https://www.google.com/maps/search/?api=1&query=248+Addie+Roy+Road+Austin+TX+78746';
 }
 
 // =============================================================================
