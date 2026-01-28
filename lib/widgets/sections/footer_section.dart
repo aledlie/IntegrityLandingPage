@@ -173,6 +173,10 @@ class FooterSection extends StatelessWidget {
                     Navigator.of(context).pushNamed('/sources');
                   } else if (link.url == '/about') {
                     Navigator.of(context).pushNamed('/about');
+                  } else if (link.url == '/pricing') {
+                    Navigator.of(context).pushNamed('/pricing');
+                  } else if (link.url == '/contact') {
+                    Navigator.of(context).pushNamed('/contact');
                   } else if (link.isInternal) {
                     // Internal links - no action for now
                   } else {
@@ -385,8 +389,8 @@ const List<_LinkSection> _linkSections = [
     title: 'Product',
     links: [
       _LinkItem(text: 'Features', url: '#features'),
-      _LinkItem(text: 'Pricing', url: '#pricing'),
-      _LinkItem(text: 'Documentation', url: '/docs'),
+      _LinkItem(text: 'Pricing', url: '/pricing'),
+      _LinkItem(text: 'Documentation', url: '/docs/claude-code-observability.html', isInternal: false),
       _LinkItem(text: 'API Reference', url: '/api'),
     ],
   ),
