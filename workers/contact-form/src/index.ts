@@ -11,6 +11,146 @@ interface Env {
   RESEND_API_KEY: string;
   RECIPIENT_EMAIL: string;
   SENDER_EMAIL: string;
+  RATE_LIMIT_KV?: KVNamespace;
+  RATE_LIMIT_MAX?: string;
+  RATE_LIMIT_WINDOW_SECONDS?: string;
+  CSRF_SECRET?: string;
+}
+
+// CSRF configuration
+const CSRF_TOKEN_MAX_AGE_MS = 60 * 60 * 1000; // 1 hour
+
+// Rate limiting configuration
+const DEFAULT_RATE_LIMIT_MAX = 5;
+const DEFAULT_RATE_LIMIT_WINDOW_SECONDS = 60;
+
+interface RateLimitData {
+  count: number;
+  resetAt: number;
+}
+
+/**
+ * Check and update rate limit for an IP address.
+ * Returns null if within limit, or error message if exceeded.
+ */
+async function checkRateLimit(
+  ip: string,
+  env: Env
+): Promise<{ allowed: boolean; remaining: number; resetAt: number }> {
+  const maxRequests = parseInt(env.RATE_LIMIT_MAX || '') || DEFAULT_RATE_LIMIT_MAX;
+  const windowSeconds = parseInt(env.RATE_LIMIT_WINDOW_SECONDS || '') || DEFAULT_RATE_LIMIT_WINDOW_SECONDS;
+  const now = Date.now();
+  const key = `rate_limit:${ip}`;
+
+  // If KV is not configured, allow the request (fail open for development)
+  if (!env.RATE_LIMIT_KV) {
+    return { allowed: true, remaining: maxRequests, resetAt: now + windowSeconds * 1000 };
+  }
+
+  try {
+    const stored = await env.RATE_LIMIT_KV.get(key, 'json') as RateLimitData | null;
+
+    let data: RateLimitData;
+    if (!stored || stored.resetAt < now) {
+      // Start new window
+      data = { count: 1, resetAt: now + windowSeconds * 1000 };
+    } else {
+      // Increment existing window
+      data = { count: stored.count + 1, resetAt: stored.resetAt };
+    }
+
+    // Store updated count with TTL
+    const ttl = Math.ceil((data.resetAt - now) / 1000);
+    await env.RATE_LIMIT_KV.put(key, JSON.stringify(data), { expirationTtl: Math.max(ttl, 60) });
+
+    return {
+      allowed: data.count <= maxRequests,
+      remaining: Math.max(0, maxRequests - data.count),
+      resetAt: data.resetAt,
+    };
+  } catch (error) {
+    console.error('Rate limit error:', error);
+    // Fail open on KV errors
+    return { allowed: true, remaining: maxRequests, resetAt: now + windowSeconds * 1000 };
+  }
+}
+
+/**
+ * Get client IP from request headers (Cloudflare provides CF-Connecting-IP).
+ */
+function getClientIP(request: Request): string {
+  return request.headers.get('CF-Connecting-IP') ||
+         request.headers.get('X-Forwarded-For')?.split(',')[0].trim() ||
+         'unknown';
+}
+
+/**
+ * Validate CSRF token using HMAC-SHA256.
+ * Token format: {timestamp}.{signature}
+ * Returns null if valid, error message if invalid.
+ */
+async function validateCsrfToken(
+  token: string | null,
+  secret: string
+): Promise<string | null> {
+  if (!token) {
+    return 'Missing CSRF token';
+  }
+
+  const parts = token.split('.');
+  if (parts.length !== 2) {
+    return 'Invalid CSRF token format';
+  }
+
+  const [timestampStr, signature] = parts;
+  const timestamp = parseInt(timestampStr, 10);
+
+  if (isNaN(timestamp)) {
+    return 'Invalid CSRF token timestamp';
+  }
+
+  // Check token age
+  const now = Date.now();
+  if (now - timestamp > CSRF_TOKEN_MAX_AGE_MS) {
+    return 'CSRF token expired';
+  }
+
+  // Validate signature using Web Crypto API
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+
+  const signatureBytes = await crypto.subtle.sign(
+    'HMAC',
+    key,
+    encoder.encode(timestampStr)
+  );
+
+  const expectedSignature = btoa(String.fromCharCode(...new Uint8Array(signatureBytes)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+
+  // Constant-time comparison
+  if (signature.length !== expectedSignature.length) {
+    return 'Invalid CSRF token';
+  }
+
+  let mismatch = 0;
+  for (let i = 0; i < signature.length; i++) {
+    mismatch |= signature.charCodeAt(i) ^ expectedSignature.charCodeAt(i);
+  }
+
+  if (mismatch !== 0) {
+    return 'Invalid CSRF token';
+  }
+
+  return null;
 }
 
 interface ContactFormData {
@@ -20,12 +160,23 @@ interface ContactFormData {
   message: string;
 }
 
-// CORS headers for Flutter web app
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
+// CORS headers for Flutter web app - restricted to production domain
+const ALLOWED_ORIGINS = [
+  'https://integritystudio.ai',
+  'https://www.integritystudio.ai',
+];
+
+function getCorsHeaders(request: Request): Record<string, string> {
+  const origin = request.headers.get('Origin') || '';
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+
+  return {
+    'Access-Control-Allow-Origin': allowedOrigin,
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, X-CSRF-Token',
+    'Vary': 'Origin',
+  };
+}
 
 // Validate email format
 function isValidEmail(email: string): boolean {
@@ -42,19 +193,103 @@ function validateForm(data: ContactFormData): string | null {
   return null;
 }
 
+/**
+ * Generate a signed CSRF token.
+ * Token format: {timestamp}.{signature}
+ */
+async function generateCsrfToken(secret: string): Promise<string> {
+  const timestamp = Date.now().toString();
+  const encoder = new TextEncoder();
+
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+
+  const signatureBytes = await crypto.subtle.sign(
+    'HMAC',
+    key,
+    encoder.encode(timestamp)
+  );
+
+  const signature = btoa(String.fromCharCode(...new Uint8Array(signatureBytes)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+
+  return `${timestamp}.${signature}`;
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    const corsHeaders = getCorsHeaders(request);
+
     // Handle CORS preflight
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
     }
 
-    // Only accept POST requests
+    // Handle CSRF token request
+    if (request.method === 'GET') {
+      if (!env.CSRF_SECRET) {
+        return new Response(
+          JSON.stringify({ error: 'CSRF not configured' }),
+          { status: 503, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
+      const token = await generateCsrfToken(env.CSRF_SECRET);
+      return new Response(
+        JSON.stringify({ csrfToken: token }),
+        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Only accept POST requests for form submission
     if (request.method !== 'POST') {
       return new Response(
         JSON.stringify({ error: 'Method not allowed' }),
         { status: 405, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
+    }
+
+    // Check rate limit
+    const clientIP = getClientIP(request);
+    const rateLimit = await checkRateLimit(clientIP, env);
+
+    if (!rateLimit.allowed) {
+      return new Response(
+        JSON.stringify({
+          error: 'Too many requests. Please try again later.',
+          retryAfter: Math.ceil((rateLimit.resetAt - Date.now()) / 1000),
+        }),
+        {
+          status: 429,
+          headers: {
+            ...corsHeaders,
+            'Content-Type': 'application/json',
+            'Retry-After': String(Math.ceil((rateLimit.resetAt - Date.now()) / 1000)),
+            'X-RateLimit-Limit': String(parseInt(env.RATE_LIMIT_MAX || '') || DEFAULT_RATE_LIMIT_MAX),
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': String(Math.ceil(rateLimit.resetAt / 1000)),
+          },
+        }
+      );
+    }
+
+    // Validate CSRF token (only if secret is configured)
+    if (env.CSRF_SECRET) {
+      const csrfToken = request.headers.get('X-CSRF-Token');
+      const csrfError = await validateCsrfToken(csrfToken, env.CSRF_SECRET);
+      if (csrfError) {
+        return new Response(
+          JSON.stringify({ error: csrfError }),
+          { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
     }
 
     try {

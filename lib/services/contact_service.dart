@@ -5,6 +5,10 @@ import 'analytics.dart';
 /// Contact form API endpoint (Cloudflare Worker).
 const _contactApiUrl = 'https://integrity-studio-contact.alyshia-b38.workers.dev';
 
+/// CSRF token cache.
+String? _cachedCsrfToken;
+int? _csrfTokenTimestamp;
+
 /// Contact form data model.
 class ContactFormData {
   final String name;
@@ -161,6 +165,36 @@ class ContactService {
     return !validateForm(formData).hasErrors;
   }
 
+  /// Fetch a CSRF token from the server.
+  /// Returns cached token if still valid (less than 30 minutes old).
+  static Future<String?> _fetchCsrfToken() async {
+    // Use cached token if less than 30 minutes old
+    const maxAge = 30 * 60 * 1000; // 30 minutes
+    if (_cachedCsrfToken != null &&
+        _csrfTokenTimestamp != null &&
+        DateTime.now().millisecondsSinceEpoch - _csrfTokenTimestamp! < maxAge) {
+      return _cachedCsrfToken;
+    }
+
+    try {
+      final response = await _dio.get(_contactApiUrl);
+      final data = response.data as Map<String, dynamic>;
+      _cachedCsrfToken = data['csrfToken'] as String?;
+      _csrfTokenTimestamp = DateTime.now().millisecondsSinceEpoch;
+      return _cachedCsrfToken;
+    } catch (e) {
+      // CSRF fetch failed - will be handled during form submission
+      return null;
+    }
+  }
+
+  /// Clear cached CSRF token (for testing).
+  /// @visibleForTesting
+  static void clearCsrfCache() {
+    _cachedCsrfToken = null;
+    _csrfTokenTimestamp = null;
+  }
+
   /// Submit contact form to Cloudflare Worker endpoint.
   ///
   /// Sends contact form data via POST request to the contact API.
@@ -178,11 +212,17 @@ class ContactService {
     }
 
     try {
+      // Fetch CSRF token
+      final csrfToken = await _fetchCsrfToken();
+
       final response = await _dio.post(
         _contactApiUrl,
         data: jsonEncode(payload.formData.toJson()),
         options: Options(
-          headers: {'Content-Type': 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            if (csrfToken != null) 'X-CSRF-Token': csrfToken,
+          },
           validateStatus: (status) => status != null && status < 500,
         ),
       );

@@ -41,16 +41,50 @@ const mockEnv = {
   SENDER_EMAIL: 'contact@integritystudio.ai',
 };
 
+// Mock environment with CSRF enabled
+const mockEnvWithCsrf = {
+  ...mockEnv,
+  CSRF_SECRET: 'test_csrf_secret_key_12345',
+};
+
 // Helper to create mock Request
 function createRequest(
   method: string,
-  body?: object
+  body?: object,
+  headers?: Record<string, string>
 ): Request {
   return new Request('https://worker.test/', {
     method,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...headers },
     body: body ? JSON.stringify(body) : undefined,
   });
+}
+
+// Helper to generate a valid CSRF token for testing
+async function generateTestCsrfToken(secret: string, timestamp?: number): Promise<string> {
+  const ts = (timestamp ?? Date.now()).toString();
+  const encoder = new TextEncoder();
+
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+
+  const signatureBytes = await crypto.subtle.sign(
+    'HMAC',
+    key,
+    encoder.encode(ts)
+  );
+
+  const signature = btoa(String.fromCharCode(...new Uint8Array(signatureBytes)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+
+  return `${ts}.${signature}`;
 }
 
 describe('Contact Form Worker', () => {
@@ -74,17 +108,19 @@ describe('Contact Form Worker', () => {
       const response = await worker.fetch(request, mockEnv);
 
       expect(response.status).toBe(200);
-      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('*');
+      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://integritystudio.ai');
       expect(response.headers.get('Access-Control-Allow-Methods')).toContain('POST');
     });
 
-    it('rejects GET requests with 405', async () => {
+    it('handles GET requests for CSRF token (503 when not configured)', async () => {
       const request = createRequest('GET');
       const response = await worker.fetch(request, mockEnv);
 
-      expect(response.status).toBe(405);
+      // GET is now used for CSRF token retrieval
+      // Returns 503 when CSRF_SECRET is not configured
+      expect(response.status).toBe(503);
       const data = await response.json() as ErrorResponse;
-      expect(data.error).toBe('Method not allowed');
+      expect(data.error).toContain('CSRF');
     });
 
     it('rejects PUT requests with 405', async () => {
@@ -411,7 +447,7 @@ describe('Contact Form Worker', () => {
 
       const response = await worker.fetch(request, mockEnv);
 
-      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('*');
+      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://integritystudio.ai');
     });
 
     it('includes CORS headers on error response', async () => {
@@ -423,7 +459,7 @@ describe('Contact Form Worker', () => {
 
       const response = await worker.fetch(request, mockEnv);
 
-      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('*');
+      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://integritystudio.ai');
     });
   });
 
@@ -468,6 +504,290 @@ describe('Contact Form Worker', () => {
           html: expect.not.stringContaining('<img'),
         })
       );
+    });
+  });
+
+  describe('Rate Limiting', () => {
+    // Mock KV store
+    const createMockKV = () => {
+      const store: Record<string, string> = {};
+      return {
+        get: vi.fn(async (key: string) => {
+          const value = store[key];
+          return value ? JSON.parse(value) : null;
+        }),
+        put: vi.fn(async (key: string, value: string) => {
+          store[key] = value;
+        }),
+        _store: store,
+      };
+    };
+
+    it('allows requests within rate limit', async () => {
+      const mockKV = createMockKV();
+      const envWithKV = {
+        ...mockEnv,
+        RATE_LIMIT_KV: mockKV as unknown as KVNamespace,
+        RATE_LIMIT_MAX: '5',
+        RATE_LIMIT_WINDOW_SECONDS: '60',
+      };
+
+      mockResendInstance.emails.send.mockResolvedValue({
+        data: { id: 'email_123' },
+        error: null,
+      });
+
+      const request = new Request('https://worker.test/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'CF-Connecting-IP': '192.168.1.1',
+        },
+        body: JSON.stringify({
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'This is a valid message.',
+        }),
+      });
+
+      const response = await worker.fetch(request, envWithKV);
+
+      expect(response.status).toBe(200);
+      expect(mockKV.put).toHaveBeenCalled();
+    });
+
+    it('blocks requests exceeding rate limit', async () => {
+      const mockKV = createMockKV();
+      // Pre-populate with 5 requests (at limit)
+      mockKV._store['rate_limit:192.168.1.100'] = JSON.stringify({
+        count: 5,
+        resetAt: Date.now() + 60000,
+      });
+
+      const envWithKV = {
+        ...mockEnv,
+        RATE_LIMIT_KV: mockKV as unknown as KVNamespace,
+        RATE_LIMIT_MAX: '5',
+        RATE_LIMIT_WINDOW_SECONDS: '60',
+      };
+
+      const request = new Request('https://worker.test/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'CF-Connecting-IP': '192.168.1.100',
+        },
+        body: JSON.stringify({
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'This is a valid message.',
+        }),
+      });
+
+      const response = await worker.fetch(request, envWithKV);
+
+      expect(response.status).toBe(429);
+      const data = await response.json() as ErrorResponse;
+      expect(data.error).toContain('Too many requests');
+      expect(response.headers.get('Retry-After')).toBeTruthy();
+      expect(response.headers.get('X-RateLimit-Remaining')).toBe('0');
+    });
+
+    it('resets rate limit after window expires', async () => {
+      const mockKV = createMockKV();
+      // Pre-populate with expired window
+      mockKV._store['rate_limit:192.168.1.200'] = JSON.stringify({
+        count: 10,
+        resetAt: Date.now() - 1000, // Expired
+      });
+
+      const envWithKV = {
+        ...mockEnv,
+        RATE_LIMIT_KV: mockKV as unknown as KVNamespace,
+        RATE_LIMIT_MAX: '5',
+        RATE_LIMIT_WINDOW_SECONDS: '60',
+      };
+
+      mockResendInstance.emails.send.mockResolvedValue({
+        data: { id: 'email_123' },
+        error: null,
+      });
+
+      const request = new Request('https://worker.test/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'CF-Connecting-IP': '192.168.1.200',
+        },
+        body: JSON.stringify({
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'This is a valid message.',
+        }),
+      });
+
+      const response = await worker.fetch(request, envWithKV);
+
+      expect(response.status).toBe(200);
+    });
+
+    it('fails open when KV is not configured', async () => {
+      // mockEnv doesn't have RATE_LIMIT_KV
+      mockResendInstance.emails.send.mockResolvedValue({
+        data: { id: 'email_123' },
+        error: null,
+      });
+
+      const request = createRequest('POST', {
+        name: 'John Doe',
+        email: 'john@example.com',
+        message: 'This is a valid message.',
+      });
+
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(200);
+    });
+  });
+
+  describe('CSRF Protection', () => {
+    it('returns CSRF token on GET request', async () => {
+      const request = createRequest('GET');
+      const response = await worker.fetch(request, mockEnvWithCsrf);
+
+      expect(response.status).toBe(200);
+      const data = await response.json() as { csrfToken: string };
+      expect(data.csrfToken).toBeDefined();
+      expect(data.csrfToken).toMatch(/^\d+\..+$/);
+    });
+
+    it('returns 503 when CSRF secret not configured for GET', async () => {
+      const request = createRequest('GET');
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(503);
+      const data = await response.json() as ErrorResponse;
+      expect(data.error).toContain('CSRF not configured');
+    });
+
+    it('accepts valid CSRF token', async () => {
+      mockResendInstance.emails.send.mockResolvedValue({
+        data: { id: 'email_123' },
+        error: null,
+      });
+
+      const csrfToken = await generateTestCsrfToken(mockEnvWithCsrf.CSRF_SECRET);
+      const request = createRequest(
+        'POST',
+        {
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'This is a valid message for testing.',
+        },
+        { 'X-CSRF-Token': csrfToken }
+      );
+
+      const response = await worker.fetch(request, mockEnvWithCsrf);
+
+      expect(response.status).toBe(200);
+    });
+
+    it('rejects missing CSRF token when CSRF is enabled', async () => {
+      const request = createRequest('POST', {
+        name: 'John Doe',
+        email: 'john@example.com',
+        message: 'This is a valid message for testing.',
+      });
+
+      const response = await worker.fetch(request, mockEnvWithCsrf);
+
+      expect(response.status).toBe(403);
+      const data = await response.json() as ErrorResponse;
+      expect(data.error).toContain('CSRF');
+    });
+
+    it('rejects invalid CSRF token format', async () => {
+      const request = createRequest(
+        'POST',
+        {
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'This is a valid message for testing.',
+        },
+        { 'X-CSRF-Token': 'invalid-token-format' }
+      );
+
+      const response = await worker.fetch(request, mockEnvWithCsrf);
+
+      expect(response.status).toBe(403);
+      const data = await response.json() as ErrorResponse;
+      expect(data.error).toContain('CSRF');
+    });
+
+    it('rejects expired CSRF token', async () => {
+      // Create a token from 2 hours ago (beyond 1 hour max age)
+      const expiredTimestamp = Date.now() - 2 * 60 * 60 * 1000;
+      const csrfToken = await generateTestCsrfToken(mockEnvWithCsrf.CSRF_SECRET, expiredTimestamp);
+      const request = createRequest(
+        'POST',
+        {
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'This is a valid message for testing.',
+        },
+        { 'X-CSRF-Token': csrfToken }
+      );
+
+      const response = await worker.fetch(request, mockEnvWithCsrf);
+
+      expect(response.status).toBe(403);
+      const data = await response.json() as ErrorResponse;
+      expect(data.error).toContain('expired');
+    });
+
+    it('rejects token with invalid signature', async () => {
+      const timestamp = Date.now();
+      const invalidToken = `${timestamp}.invalidSignature123`;
+      const request = createRequest(
+        'POST',
+        {
+          name: 'John Doe',
+          email: 'john@example.com',
+          message: 'This is a valid message for testing.',
+        },
+        { 'X-CSRF-Token': invalidToken }
+      );
+
+      const response = await worker.fetch(request, mockEnvWithCsrf);
+
+      expect(response.status).toBe(403);
+      const data = await response.json() as ErrorResponse;
+      expect(data.error).toContain('Invalid CSRF');
+    });
+
+    it('allows requests without CSRF when secret not configured', async () => {
+      // mockEnv doesn't have CSRF_SECRET, so CSRF validation is skipped
+      mockResendInstance.emails.send.mockResolvedValue({
+        data: { id: 'email_123' },
+        error: null,
+      });
+
+      const request = createRequest('POST', {
+        name: 'John Doe',
+        email: 'john@example.com',
+        message: 'This is a valid message for testing.',
+      });
+
+      const response = await worker.fetch(request, mockEnv);
+
+      expect(response.status).toBe(200);
+    });
+
+    it('includes X-CSRF-Token in CORS allowed headers', async () => {
+      const request = createRequest('OPTIONS');
+      const response = await worker.fetch(request, mockEnvWithCsrf);
+
+      expect(response.headers.get('Access-Control-Allow-Headers')).toContain('X-CSRF-Token');
     });
   });
 });

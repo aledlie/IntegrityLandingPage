@@ -5,3 +5,16 @@ compatibility_date = "2024-01-01"
 [vars]
 RECIPIENT_EMAIL = "hello@integritystudio.ai"
 SENDER_EMAIL = "contact@integritystudio.ai"
+
+# Rate limiting configuration
+RATE_LIMIT_MAX = "5"
+RATE_LIMIT_WINDOW_SECONDS = "60"
+
+# CSRF protection (set via: wrangler secret put CSRF_SECRET)
+# Generate a secure random secret: openssl rand -base64 32
+
+# KV namespace for rate limiting
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "cf9d7d72bb07488faab8187ceb3589d4"
+preview_id = "fcd1e5c8e2f04d03a5ceda5f1b3373c3"
