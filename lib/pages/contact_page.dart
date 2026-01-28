@@ -1,0 +1,537 @@
+import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../config/content.dart';
+import '../theme/theme.dart';
+import '../services/analytics.dart';
+import '../widgets/common/buttons.dart';
+import '../widgets/sections/contact_section.dart';
+import '../widgets/sections/footer_section.dart';
+
+/// Standalone contact page with multiple contact options.
+///
+/// Features:
+/// - Hero section with contact context
+/// - Contact form for inquiries
+/// - Direct contact methods (email, calendar, social)
+/// - Office/support hours information
+class ContactPage extends StatefulWidget {
+  final VoidCallback? onBack;
+  final VoidCallback? onShowCookieSettings;
+
+  const ContactPage({
+    super.key,
+    this.onBack,
+    this.onShowCookieSettings,
+  });
+
+  @override
+  State<ContactPage> createState() => _ContactPageState();
+}
+
+class _ContactPageState extends State<ContactPage> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    AnalyticsService.trackPageView('contact');
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.gray900,
+      body: SelectionArea(
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            _buildAppBar(context),
+            const SliverToBoxAdapter(child: _ContactHeroSection()),
+            const SliverToBoxAdapter(child: _QuickContactSection()),
+            const SliverToBoxAdapter(child: ContactSection()),
+            const SliverToBoxAdapter(child: _SupportInfoSection()),
+            SliverToBoxAdapter(
+              child: FooterSection(
+                onCookieSettings: widget.onShowCookieSettings,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SliverAppBar _buildAppBar(BuildContext context) {
+    final isMobile = ResponsiveUtils.isMobile(context);
+
+    return SliverAppBar(
+      backgroundColor: AppColors.gray900.withValues(alpha: 0.95),
+      floating: true,
+      pinned: true,
+      elevation: 0,
+      toolbarHeight: isMobile ? 56 : 64,
+      leading: IconButton(
+        icon: const Icon(LucideIcons.arrowLeft, color: Colors.white),
+        onPressed: widget.onBack ?? () => Navigator.of(context).pop(),
+        tooltip: 'Back',
+      ),
+      title: Row(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  LucideIcons.shield,
+                  color: AppColors.blue500,
+                  size: isMobile ? 24 : 28,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Text(
+                  CompanyInfo.name,
+                  style: (isMobile
+                          ? AppTypography.headingSM
+                          : AppTypography.headingMD)
+                      .copyWith(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        if (!isMobile) ...[
+          _NavLink(
+            text: 'Features',
+            onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+          ),
+          _NavLink(
+            text: 'Pricing',
+            onTap: () => Navigator.of(context).pushNamed('/pricing'),
+          ),
+          _NavLink(
+            text: 'About',
+            onTap: () => Navigator.of(context).pushNamed('/about'),
+          ),
+          const SizedBox(width: AppSpacing.md),
+          Padding(
+            padding: const EdgeInsets.only(right: AppSpacing.md),
+            child: TextButton(
+              onPressed: () => Navigator.of(context).pushNamed('/signup'),
+              style: TextButton.styleFrom(
+                backgroundColor: AppColors.blue600,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.lg,
+                  vertical: AppSpacing.sm,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+                ),
+              ),
+              child: Text(
+                'Get Started',
+                style: AppTypography.bodySM.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _ContactHeroSection extends StatelessWidget {
+  const _ContactHeroSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = ResponsiveUtils.isMobile(context);
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSpacing.containerPadding(context),
+        vertical: isMobile ? 48 : 80,
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            AppColors.gray800,
+            AppColors.gray900,
+          ],
+        ),
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.md,
+              vertical: AppSpacing.xs,
+            ),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.blue500.withValues(alpha: 0.2),
+                  AppColors.purple500.withValues(alpha: 0.2),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(100),
+              border: Border.all(
+                color: AppColors.blue500.withValues(alpha: 0.3),
+              ),
+            ),
+            child: Text(
+              'We\'re Here to Help',
+              style: AppTypography.bodySM.copyWith(
+                color: AppColors.blue400,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          Text(
+            'Get in Touch',
+            style: (isMobile ? AppTypography.headingLG : AppTypography.headingXL).copyWith(
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: Text(
+              'Have questions about AI observability? Need help with integration? Our team is ready to assist you.',
+              style: AppTypography.bodyLG.copyWith(
+                color: AppColors.gray400,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _QuickContactSection extends StatelessWidget {
+  const _QuickContactSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSpacing.containerPadding(context),
+        vertical: AppSpacing.xl,
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1000),
+          child: Wrap(
+            spacing: AppSpacing.lg,
+            runSpacing: AppSpacing.lg,
+            alignment: WrapAlignment.center,
+            children: [
+              _QuickContactCard(
+                icon: LucideIcons.mail,
+                title: 'Email Us',
+                subtitle: CompanyInfo.email,
+                onTap: () => _launchUrl('mailto:${CompanyInfo.email}'),
+              ),
+              _QuickContactCard(
+                icon: LucideIcons.calendar,
+                title: 'Schedule a Demo',
+                subtitle: 'Book a 30-minute call',
+                onTap: () => _launchUrl(ExternalUrls.calendlyDemo),
+              ),
+              _QuickContactCard(
+                icon: LucideIcons.messageCircle,
+                title: 'Live Chat',
+                subtitle: 'Chat with our team',
+                onTap: () {
+                  // Could integrate with Intercom/Drift here
+                  _launchUrl('mailto:${CompanyInfo.email}?subject=Support%20Request');
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
+}
+
+class _QuickContactCard extends StatefulWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const _QuickContactCard({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  @override
+  State<_QuickContactCard> createState() => _QuickContactCardState();
+}
+
+class _QuickContactCardState extends State<_QuickContactCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          width: 280,
+          padding: const EdgeInsets.all(AppSpacing.xl),
+          decoration: BoxDecoration(
+            color: _isHovered ? AppColors.gray800 : AppColors.gray800,
+            borderRadius: BorderRadius.circular(AppSpacing.radiusLG),
+            border: Border.all(
+              color: _isHovered ? AppColors.blue500 : AppColors.gray700,
+            ),
+            boxShadow: _isHovered
+                ? [
+                    BoxShadow(
+                      color: AppColors.blue500.withValues(alpha: 0.1),
+                      blurRadius: 20,
+                      spreadRadius: 0,
+                    ),
+                  ]
+                : null,
+          ),
+          child: Column(
+            children: [
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.blue500.withValues(alpha: 0.2),
+                      AppColors.purple500.withValues(alpha: 0.2),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+                ),
+                child: Icon(
+                  widget.icon,
+                  color: AppColors.blue400,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Text(
+                widget.title,
+                style: AppTypography.bodyLG.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: AppSpacing.xs),
+              Text(
+                widget.subtitle,
+                style: AppTypography.bodySM.copyWith(
+                  color: AppColors.gray400,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SupportInfoSection extends StatelessWidget {
+  const _SupportInfoSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = ResponsiveUtils.isMobile(context);
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSpacing.containerPadding(context),
+        vertical: AppSpacing.sectionPadding(context),
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: Column(
+            children: [
+              Text(
+                'Support Information',
+                style: (isMobile ? AppTypography.headingMD : AppTypography.headingLG)
+                    .copyWith(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppSpacing.xl),
+              Container(
+                padding: const EdgeInsets.all(AppSpacing.xl),
+                decoration: BoxDecoration(
+                  color: AppColors.gray800,
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusLG),
+                  border: Border.all(color: AppColors.gray700),
+                ),
+                child: Column(
+                  children: [
+                    _InfoRow(
+                      icon: LucideIcons.clock,
+                      label: 'Response Time',
+                      value: 'Within 24 hours for all inquiries',
+                    ),
+                    const Divider(color: AppColors.gray700, height: 32),
+                    _InfoRow(
+                      icon: LucideIcons.headphones,
+                      label: 'Enterprise Support',
+                      value: '24/7 dedicated support for Enterprise plans',
+                    ),
+                    const Divider(color: AppColors.gray700, height: 32),
+                    _InfoRow(
+                      icon: LucideIcons.globe,
+                      label: 'Coverage',
+                      value: 'Global support across all time zones',
+                    ),
+                    const Divider(color: AppColors.gray700, height: 32),
+                    _InfoRow(
+                      icon: LucideIcons.bookOpen,
+                      label: 'Documentation',
+                      value: 'Comprehensive guides and API reference',
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: AppSpacing.xl),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  OutlineButton(
+                    text: 'View Documentation',
+                    onPressed: () {
+                      // Navigate to docs when available
+                      AnalyticsService.trackCTAClick(
+                        buttonName: 'View Documentation',
+                        location: 'contact_page',
+                      );
+                    },
+                  ),
+                  const SizedBox(width: AppSpacing.md),
+                  GradientButton(
+                    text: 'Check Status',
+                    onPressed: () async {
+                      final uri = Uri.parse(ExternalUrls.statusPage);
+                      await launchUrl(uri, mode: LaunchMode.externalApplication);
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _InfoRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+
+  const _InfoRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, color: AppColors.blue400, size: 20),
+        const SizedBox(width: AppSpacing.md),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: AppTypography.bodySM.copyWith(
+                  color: AppColors.gray400,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                value,
+                style: AppTypography.bodyMD.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _NavLink extends StatefulWidget {
+  final String text;
+  final VoidCallback onTap;
+
+  const _NavLink({required this.text, required this.onTap});
+
+  @override
+  State<_NavLink> createState() => _NavLinkState();
+}
+
+class _NavLinkState extends State<_NavLink> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+          child: Text(
+            widget.text,
+            style: AppTypography.bodySM.copyWith(
+              color: _isHovered ? AppColors.blue400 : AppColors.gray300,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
