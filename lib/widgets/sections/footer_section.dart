@@ -163,20 +163,20 @@ class FooterSection extends StatelessWidget {
                 text: link.text,
                 onTap: () {
                   // Handle blog navigation specially
-                  if (link.url == '/blog') {
+                  if (link.url == Routes.blog) {
                     if (onNavigateToBlog != null) {
                       onNavigateToBlog!();
                     } else {
-                      Navigator.of(context).pushNamed('/blog');
+                      Navigator.of(context).pushNamed(Routes.blog);
                     }
-                  } else if (link.url == '/sources') {
-                    Navigator.of(context).pushNamed('/sources');
-                  } else if (link.url == '/about') {
-                    Navigator.of(context).pushNamed('/about');
-                  } else if (link.url == '/pricing') {
-                    Navigator.of(context).pushNamed('/pricing');
-                  } else if (link.url == '/contact') {
-                    Navigator.of(context).pushNamed('/contact');
+                  } else if (link.url == Routes.sources) {
+                    Navigator.of(context).pushNamed(Routes.sources);
+                  } else if (link.url == Routes.about) {
+                    Navigator.of(context).pushNamed(Routes.about);
+                  } else if (link.url == Routes.pricing) {
+                    Navigator.of(context).pushNamed(Routes.pricing);
+                  } else if (link.url == Routes.contact) {
+                    Navigator.of(context).pushNamed(Routes.contact);
                   } else if (link.isInternal) {
                     // Internal links - no action for now
                   } else {
@@ -230,19 +230,19 @@ class FooterSection extends StatelessWidget {
                 children: [
                   _FooterLink(
                     text: 'Privacy',
-                    onTap: () => Navigator.of(context).pushNamed('/privacy'),
+                    onTap: () => Navigator.of(context).pushNamed(Routes.privacy),
                   ),
                   _FooterLink(
                     text: 'Terms',
-                    onTap: () => Navigator.of(context).pushNamed('/terms'),
+                    onTap: () => Navigator.of(context).pushNamed(Routes.terms),
                   ),
                   _FooterLink(
                     text: 'Cookies',
-                    onTap: () => Navigator.of(context).pushNamed('/cookies'),
+                    onTap: () => Navigator.of(context).pushNamed(Routes.cookies),
                   ),
                   _FooterLink(
                     text: 'Accessibility',
-                    onTap: () => Navigator.of(context).pushNamed('/accessibility'),
+                    onTap: () => Navigator.of(context).pushNamed(Routes.accessibility),
                   ),
                   _FooterLink(
                     text: 'Cookie Settings',
@@ -270,19 +270,19 @@ class FooterSection extends StatelessWidget {
               children: [
                 _FooterLink(
                   text: 'Privacy Policy',
-                  onTap: () => Navigator.of(context).pushNamed('/privacy'),
+                  onTap: () => Navigator.of(context).pushNamed(Routes.privacy),
                 ),
                 _FooterLink(
                   text: 'Terms of Service',
-                  onTap: () => Navigator.of(context).pushNamed('/terms'),
+                  onTap: () => Navigator.of(context).pushNamed(Routes.terms),
                 ),
                 _FooterLink(
                   text: 'Cookie Policy',
-                  onTap: () => Navigator.of(context).pushNamed('/cookies'),
+                  onTap: () => Navigator.of(context).pushNamed(Routes.cookies),
                 ),
                 _FooterLink(
                   text: 'Accessibility',
-                  onTap: () => Navigator.of(context).pushNamed('/accessibility'),
+                  onTap: () => Navigator.of(context).pushNamed(Routes.accessibility),
                 ),
                 _FooterLink(
                   text: 'Cookie Settings',
@@ -384,33 +384,33 @@ class _LinkItem {
   });
 }
 
-const List<_LinkSection> _linkSections = [
+List<_LinkSection> get _linkSections => [
   _LinkSection(
     title: 'Product',
     links: [
-      _LinkItem(text: 'Features', url: '#features'),
-      _LinkItem(text: 'Pricing', url: '/pricing'),
-      _LinkItem(text: 'Documentation', url: '/docs/claude-code-observability.html', isInternal: false),
-      _LinkItem(text: 'API Reference', url: '/api'),
+      _LinkItem(text: 'Features', url: Routes.features),
+      _LinkItem(text: 'Pricing', url: Routes.pricing),
+      _LinkItem(text: 'Documentation', url: '${Routes.docs}/claude-code-observability.html', isInternal: false),
+      _LinkItem(text: 'API Reference', url: Routes.api),
     ],
   ),
   _LinkSection(
     title: 'Company',
     links: [
-      _LinkItem(text: 'About', url: '/about'),
-      _LinkItem(text: 'Blog', url: '/blog'),
-      _LinkItem(text: 'Sources', url: '/sources'),
-      _LinkItem(text: 'Careers', url: '/careers'),
-      _LinkItem(text: 'Contact', url: '/contact'),
+      _LinkItem(text: 'About', url: Routes.about),
+      _LinkItem(text: 'Blog', url: Routes.blog),
+      _LinkItem(text: 'Sources', url: Routes.sources),
+      _LinkItem(text: 'Careers', url: Routes.careers),
+      _LinkItem(text: 'Contact', url: Routes.contact),
     ],
   ),
   _LinkSection(
     title: 'Resources',
     links: [
-      _LinkItem(text: 'Help Center', url: '/help'),
-      _LinkItem(text: 'Status', url: 'https://integritystudio.ai/status', isInternal: false),
+      _LinkItem(text: 'Help Center', url: Routes.support),
+      _LinkItem(text: 'Status', url: ExternalUrls.statusPage, isInternal: false),
       _LinkItem(text: 'Security', url: '/security'),
-      _LinkItem(text: 'Changelog', url: '/changelog'),
+      _LinkItem(text: 'Changelog', url: Routes.changelog),
     ],
   ),
 ];
