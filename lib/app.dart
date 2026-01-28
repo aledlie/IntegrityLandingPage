@@ -15,6 +15,7 @@ import 'pages/security_page.dart';
 import 'pages/docs_observability_page.dart';
 import 'pages/docs_tracing_page.dart';
 import 'pages/docs_interoperability_page.dart';
+import 'pages/docs_api_page.dart';
 import 'services/analytics.dart';
 import 'services/consent_manager.dart';
 import 'services/tracking.dart';
@@ -331,6 +332,21 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
             builder: (context) => Stack(
               children: [
                 DocsInteroperabilityPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Handle Docs API page
+        if (settings.name == '/docs/api') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                DocsApiPage(
                   onBack: () => Navigator.of(context).pushReplacementNamed('/'),
                 ),
                 if (_showCookieBanner)

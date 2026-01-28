@@ -94,7 +94,7 @@ lib/
 | `/support` | Not implemented |
 | `/eu-ai-act` | Not implemented |
 | `/docs/quickstart` | Not implemented |
-| `/docs/api` | Not implemented |
+| `/docs/api` | Implemented (API Reference) |
 | `/docs/compliance` | Not implemented |
 | `/docs/integrations` | Implemented (Interoperability) |
 | `/docs/agents` | Not implemented |
