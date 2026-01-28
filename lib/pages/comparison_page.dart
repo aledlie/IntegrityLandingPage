@@ -233,10 +233,14 @@ class _HeroSection extends StatelessWidget {
             const SizedBox(height: AppSpacing.xl),
 
             // CTA Button
-            GradientButton(
-              text: content.heroCtaText,
-              icon: LucideIcons.arrowRight,
-              onPressed: () => _launchUrl('/signup?ref=${content.competitorName.toLowerCase()}'),
+            Builder(
+              builder: (context) => GradientButton(
+                text: content.heroCtaText,
+                icon: LucideIcons.arrowRight,
+                onPressed: () => Navigator.of(context).pushNamed(
+                  '/signup?ref=${content.competitorName.toLowerCase()}',
+                ),
+              ),
             ),
 
             const SizedBox(height: AppSpacing.md),
@@ -265,11 +269,6 @@ class _HeroSection extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> _launchUrl(String url) async {
-    final uri = Uri.parse(url);
-    await launchUrl(uri);
   }
 }
 
@@ -954,10 +953,14 @@ class _FinalCTASection extends StatelessWidget {
               runSpacing: AppSpacing.md,
               alignment: WrapAlignment.center,
               children: [
-                GradientButton(
-                  text: content.heroCtaText,
-                  icon: LucideIcons.arrowRight,
-                  onPressed: () => _launchUrl('/signup?ref=${content.competitorName.toLowerCase()}'),
+                Builder(
+                  builder: (ctx) => GradientButton(
+                    text: content.heroCtaText,
+                    icon: LucideIcons.arrowRight,
+                    onPressed: () => Navigator.of(ctx).pushNamed(
+                      '/signup?ref=${content.competitorName.toLowerCase()}',
+                    ),
+                  ),
                 ),
                 OutlineButton(
                   text: 'Schedule Demo',

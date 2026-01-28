@@ -404,6 +404,67 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
           );
         }
 
+        // Redirect /support to /contact
+        if (settings.name == '/support') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                ContactPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                  onShowCookieSettings: _showCookieSettings,
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Redirect /eu-ai-act to /docs
+        if (settings.name == '/eu-ai-act') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                DocsIndexPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Redirect /docs/compliance to /docs (coming soon)
+        if (settings.name == '/docs/compliance') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                DocsIndexPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Redirect /docs/agents to /docs (coming soon)
+        if (settings.name == '/docs/agents') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                DocsIndexPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
         // Default to landing page
         return MaterialPageRoute(
           builder: (context) => Stack(

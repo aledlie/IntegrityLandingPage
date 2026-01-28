@@ -169,18 +169,12 @@ class FooterSection extends StatelessWidget {
                     } else {
                       Navigator.of(context).pushNamed(Routes.blog);
                     }
-                  } else if (link.url == Routes.sources) {
-                    Navigator.of(context).pushNamed(Routes.sources);
-                  } else if (link.url == Routes.about) {
-                    Navigator.of(context).pushNamed(Routes.about);
-                  } else if (link.url == Routes.pricing) {
-                    Navigator.of(context).pushNamed(Routes.pricing);
-                  } else if (link.url == Routes.contact) {
-                    Navigator.of(context).pushNamed(Routes.contact);
-                  } else if (link.url == Routes.careers) {
-                    Navigator.of(context).pushNamed(Routes.careers);
-                  } else if (link.isInternal) {
-                    // Internal links - no action for now
+                  } else if (link.isInternal && !link.url.startsWith('#')) {
+                    // Internal routes - navigate directly
+                    Navigator.of(context).pushNamed(link.url);
+                  } else if (link.url.startsWith('#')) {
+                    // Anchor links - navigate to home (features are on landing page)
+                    Navigator.of(context).pushNamed(Routes.home);
                   } else {
                     _launchUrl(link.url);
                   }
@@ -390,9 +384,9 @@ List<_LinkSection> get _linkSections => [
   _LinkSection(
     title: 'Product',
     links: [
-      _LinkItem(text: 'Features', url: Routes.features),
+      _LinkItem(text: 'Features', url: Routes.home),
       _LinkItem(text: 'Pricing', url: Routes.pricing),
-      _LinkItem(text: 'Documentation', url: '${Routes.docs}/claude-code-observability.html', isInternal: false),
+      _LinkItem(text: 'Documentation', url: Routes.docs),
       _LinkItem(text: 'API Reference', url: Routes.api),
     ],
   ),
@@ -409,9 +403,9 @@ List<_LinkSection> get _linkSections => [
   _LinkSection(
     title: 'Resources',
     links: [
-      _LinkItem(text: 'Help Center', url: Routes.support),
+      _LinkItem(text: 'Help Center', url: Routes.contact),
       _LinkItem(text: 'Status', url: ExternalUrls.statusPage, isInternal: false),
-      _LinkItem(text: 'Security', url: '/security'),
+      _LinkItem(text: 'Security', url: Routes.security),
     ],
   ),
 ];

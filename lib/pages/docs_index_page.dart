@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../theme/theme.dart';
 import '../widgets/common/containers.dart';
 
@@ -553,9 +555,11 @@ class _QuickLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if (url.startsWith('http')) {
-          // External link - would use url_launcher
+          final uri = Uri.parse(url);
+          const mode = kIsWeb ? LaunchMode.platformDefault : LaunchMode.externalApplication;
+          await launchUrl(uri, mode: mode);
         } else {
           Navigator.of(context).pushNamed(url);
         }

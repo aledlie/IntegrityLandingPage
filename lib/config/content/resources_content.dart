@@ -146,8 +146,8 @@ abstract final class ResourcesContentVariants {
           'A comprehensive checklist covering all EU AI Act requirements for high-risk AI systems. '
           'Includes Article 12 traceability, documentation templates, and timeline milestones.',
       format: 'PDF',
-      ctaText: 'Download Checklist',
-      url: '/resources/eu-ai-act-checklist',
+      ctaText: 'Request Checklist',
+      url: '/contact?subject=eu-ai-act-checklist',
     ),
     LeadMagnetContent(
       icon: LucideIcons.calculator,
@@ -157,7 +157,7 @@ abstract final class ResourcesContentVariants {
           'Calculate monthly costs and discover optimization techniques to save 40-80%.',
       format: 'Interactive Tool',
       ctaText: CTAText.calculateSavings,
-      url: '/blog/llm-cost-optimization-guide#calculator',
+      url: '/blog',
       requiresEmail: false,
     ),
     LeadMagnetContent(
@@ -167,8 +167,8 @@ abstract final class ResourcesContentVariants {
           'Original research on AI observability trends, challenges, and best practices. '
           'Data from 500+ AI teams on monitoring, compliance, and cost management.',
       format: 'Report',
-      ctaText: 'Get the Report',
-      url: '/reports/state-of-ai-observability-2025',
+      ctaText: 'Request Report',
+      url: '/contact?subject=ai-observability-report',
     ),
   ];
 }

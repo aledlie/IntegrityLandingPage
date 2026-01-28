@@ -1,6 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
@@ -94,25 +92,23 @@ class ResourcesSection extends StatelessWidget {
           style: AppTypography.headingSM,
         ),
         const SizedBox(height: AppSpacing.lg),
-        ResponsiveGrid(
-          mobileColumns: 1,
-          tabletColumns: 2,
-          desktopColumns: 4,
-          children: _content.documentation
-              .map((doc) => _DocCategoryCard(
-                    category: doc,
-                    onTap: () async {
-                      AnalyticsService.trackFeatureInteraction(
-                        'docs_${doc.title}',
-                      );
-                      final uri = Uri.parse(doc.url);
-                      const mode = kIsWeb
-                          ? LaunchMode.platformDefault
-                          : LaunchMode.externalApplication;
-                      await launchUrl(uri, mode: mode);
-                    },
-                  ))
-              .toList(),
+        Builder(
+          builder: (context) => ResponsiveGrid(
+            mobileColumns: 1,
+            tabletColumns: 2,
+            desktopColumns: 4,
+            children: _content.documentation
+                .map((doc) => _DocCategoryCard(
+                      category: doc,
+                      onTap: () {
+                        AnalyticsService.trackFeatureInteraction(
+                          'docs_${doc.title}',
+                        );
+                        Navigator.of(context).pushNamed(doc.url);
+                      },
+                    ))
+                .toList(),
+          ),
         ),
       ],
     );
@@ -129,23 +125,21 @@ class ResourcesSection extends StatelessWidget {
           style: AppTypography.headingSM,
         ),
         const SizedBox(height: AppSpacing.lg),
-        ResponsiveGrid(
-          mobileColumns: 1,
-          tabletColumns: 2,
-          desktopColumns: 3,
-          children: _content.leadMagnets
-              .map((magnet) => _LeadMagnetCard(
-                    magnet: magnet,
-                    onDownload: () async {
-                      AnalyticsService.trackLeadMagnetDownload(magnet.title);
-                      final uri = Uri.parse(magnet.url);
-                      const mode = kIsWeb
-                          ? LaunchMode.platformDefault
-                          : LaunchMode.externalApplication;
-                      await launchUrl(uri, mode: mode);
-                    },
-                  ))
-              .toList(),
+        Builder(
+          builder: (context) => ResponsiveGrid(
+            mobileColumns: 1,
+            tabletColumns: 2,
+            desktopColumns: 3,
+            children: _content.leadMagnets
+                .map((magnet) => _LeadMagnetCard(
+                      magnet: magnet,
+                      onDownload: () {
+                        AnalyticsService.trackLeadMagnetDownload(magnet.title);
+                        Navigator.of(context).pushNamed(magnet.url);
+                      },
+                    ))
+                .toList(),
+          ),
         ),
       ],
     );
@@ -160,24 +154,21 @@ class ResourcesSection extends StatelessWidget {
           style: AppTypography.headingSM,
         ),
         const SizedBox(height: AppSpacing.lg),
-        ResponsiveGrid(
-          mobileColumns: 1,
-          tabletColumns: 2,
-          desktopColumns: 3,
-          children: _content.featuredPosts
-              .map((post) => _BlogPostCard(
-                    post: post,
-                    onTap: () async {
-                      AnalyticsService.trackBlogPostClick(post.slug);
-                      final url = '/blog/${post.slug}';
-                      final uri = Uri.parse(url);
-                      const mode = kIsWeb
-                          ? LaunchMode.platformDefault
-                          : LaunchMode.externalApplication;
-                      await launchUrl(uri, mode: mode);
-                    },
-                  ))
-              .toList(),
+        Builder(
+          builder: (context) => ResponsiveGrid(
+            mobileColumns: 1,
+            tabletColumns: 2,
+            desktopColumns: 3,
+            children: _content.featuredPosts
+                .map((post) => _BlogPostCard(
+                      post: post,
+                      onTap: () {
+                        AnalyticsService.trackBlogPostClick(post.slug);
+                        Navigator.of(context).pushNamed('/blog');
+                      },
+                    ))
+                .toList(),
+          ),
         ),
       ],
     );
@@ -189,19 +180,17 @@ class ResourcesSection extends StatelessWidget {
       spacing: AppSpacing.lg,
       runSpacing: AppSpacing.md,
       children: [
-        GradientButton(
-          text: _content.docsCtaText,
-          onPressed: () async {
-            AnalyticsService.trackCTAClick(
-              buttonName: _content.docsCtaText,
-              location: 'resources_section',
-            );
-            final uri = Uri.parse(_content.docsCtaUrl);
-            const mode = kIsWeb
-                ? LaunchMode.platformDefault
-                : LaunchMode.externalApplication;
-            await launchUrl(uri, mode: mode);
-          },
+        Builder(
+          builder: (ctx) => GradientButton(
+            text: _content.docsCtaText,
+            onPressed: () {
+              AnalyticsService.trackCTAClick(
+                buttonName: _content.docsCtaText,
+                location: 'resources_section',
+              );
+              Navigator.of(ctx).pushNamed(_content.docsCtaUrl);
+            },
+          ),
         ),
         OutlineButton(
           text: _content.blogCtaText,

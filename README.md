@@ -93,24 +93,26 @@ lib/
 | `/docs/alerts` | Implemented (Alerts Guide) |
 | `/docs/tracing` | Implemented (Tracing Guide) |
 | `/docs/claude-code-observability` | Implemented (Observability Guide) |
-| `/docs/compliance` | Not implemented |
-| `/docs/agents` | Not implemented |
-
-### Not Implemented (will redirect to home)
-
-| Route | Status |
-|-------|--------|
 | `/api` | Implemented (API Reference) |
-| `/support` | Not implemented |
-| `/eu-ai-act` | Not implemented |
+| `/docs/compliance` | Redirects to `/docs` (Coming Soon) |
+| `/docs/agents` | Redirects to `/docs` (Coming Soon) |
 
-### Footer Links Status
+### Redirect Routes
+
+| Route | Redirects To |
+|-------|--------------|
+| `/support` | `/contact` |
+| `/eu-ai-act` | `/docs` |
+
+### Footer Links
 
 | Link | Target | Status |
 |------|--------|--------|
-| Features | `#features` | Anchor (doesn't scroll from footer) |
-| API Reference | `/api` | Not implemented |
-| Help Center | `/support` | Not implemented |
+| Features | `/` | Navigates to home |
+| Documentation | `/docs` | Implemented |
+| API Reference | `/api` | Implemented |
+| Help Center | `/contact` | Implemented |
+| Security | `/security` | Implemented |
 
 ## Test Coverage
 
