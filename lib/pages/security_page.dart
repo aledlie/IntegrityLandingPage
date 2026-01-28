@@ -195,6 +195,7 @@ class _SecurityContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Overview Stats
+        // TODO: Fix card rendering to extend through the entire box
         _SecurityCard(
           icon: LucideIcons.lock,
           title: SecurityContent.commitmentTitle,
@@ -284,6 +285,60 @@ class _SecurityContent extends StatelessWidget {
                 title: 'Role-Based Permissions',
                 items: SecurityContent.rolePermissions,
               ),
+            ],
+          ),
+        ),
+
+        // Enterprise Identity
+        _SecurityCard(
+          icon: LucideIcons.fingerprint,
+          title: SecurityContent.enterpriseIdentityTitle,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                SecurityContent.enterpriseIdentityDescription,
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              ...SecurityContent.enterpriseIdentityFeatures
+                  .map((f) => _ChecklistItem(title: f.title, desc: f.desc)),
+            ],
+          ),
+        ),
+
+        // Compliance & Governance
+        _SecurityCard(
+          icon: LucideIcons.scale,
+          title: SecurityContent.complianceTitle,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                SecurityContent.complianceDescription,
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              ...SecurityContent.complianceFeatures
+                  .map((f) => _ChecklistItem(title: f.title, desc: f.desc)),
+            ],
+          ),
+        ),
+
+        // Enterprise Capabilities
+        _SecurityCard(
+          icon: LucideIcons.building2,
+          title: SecurityContent.enterpriseCapabilitiesTitle,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                SecurityContent.enterpriseCapabilitiesDescription,
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              ...SecurityContent.enterpriseCapabilities
+                  .map((f) => _ChecklistItem(title: f.title, desc: f.desc)),
             ],
           ),
         ),
@@ -444,13 +499,18 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 160,
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      constraints: const BoxConstraints(minWidth: 140, maxWidth: 200),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md,
+      ),
       decoration: BoxDecoration(
         color: AppColors.gray700,
         borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+        border: Border.all(color: AppColors.gray600),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             value,
@@ -733,7 +793,7 @@ abstract final class SecurityContent {
   static const stats = [
     (value: '256-bit', label: 'SSL/TLS Encryption'),
     (value: 'SOC 2', label: 'Compliant Infrastructure'),
-    (value: '90 Days', label: 'Token Rotation'),
+    (value: '60 Days', label: 'Token Rotation'),
   ];
 
   // Authentication
@@ -785,7 +845,7 @@ abstract final class SecurityContent {
 
   static const secretsWarning =
       'Never commit sensitive data to version control. '
-      'All credentials, API keys, and secrets are stored securely using Doppler for secrets management.';
+      'All credentials, API keys, and secrets are stored securely via a best in class, multi-layer and triple-factor authentication system.';
 
   // Access Control
   static const accessControlTitle = 'Access Control';
@@ -796,6 +856,84 @@ abstract final class SecurityContent {
     'Admin: Full system access, user management, configuration',
     'User: Standard application access, personal data management',
     'Guest: Limited read-only access to public resources',
+  ];
+
+  // Enterprise Identity
+  static const enterpriseIdentityTitle = 'Enterprise Identity & Access';
+  static const enterpriseIdentityDescription =
+      'For organizations that demand seamless integration with existing identity infrastructure, '
+      'we provide enterprise-grade single sign-on and granular access controls that scale with your team.';
+
+  static const enterpriseIdentityFeatures = [
+    (
+      title: 'SSO & SAML Integration',
+      desc: 'Connect your existing identity provider—Okta, Azure AD, Google Workspace—for '
+          'frictionless authentication across your organization'
+    ),
+    (
+      title: 'Advanced RBAC',
+      desc: 'Define custom roles with fine-grained permissions that map to your organizational '
+          'structure, from individual contributors to security teams'
+    ),
+    (
+      title: 'Comprehensive Audit Logging',
+      desc: 'Every action is tracked and searchable—who accessed what, when, and from where—giving '
+          'you complete visibility for security reviews and incident investigations'
+    ),
+  ];
+
+  // Compliance & Governance
+  static const complianceTitle = 'Compliance & Governance';
+  static const complianceDescription =
+      'Meeting regulatory requirements shouldn\'t slow you down. Our compliance framework is '
+      'designed to give you confidence that your AI observability data meets the highest standards '
+      'of security and privacy.';
+
+  static const complianceFeatures = [
+    (
+      title: 'SOC 2 Type II Certified',
+      desc: 'Independent verification of our security controls, ensuring your data is protected '
+          'by processes that meet rigorous industry standards'
+    ),
+    (
+      title: 'Intelligent Data Retention',
+      desc: 'Configure retention policies that align with your compliance requirements—automatically '
+          'archive or purge data based on age, sensitivity, or regulatory mandates'
+    ),
+    (
+      title: 'PII Detection & Redaction',
+      desc: 'AI-powered scanning automatically identifies and redacts sensitive personal information '
+          'in your traces and logs before it ever hits storage'
+    ),
+    (
+      title: 'Compliance Dashboards',
+      desc: 'Real-time visibility into your compliance posture with exportable reports for auditors '
+          'and stakeholders'
+    ),
+  ];
+
+  // Enterprise Capabilities
+  static const enterpriseCapabilitiesTitle = 'Enterprise-Grade Capabilities';
+  static const enterpriseCapabilitiesDescription =
+      'When your AI systems are mission-critical, you need observability that goes beyond monitoring. '
+      'Our enterprise features help you stay ahead of issues before they impact your users.';
+
+  static const enterpriseCapabilities = [
+    (
+      title: 'ML-Powered Anomaly Detection',
+      desc: 'Our algorithms learn your system\'s normal behavior and alert you to deviations—catching '
+          'performance regressions, cost spikes, and quality drift before they become incidents'
+    ),
+    (
+      title: 'SLA Dashboards & Reporting',
+      desc: 'Track performance against your service level agreements with customizable dashboards, '
+          'automated alerting on SLA breaches, and executive-ready reports'
+    ),
+    (
+      title: 'VPC & Private Deployment',
+      desc: 'For organizations with strict data residency requirements, deploy Integrity Studio '
+          'within your own cloud infrastructure with full data isolation'
+    ),
   ];
 
   // API Security
@@ -831,7 +969,7 @@ abstract final class SecurityContent {
 
   static const opsPractices = [
     'Principle of least privilege for all access',
-    'Regular credential rotation (90-day cycle)',
+    'Regular credential rotation (60-day cycle)',
     'Comprehensive audit logging',
     'Incident response procedures documented and tested',
   ];
@@ -849,7 +987,7 @@ abstract final class SecurityContent {
       'Before any deployment to production, we verify the following:';
 
   static const productionChecklist = [
-    (title: 'Credentials in Doppler', desc: 'All secrets managed through Doppler, never in code'),
+    (title: 'Secure Credential Storage', desc: 'All secrets managed through multi-layer authentication, never in code'),
     (title: 'SSL/TLS Enabled', desc: 'HTTPS enforced for all connections'),
     (title: 'Database Backups Configured', desc: 'Automated daily backups with retention policy'),
     (title: 'Connection Pooling Optimized', desc: 'Database connections managed efficiently'),
