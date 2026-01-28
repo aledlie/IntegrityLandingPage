@@ -97,7 +97,7 @@ class ServicesSection extends StatelessWidget {
                 buttonName: _content.ctaText,
                 location: 'services_section',
               );
-              // TODO: Navigate to signup or pricing
+              Navigator.of(context).pushNamed(_content.ctaUrl);
             },
           ),
         ],

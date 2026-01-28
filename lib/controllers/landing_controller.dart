@@ -12,7 +12,10 @@ import '../config/content.dart';
 ///
 /// Usage:
 /// ```dart
-/// final controller = LandingController();
+/// final controller = LandingController(
+///   onShowDemoModal: () => DemoModal.show(context, onScheduleDemo: launchCalendly),
+///   onNavigateToSignup: (tier) => Navigator.pushNamed(context, '/signup?tier=$tier'),
+/// );
 ///
 /// // In widget
 /// ScrollController(controller: controller.scrollController);
@@ -29,6 +32,10 @@ class LandingController extends ChangeNotifier {
   // Scroll controller for the page
   final ScrollController scrollController = ScrollController();
 
+  // Callbacks for UI actions (requires BuildContext)
+  final VoidCallback? onShowDemoModal;
+  final void Function(String tier)? onNavigateToSignup;
+
   // Section keys for navigation
   final Map<String, GlobalKey> _sectionKeys = {};
 
@@ -41,6 +48,11 @@ class LandingController extends ChangeNotifier {
 
   // Page view tracked flag
   bool _hasTrackedPageView = false;
+
+  LandingController({
+    this.onShowDemoModal,
+    this.onNavigateToSignup,
+  });
 
   /// Get current hero content based on variant
   HeroContent get heroContent {
@@ -136,13 +148,13 @@ class LandingController extends ChangeNotifier {
       location: 'hero',
       ctaType: 'secondary',
     );
-    // TODO: Implement demo modal
+    onShowDemoModal?.call();
   }
 
   /// Handle pricing tier selection
   void handleTierSelection(String tier) {
     AnalyticsService.trackPricingView(tier);
-    // TODO: Navigate to signup with tier selection
+    onNavigateToSignup?.call(tier);
   }
 
   /// Handle feature interaction
@@ -198,16 +210,28 @@ class ContentVariantController extends ChangeNotifier {
   HeroContent get heroContent => AppContent.getHeroVariant(_currentVariant);
 }
 
-/// Mixin for widgets that need landing controller access
+/// Mixin for widgets that need landing controller access.
+///
+/// Subclasses should override [onShowDemoModal] and [onNavigateToSignup]
+/// to provide context-aware implementations.
 mixin LandingControllerMixin<T extends StatefulWidget> on State<T> {
   late final LandingController _landingController;
 
   LandingController get landingController => _landingController;
 
+  /// Override to show the demo modal. Called when user clicks "Request Demo".
+  void onShowDemoModal() {}
+
+  /// Override to navigate to signup. Called when user selects a pricing tier.
+  void onNavigateToSignup(String tier) {}
+
   @override
   void initState() {
     super.initState();
-    _landingController = LandingController();
+    _landingController = LandingController(
+      onShowDemoModal: onShowDemoModal,
+      onNavigateToSignup: onNavigateToSignup,
+    );
     _landingController.initialize();
   }
 

@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
@@ -183,12 +185,17 @@ class _PricingSectionState extends State<PricingSection> {
             style: AppTypography.bodyMD,
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               AnalyticsService.trackCTAClick(
                 buttonName: 'Contact Sales',
                 location: 'pricing',
                 ctaType: 'text',
               );
+              final uri = Uri.parse('mailto:${CompanyInfo.email}?subject=Enterprise%20Inquiry');
+              const mode = kIsWeb
+                  ? LaunchMode.platformDefault
+                  : LaunchMode.externalApplication;
+              await launchUrl(uri, mode: mode);
             },
             child: Text(
               _content.enterpriseLink,

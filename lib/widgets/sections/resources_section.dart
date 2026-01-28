@@ -191,11 +191,16 @@ class ResourcesSection extends StatelessWidget {
       children: [
         GradientButton(
           text: _content.docsCtaText,
-          onPressed: () {
+          onPressed: () async {
             AnalyticsService.trackCTAClick(
               buttonName: _content.docsCtaText,
               location: 'resources_section',
             );
+            final uri = Uri.parse(_content.docsCtaUrl);
+            const mode = kIsWeb
+                ? LaunchMode.platformDefault
+                : LaunchMode.externalApplication;
+            await launchUrl(uri, mode: mode);
           },
         ),
         OutlineButton(
@@ -205,6 +210,7 @@ class ResourcesSection extends StatelessWidget {
               buttonName: _content.blogCtaText,
               location: 'resources_section',
             );
+            Navigator.of(context).pushNamed(_content.blogCtaUrl);
           },
         ),
       ],
