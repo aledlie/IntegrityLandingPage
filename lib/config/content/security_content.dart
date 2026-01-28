@@ -36,7 +36,7 @@ abstract final class SecurityContent {
 
   static const stats = [
     SecurityStatItem(value: '256-bit', label: 'SSL/TLS Encryption'),
-    SecurityStatItem(value: 'SOC 2', label: 'Compliant Infrastructure'),
+    SecurityStatItem(value: 'SOC 2', label: 'Compliant Infrastructure\n(Certification Pending)'),
     SecurityStatItem(value: '60 Days', label: 'Token Rotation'),
   ];
 
@@ -135,11 +135,12 @@ abstract final class SecurityContent {
       'of security and privacy.';
 
   static const complianceFeatures = [
-    SecurityFeatureItem(
-      title: 'SOC 2 Type II Certified',
-      desc: 'Independent verification of our security controls, ensuring your data is protected '
-          'by processes that meet rigorous industry standards',
-    ),
+    // TODO: Uncomment once SOC 2 Type II certified
+    // SecurityFeatureItem(
+    //   title: 'SOC 2 Type II Certified',
+    //   desc: 'Independent verification of our security controls, ensuring your data is protected '
+    //       'by processes that meet rigorous industry standards',
+    // ),
     SecurityFeatureItem(
       title: 'Intelligent Data Retention',
       desc: 'Configure retention policies that align with your compliance requirements—automatically '
@@ -174,11 +175,12 @@ abstract final class SecurityContent {
       desc: 'Track performance against your service level agreements with customizable dashboards, '
           'automated alerting on SLA breaches, and executive-ready reports',
     ),
-    SecurityFeatureItem(
-      title: 'VPC & Private Deployment',
-      desc: 'For organizations with strict data residency requirements, deploy ${CompanyInfo.name} '
-          'within your own cloud infrastructure with full data isolation',
-    ),
+    // TODO: Uncomment once VPC/private deployment is implemented
+    // SecurityFeatureItem(
+    //   title: 'VPC & Private Deployment',
+    //   desc: 'For organizations with strict data residency requirements, deploy ${CompanyInfo.name} '
+    //       'within your own cloud infrastructure with full data isolation',
+    // ),
   ];
 
   // API Security Section
