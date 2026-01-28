@@ -82,23 +82,28 @@ lib/
 | `/sources` | Sources page |
 | `/whylabs-alternative` | WhyLabs comparison |
 | `/compare/arize-ai-alternative` | Arize comparison |
-| `/docs/claude-code-observability` | Observability guide |
-| `/docs/tracing` | Tracing & EU AI Act guide |
+
+### Documentation Routes
+
+| Route | Status |
+|-------|--------|
+| `/docs` | Implemented (Documentation Index) |
+| `/docs/quickstart` | Implemented (Quick Start) |
+| `/docs/api` | Implemented (API Reference) |
+| `/docs/integrations` | Implemented (Interoperability) |
+| `/docs/alerts` | Implemented (Alerts Guide) |
+| `/docs/tracing` | Implemented (Tracing Guide) |
+| `/docs/claude-code-observability` | Implemented (Observability Guide) |
+| `/docs/compliance` | Not implemented |
+| `/docs/agents` | Not implemented |
 
 ### Not Implemented (will redirect to home)
 
 | Route | Status |
 |-------|--------|
-| `/docs` | Implemented (Documentation Index) |
 | `/api` | Not implemented |
 | `/support` | Not implemented |
 | `/eu-ai-act` | Not implemented |
-| `/docs/quickstart` | Implemented (Quick Start) |
-| `/docs/api` | Implemented (API Reference) |
-| `/docs/compliance` | Not implemented |
-| `/docs/integrations` | Implemented (Interoperability) |
-| `/docs/agents` | Not implemented |
-| `/docs/alerts` | Implemented (Alerts Guide) |
 
 ### Footer Links Status
 
