@@ -2962,32 +2962,29 @@
     },
     {
       "@type": "Person",
-      "@id": "https://integritystudio.ai/team/aaron-weise#person",
-      "name": "Aaron Weise",
-      "givenName": "Aaron",
-      "familyName": "Weise",
-      "description": "Brings decades of experience in both cutting-edge AI development and legal operations. An exceptional leader driving innovation at the intersection of automation and Trust & Safety.",
-      "jobTitle": "Head of AI Compliance Development",
+      "@id": "https://integritystudio.ai/team/isabel-budenz#person",
+      "name": "Isabel Budenz",
+      "givenName": "Isabel",
+      "familyName": "Budenz",
+      "description": "International legal expert specializing in AI governance and EU AI Act compliance. Background in International Commercial Arbitration with multilingual research capabilities spanning German, Spanish, English, and French legal systems.",
+      "jobTitle": "AI Compliance Counsel",
       "worksFor": {
         "@type": "Organization",
         "@id": "https://integritystudio.ai/#organization",
         "name": "Integrity Studio"
       },
       "knowsAbout": [
-        "AI Development",
-        "Legal Operations",
-        "Trust & Safety",
-        "Automation",
-        "AI Compliance",
-        "Innovation Leadership"
-      ],
-      "sameAs": [
-        "https://www.linkedin.com/in/aaron-weise-b8a82932/"
+        "EU AI Act",
+        "AI Governance",
+        "International Commercial Arbitration",
+        "Legal Compliance",
+        "Regulatory Frameworks",
+        "Multilingual Legal Research"
       ],
       "image": {
         "@type": "ImageObject",
-        "url": "https://integritystudio.ai/images/team/aaron-weise.jpg",
-        "description": "Aaron Weise, Head of AI Compliance Development at Integrity Studio",
+        "url": "https://integritystudio.ai/images/team/isabel-budenz.jpg",
+        "description": "Isabel Budenz, AI Compliance Counsel at Integrity Studio",
         "width": 400,
         "height": 400
       }

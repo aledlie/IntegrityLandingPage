@@ -14,6 +14,7 @@ import 'pages/careers_page.dart';
 import 'pages/security_page.dart';
 import 'pages/docs_observability_page.dart';
 import 'pages/docs_tracing_page.dart';
+import 'pages/docs_interoperability_page.dart';
 import 'services/analytics.dart';
 import 'services/consent_manager.dart';
 import 'services/tracking.dart';
@@ -315,6 +316,21 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
             builder: (context) => Stack(
               children: [
                 DocsTracingPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Handle Docs Integrations page
+        if (settings.name == '/docs/integrations') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                DocsInteroperabilityPage(
                   onBack: () => Navigator.of(context).pushReplacementNamed('/'),
                 ),
                 if (_showCookieBanner)

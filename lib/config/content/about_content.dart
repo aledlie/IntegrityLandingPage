@@ -119,13 +119,12 @@ abstract final class AboutContentVariants {
       imageAlt: 'John Skelton, Head of Policy at Integrity Studio',
     ),
     TeamMemberContent(
-      name: 'Aaron Weise',
-      role: 'Head of AI Compliance Development',
+      name: 'Isabel Budenz',
+      role: 'AI Compliance Counsel',
       bio:
-          'Brings decades of experience in both cutting-edge AI development and legal operations. '
-          'An exceptional leader driving innovation at the intersection of automation and Trust & Safety.',
-      imageAlt: 'Aaron Weise, Head of AI Compliance Development at Integrity Studio',
-      linkedInUrl: 'https://www.linkedin.com/in/aaron-weise-b8a82932/',
+          'International legal expert specializing in AI governance and EU AI Act compliance. '
+          'Background in International Commercial Arbitration with multilingual research capabilities spanning German, Spanish, English, and French legal systems.',
+      imageAlt: 'Isabel Budenz, AI Compliance Counsel at Integrity Studio',
     ),
   ];
 }

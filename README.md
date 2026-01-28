@@ -96,7 +96,7 @@ lib/
 | `/docs/quickstart` | Not implemented |
 | `/docs/api` | Not implemented |
 | `/docs/compliance` | Not implemented |
-| `/docs/integrations` | Not implemented |
+| `/docs/integrations` | Implemented (Interoperability) |
 | `/docs/agents` | Not implemented |
 | `/docs/alerts` | Not implemented |
 
