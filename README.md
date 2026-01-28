@@ -89,7 +89,7 @@ lib/
 
 | Route | Status |
 |-------|--------|
-| `/docs` | No landing page (only sub-routes) |
+| `/docs` | Implemented (Documentation Index) |
 | `/api` | Not implemented |
 | `/support` | Not implemented |
 | `/eu-ai-act` | Not implemented |
