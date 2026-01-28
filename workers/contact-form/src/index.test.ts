@@ -7,6 +7,19 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+// API response types
+interface ErrorResponse {
+  error: string;
+}
+
+interface SuccessResponse {
+  success: boolean;
+  submissionId: string;
+  message: string;
+}
+
+type ApiResponse = ErrorResponse | SuccessResponse;
+
 // Mock Resend
 vi.mock('resend', () => ({
   Resend: vi.fn().mockImplementation(() => ({
@@ -70,7 +83,7 @@ describe('Contact Form Worker', () => {
       const response = await worker.fetch(request, mockEnv);
 
       expect(response.status).toBe(405);
-      const data = await response.json();
+      const data = await response.json() as ErrorResponse;
       expect(data.error).toBe('Method not allowed');
     });
 
@@ -99,7 +112,7 @@ describe('Contact Form Worker', () => {
       const response = await worker.fetch(request, mockEnv);
 
       expect(response.status).toBe(400);
-      const data = await response.json();
+      const data = await response.json() as ErrorResponse;
       expect(data.error).toContain('Name');
     });
 
@@ -113,7 +126,7 @@ describe('Contact Form Worker', () => {
       const response = await worker.fetch(request, mockEnv);
 
       expect(response.status).toBe(400);
-      const data = await response.json();
+      const data = await response.json() as ErrorResponse;
       expect(data.error).toContain('Name');
     });
 
@@ -138,7 +151,7 @@ describe('Contact Form Worker', () => {
       const response = await worker.fetch(request, mockEnv);
 
       expect(response.status).toBe(400);
-      const data = await response.json();
+      const data = await response.json() as ErrorResponse;
       expect(data.error).toContain('Email');
     });
 
@@ -152,7 +165,7 @@ describe('Contact Form Worker', () => {
       const response = await worker.fetch(request, mockEnv);
 
       expect(response.status).toBe(400);
-      const data = await response.json();
+      const data = await response.json() as ErrorResponse;
       expect(data.error).toContain('email');
     });
 
@@ -165,7 +178,7 @@ describe('Contact Form Worker', () => {
       const response = await worker.fetch(request, mockEnv);
 
       expect(response.status).toBe(400);
-      const data = await response.json();
+      const data = await response.json() as ErrorResponse;
       expect(data.error).toContain('Message');
     });
 
@@ -179,7 +192,7 @@ describe('Contact Form Worker', () => {
       const response = await worker.fetch(request, mockEnv);
 
       expect(response.status).toBe(400);
-      const data = await response.json();
+      const data = await response.json() as ErrorResponse;
       expect(data.error).toContain('10');
     });
 
@@ -303,7 +316,7 @@ describe('Contact Form Worker', () => {
       });
 
       const response = await worker.fetch(request, mockEnv);
-      const data = await response.json();
+      const data = await response.json() as SuccessResponse;
 
       expect(response.status).toBe(200);
       expect(data.success).toBe(true);
@@ -324,7 +337,7 @@ describe('Contact Form Worker', () => {
       });
 
       const response = await worker.fetch(request, mockEnv);
-      const data = await response.json();
+      const data = await response.json() as SuccessResponse;
 
       expect(response.status).toBe(200);
       expect(data.success).toBe(true);
@@ -346,7 +359,7 @@ describe('Contact Form Worker', () => {
       });
 
       const response = await worker.fetch(request, mockEnv);
-      const data = await response.json();
+      const data = await response.json() as ErrorResponse;
 
       expect(response.status).toBe(500);
       expect(data.error).toContain('Failed to send email');
@@ -364,7 +377,7 @@ describe('Contact Form Worker', () => {
       });
 
       const response = await worker.fetch(request, mockEnv);
-      const data = await response.json();
+      const data = await response.json() as ErrorResponse;
 
       expect(response.status).toBe(500);
       expect(data.error).toContain('unexpected error');
