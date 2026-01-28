@@ -12,11 +12,11 @@ void main() {
         // These tests verify the expected structure exists
         const productLinks = ['Features', 'Pricing', 'Documentation', 'API Reference'];
         const companyLinks = ['About', 'Blog', 'Sources', 'Careers', 'Contact'];
-        const resourceLinks = ['Help Center', 'Status', 'Security', 'Changelog'];
+        const resourceLinks = ['Help Center', 'Status', 'Security'];
 
         expect(productLinks, hasLength(4));
         expect(companyLinks, hasLength(5)); // Updated: now includes Sources
-        expect(resourceLinks, hasLength(4));
+        expect(resourceLinks, hasLength(3));
       });
 
       test('company links include Sources for transparency', () {
@@ -153,7 +153,6 @@ void main() {
         expect(find.text('Help Center'), findsOneWidget);
         expect(find.text('Status'), findsOneWidget);
         expect(find.text('Security'), findsOneWidget);
-        expect(find.text('Changelog'), findsOneWidget);
       });
     });
 

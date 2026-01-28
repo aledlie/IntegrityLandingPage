@@ -412,7 +412,6 @@ List<_LinkSection> get _linkSections => [
       _LinkItem(text: 'Help Center', url: Routes.support),
       _LinkItem(text: 'Status', url: ExternalUrls.statusPage, isInternal: false),
       _LinkItem(text: 'Security', url: '/security'),
-      _LinkItem(text: 'Changelog', url: Routes.changelog),
     ],
   ),
 ];

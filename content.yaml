@@ -53,7 +53,6 @@ urls:
     docs_agents: "/docs/agents"
     docs_alerts: "/docs/alerts"
     eu_ai_act: "/eu-ai-act"
-    changelog: "/changelog"
     support: "/support"
     api: "/api"
     careers: "/careers"
@@ -790,8 +789,6 @@ footer:
           url: "#pricing"
         - label: "Documentation"
           url: "/docs"
-        - label: "Changelog"
-          url: "/changelog"
 
     - title: "Company"
       links:

@@ -92,7 +92,6 @@ lib/
 | `/docs` | No landing page (only sub-routes) |
 | `/api` | Not implemented |
 | `/support` | Not implemented |
-| `/changelog` | Not implemented |
 | `/eu-ai-act` | Not implemented |
 | `/docs/quickstart` | Not implemented |
 | `/docs/api` | Not implemented |
@@ -108,7 +107,6 @@ lib/
 | Features | `#features` | Anchor (doesn't scroll from footer) |
 | API Reference | `/api` | Not implemented |
 | Help Center | `/support` | Not implemented |
-| Changelog | `/changelog` | Not implemented |
 
 ## Test Coverage
 

@@ -106,7 +106,6 @@ abstract final class Routes {
 
   // Resources
   static const String euAiAct = '/eu-ai-act';
-  static const String changelog = '/changelog';
   static const String support = '/support';
   static const String api = '/api';
   static const String careers = '/careers';
