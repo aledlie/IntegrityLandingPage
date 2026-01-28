@@ -113,6 +113,7 @@ abstract final class Routes {
   static const String terms = '/terms';
   static const String cookies = '/cookies';
   static const String accessibility = '/accessibility';
+  static const String security = '/security';
 
   // Comparison pages
   static const String whylabsAlternative = '/whylabs-alternative';

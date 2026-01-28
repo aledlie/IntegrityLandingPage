@@ -103,9 +103,15 @@ abstract final class ContactContentVariants {
     ContactMethodContent(
       icon: LucideIcons.calendar,
       label: 'Schedule a Demo',
-      value: 'Book a 30-minute call',
+      value: 'Book a 15-minute call',
       url: ExternalUrls.calendlyDemo,
       isPrimary: true,
+    ),
+    ContactMethodContent(
+      icon: LucideIcons.phone,
+      label: 'Phone',
+      value: CompanyInfo.phone,
+      url: 'tel:${CompanyInfo.phone}',
     ),
     ContactMethodContent(
       icon: LucideIcons.mapPin,

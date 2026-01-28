@@ -10,6 +10,8 @@ import 'pages/about_page.dart';
 import 'pages/signup_page.dart';
 import 'pages/pricing_page.dart';
 import 'pages/contact_page.dart';
+import 'pages/careers_page.dart';
+import 'pages/security_page.dart';
 import 'services/analytics.dart';
 import 'services/consent_manager.dart';
 import 'services/tracking.dart';
@@ -181,6 +183,22 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
           );
         }
 
+        // Handle Careers page
+        if (settings.name == '/careers') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                CareersPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                  onShowCookieSettings: _showCookieSettings,
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
         // Handle Signup page with tier parameter
         if (settings.name?.startsWith('/signup') == true) {
           final uri = Uri.parse(settings.name!);
@@ -250,6 +268,21 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
             builder: (context) => Stack(
               children: [
                 LegalPage.accessibility(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Handle Security page
+        if (settings.name == '/security') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                SecurityPage(
                   onBack: () => Navigator.of(context).pushReplacementNamed('/'),
                 ),
                 if (_showCookieBanner)

@@ -177,6 +177,8 @@ class FooterSection extends StatelessWidget {
                     Navigator.of(context).pushNamed(Routes.pricing);
                   } else if (link.url == Routes.contact) {
                     Navigator.of(context).pushNamed(Routes.contact);
+                  } else if (link.url == Routes.careers) {
+                    Navigator.of(context).pushNamed(Routes.careers);
                   } else if (link.isInternal) {
                     // Internal links - no action for now
                   } else {
