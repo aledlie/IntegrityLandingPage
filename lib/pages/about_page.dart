@@ -487,7 +487,7 @@ class _StatsSection extends StatelessWidget {
     final stats = [
       _StatData('6', 'Team Members', AppColors.blue500),
       _StatData('12+', 'Avg Yrs Experience', AppColors.indigo500),
-      _StatData('2024', 'Founded', AppColors.purple500),
+      _StatData('2025', 'Founded', AppColors.purple500),
       _StatData('Austin, TX', 'Headquarters', AppColors.blue500),
     ];
 

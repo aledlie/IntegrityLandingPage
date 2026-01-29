@@ -97,7 +97,7 @@ void main() {
         final content = AppContent.about;
 
         expect(content.foundedYear, isNotEmpty);
-        expect(content.foundedYear, equals('2024'));
+        expect(content.foundedYear, equals('2025'));
       });
     });
 

@@ -153,7 +153,7 @@ void main() {
       // Look for footer indicators
       final footerIndicators = [
         find.textContaining('©'),
-        find.textContaining('2024'),
+        find.textContaining('2025'),
         find.textContaining('Privacy'),
         find.textContaining('Terms'),
         find.textContaining('Integrity Studio'),
