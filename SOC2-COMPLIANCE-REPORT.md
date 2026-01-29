@@ -1,9 +1,12 @@
 # SOC 2 Compliance Report
 
 **Organization**: Integrity Studio
+
 **Website**: https://integritystudio.ai
+
 **Assessment Date**: January 28, 2026
-**Report Type**: Gap Analysis / Self-Assessment
+
+**Report Type**: Gap Analysis
 
 ---
 
