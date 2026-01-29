@@ -339,7 +339,7 @@ void main() {
         await tester.pump(const Duration(milliseconds: 100));
 
         expect(find.text('Trace Explorer'), findsOneWidget);
-        expect(find.byIcon(LucideIcons.activity), findsOneWidget);
+        expect(find.byIcon(LucideIcons.activity), findsWidgets);
       });
 
       testWidgets('renders Cost Dashboard feature', (tester) async {
@@ -407,7 +407,7 @@ void main() {
             find.byType(CustomScrollView), const Offset(0, -3000));
         await tester.pump(const Duration(milliseconds: 100));
 
-        expect(find.byIcon(LucideIcons.database), findsOneWidget);
+        expect(find.byIcon(LucideIcons.database), findsWidgets);
       });
 
       testWidgets('renders attribute table headers', (tester) async {
@@ -418,7 +418,8 @@ void main() {
         await tester.pump(const Duration(milliseconds: 100));
 
         expect(find.text('Attribute'), findsOneWidget);
-        expect(find.text('Description'), findsOneWidget);
+        // Description appears in multiple tables now (attribute table + cache/query performance)
+        expect(find.text('Description'), findsWidgets);
         expect(find.text('Example'), findsOneWidget);
       });
 
@@ -551,12 +552,12 @@ void main() {
           (tester) async {
         await pumpDocsQuickstartPage(tester);
 
-        // Scroll to the very bottom
+        // Scroll to the very bottom (increased for new health monitoring sections)
         await tester.drag(
-            find.byType(CustomScrollView), const Offset(0, -6000));
+            find.byType(CustomScrollView), const Offset(0, -8000));
         await tester.pump(const Duration(milliseconds: 100));
         await tester.drag(
-            find.byType(CustomScrollView), const Offset(0, -1000));
+            find.byType(CustomScrollView), const Offset(0, -2000));
         await tester.pump(const Duration(milliseconds: 100));
 
         expect(
@@ -568,12 +569,12 @@ void main() {
       testWidgets('renders copyright footer', (tester) async {
         await pumpDocsQuickstartPage(tester);
 
-        // Scroll to the very bottom
+        // Scroll to the very bottom (increased for new health monitoring sections)
         await tester.drag(
-            find.byType(CustomScrollView), const Offset(0, -6000));
+            find.byType(CustomScrollView), const Offset(0, -8000));
         await tester.pump(const Duration(milliseconds: 100));
         await tester.drag(
-            find.byType(CustomScrollView), const Offset(0, -1000));
+            find.byType(CustomScrollView), const Offset(0, -2000));
         await tester.pump(const Duration(milliseconds: 100));
 
         expect(
