@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import '../widgets/consent/cookie_banner.dart';
 
+/// Global notifier for cookie banner visibility.
+///
+/// This allows the banner state to change without recreating the router,
+/// which is critical for preserving the current route on direct URL access.
+final cookieBannerNotifier = ValueNotifier<bool>(false);
+
 /// Shell widget that wraps all routes with a cookie consent banner overlay.
 ///
 /// Used with GoRouter's ShellRoute to provide consistent cookie banner
@@ -8,16 +14,12 @@ import '../widgets/consent/cookie_banner.dart';
 class CookieBannerShell extends StatelessWidget {
   const CookieBannerShell({
     required this.child,
-    required this.showBanner,
     required this.onConsentGiven,
     super.key,
   });
 
   /// The child page content from the current route.
   final Widget child;
-
-  /// Whether to show the cookie consent banner.
-  final bool showBanner;
 
   /// Callback when user gives consent.
   final VoidCallback onConsentGiven;
@@ -27,7 +29,13 @@ class CookieBannerShell extends StatelessWidget {
     return Stack(
       children: [
         child,
-        if (showBanner) CookieBanner(onConsentGiven: onConsentGiven),
+        ValueListenableBuilder<bool>(
+          valueListenable: cookieBannerNotifier,
+          builder: (context, showBanner, _) {
+            if (!showBanner) return const SizedBox.shrink();
+            return CookieBanner(onConsentGiven: onConsentGiven);
+          },
+        ),
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:integrity_studio_ai/routing/app_router.dart';
+import 'package:integrity_studio_ai/routing/cookie_shell.dart';
 import 'package:integrity_studio_ai/pages/landing_page.dart';
 import 'package:integrity_studio_ai/pages/about_page.dart';
 import 'package:integrity_studio_ai/pages/pricing_page.dart';
@@ -99,12 +100,10 @@ void main() {
   Future<GoRouter> pumpRouterApp(
     WidgetTester tester, {
     required String initialLocation,
-    bool showCookieBanner = false,
   }) async {
     clearOverflowExceptions(tester);
 
     final testRouter = createAppRouter(
-      showCookieBanner: showCookieBanner,
       onConsentGiven: () {},
       onShowCookieSettings: () {},
     );
@@ -149,7 +148,6 @@ void main() {
   group('createAppRouter', () {
     test('creates a GoRouter instance', () {
       final router = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -158,7 +156,6 @@ void main() {
 
     test('has correct initial location', () {
       final router = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -170,7 +167,6 @@ void main() {
   group('redirects', () {
     test('/support redirects to /contact', () {
       final router = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -419,19 +415,8 @@ void main() {
   });
 
   group('cookie banner configuration', () {
-    test('router can be created with showCookieBanner true', () {
+    test('router can be created successfully', () {
       final router = createAppRouter(
-        showCookieBanner: true,
-        onConsentGiven: () {},
-        onShowCookieSettings: () {},
-      );
-
-      expect(router, isA<GoRouter>());
-    });
-
-    test('router can be created with showCookieBanner false', () {
-      final router = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -443,7 +428,6 @@ void main() {
   group('route configuration', () {
     test('router has ShellRoute as root', () {
       final router = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -453,7 +437,6 @@ void main() {
 
     test('ShellRoute contains all page routes', () {
       final router = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -492,7 +475,6 @@ void main() {
         (tester) async {
       bool settingsShown = false;
       final testRouter = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () {
           settingsShown = true;
@@ -521,8 +503,8 @@ void main() {
     });
   });
 
-  group('cookie banner with showBanner true', () {
-    testWidgets('cookie banner is visible when showCookieBanner is true',
+  group('cookie banner visibility via notifier', () {
+    testWidgets('cookie banner visibility controlled by cookieBannerNotifier',
         (tester) async {
       // Use a larger screen size to avoid overflow
       tester.view.physicalSize = const Size(1920, 1080);
@@ -530,11 +512,15 @@ void main() {
       addTearDown(() {
         tester.view.resetPhysicalSize();
         tester.view.resetDevicePixelRatio();
+        // Reset notifier after test
+        cookieBannerNotifier.value = false;
       });
+
+      // Set banner to visible via notifier
+      cookieBannerNotifier.value = true;
 
       bool consentGiven = false;
       final testRouter = createAppRouter(
-        showCookieBanner: true,
         onConsentGiven: () {
           consentGiven = true;
         },

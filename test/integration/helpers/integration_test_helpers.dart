@@ -108,7 +108,6 @@ void setDesktopSize(WidgetTester tester) {
 Future<void> pumpAppWithRoute(
   WidgetTester tester, {
   required String initialLocation,
-  bool showCookieBanner = false,
   Size screenSize = ScreenSizes.desktop,
 }) async {
   // Ensure test content is loaded

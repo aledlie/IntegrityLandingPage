@@ -431,7 +431,6 @@ void main() {
       setDesktopSize(tester);
 
       final router = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -444,7 +443,6 @@ void main() {
       setDesktopSize(tester);
 
       final router = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -462,12 +460,14 @@ void main() {
       expect(find.byType(CookieBannerShell), findsOneWidget);
     });
 
-    testWidgets('shows cookie banner when showCookieBanner is true',
+    testWidgets('shows cookie banner when cookieBannerNotifier is true',
         (tester) async {
       setDesktopSize(tester);
+      addTearDown(() => cookieBannerNotifier.value = false);
+
+      cookieBannerNotifier.value = true;
 
       final router = createAppRouter(
-        showCookieBanner: true,
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -481,17 +481,17 @@ void main() {
       ));
       await tester.pump(const Duration(milliseconds: 100));
 
-      final shell =
-          tester.widget<CookieBannerShell>(find.byType(CookieBannerShell));
-      expect(shell.showBanner, isTrue);
+      expect(find.byType(CookieBannerShell), findsOneWidget);
+      expect(cookieBannerNotifier.value, isTrue);
     });
 
-    testWidgets('hides cookie banner when showCookieBanner is false',
+    testWidgets('hides cookie banner when cookieBannerNotifier is false',
         (tester) async {
       setDesktopSize(tester);
 
+      cookieBannerNotifier.value = false;
+
       final router = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -505,9 +505,8 @@ void main() {
       ));
       await tester.pump(const Duration(milliseconds: 100));
 
-      final shell =
-          tester.widget<CookieBannerShell>(find.byType(CookieBannerShell));
-      expect(shell.showBanner, isFalse);
+      expect(find.byType(CookieBannerShell), findsOneWidget);
+      expect(cookieBannerNotifier.value, isFalse);
     });
 
     group('all routes', () {
@@ -630,11 +629,12 @@ void main() {
     // Test using a testable version that exposes state via callbacks
     testWidgets('onConsentGiven callback is invokable', (tester) async {
       setDesktopSize(tester);
+      addTearDown(() => cookieBannerNotifier.value = false);
 
       bool consentWasGiven = false;
+      cookieBannerNotifier.value = true;
 
       final router = createAppRouter(
-        showCookieBanner: true,
         onConsentGiven: () => consentWasGiven = true,
         onShowCookieSettings: () {},
       );
@@ -663,7 +663,6 @@ void main() {
       bool settingsShown = false;
 
       final router = createAppRouter(
-        showCookieBanner: false,
         onConsentGiven: () {},
         onShowCookieSettings: () => settingsShown = true,
       );
@@ -686,13 +685,15 @@ void main() {
     });
   });
 
-  group('Router recreation on state change simulation', () {
-    testWidgets('router changes when showCookieBanner changes', (tester) async {
+  group('Banner state change via notifier', () {
+    testWidgets('banner visibility changes when notifier changes', (tester) async {
       setDesktopSize(tester);
+      addTearDown(() => cookieBannerNotifier.value = false);
 
-      // Create router with banner hidden
-      final router1 = createAppRouter(
-        showCookieBanner: false,
+      // Start with banner hidden
+      cookieBannerNotifier.value = false;
+
+      final router = createAppRouter(
         onConsentGiven: () {},
         onShowCookieSettings: () {},
       );
@@ -701,179 +702,105 @@ void main() {
         data: const MediaQueryData(disableAnimations: true),
         child: MaterialApp.router(
           theme: AppTheme.darkTheme,
-          routerConfig: router1,
+          routerConfig: router,
         ),
       ));
       await tester.pump(const Duration(milliseconds: 100));
 
-      final shell1 =
-          tester.widget<CookieBannerShell>(find.byType(CookieBannerShell));
-      expect(shell1.showBanner, isFalse);
+      expect(cookieBannerNotifier.value, isFalse);
 
-      // Create new router with banner shown (simulates setState)
-      final router2 = createAppRouter(
-        showCookieBanner: true,
-        onConsentGiven: () {},
-        onShowCookieSettings: () {},
-      );
-
-      await tester.pumpWidget(MediaQuery(
-        data: const MediaQueryData(disableAnimations: true),
-        child: MaterialApp.router(
-          theme: AppTheme.darkTheme,
-          routerConfig: router2,
-        ),
-      ));
+      // Change notifier to show banner
+      cookieBannerNotifier.value = true;
       await tester.pump(const Duration(milliseconds: 100));
 
-      final shell2 =
-          tester.widget<CookieBannerShell>(find.byType(CookieBannerShell));
-      expect(shell2.showBanner, isTrue);
+      expect(cookieBannerNotifier.value, isTrue);
     });
   });
 
   group('Stateful callback tests', () {
     // Test the callback behavior through the app's router mechanism
     testWidgets(
-        'onConsentGiven callback hides banner and recreates router',
+        'onConsentGiven callback hides banner via notifier',
         (tester) async {
       setDesktopSize(tester);
-
-      // Track state changes
-      bool bannerVisibleAfterConsent = true;
-      int routerCreationCount = 0;
-
-      // Build a custom test harness that mimics IntegrityStudioApp's behavior
-      late VoidCallback handleConsentGiven;
-      late VoidCallback showCookieSettings;
-
-      Widget buildTestHarness(bool showBanner) {
-        routerCreationCount++;
-        final router = createAppRouter(
-          showCookieBanner: showBanner,
-          onConsentGiven: () {
-            handleConsentGiven();
-          },
-          onShowCookieSettings: () {
-            showCookieSettings();
-          },
-        );
-        return MediaQuery(
-          data: const MediaQueryData(disableAnimations: true),
-          child: MaterialApp.router(
-            theme: AppTheme.darkTheme,
-            routerConfig: router,
-          ),
-        );
-      }
+      addTearDown(() => cookieBannerNotifier.value = false);
 
       // Start with banner shown
-      bool currentBannerState = true;
+      cookieBannerNotifier.value = true;
 
-      handleConsentGiven = () {
-        currentBannerState = false;
-        bannerVisibleAfterConsent = false;
-      };
+      bool consentCallbackInvoked = false;
 
-      showCookieSettings = () {
-        currentBannerState = true;
-      };
+      final router = createAppRouter(
+        onConsentGiven: () {
+          consentCallbackInvoked = true;
+          cookieBannerNotifier.value = false;
+        },
+        onShowCookieSettings: () {},
+      );
 
-      await tester.pumpWidget(buildTestHarness(currentBannerState));
+      await tester.pumpWidget(MediaQuery(
+        data: const MediaQueryData(disableAnimations: true),
+        child: MaterialApp.router(
+          theme: AppTheme.darkTheme,
+          routerConfig: router,
+        ),
+      ));
       await tester.pump(const Duration(milliseconds: 100));
 
-      // Verify initial state
-      final shellBefore =
+      // Verify initial state - banner shown
+      expect(cookieBannerNotifier.value, isTrue);
+
+      // Get shell and invoke consent callback
+      final shell =
           tester.widget<CookieBannerShell>(find.byType(CookieBannerShell));
-      expect(shellBefore.showBanner, isTrue);
-
-      // Simulate consent given - invoke the callback
-      shellBefore.onConsentGiven();
-
-      // Rebuild with new state (simulating setState)
-      await tester.pumpWidget(buildTestHarness(currentBannerState));
+      shell.onConsentGiven();
       await tester.pump(const Duration(milliseconds: 100));
 
-      // Verify callback was invoked and state changed
-      expect(bannerVisibleAfterConsent, isFalse);
-      expect(routerCreationCount, equals(2));
-
-      // Verify banner is now hidden
-      final shellAfter =
-          tester.widget<CookieBannerShell>(find.byType(CookieBannerShell));
-      expect(shellAfter.showBanner, isFalse);
+      // Verify callback was invoked and notifier updated
+      expect(consentCallbackInvoked, isTrue);
+      expect(cookieBannerNotifier.value, isFalse);
     });
 
     testWidgets(
-        'onShowCookieSettings callback shows banner and recreates router',
+        'onShowCookieSettings callback shows banner via notifier',
         (tester) async {
       setDesktopSize(tester);
-
-      // Track state changes
-      bool bannerVisibleAfterSettings = false;
-      int routerCreationCount = 0;
-
-      // Build a custom test harness that mimics IntegrityStudioApp's behavior
-      late VoidCallback handleConsentGiven;
-      late VoidCallback showCookieSettings;
-
-      Widget buildTestHarness(bool showBanner) {
-        routerCreationCount++;
-        final router = createAppRouter(
-          showCookieBanner: showBanner,
-          onConsentGiven: () {
-            handleConsentGiven();
-          },
-          onShowCookieSettings: () {
-            showCookieSettings();
-          },
-        );
-        return MediaQuery(
-          data: const MediaQueryData(disableAnimations: true),
-          child: MaterialApp.router(
-            theme: AppTheme.darkTheme,
-            routerConfig: router,
-          ),
-        );
-      }
+      addTearDown(() => cookieBannerNotifier.value = false);
 
       // Start with banner hidden
-      bool currentBannerState = false;
+      cookieBannerNotifier.value = false;
 
-      handleConsentGiven = () {
-        currentBannerState = false;
-      };
+      bool settingsCallbackInvoked = false;
 
-      showCookieSettings = () {
-        currentBannerState = true;
-        bannerVisibleAfterSettings = true;
-      };
+      final router = createAppRouter(
+        onConsentGiven: () {},
+        onShowCookieSettings: () {
+          settingsCallbackInvoked = true;
+          cookieBannerNotifier.value = true;
+        },
+      );
 
-      await tester.pumpWidget(buildTestHarness(currentBannerState));
+      await tester.pumpWidget(MediaQuery(
+        data: const MediaQueryData(disableAnimations: true),
+        child: MaterialApp.router(
+          theme: AppTheme.darkTheme,
+          routerConfig: router,
+        ),
+      ));
       await tester.pump(const Duration(milliseconds: 100));
 
       // Verify initial state - banner hidden
-      final shellBefore =
-          tester.widget<CookieBannerShell>(find.byType(CookieBannerShell));
-      expect(shellBefore.showBanner, isFalse);
+      expect(cookieBannerNotifier.value, isFalse);
 
       // Get the landing page and invoke onShowCookieSettings
       final landingPage =
           tester.widget<LandingPage>(find.byType(LandingPage));
       landingPage.onShowCookieSettings?.call();
-
-      // Rebuild with new state (simulating setState)
-      await tester.pumpWidget(buildTestHarness(currentBannerState));
       await tester.pump(const Duration(milliseconds: 100));
 
-      // Verify callback was invoked and state changed
-      expect(bannerVisibleAfterSettings, isTrue);
-      expect(routerCreationCount, equals(2));
-
-      // Verify banner is now shown
-      final shellAfter =
-          tester.widget<CookieBannerShell>(find.byType(CookieBannerShell));
-      expect(shellAfter.showBanner, isTrue);
+      // Verify callback was invoked and notifier updated
+      expect(settingsCallbackInvoked, isTrue);
+      expect(cookieBannerNotifier.value, isTrue);
     });
   });
 

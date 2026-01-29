@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'theme/theme.dart';
 import 'routing/app_router.dart';
+import 'routing/cookie_shell.dart';
 import 'services/analytics.dart';
 import 'services/consent_manager.dart';
 import 'services/tracking.dart';
@@ -15,33 +16,25 @@ class IntegrityStudioApp extends StatefulWidget {
 }
 
 class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
-  bool _showCookieBanner = false;
-  late GoRouter _router;
+  late final GoRouter _router;
 
   @override
   void initState() {
     super.initState();
-    _router = _createRouter();
-    _checkConsent();
-  }
-
-  GoRouter _createRouter() {
-    return createAppRouter(
-      showCookieBanner: _showCookieBanner,
+    // Set initial banner state before creating router
+    cookieBannerNotifier.value = !ConsentManager.hasConsent();
+    // Create router once - it stays stable throughout app lifecycle
+    _router = createAppRouter(
       onConsentGiven: _handleConsentGiven,
       onShowCookieSettings: _showCookieSettings,
     );
+    // Initialize tracking for returning users
+    _initializeTracking();
   }
 
-  Future<void> _checkConsent() async {
-    final hasConsent = ConsentManager.hasConsent();
-    if (!hasConsent) {
-      setState(() {
-        _showCookieBanner = true;
-        _router = _createRouter();
-      });
-    } else {
-      // Re-initialize tracking for returning users with saved consent
+  /// Initialize tracking for returning users with saved consent
+  Future<void> _initializeTracking() async {
+    if (ConsentManager.hasConsent()) {
       final prefs = await ConsentManager.getStoredConsent();
       if (prefs != null && kIsWeb) {
         // Update Consent Mode with stored preferences
@@ -65,17 +58,13 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
   }
 
   void _handleConsentGiven() {
-    setState(() {
-      _showCookieBanner = false;
-      _router = _createRouter();
-    });
+    // Update banner visibility without recreating router
+    cookieBannerNotifier.value = false;
   }
 
   void _showCookieSettings() {
-    setState(() {
-      _showCookieBanner = true;
-      _router = _createRouter();
-    });
+    // Update banner visibility without recreating router
+    cookieBannerNotifier.value = true;
   }
 
   @override

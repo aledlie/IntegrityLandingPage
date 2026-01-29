@@ -25,11 +25,12 @@ import '../pages/status_page.dart';
 /// Creates the application router with all routes and redirects.
 ///
 /// Parameters:
-/// - [showCookieBanner]: Whether to show the cookie consent banner
 /// - [onConsentGiven]: Callback when user gives consent
 /// - [onShowCookieSettings]: Callback to show cookie settings (passed to pages with footer)
+///
+/// Note: Cookie banner visibility is controlled via [cookieBannerNotifier] to avoid
+/// recreating the router (which would reset navigation to '/').
 GoRouter createAppRouter({
-  required bool showCookieBanner,
   required VoidCallback onConsentGiven,
   required VoidCallback onShowCookieSettings,
 }) {
@@ -49,7 +50,6 @@ GoRouter createAppRouter({
     routes: [
       ShellRoute(
         builder: (context, state, child) => CookieBannerShell(
-          showBanner: showCookieBanner,
           onConsentGiven: onConsentGiven,
           child: child,
         ),

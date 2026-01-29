@@ -418,8 +418,7 @@ void main() {
         };
 
         final router = createAppRouter(
-          showCookieBanner: false,
-          onConsentGiven: () {},
+                    onConsentGiven: () {},
           onShowCookieSettings: () {},
         );
 
@@ -549,8 +548,7 @@ void main() {
         };
 
         final router = createAppRouter(
-          showCookieBanner: false,
-          onConsentGiven: () {},
+                    onConsentGiven: () {},
           onShowCookieSettings: () {},
         );
 
