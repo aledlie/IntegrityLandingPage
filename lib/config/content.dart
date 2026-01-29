@@ -23,6 +23,7 @@ export 'content/models.dart';
 export 'content/constants.dart';
 export 'content/comparison_content.dart';
 export 'content/security_content.dart';
+export 'content/features_content.dart';
 
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
