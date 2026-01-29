@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../config/content.dart';
 import '../theme/theme.dart';
@@ -70,7 +71,7 @@ class _FeaturesPageState extends State<FeaturesPage> {
         tooltip: 'Back',
       ),
       title: GestureDetector(
-        onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+        onTap: () => context.go('/'),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -92,7 +93,7 @@ class _FeaturesPageState extends State<FeaturesPage> {
           Padding(
             padding: const EdgeInsets.only(right: AppSpacing.md),
             child: TextButton(
-              onPressed: () => Navigator.of(context).pushNamed('/signup'),
+              onPressed: () => context.go('/signup'),
               style: TextButton.styleFrom(
                 backgroundColor: AppColors.blue600,
                 padding: const EdgeInsets.symmetric(

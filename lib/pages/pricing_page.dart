@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../config/content.dart';
 import '../theme/theme.dart';
@@ -86,7 +87,7 @@ class _PricingPageState extends State<PricingPage> {
         tooltip: 'Back',
       ),
       title: GestureDetector(
-        onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+        onTap: () => context.go('/'),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -113,21 +114,21 @@ class _PricingPageState extends State<PricingPage> {
         if (!isMobile) ...[
           _NavLink(
             text: 'Features',
-            onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+            onTap: () => context.go('/'),
           ),
           _NavLink(
             text: 'About',
-            onTap: () => Navigator.of(context).pushNamed('/about'),
+            onTap: () => context.go('/about'),
           ),
           _NavLink(
             text: 'Contact',
-            onTap: () => Navigator.of(context).pushNamed('/contact'),
+            onTap: () => context.go('/contact'),
           ),
           const SizedBox(width: AppSpacing.md),
           Padding(
             padding: const EdgeInsets.only(right: AppSpacing.md),
             child: TextButton(
-              onPressed: () => Navigator.of(context).pushNamed('/signup'),
+              onPressed: () => context.go('/signup'),
               style: TextButton.styleFrom(
                 backgroundColor: AppColors.blue600,
                 padding: const EdgeInsets.symmetric(
@@ -154,7 +155,7 @@ class _PricingPageState extends State<PricingPage> {
 
   void _handleSelectTier(BuildContext context, String tier) {
     AnalyticsService.trackPricingView(tier);
-    Navigator.of(context).pushNamed('/signup?tier=$tier');
+    context.go('/signup?tier=$tier');
   }
 }
 
@@ -408,7 +409,7 @@ class _PricingCTASection extends StatelessWidget {
               GradientButton(
                 text: 'Contact Sales',
                 onPressed: () =>
-                    Navigator.of(context).pushNamed('/contact'),
+                    context.go('/contact'),
               ),
             ],
           ),

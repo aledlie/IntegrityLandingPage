@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../config/content.dart';
@@ -167,14 +168,14 @@ class FooterSection extends StatelessWidget {
                     if (onNavigateToBlog != null) {
                       onNavigateToBlog!();
                     } else {
-                      Navigator.of(context).pushNamed(Routes.blog);
+                      context.go(Routes.blog);
                     }
                   } else if (link.isInternal && !link.url.startsWith('#')) {
                     // Internal routes - navigate directly
-                    Navigator.of(context).pushNamed(link.url);
+                    context.go(link.url);
                   } else if (link.url.startsWith('#')) {
                     // Anchor links - navigate to home (features are on landing page)
-                    Navigator.of(context).pushNamed(Routes.home);
+                    context.go(Routes.home);
                   } else {
                     _launchUrl(link.url);
                   }
@@ -226,19 +227,19 @@ class FooterSection extends StatelessWidget {
                 children: [
                   _FooterLink(
                     text: 'Privacy',
-                    onTap: () => Navigator.of(context).pushNamed(Routes.privacy),
+                    onTap: () => context.go(Routes.privacy),
                   ),
                   _FooterLink(
                     text: 'Terms',
-                    onTap: () => Navigator.of(context).pushNamed(Routes.terms),
+                    onTap: () => context.go(Routes.terms),
                   ),
                   _FooterLink(
                     text: 'Cookies',
-                    onTap: () => Navigator.of(context).pushNamed(Routes.cookies),
+                    onTap: () => context.go(Routes.cookies),
                   ),
                   _FooterLink(
                     text: 'Accessibility',
-                    onTap: () => Navigator.of(context).pushNamed(Routes.accessibility),
+                    onTap: () => context.go(Routes.accessibility),
                   ),
                   _FooterLink(
                     text: 'Cookie Settings',
@@ -266,19 +267,19 @@ class FooterSection extends StatelessWidget {
               children: [
                 _FooterLink(
                   text: 'Privacy Policy',
-                  onTap: () => Navigator.of(context).pushNamed(Routes.privacy),
+                  onTap: () => context.go(Routes.privacy),
                 ),
                 _FooterLink(
                   text: 'Terms of Service',
-                  onTap: () => Navigator.of(context).pushNamed(Routes.terms),
+                  onTap: () => context.go(Routes.terms),
                 ),
                 _FooterLink(
                   text: 'Cookie Policy',
-                  onTap: () => Navigator.of(context).pushNamed(Routes.cookies),
+                  onTap: () => context.go(Routes.cookies),
                 ),
                 _FooterLink(
                   text: 'Accessibility',
-                  onTap: () => Navigator.of(context).pushNamed(Routes.accessibility),
+                  onTap: () => context.go(Routes.accessibility),
                 ),
                 _FooterLink(
                   text: 'Cookie Settings',

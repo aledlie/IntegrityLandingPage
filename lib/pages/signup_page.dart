@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../theme/theme.dart';
@@ -100,7 +101,7 @@ class _SignupPageState extends State<SignupPage> {
               pinned: true,
               leading: IconButton(
                 icon: const Icon(LucideIcons.arrowLeft, color: Colors.white),
-                onPressed: widget.onBack ?? () => Navigator.of(context).pushReplacementNamed('/'),
+                onPressed: widget.onBack ?? () => context.go('/'),
                 tooltip: 'Back to home',
               ),
               title: Row(

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../theme/theme.dart';
@@ -372,7 +373,7 @@ class _DocCard extends StatelessWidget {
     return GestureDetector(
       onTap: doc.comingSoon
           ? null
-          : () => Navigator.of(context).pushNamed(doc.url),
+          : () => context.go(doc.url),
       child: MouseRegion(
         cursor: doc.comingSoon ? SystemMouseCursors.basic : SystemMouseCursors.click,
         child: Container(
@@ -567,7 +568,7 @@ class _QuickLink extends StatelessWidget {
           const mode = kIsWeb ? LaunchMode.platformDefault : LaunchMode.externalApplication;
           await launchUrl(uri, mode: mode);
         } else {
-          Navigator.of(context).pushNamed(url);
+          context.go(url);
         }
       },
       child: MouseRegion(

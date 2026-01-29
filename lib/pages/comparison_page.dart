@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -237,7 +238,7 @@ class _HeroSection extends StatelessWidget {
               builder: (context) => GradientButton(
                 text: content.heroCtaText,
                 icon: LucideIcons.arrowRight,
-                onPressed: () => Navigator.of(context).pushNamed(
+                onPressed: () => context.go(
                   '/signup?ref=${content.competitorName.toLowerCase()}',
                 ),
               ),

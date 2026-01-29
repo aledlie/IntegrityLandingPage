@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../config/content.dart';
@@ -68,7 +69,7 @@ class _StatusPageState extends State<StatusPage> {
         tooltip: 'Back',
       ),
       title: GestureDetector(
-        onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+        onTap: () => context.go('/'),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

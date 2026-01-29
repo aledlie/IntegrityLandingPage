@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../config/content.dart';
@@ -83,7 +84,7 @@ class _ContactPageState extends State<ContactPage> {
         tooltip: 'Back',
       ),
       title: GestureDetector(
-        onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+        onTap: () => context.go('/'),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -110,21 +111,21 @@ class _ContactPageState extends State<ContactPage> {
         if (!isMobile) ...[
           _NavLink(
             text: 'Features',
-            onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+            onTap: () => context.go('/'),
           ),
           _NavLink(
             text: 'Pricing',
-            onTap: () => Navigator.of(context).pushNamed('/pricing'),
+            onTap: () => context.go('/pricing'),
           ),
           _NavLink(
             text: 'About',
-            onTap: () => Navigator.of(context).pushNamed('/about'),
+            onTap: () => context.go('/about'),
           ),
           const SizedBox(width: AppSpacing.md),
           Padding(
             padding: const EdgeInsets.only(right: AppSpacing.md),
             child: TextButton(
-              onPressed: () => Navigator.of(context).pushNamed('/signup'),
+              onPressed: () => context.go('/signup'),
               style: TextButton.styleFrom(
                 backgroundColor: AppColors.blue600,
                 padding: const EdgeInsets.symmetric(

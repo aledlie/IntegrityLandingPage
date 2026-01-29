@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../config/content.dart';
 import '../../theme/theme.dart';
@@ -97,7 +98,7 @@ class ServicesSection extends StatelessWidget {
                 buttonName: _content.ctaText,
                 location: 'services_section',
               );
-              Navigator.of(context).pushNamed(_content.ctaUrl);
+              context.go(_content.ctaUrl);
             },
           ),
         ],

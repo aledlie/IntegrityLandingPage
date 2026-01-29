@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../config/content.dart';
 import '../../theme/theme.dart';
 import '../../services/analytics.dart';
@@ -104,7 +105,7 @@ class ResourcesSection extends StatelessWidget {
                         AnalyticsService.trackFeatureInteraction(
                           'docs_${doc.title}',
                         );
-                        Navigator.of(context).pushNamed(doc.url);
+                        context.go(doc.url);
                       },
                     ))
                 .toList(),
@@ -135,7 +136,7 @@ class ResourcesSection extends StatelessWidget {
                       magnet: magnet,
                       onDownload: () {
                         AnalyticsService.trackLeadMagnetDownload(magnet.title);
-                        Navigator.of(context).pushNamed(magnet.url);
+                        context.go(magnet.url);
                       },
                     ))
                 .toList(),
@@ -164,7 +165,7 @@ class ResourcesSection extends StatelessWidget {
                       post: post,
                       onTap: () {
                         AnalyticsService.trackBlogPostClick(post.slug);
-                        Navigator.of(context).pushNamed('/blog');
+                        context.go('/blog');
                       },
                     ))
                 .toList(),
@@ -199,7 +200,7 @@ class ResourcesSection extends StatelessWidget {
               buttonName: _content.blogCtaText,
               location: 'resources_section',
             );
-            Navigator.of(context).pushNamed(_content.blogCtaUrl);
+            context.go(_content.blogCtaUrl);
           },
         ),
       ],
