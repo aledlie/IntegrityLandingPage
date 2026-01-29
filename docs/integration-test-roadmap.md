@@ -283,6 +283,60 @@ integration-tests:
     - run: flutter test test/integration/ --reporter github
 ```
 
+## Known Technical Debt: Overflow Error Suppression
+
+### Current State
+
+Several test files suppress `RenderFlex` overflow errors during widget pump:
+- `test/routing/app_router_test.dart`
+- `test/pages/landing_page_test.dart`
+
+```dart
+// Current pattern (technical debt)
+FlutterError.onError = (FlutterErrorDetails details) {
+  if (!details.toString().contains('overflowed')) {
+    oldHandler?.call(details);
+  }
+};
+```
+
+### Why This Exists
+
+1. **Responsive layouts** - The marketing site uses complex responsive layouts that adapt at specific breakpoints
+2. **Test viewport mismatch** - Flutter test viewports (800x600 default) don't match production breakpoints
+3. **Continuous animations** - Landing page has animations that prevent `pumpAndSettle()` from completing
+
+### Impact
+
+- Tests pass but mask real layout overflow warnings
+- Overflow errors in production would not be caught by tests
+- Makes it harder to identify genuine layout regressions
+
+### Proper Fix (Future Work)
+
+To remove overflow suppression, fix the responsive layouts:
+
+1. **Navbar Row overflow** - The header Row overflows when viewport < 571px
+   - Add `Flexible` or `Expanded` wrappers
+   - Implement proper responsive breakpoints for nav items
+
+2. **Section layouts** - Various sections overflow at narrow widths
+   - Review each section's min-width constraints
+   - Add responsive wrappers or scrollable containers
+
+3. **Test approach**
+   - Set proper viewport sizes before each test: `tester.view.physicalSize = Size(1920, 1080)`
+   - Use `pump()` with duration instead of `pumpAndSettle()` for pages with continuous animations
+
+### Estimated Effort
+
+| Task | Hours |
+|------|-------|
+| Navbar responsive fix | 2-3 |
+| Section layout audit | 4-6 |
+| Test refactor | 2-3 |
+| **Total** | **8-12** |
+
 ## References
 
 - [Flutter Integration Testing](https://docs.flutter.dev/testing/integration-tests)
