@@ -626,9 +626,9 @@ void main() {
         expect(find.byType(LandingPage), findsOneWidget);
       });
 
-      testWidgets('mobile menu About item navigates to about page',
-          skip: 'Flaky due to overflow errors in constrained test viewport',
-          (tester) async {
+      testWidgets(
+        'mobile menu About item navigates to about page',
+        (tester) async {
         setMobileSize(tester);
         await pumpMobileWithRoutes(tester);
 
