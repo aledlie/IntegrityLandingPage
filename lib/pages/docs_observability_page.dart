@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../theme/theme.dart';
 import '../widgets/common/containers.dart';
+import '../widgets/docs/doc_components.dart';
 
 /// Claude Code Observability Guide documentation page.
 ///
@@ -254,7 +255,7 @@ class _DocsContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Overview Section
-        _DocSection(
+        DocSection(
           icon: LucideIcons.info,
           title: 'Overview',
           child: Column(
@@ -267,9 +268,9 @@ class _DocsContent extends StatelessWidget {
               const SizedBox(height: AppSpacing.lg),
               const _FeatureGrid(),
               const SizedBox(height: AppSpacing.lg),
-              _SuccessCallout(
+              const DocCallout.success(
                 title: 'Key Results from Optimization',
-                items: const [
+                items: [
                   '81% reduction in cost per session',
                   '84% reduction in tokens per session',
                   '85% reduction in MCP tool overhead',
@@ -280,27 +281,21 @@ class _DocsContent extends StatelessWidget {
           ),
         ),
 
-        // TODO: Add Quick Start section once API key access is configured
-        // Command: claude mcp add observability-toolkit -- npx -y observability-toolkit
-        _DocSection(
+        // Quick Start section
+        DocSection(
           icon: LucideIcons.rocket,
           title: 'Quick Start',
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _InfoCallout(
-                title: 'Coming Soon',
-                items: const [
-                  'One-command setup via MCP toolkit',
-                  'Automatic configuration with API key',
-                ],
-              ),
+          child: const DocCallout.info(
+            title: 'Coming Soon',
+            items: [
+              'One-command setup via MCP toolkit',
+              'Automatic configuration with API key',
             ],
           ),
         ),
 
         // Token Optimization Section
-        _DocSection(
+        DocSection(
           icon: LucideIcons.coins,
           title: 'Token Optimization Strategies',
           child: Column(
@@ -311,9 +306,9 @@ class _DocsContent extends StatelessWidget {
                 style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
               ),
               const SizedBox(height: AppSpacing.lg),
-              _InfoCallout(
+              const DocCallout.info(
                 title: 'Results from Lazy Loading',
-                items: const [
+                items: [
                   'Initial context reduced from 7,584 to 3,434 tokens (54% reduction)',
                   'Monthly cost for 5 developers doing 100 sessions/day: \$72 (62% savings)',
                 ],
@@ -324,7 +319,7 @@ class _DocsContent extends StatelessWidget {
                 style: AppTypography.headingSM.copyWith(color: Colors.white),
               ),
               const SizedBox(height: AppSpacing.md),
-              const _SimpleTable(
+              const DocTable(
                 headers: ['Model', 'Use For'],
                 rows: [
                   ['Opus 4.5', 'High-level planning, architectural design, final code review'],
@@ -336,13 +331,13 @@ class _DocsContent extends StatelessWidget {
         ),
 
         // Tool Usage Section
-        _DocSection(
+        DocSection(
           icon: LucideIcons.wrench,
           title: 'Efficient Tool Usage',
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const _SimpleTable(
+              const DocTable(
                 headers: ['Scenario', 'Recommended Tool'],
                 rows: [
                   ['Find files by name pattern', 'Glob'],
@@ -353,7 +348,8 @@ class _DocsContent extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: AppSpacing.lg),
-              _WarningCallout(
+              const DocCallout.warning(
+                title: 'Memory Warning',
                 message: 'Claude Code stores all bash output in memory for the entire session. Large outputs (90GB+ reported) can crash the application. Always truncate verbose commands.',
               ),
             ],
@@ -361,13 +357,13 @@ class _DocsContent extends StatelessWidget {
         ),
 
         // Context Window Section
-        _DocSection(
+        DocSection(
           icon: LucideIcons.layoutGrid,
           title: 'Context Window Management',
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const _SimpleTable(
+              const DocTable(
                 headers: ['Tier', 'Context Window', 'Notes'],
                 rows: [
                   ['Standard', '200,000 tokens', 'Default for most users'],
@@ -376,7 +372,8 @@ class _DocsContent extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: AppSpacing.lg),
-              _DangerCallout(
+              const DocCallout.danger(
+                title: 'Context Degradation',
                 message: 'Avoid using the final 20% of your context window for complex tasks. Quality notably declines for memory-intensive operations.',
               ),
               const SizedBox(height: AppSpacing.lg),
@@ -385,7 +382,7 @@ class _DocsContent extends StatelessWidget {
                 style: AppTypography.headingSM.copyWith(color: Colors.white),
               ),
               const SizedBox(height: AppSpacing.md),
-              const _SimpleTable(
+              const DocTable(
                 headers: ['Command', 'Purpose'],
                 rows: [
                   ['/context', 'Visualizes context usage'],
@@ -399,7 +396,7 @@ class _DocsContent extends StatelessWidget {
         ),
 
         // MCP Optimization Section
-        _DocSection(
+        DocSection(
           icon: LucideIcons.plug,
           title: 'MCP Server Optimization',
           child: Column(
@@ -410,7 +407,7 @@ class _DocsContent extends StatelessWidget {
                 style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
               ),
               const SizedBox(height: AppSpacing.sm),
-              _BulletList(items: const [
+              const DocBulletList(items: [
                 '5-server setup: ~55K tokens before conversation starts',
                 'Jira alone: ~17K tokens',
                 'One reported case: 134K tokens of tool definitions',
@@ -421,9 +418,9 @@ class _DocsContent extends StatelessWidget {
                 style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
               ),
               const SizedBox(height: AppSpacing.lg),
-              _SuccessCallout(
+              const DocCallout.success(
                 title: 'Performance Improvements',
-                items: const [
+                items: [
                   'Opus 4: 49% to 74% accuracy',
                   'Opus 4.5: 79.5% to 88.1% accuracy',
                   '46.9% reduction in total agent tokens (51K to 8.5K)',
@@ -434,7 +431,7 @@ class _DocsContent extends StatelessWidget {
         ),
 
         // Metrics Reference Section
-        _DocSection(
+        DocSection(
           icon: LucideIcons.barChart3,
           title: 'Metrics Reference',
           child: Column(
@@ -445,7 +442,7 @@ class _DocsContent extends StatelessWidget {
                 style: AppTypography.headingSM.copyWith(color: Colors.white),
               ),
               const SizedBox(height: AppSpacing.md),
-              const _SimpleTable(
+              const DocTable(
                 headers: ['Metric', 'Type', 'Description'],
                 rows: [
                   ['hook.duration', 'Histogram', 'Execution time distribution'],
@@ -460,7 +457,7 @@ class _DocsContent extends StatelessWidget {
                 style: AppTypography.headingSM.copyWith(color: Colors.white),
               ),
               const SizedBox(height: AppSpacing.md),
-              const _SimpleTable(
+              const DocTable(
                 headers: ['Metric', 'Type', 'Description'],
                 rows: [
                   ['gen_ai.client.token.usage', 'Counter', 'Tokens consumed'],
@@ -473,7 +470,7 @@ class _DocsContent extends StatelessWidget {
         ),
 
         // Cost Optimization Section
-        _DocSection(
+        DocSection(
           icon: LucideIcons.trendingDown,
           title: 'Cost Optimization',
           child: Column(
@@ -484,7 +481,7 @@ class _DocsContent extends StatelessWidget {
                 style: AppTypography.headingSM.copyWith(color: Colors.white),
               ),
               const SizedBox(height: AppSpacing.md),
-              const _SimpleTable(
+              const DocTable(
                 headers: ['Metric', 'Before', 'After', 'Change'],
                 rows: [
                   ['Avg Sessions/Day', '7.3', '26.2', '+259%'],
@@ -494,9 +491,9 @@ class _DocsContent extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: AppSpacing.lg),
-              _InfoCallout(
+              const DocCallout.info(
                 title: 'The Pattern',
-                items: const [
+                items: [
                   'Before: Fewer, longer sessions (avg 40K tokens) \u2192 expensive',
                   'After: More, shorter sessions (avg 6.5K tokens) \u2192 efficient',
                 ],
@@ -506,7 +503,7 @@ class _DocsContent extends StatelessWidget {
         ),
 
         // Recommendations Section
-        _DocSection(
+        DocSection(
           icon: LucideIcons.lightbulb,
           title: 'Recommendations',
           child: Column(
@@ -517,7 +514,7 @@ class _DocsContent extends StatelessWidget {
                 style: AppTypography.headingSM.copyWith(color: Colors.white),
               ),
               const SizedBox(height: AppSpacing.md),
-              _BulletList(items: const [
+              const DocBulletList(items: [
                 'Keep sessions short \u2014 Target <10K tokens/session',
                 'Reset frequently \u2014 New session after major task completion',
                 'Compact at 70% \u2014 Don\'t let context hit limits',
@@ -529,7 +526,7 @@ class _DocsContent extends StatelessWidget {
                 style: AppTypography.headingSM.copyWith(color: Colors.white),
               ),
               const SizedBox(height: AppSpacing.md),
-              const _CodeBlock(
+              const DocCodeBlock(
                 code: '''1. Start session
    - /context to check baseline
    - Disable unused MCP servers
@@ -555,431 +552,36 @@ class _DocsContent extends StatelessWidget {
   }
 }
 
-// Reusable Components
-
-class _DocSection extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final Widget child;
-
-  const _DocSection({
-    required this.icon,
-    required this.title,
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: AppSpacing.lg),
-      padding: const EdgeInsets.all(AppSpacing.xl),
-      decoration: BoxDecoration(
-        color: AppColors.gray800,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
-        border: Border.all(color: AppColors.gray700),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: AppColors.blue500,
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-                ),
-                child: Icon(icon, color: Colors.white, size: 20),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: Text(
-                  title,
-                  style: AppTypography.headingSM.copyWith(
-                    color: AppColors.blue400,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          child,
-        ],
-      ),
-    );
-  }
-}
-
 class _FeatureGrid extends StatelessWidget {
   const _FeatureGrid();
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return const Wrap(
       spacing: AppSpacing.md,
       runSpacing: AppSpacing.md,
-      children: const [
-        _FeatureCard(
+      children: [
+        DocFeatureCard(
           icon: LucideIcons.activity,
           title: 'Distributed Tracing',
           description: 'Track operations across hook invocations with OpenTelemetry spans.',
         ),
-        _FeatureCard(
+        DocFeatureCard(
           icon: LucideIcons.barChart3,
           title: 'Metrics Collection',
           description: 'Monitor performance, token usage, and cost patterns.',
         ),
-        _FeatureCard(
+        DocFeatureCard(
           icon: LucideIcons.fileText,
           title: 'Structured Logging',
           description: 'Debug issues with logs correlated to trace context.',
         ),
-        _FeatureCard(
+        DocFeatureCard(
           icon: LucideIcons.bot,
           title: 'LLM Instrumentation',
           description: 'Track token usage, costs, and model performance.',
         ),
       ],
-    );
-  }
-}
-
-class _FeatureCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String description;
-
-  const _FeatureCard({
-    required this.icon,
-    required this.title,
-    required this.description,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: AppColors.gray700,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        border: Border.all(color: AppColors.gray600),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.blue500.withValues(alpha: 0.2),
-                  AppColors.purple500.withValues(alpha: 0.2),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-            ),
-            child: Icon(icon, color: AppColors.blue400, size: 18),
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          Text(
-            title,
-            style: AppTypography.bodyMD.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            description,
-            style: AppTypography.bodySM.copyWith(color: AppColors.gray400),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CodeBlock extends StatelessWidget {
-  final String code;
-
-  const _CodeBlock({required this.code});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: AppColors.gray900,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        border: Border.all(color: AppColors.gray700),
-      ),
-      child: SelectableText(
-        code,
-        style: TextStyle(
-          fontFamily: 'JetBrains Mono',
-          fontSize: 13,
-          color: AppColors.gray300,
-          height: 1.5,
-        ),
-      ),
-    );
-  }
-}
-
-class _SimpleTable extends StatelessWidget {
-  final List<String> headers;
-  final List<List<String>> rows;
-
-  const _SimpleTable({required this.headers, required this.rows});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        border: Border.all(color: AppColors.gray700),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        child: Table(
-          border: TableBorder.symmetric(
-            inside: BorderSide(color: AppColors.gray700),
-          ),
-          children: [
-            TableRow(
-              decoration: BoxDecoration(color: AppColors.gray800),
-              children: headers
-                  .map((h) => Padding(
-                        padding: const EdgeInsets.all(AppSpacing.md),
-                        child: Text(
-                          h,
-                          style: AppTypography.bodySM.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ))
-                  .toList(),
-            ),
-            ...rows.map(
-              (row) => TableRow(
-                children: row
-                    .map((cell) => Padding(
-                          padding: const EdgeInsets.all(AppSpacing.md),
-                          child: Text(
-                            cell,
-                            style: AppTypography.bodySM.copyWith(
-                              color: AppColors.gray300,
-                            ),
-                          ),
-                        ))
-                    .toList(),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _BulletList extends StatelessWidget {
-  final List<String> items;
-
-  const _BulletList({required this.items});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: items
-          .map((item) => Padding(
-                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '\u2022 ',
-                      style: AppTypography.bodyMD.copyWith(
-                        color: AppColors.blue400,
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        item,
-                        style: AppTypography.bodyMD.copyWith(
-                          color: AppColors.gray300,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ))
-          .toList(),
-    );
-  }
-}
-
-class _SuccessCallout extends StatelessWidget {
-  final String title;
-  final List<String> items;
-
-  const _SuccessCallout({required this.title, required this.items});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: AppColors.success.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        border: Border(
-          left: BorderSide(color: AppColors.success, width: 3),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(LucideIcons.checkCircle, color: AppColors.success, size: 18),
-              const SizedBox(width: AppSpacing.sm),
-              Text(
-                title,
-                style: AppTypography.bodyMD.copyWith(
-                  color: AppColors.success,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          ...items.map((item) => Padding(
-                padding: const EdgeInsets.only(left: AppSpacing.lg, bottom: 4),
-                child: Text(
-                  '\u2022 $item',
-                  style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
-                ),
-              )),
-        ],
-      ),
-    );
-  }
-}
-
-class _InfoCallout extends StatelessWidget {
-  final String title;
-  final List<String> items;
-
-  const _InfoCallout({required this.title, required this.items});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: AppColors.blue500.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        border: Border(
-          left: BorderSide(color: AppColors.blue500, width: 3),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(LucideIcons.lightbulb, color: AppColors.blue400, size: 18),
-              const SizedBox(width: AppSpacing.sm),
-              Text(
-                title,
-                style: AppTypography.bodyMD.copyWith(
-                  color: AppColors.blue400,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          ...items.map((item) => Padding(
-                padding: const EdgeInsets.only(left: AppSpacing.lg, bottom: 4),
-                child: Text(
-                  '\u2022 $item',
-                  style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
-                ),
-              )),
-        ],
-      ),
-    );
-  }
-}
-
-class _WarningCallout extends StatelessWidget {
-  final String message;
-
-  const _WarningCallout({required this.message});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: AppColors.warning.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        border: Border(
-          left: BorderSide(color: AppColors.warning, width: 3),
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(LucideIcons.alertTriangle, color: AppColors.warning, size: 18),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Text(
-              message,
-              style: AppTypography.bodyMD.copyWith(color: AppColors.warning),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DangerCallout extends StatelessWidget {
-  final String message;
-
-  const _DangerCallout({required this.message});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: AppColors.error.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
-        border: Border(
-          left: BorderSide(color: AppColors.error, width: 3),
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(LucideIcons.alertCircle, color: AppColors.error, size: 18),
-          const SizedBox(width: AppSpacing.md),
-          Expanded(
-            child: Text(
-              message,
-              style: AppTypography.bodyMD.copyWith(color: AppColors.error),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
