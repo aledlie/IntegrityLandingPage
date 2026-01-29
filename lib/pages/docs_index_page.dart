@@ -218,13 +218,16 @@ class _HeroSection extends StatelessWidget {
                 children: [
                   Icon(LucideIcons.search, size: 20, color: AppColors.gray500),
                   const SizedBox(width: AppSpacing.md),
-                  Text(
-                    'Search documentation...',
-                    style: AppTypography.bodyMD.copyWith(
-                      color: AppColors.gray500,
+                  Flexible(
+                    child: Text(
+                      'Search documentation...',
+                      style: AppTypography.bodyMD.copyWith(
+                        color: AppColors.gray500,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const Spacer(),
+                  const SizedBox(width: AppSpacing.sm),
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: AppSpacing.sm,
@@ -405,10 +408,13 @@ class _DocCard extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                doc.title,
-                                style: AppTypography.headingSM.copyWith(
-                                  color: Colors.white,
+                              Flexible(
+                                child: Text(
+                                  doc.title,
+                                  style: AppTypography.headingSM.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               if (doc.comingSoon) ...[

@@ -197,7 +197,7 @@ class _AboutHeroSection extends StatelessWidget {
 
   Widget _buildDesktopLayout(BuildContext context, bool isTablet) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           flex: 5,
@@ -382,9 +382,13 @@ class _AboutHeroSection extends StatelessWidget {
 
           // Layered content
           Padding(
-            padding: const EdgeInsets.all(AppSpacing.xl),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.md,
+              vertical: AppSpacing.sm,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 _buildLayerRow(
                   icon: LucideIcons.users,
@@ -392,21 +396,21 @@ class _AboutHeroSection extends StatelessWidget {
                   subtitle: 'User feedback & interactions',
                   color: AppColors.purple500,
                 ),
-                const SizedBox(height: AppSpacing.md),
+                const SizedBox(height: AppSpacing.sm),
                 _buildLayerRow(
                   icon: LucideIcons.gitBranch,
                   title: 'Orchestration Layer',
                   subtitle: 'Chain performance & guardrails',
                   color: AppColors.indigo500,
                 ),
-                const SizedBox(height: AppSpacing.md),
+                const SizedBox(height: AppSpacing.sm),
                 _buildLayerRow(
                   icon: LucideIcons.bot,
                   title: 'Agentic Layer',
                   subtitle: 'Tool calls & reasoning chains',
                   color: AppColors.blue500,
                 ),
-                const SizedBox(height: AppSpacing.md),
+                const SizedBox(height: AppSpacing.sm),
                 _buildLayerRow(
                   icon: LucideIcons.activity,
                   title: 'Model / LLM Layer',

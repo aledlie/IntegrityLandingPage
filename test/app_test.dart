@@ -115,11 +115,14 @@ void main() {
       ],
       errorBuilder: (context, state) => LandingPage(onShowCookieSettings: () {}),
     );
-    return MaterialApp.router(
-      title: 'Integrity Studio - Enterprise AI Observability',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
-      routerConfig: testRouter,
+    return MediaQuery(
+      data: const MediaQueryData(disableAnimations: true),
+      child: MaterialApp.router(
+        title: 'Integrity Studio - Enterprise AI Observability',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.darkTheme,
+        routerConfig: testRouter,
+      ),
     );
   }
 
