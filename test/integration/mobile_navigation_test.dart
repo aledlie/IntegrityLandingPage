@@ -4,7 +4,6 @@ import 'package:integrity_studio_ai/pages/landing_page.dart';
 import 'package:integrity_studio_ai/pages/contact_page.dart';
 import 'package:integrity_studio_ai/pages/pricing_page.dart';
 import 'package:integrity_studio_ai/pages/docs_index_page.dart';
-import 'package:integrity_studio_ai/services/content_loader.dart';
 // test_helpers imported via integration_test_helpers.dart
 import 'helpers/integration_test_helpers.dart';
 import 'helpers/mock_services.dart';

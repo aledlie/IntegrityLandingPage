@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:integrity_studio_ai/pages/signup_page.dart';
 import 'package:integrity_studio_ai/pages/pricing_page.dart';
-import 'package:integrity_studio_ai/services/content_loader.dart';
 // test_helpers imported via integration_test_helpers.dart
 import 'helpers/integration_test_helpers.dart';
 import 'helpers/mock_services.dart';

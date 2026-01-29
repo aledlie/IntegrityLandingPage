@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:integrity_studio_ai/services/contact_service.dart';
 
 /// Mock contact service for integration tests.
 ///

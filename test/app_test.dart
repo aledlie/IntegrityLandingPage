@@ -430,13 +430,10 @@ void main() {
     testWidgets('creates router with all required parameters', (tester) async {
       setDesktopSize(tester);
 
-      bool consentGiven = false;
-      bool cookieSettingsShown = false;
-
       final router = createAppRouter(
         showCookieBanner: false,
-        onConsentGiven: () => consentGiven = true,
-        onShowCookieSettings: () => cookieSettingsShown = true,
+        onConsentGiven: () {},
+        onShowCookieSettings: () {},
       );
 
       expect(router, isA<GoRouter>());

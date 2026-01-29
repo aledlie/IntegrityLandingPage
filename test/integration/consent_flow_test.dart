@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:go_router/go_router.dart';
 import 'package:integrity_studio_ai/routing/cookie_shell.dart';
 import 'package:integrity_studio_ai/pages/landing_page.dart';
-import 'package:integrity_studio_ai/services/content_loader.dart';
 // test_helpers imported via integration_test_helpers.dart
 import 'helpers/integration_test_helpers.dart';
 import 'helpers/mock_services.dart';
@@ -35,13 +33,11 @@ void main() {
         (tester) async {
       setDesktopSize(tester);
 
-      var consentGiven = false;
-
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
             showBanner: true,
-            onConsentGiven: () => consentGiven = true,
+            onConsentGiven: () {},
             child: const Scaffold(body: Center(child: Text('App Content'))),
           ),
         ),
@@ -201,13 +197,11 @@ void main() {
     testWidgets('content is fully interactive after consent', (tester) async {
       setDesktopSize(tester);
 
-      var consentGiven = false;
-
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
             showBanner: true,
-            onConsentGiven: () => consentGiven = true,
+            onConsentGiven: () {},
             child: LandingPage(onShowCookieSettings: () {}),
           ),
         ),
