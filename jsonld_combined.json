@@ -2966,6 +2966,7 @@
       "name": "Isabel Budenz",
       "givenName": "Isabel",
       "familyName": "Budenz",
+      "email": "isa@integritystudio.ai",
       "description": "International legal expert specializing in AI governance and EU AI Act compliance. Background in International Commercial Arbitration with multilingual research capabilities spanning German, Spanish, English, and French legal systems.",
       "jobTitle": "AI Compliance Counsel",
       "worksFor": {
@@ -2973,21 +2974,145 @@
         "@id": "https://integritystudio.ai/#organization",
         "name": "Integrity Studio"
       },
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Stockholm University",
+          "sameAs": "https://www.su.se/",
+          "department": "Faculty of Law"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Groningen",
+          "sameAs": "https://www.rug.nl/",
+          "department": "Faculty of Law"
+        }
+      ],
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "LLM in International Commercial Arbitration",
+          "credentialCategory": "degree",
+          "recognizedBy": {
+            "@type": "CollegeOrUniversity",
+            "name": "Stockholm University"
+          }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "LLB in International and European Law",
+          "credentialCategory": "degree",
+          "recognizedBy": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Groningen"
+          }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "EU AI Act Certification",
+          "credentialCategory": "certificate",
+          "description": "Specialized coursework on EU AI Act regulatory framework"
+        }
+      ],
+      "knowsLanguage": [
+        {
+          "@type": "Language",
+          "name": "German",
+          "alternateName": "de",
+          "description": "Native speaker"
+        },
+        {
+          "@type": "Language",
+          "name": "Spanish",
+          "alternateName": "es",
+          "description": "Native speaker"
+        },
+        {
+          "@type": "Language",
+          "name": "English",
+          "alternateName": "en",
+          "description": "C2 proficiency"
+        },
+        {
+          "@type": "Language",
+          "name": "French",
+          "alternateName": "fr",
+          "description": "B1 proficiency"
+        }
+      ],
       "knowsAbout": [
         "EU AI Act",
         "AI Governance",
         "International Commercial Arbitration",
         "Legal Compliance",
         "Regulatory Frameworks",
-        "Multilingual Legal Research"
+        "Multilingual Legal Research",
+        "Cross-Border AI Compliance",
+        "AI Dispute Resolution",
+        "GDPR",
+        "International and European Law",
+        "Arbitration Procedures",
+        "Contract Law",
+        "Antitrust Law",
+        "ICC Arbitration",
+        "LCIA Arbitration",
+        "SCC Arbitration",
+        "Evidence Preservation",
+        "AI Audit Trails"
       ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "AI Compliance Counsel",
+        "occupationLocation": {
+          "@type": "Country",
+          "name": "United States"
+        },
+        "skills": [
+          "EU AI Act Compliance",
+          "International Arbitration",
+          "Cross-Jurisdictional Legal Research",
+          "Regulatory Analysis",
+          "Contract Drafting",
+          "Model Contractual Clauses",
+          "Compliance Documentation",
+          "Stakeholder Communication"
+        ]
+      },
+      "memberOf": [
+        {
+          "@type": "Organization",
+          "name": "A for Arbitration",
+          "description": "International arbitration research and publication platform"
+        }
+      ],
+      "affiliation": [
+        {
+          "@type": "Organization",
+          "name": "Clifford Chance",
+          "description": "Antitrust Global Virtual Internship participant"
+        },
+        {
+          "@type": "Organization",
+          "name": "Amnesty International",
+          "description": "Public Relations experience"
+        }
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "professional",
+        "email": "isa@integritystudio.ai",
+        "availableLanguage": ["English", "German", "Spanish", "French"]
+      },
       "image": {
         "@type": "ImageObject",
         "url": "https://integritystudio.ai/images/team/isabel-budenz.jpg",
         "description": "Isabel Budenz, AI Compliance Counsel at Integrity Studio",
         "width": 400,
         "height": 400
-      }
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/isabel-budenz/"
+      ]
     },
     {
       "@type": "Person",
