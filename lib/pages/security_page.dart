@@ -342,24 +342,6 @@ class _SecurityContent extends StatelessWidget {
           ),
         ),
 
-        // Enterprise Capabilities
-        _SecurityCard(
-          icon: LucideIcons.building2,
-          title: SecurityContent.enterpriseCapabilitiesTitle,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                SecurityContent.enterpriseCapabilitiesDescription,
-                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              ...SecurityContent.enterpriseCapabilities
-                  .map((f) => _ChecklistItem(title: f.title, desc: f.desc)),
-            ],
-          ),
-        ),
-
         // API Security
         _SecurityCard(
           icon: LucideIcons.plug,
