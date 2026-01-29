@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../theme/theme.dart';
@@ -263,11 +264,11 @@ class _LandingPageState extends State<LandingPage> {
               ),
               _NavLink(
                 text: 'About',
-                onTap: () => Navigator.of(context).pushNamed('/about'),
+                onTap: () => context.go('/about'),
               ),
               _NavLink(
                 text: 'Blog',
-                onTap: () => Navigator.of(context).pushNamed('/blog'),
+                onTap: () => context.go('/blog'),
               ),
               _NavLink(
                 text: 'Contact',
@@ -315,10 +316,10 @@ class _LandingPageState extends State<LandingPage> {
   void _handleNavItemSelected(String value) {
     switch (value) {
       case 'about-page':
-        Navigator.of(context).pushNamed('/about');
+        context.go('/about');
         break;
       case 'blog':
-        Navigator.of(context).pushNamed('/blog');
+        context.go('/blog');
         break;
       default:
         _scrollToSection(value);
