@@ -931,7 +931,7 @@ resources:
         Includes Article 12 traceability, documentation templates, and timeline milestones.
       format: "PDF"
       cta_text: "Download Checklist"
-      url: "/resources/eu-ai-act-checklist"
+      url: "/resources/eu-ai-act-compliance-checklist"
 
     - icon: "calculator"
       title: "LLM Cost Calculator"

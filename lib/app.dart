@@ -450,6 +450,21 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
           );
         }
 
+        // Redirect /docs/security/audit-trails to /docs/tracing#audit-trails
+        if (settings.name == '/docs/security/audit-trails') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                DocsTracingPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
         // Redirect /docs/agents to /docs (coming soon)
         if (settings.name == '/docs/agents') {
           return MaterialPageRoute(
