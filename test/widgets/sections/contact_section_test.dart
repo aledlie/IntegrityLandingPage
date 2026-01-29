@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:integrity_studio_ai/config/content.dart';
 import 'package:integrity_studio_ai/widgets/sections/contact_section.dart';
 import 'package:integrity_studio_ai/widgets/common/alert.dart';
@@ -724,6 +725,1647 @@ void main() {
         // Name fields should be paired in Row widgets
         expect(find.byType(Row), findsWidgets);
         expect(find.byType(FormTextField), findsWidgets);
+      });
+    });
+
+    group('mobile layout', () {
+      void setMobileViewport(WidgetTester tester) {
+        tester.view.physicalSize = const Size(375, 812);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.resetPhysicalSize);
+        addTearDown(tester.view.resetDevicePixelRatio);
+      }
+
+      testWidgets('renders mobile layout on small viewport', (tester) async {
+        setMobileViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: SingleChildScrollView(
+                child: ContactSection(
+                  content: ContactContent(
+                    sectionId: 'test',
+                    title: 'Contact',
+                    subtitle: 'Subtitle',
+                    description: '',
+                    formFields: [
+                      ContactFormFieldContent(
+                        name: 'name',
+                        label: 'Name',
+                        type: 'text',
+                        placeholder: 'Name',
+                        required: true,
+                      ),
+                    ],
+                    contactMethods: [
+                      ContactMethodContent(
+                        icon: Icons.email,
+                        label: 'Email',
+                        value: 'test@test.com',
+                        isPrimary: true,
+                      ),
+                    ],
+                    formSubmitText: 'Submit',
+                    formSuccessMessage: 'Success',
+                    formErrorMessage: 'Error',
+                    calendlyUrl: '',
+                    calendlyCtaText: '',
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Mobile layout should render
+        expect(find.byType(ContactSection), findsOneWidget);
+        expect(find.text('Contact'), findsOneWidget);
+      });
+    });
+
+    group('phone and url field types', () {
+      testWidgets('renders phone field type and handles input', (tester) async {
+        setLargeViewport(tester);
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'phone',
+                          label: 'Phone',
+                          type: 'phone',
+                          placeholder: 'Your phone',
+                          required: false,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        expect(find.byType(FormTextField), findsOneWidget);
+        expect(find.text('Phone'), findsWidgets);
+
+        // Enter phone number to trigger onChanged callback
+        final textField = find.byType(TextFormField).first;
+        await tester.enterText(textField, '555-123-4567');
+        await tester.pump();
+
+        expect(find.text('555-123-4567'), findsOneWidget);
+      });
+
+      testWidgets('renders url field type and handles input', (tester) async {
+        setLargeViewport(tester);
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'website',
+                          label: 'Website',
+                          type: 'url',
+                          placeholder: 'Your website',
+                          required: false,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        expect(find.byType(FormTextField), findsOneWidget);
+        expect(find.text('Website'), findsWidgets);
+
+        // Enter URL to trigger onChanged callback
+        final textField = find.byType(TextFormField).first;
+        await tester.enterText(textField, 'https://example.com');
+        await tester.pump();
+
+        expect(find.text('https://example.com'), findsOneWidget);
+      });
+
+      testWidgets('renders default text field type for unknown types',
+          (tester) async {
+        setLargeViewport(tester);
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'custom',
+                          label: 'Custom Field',
+                          type: 'unknown_type',
+                          placeholder: 'Custom',
+                          required: false,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        expect(find.byType(FormTextField), findsOneWidget);
+        expect(find.text('Custom Field'), findsWidgets);
+      });
+    });
+
+    group('form submission with custom callback', () {
+      testWidgets('shows success alert after successful submission',
+          (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'name',
+                          label: 'Name',
+                          type: 'text',
+                          placeholder: 'Name',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'email',
+                          label: 'Email',
+                          type: 'email',
+                          placeholder: 'Email',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Thank you!',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                    onFormSubmit: (data) async {
+                      return true;
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Fill in required fields
+        final textFields = find.byType(TextFormField);
+        await tester.enterText(textFields.at(0), 'John Doe');
+        await tester.pump();
+        await tester.enterText(textFields.at(1), 'john@example.com');
+        await tester.pump();
+
+        // Fill in message (textarea)
+        final textAreas = find.byType(TextField);
+        for (var i = 0; i < textAreas.evaluate().length; i++) {
+          final widget = tester.widget<TextField>(textAreas.at(i));
+          if (widget.maxLines != null && widget.maxLines! > 1) {
+            await tester.enterText(textAreas.at(i), 'This is a test message with enough characters');
+            break;
+          }
+        }
+        await tester.pump();
+
+        // Scroll to make submit button visible and tap it
+        await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -500));
+        await tester.pumpAndSettle();
+
+        final submitButton = find.text('Submit');
+        await tester.ensureVisible(submitButton);
+        await tester.pumpAndSettle();
+        await tester.tap(submitButton);
+        await tester.pumpAndSettle();
+
+        // Success alert should appear
+        expect(find.byType(Alert), findsOneWidget);
+        expect(find.text('Thank you!'), findsOneWidget);
+      });
+
+      testWidgets('shows error alert after failed submission', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'name',
+                          label: 'Name',
+                          type: 'text',
+                          placeholder: 'Name',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'email',
+                          label: 'Email',
+                          type: 'email',
+                          placeholder: 'Email',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Failed to submit',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                    onFormSubmit: (data) async {
+                      return false;
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Fill in required fields
+        final textFields = find.byType(TextFormField);
+        await tester.enterText(textFields.at(0), 'John Doe');
+        await tester.pump();
+        await tester.enterText(textFields.at(1), 'john@example.com');
+        await tester.pump();
+
+        // Fill in message
+        final textAreas = find.byType(TextField);
+        for (var i = 0; i < textAreas.evaluate().length; i++) {
+          final widget = tester.widget<TextField>(textAreas.at(i));
+          if (widget.maxLines != null && widget.maxLines! > 1) {
+            await tester.enterText(textAreas.at(i), 'This is a test message with enough characters');
+            break;
+          }
+        }
+        await tester.pump();
+
+        // Scroll and tap submit
+        await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -500));
+        await tester.pumpAndSettle();
+
+        final submitButton = find.text('Submit');
+        await tester.ensureVisible(submitButton);
+        await tester.pumpAndSettle();
+        await tester.tap(submitButton);
+        await tester.pumpAndSettle();
+
+        // Error alert should appear
+        expect(find.byType(Alert), findsOneWidget);
+        expect(find.text('Failed to submit'), findsOneWidget);
+      });
+
+      testWidgets('shows error alert when exception is thrown', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'name',
+                          label: 'Name',
+                          type: 'text',
+                          placeholder: 'Name',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'email',
+                          label: 'Email',
+                          type: 'email',
+                          placeholder: 'Email',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                    onFormSubmit: (data) async {
+                      throw Exception('Network error');
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Fill in required fields
+        final textFields = find.byType(TextFormField);
+        await tester.enterText(textFields.at(0), 'John Doe');
+        await tester.pump();
+        await tester.enterText(textFields.at(1), 'john@example.com');
+        await tester.pump();
+
+        // Fill in message
+        final textAreas = find.byType(TextField);
+        for (var i = 0; i < textAreas.evaluate().length; i++) {
+          final widget = tester.widget<TextField>(textAreas.at(i));
+          if (widget.maxLines != null && widget.maxLines! > 1) {
+            await tester.enterText(textAreas.at(i), 'This is a test message with enough characters');
+            break;
+          }
+        }
+        await tester.pump();
+
+        // Scroll and tap submit
+        await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -500));
+        await tester.pumpAndSettle();
+
+        final submitButton = find.text('Submit');
+        await tester.ensureVisible(submitButton);
+        await tester.pumpAndSettle();
+        await tester.tap(submitButton);
+        await tester.pumpAndSettle();
+
+        // Error alert should appear with exception message
+        expect(find.byType(Alert), findsOneWidget);
+        expect(find.textContaining('Network error'), findsOneWidget);
+      });
+
+      testWidgets('can dismiss success alert', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'name',
+                          label: 'Name',
+                          type: 'text',
+                          placeholder: 'Name',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'email',
+                          label: 'Email',
+                          type: 'email',
+                          placeholder: 'Email',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Thank you!',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                    onFormSubmit: (data) async {
+                      return true;
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Fill in required fields
+        final textFields = find.byType(TextFormField);
+        await tester.enterText(textFields.at(0), 'John Doe');
+        await tester.pump();
+        await tester.enterText(textFields.at(1), 'john@example.com');
+        await tester.pump();
+
+        // Fill in message
+        final textAreas = find.byType(TextField);
+        for (var i = 0; i < textAreas.evaluate().length; i++) {
+          final widget = tester.widget<TextField>(textAreas.at(i));
+          if (widget.maxLines != null && widget.maxLines! > 1) {
+            await tester.enterText(textAreas.at(i), 'This is a test message with enough characters');
+            break;
+          }
+        }
+        await tester.pump();
+
+        // Scroll and tap submit
+        await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -500));
+        await tester.pumpAndSettle();
+
+        final submitButton = find.text('Submit');
+        await tester.ensureVisible(submitButton);
+        await tester.pumpAndSettle();
+        await tester.tap(submitButton);
+        await tester.pumpAndSettle();
+
+        // Alert should be visible
+        expect(find.byType(Alert), findsOneWidget);
+
+        // Find and tap dismiss button (LucideIcons.x is used in Alert)
+        final dismissButton = find.byIcon(LucideIcons.x);
+        expect(dismissButton, findsOneWidget);
+        await tester.tap(dismissButton);
+        await tester.pumpAndSettle();
+        // Alert should be dismissed
+        expect(find.byType(Alert), findsNothing);
+      });
+    });
+
+    group('form validation with empty fields', () {
+      testWidgets('shows validation errors for empty required fields',
+          (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'name',
+                          label: 'Name',
+                          type: 'text',
+                          placeholder: 'Name',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'email',
+                          label: 'Email',
+                          type: 'email',
+                          placeholder: 'Email',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                    onFormSubmit: (data) async {
+                      return true;
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Try to submit without filling in fields
+        await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -500));
+        await tester.pumpAndSettle();
+
+        final submitButton = find.text('Submit');
+        await tester.ensureVisible(submitButton);
+        await tester.pumpAndSettle();
+        await tester.tap(submitButton);
+        await tester.pumpAndSettle();
+
+        // Validation errors should be shown
+        expect(find.textContaining('Please enter'), findsWidgets);
+      });
+
+      testWidgets('shows validation error for invalid email', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'name',
+                          label: 'Name',
+                          type: 'text',
+                          placeholder: 'Name',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'email',
+                          label: 'Email',
+                          type: 'email',
+                          placeholder: 'Email',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                    onFormSubmit: (data) async {
+                      return true;
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Fill in name and invalid email
+        final textFields = find.byType(TextFormField);
+        await tester.enterText(textFields.at(0), 'John Doe');
+        await tester.pump();
+        await tester.enterText(textFields.at(1), 'invalid-email');
+        await tester.pump();
+
+        // Fill in message
+        final textAreas = find.byType(TextField);
+        for (var i = 0; i < textAreas.evaluate().length; i++) {
+          final widget = tester.widget<TextField>(textAreas.at(i));
+          if (widget.maxLines != null && widget.maxLines! > 1) {
+            await tester.enterText(textAreas.at(i), 'This is a test message');
+            break;
+          }
+        }
+        await tester.pump();
+
+        // Submit
+        await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -500));
+        await tester.pumpAndSettle();
+
+        final submitButton = find.text('Submit');
+        await tester.ensureVisible(submitButton);
+        await tester.pumpAndSettle();
+        await tester.tap(submitButton);
+        await tester.pumpAndSettle();
+
+        // Email validation error should be shown
+        expect(find.textContaining('valid email'), findsOneWidget);
+      });
+
+      testWidgets('shows validation error for short message', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'name',
+                          label: 'Name',
+                          type: 'text',
+                          placeholder: 'Name',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'email',
+                          label: 'Email',
+                          type: 'email',
+                          placeholder: 'Email',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                    onFormSubmit: (data) async {
+                      return true;
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Fill in name and email
+        final textFields = find.byType(TextFormField);
+        await tester.enterText(textFields.at(0), 'John Doe');
+        await tester.pump();
+        await tester.enterText(textFields.at(1), 'john@example.com');
+        await tester.pump();
+
+        // Fill in short message
+        final textAreas = find.byType(TextField);
+        for (var i = 0; i < textAreas.evaluate().length; i++) {
+          final widget = tester.widget<TextField>(textAreas.at(i));
+          if (widget.maxLines != null && widget.maxLines! > 1) {
+            await tester.enterText(textAreas.at(i), 'Hi');
+            break;
+          }
+        }
+        await tester.pump();
+
+        // Submit
+        await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -500));
+        await tester.pumpAndSettle();
+
+        final submitButton = find.text('Submit');
+        await tester.ensureVisible(submitButton);
+        await tester.pumpAndSettle();
+        await tester.tap(submitButton);
+        await tester.pumpAndSettle();
+
+        // Message length validation error should be shown
+        expect(find.textContaining('more details'), findsOneWidget);
+      });
+    });
+
+    group('select field interaction', () {
+      testWidgets('can change select field value', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'department',
+                          label: 'Department',
+                          type: 'select',
+                          placeholder: 'Select department',
+                          required: true,
+                          options: ['Sales', 'Support', 'Engineering'],
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Find and tap the dropdown
+        final dropdown = find.byType(DropdownButtonFormField<String>);
+        expect(dropdown, findsOneWidget);
+        await tester.tap(dropdown);
+        await tester.pumpAndSettle();
+
+        // Select an option
+        final option = find.text('Sales').last;
+        await tester.tap(option);
+        await tester.pumpAndSettle();
+
+        // Verify selection
+        expect(find.text('Sales'), findsWidgets);
+      });
+    });
+
+    group('contact method items', () {
+      testWidgets('primary contact method with url shows arrow icon',
+          (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [
+                        ContactMethodContent(
+                          icon: Icons.email,
+                          label: 'Email',
+                          value: 'test@example.com',
+                          url: 'mailto:test@example.com',
+                          isPrimary: true,
+                        ),
+                      ],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Arrow icon should be visible for primary method with URL
+        expect(find.byIcon(Icons.arrow_forward), findsWidgets);
+      });
+
+      testWidgets('primary contact method without url does not show arrow',
+          (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [
+                        ContactMethodContent(
+                          icon: Icons.location_on,
+                          label: 'Location',
+                          value: 'New York, USA',
+                          isPrimary: true,
+                        ),
+                      ],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // No arrow icon for method without URL
+        expect(find.byIcon(Icons.arrow_forward), findsNothing);
+      });
+
+      testWidgets('secondary contact method shows tooltip', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [
+                        ContactMethodContent(
+                          icon: Icons.link,
+                          label: 'LinkedIn',
+                          value: 'Follow us',
+                          url: 'https://linkedin.com',
+                          isPrimary: false,
+                        ),
+                      ],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Tooltip should be present
+        expect(find.byType(Tooltip), findsWidgets);
+      });
+    });
+
+    group('sending state', () {
+      testWidgets('shows sending text during submission', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'name',
+                          label: 'Name',
+                          type: 'text',
+                          placeholder: 'Name',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'email',
+                          label: 'Email',
+                          type: 'email',
+                          placeholder: 'Email',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                    onFormSubmit: (data) async {
+                      await Future.delayed(const Duration(seconds: 2));
+                      return true;
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Fill in required fields
+        final textFields = find.byType(TextFormField);
+        await tester.enterText(textFields.at(0), 'John Doe');
+        await tester.pump();
+        await tester.enterText(textFields.at(1), 'john@example.com');
+        await tester.pump();
+
+        // Fill in message
+        final textAreas = find.byType(TextField);
+        for (var i = 0; i < textAreas.evaluate().length; i++) {
+          final widget = tester.widget<TextField>(textAreas.at(i));
+          if (widget.maxLines != null && widget.maxLines! > 1) {
+            await tester.enterText(textAreas.at(i), 'This is a test message with enough characters');
+            break;
+          }
+        }
+        await tester.pump();
+
+        // Scroll and tap submit
+        await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -500));
+        await tester.pumpAndSettle();
+
+        final submitButton = find.text('Submit');
+        await tester.ensureVisible(submitButton);
+        await tester.pumpAndSettle();
+        await tester.tap(submitButton);
+        await tester.pump();
+
+        // "Sending..." should be displayed while submitting
+        expect(find.text('Sending...'), findsOneWidget);
+
+        // Wait for submission to complete
+        await tester.pumpAndSettle(const Duration(seconds: 3));
+      });
+    });
+
+    group('field pairing edge cases', () {
+      testWidgets('does not pair non-name text fields', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'company',
+                          label: 'Company',
+                          type: 'text',
+                          placeholder: 'Company',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'title',
+                          label: 'Job Title',
+                          type: 'text',
+                          placeholder: 'Title',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Both text fields should be separate (not paired)
+        expect(find.byType(FormTextField), findsNWidgets(2));
+      });
+
+      testWidgets('pairs fields with Name in field name', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'contactName',
+                          label: 'Contact Name',
+                          type: 'text',
+                          placeholder: 'Name',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'companyName',
+                          label: 'Company Name',
+                          type: 'text',
+                          placeholder: 'Company',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Fields with 'Name' should be paired in a Row
+        expect(find.byType(FormTextField), findsNWidgets(2));
+      });
+    });
+
+    group('content without calendly', () {
+      testWidgets('does not render calendly section when URL is empty',
+          (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: 'Book Demo',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // "Want a Live Demo?" should not be visible
+        expect(find.text('Want a Live Demo?'), findsNothing);
+      });
+    });
+
+    group('content without secondary methods', () {
+      testWidgets('does not render follow us section when no secondary methods',
+          (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [
+                        ContactMethodContent(
+                          icon: Icons.email,
+                          label: 'Email',
+                          value: 'test@example.com',
+                          isPrimary: true,
+                        ),
+                      ],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // "Follow us" should not be visible
+        expect(find.text('Follow us'), findsNothing);
+      });
+    });
+
+    group('field pairing with first/last name pattern', () {
+      testWidgets('pairs fields containing first and last', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'first',
+                          label: 'First',
+                          type: 'text',
+                          placeholder: 'First',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'last',
+                          label: 'Last',
+                          type: 'text',
+                          placeholder: 'Last',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Both text fields should be rendered (possibly in a Row)
+        expect(find.byType(FormTextField), findsNWidgets(2));
+      });
+
+      testWidgets('does not pair when second field is not text type',
+          (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'firstName',
+                          label: 'First Name',
+                          type: 'text',
+                          placeholder: 'First',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'email',
+                          label: 'Email',
+                          type: 'email',
+                          placeholder: 'Email',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Both should be rendered separately
+        expect(find.byType(FormTextField), findsNWidgets(2));
+      });
+    });
+
+    group('default field type handling', () {
+      testWidgets('renders default text field and handles input',
+          (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'custom',
+                          label: 'Custom',
+                          type: 'unknown',
+                          placeholder: 'Custom',
+                          required: false,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Enter text to trigger onChanged callback for default field type
+        final textField = find.byType(TextFormField).first;
+        await tester.enterText(textField, 'Custom value');
+        await tester.pump();
+
+        expect(find.text('Custom value'), findsOneWidget);
+      });
+    });
+
+    group('organization field validation', () {
+      testWidgets('organization field updates form state', (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'name',
+                          label: 'Name',
+                          type: 'text',
+                          placeholder: 'Name',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'email',
+                          label: 'Email',
+                          type: 'email',
+                          placeholder: 'Email',
+                          required: true,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'organization',
+                          label: 'Organization',
+                          type: 'text',
+                          placeholder: 'Organization',
+                          required: false,
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                    onFormSubmit: (data) async {
+                      return true;
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Fill organization field
+        final orgField = find.byType(TextFormField).at(2);
+        await tester.enterText(orgField, 'Acme Inc');
+        await tester.pump();
+
+        expect(find.text('Acme Inc'), findsOneWidget);
+      });
+    });
+
+    group('select field with null options', () {
+      testWidgets('select field renders with null options fallback',
+          (tester) async {
+        setLargeViewport(tester);
+
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MediaQuery(
+              data: const MediaQueryData(size: Size(1920, 1080)),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: ContactSection(
+                    content: ContactContent(
+                      sectionId: 'test',
+                      title: 'Contact',
+                      subtitle: '',
+                      description: '',
+                      formFields: [
+                        ContactFormFieldContent(
+                          name: 'category',
+                          label: 'Category',
+                          type: 'select',
+                          placeholder: 'Select category',
+                          required: false,
+                          // options is null - tests the fallback to empty list
+                        ),
+                        ContactFormFieldContent(
+                          name: 'message',
+                          label: 'Message',
+                          type: 'textarea',
+                          placeholder: 'Message',
+                          required: true,
+                        ),
+                      ],
+                      contactMethods: [],
+                      formSubmitText: 'Submit',
+                      formSuccessMessage: 'Success',
+                      formErrorMessage: 'Error',
+                      calendlyUrl: '',
+                      calendlyCtaText: '',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+
+        // Select field should render with empty dropdown
+        expect(find.byType(FormSelect<String>), findsOneWidget);
       });
     });
   });

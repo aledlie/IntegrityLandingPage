@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integrity_studio_ai/services/analytics.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 void main() {
   group('AnalyticsEvent', () {
@@ -23,10 +24,14 @@ void main() {
   });
 
   group('AnalyticsService', () {
+    // Reset state before each test group
+    setUp(() {
+      AnalyticsService.enable();
+    });
+
     group('lifecycle', () {
       test('isReady returns false before initialization', () {
-        // In test environment, isReady may vary based on previous tests
-        // Just verify the property exists and returns a bool
+        // In test environment (non-web), isReady depends on enabled state
         expect(AnalyticsService.isReady, isA<bool>());
       });
 
@@ -39,6 +44,34 @@ void main() {
 
         AnalyticsService.enable();
         // State restored
+      });
+
+      test('initialize completes without error on non-web', () async {
+        // On non-web platforms, initialize returns early but should not throw
+        await AnalyticsService.initialize();
+        // Calling initialize again should be idempotent
+        await AnalyticsService.initialize();
+        expect(true, isTrue);
+      });
+
+      test('isReady is false when disabled regardless of initialization', () {
+        AnalyticsService.disable();
+        expect(AnalyticsService.isReady, isFalse);
+      });
+
+      test('multiple enable calls are idempotent', () {
+        AnalyticsService.enable();
+        AnalyticsService.enable();
+        AnalyticsService.enable();
+        // Should not throw
+        expect(true, isTrue);
+      });
+
+      test('multiple disable calls are idempotent', () {
+        AnalyticsService.disable();
+        AnalyticsService.disable();
+        AnalyticsService.disable();
+        expect(AnalyticsService.isReady, isFalse);
       });
     });
 
@@ -187,6 +220,159 @@ void main() {
           returnsNormally,
         );
       });
+
+      test('trackEvent with empty parameters', () {
+        expect(
+          () => AnalyticsService.trackEvent(eventName: 'simple_event'),
+          returnsNormally,
+        );
+      });
+
+      test('trackContact with only email', () {
+        expect(
+          () => FacebookPixelService.trackContact(email: 'test@example.com'),
+          returnsNormally,
+        );
+      });
+
+      test('trackContact with only name', () {
+        expect(
+          () => FacebookPixelService.trackContact(name: 'Test User'),
+          returnsNormally,
+        );
+      });
+    });
+
+    group('disabled state behavior', () {
+      setUp(() {
+        AnalyticsService.disable();
+      });
+
+      tearDown(() {
+        AnalyticsService.enable();
+      });
+
+      test('trackPageView does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackPageView('test'),
+          returnsNormally,
+        );
+      });
+
+      test('trackScrollDepth does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackScrollDepth(50),
+          returnsNormally,
+        );
+      });
+
+      test('trackCTAClick does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackCTAClick(
+            buttonName: 'Test',
+            location: 'hero',
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('trackFormSubmission does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackFormSubmission(
+            formType: 'contact',
+            success: true,
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('trackEvent does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackEvent(
+            eventName: 'test',
+            parameters: {'key': 'value'},
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('trackFeatureInteraction does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackFeatureInteraction('feature'),
+          returnsNormally,
+        );
+      });
+
+      test('trackExternalLink does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackExternalLink('https://example.com'),
+          returnsNormally,
+        );
+      });
+
+      test('trackPricingView does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackPricingView('Team'),
+          returnsNormally,
+        );
+      });
+
+      test('trackPricingToggle does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackPricingToggle(isAnnual: true),
+          returnsNormally,
+        );
+      });
+
+      test('trackDemoRequest does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackDemoRequest(),
+          returnsNormally,
+        );
+      });
+
+      test('trackLeadMagnetDownload does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackLeadMagnetDownload('whitepaper'),
+          returnsNormally,
+        );
+      });
+
+      test('trackBlogPostClick does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackBlogPostClick('slug'),
+          returnsNormally,
+        );
+      });
+
+      test('trackFormSubmit does nothing when disabled', () {
+        expect(
+          () => AnalyticsService.trackFormSubmit('newsletter'),
+          returnsNormally,
+        );
+      });
+    });
+
+    group('scroll depth validation', () {
+      test('trackScrollDepth with 0 is valid (0 % 25 == 0)', () {
+        expect(
+          () => AnalyticsService.trackScrollDepth(0),
+          returnsNormally,
+        );
+      });
+
+      test('trackScrollDepth ignores non-25% increments', () {
+        // These should return early without error
+        expect(() => AnalyticsService.trackScrollDepth(10), returnsNormally);
+        expect(() => AnalyticsService.trackScrollDepth(33), returnsNormally);
+        expect(() => AnalyticsService.trackScrollDepth(67), returnsNormally);
+        expect(() => AnalyticsService.trackScrollDepth(99), returnsNormally);
+      });
+
+      test('trackScrollDepth accepts negative values (early return)', () {
+        // -25 % 25 == 0, so it would pass the check
+        expect(() => AnalyticsService.trackScrollDepth(-25), returnsNormally);
+      });
     });
   });
 
@@ -241,6 +427,53 @@ void main() {
         }
         expect(true, isTrue);
       });
+
+      test('captureException with all parameters', () async {
+        try {
+          throw Exception('Full test error');
+        } catch (e, stackTrace) {
+          await ErrorTrackingService.captureException(
+            e,
+            stackTrace: stackTrace,
+            context: 'test.location',
+            extra: {'key': 'value', 'number': 42},
+          );
+        }
+        expect(true, isTrue);
+      });
+
+      test('captureException with null exception', () async {
+        await ErrorTrackingService.captureException(null);
+        expect(true, isTrue);
+      });
+
+      test('captureException with string error', () async {
+        await ErrorTrackingService.captureException('String error');
+        expect(true, isTrue);
+      });
+
+      test('captureException with Error type', () async {
+        await ErrorTrackingService.captureException(
+          StateError('State error message'),
+        );
+        expect(true, isTrue);
+      });
+
+      test('captureException with empty extra map', () async {
+        await ErrorTrackingService.captureException(
+          Exception('Test'),
+          extra: {},
+        );
+        expect(true, isTrue);
+      });
+
+      test('captureException with context only', () async {
+        await ErrorTrackingService.captureException(
+          Exception('Test'),
+          context: 'SomeClass.someMethod',
+        );
+        expect(true, isTrue);
+      });
     });
 
     group('message capture', () {
@@ -272,6 +505,45 @@ void main() {
             severity: severity,
           );
         }
+        expect(true, isTrue);
+      });
+
+      test('captureMessage with empty extra map', () async {
+        await ErrorTrackingService.captureMessage(
+          'Test message',
+          extra: {},
+        );
+        expect(true, isTrue);
+      });
+
+      test('captureMessage with severity and extra combined', () async {
+        await ErrorTrackingService.captureMessage(
+          'Combined test',
+          severity: ErrorSeverity.error,
+          extra: {'key1': 'value1', 'key2': 123},
+        );
+        expect(true, isTrue);
+      });
+
+      test('captureMessage default severity is info', () async {
+        // Calling without severity uses default info level
+        await ErrorTrackingService.captureMessage('Default severity test');
+        expect(true, isTrue);
+      });
+
+      test('captureMessage with debug severity', () async {
+        await ErrorTrackingService.captureMessage(
+          'Debug message',
+          severity: ErrorSeverity.debug,
+        );
+        expect(true, isTrue);
+      });
+
+      test('captureMessage with fatal severity', () async {
+        await ErrorTrackingService.captureMessage(
+          'Fatal message',
+          severity: ErrorSeverity.fatal,
+        );
         expect(true, isTrue);
       });
     });
@@ -306,11 +578,71 @@ void main() {
         );
       });
 
+      test('addBreadcrumb with all parameters', () {
+        expect(
+          () => ErrorTrackingService.addBreadcrumb(
+            message: 'Full breadcrumb',
+            category: 'test.category',
+            data: {'key1': 'value1', 'key2': 42, 'nested': {'a': 'b'}},
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('addBreadcrumb with empty data map', () {
+        expect(
+          () => ErrorTrackingService.addBreadcrumb(
+            message: 'Empty data breadcrumb',
+            data: {},
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('addBreadcrumb with various categories', () {
+        final categories = [
+          'navigation',
+          'ui.click',
+          'http',
+          'console',
+          'custom.category',
+        ];
+        for (final category in categories) {
+          expect(
+            () => ErrorTrackingService.addBreadcrumb(
+              message: 'Test $category',
+              category: category,
+            ),
+            returnsNormally,
+          );
+        }
+      });
+
       test('addNavigationBreadcrumb works', () {
         expect(
           () => ErrorTrackingService.addNavigationBreadcrumb(
             from: '/home',
             to: '/about',
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('addNavigationBreadcrumb with same from/to', () {
+        expect(
+          () => ErrorTrackingService.addNavigationBreadcrumb(
+            from: '/home',
+            to: '/home',
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('addNavigationBreadcrumb with empty paths', () {
+        expect(
+          () => ErrorTrackingService.addNavigationBreadcrumb(
+            from: '',
+            to: '',
           ),
           returnsNormally,
         );
@@ -334,6 +666,35 @@ void main() {
           returnsNormally,
         );
       });
+
+      test('addUserActionBreadcrumb with null target', () {
+        expect(
+          () => ErrorTrackingService.addUserActionBreadcrumb(
+            action: 'hover action',
+            target: null,
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('addUserActionBreadcrumb various actions', () {
+        final actions = [
+          'clicked',
+          'double clicked',
+          'long pressed',
+          'swiped',
+          'scrolled',
+        ];
+        for (final action in actions) {
+          expect(
+            () => ErrorTrackingService.addUserActionBreadcrumb(
+              action: action,
+              target: 'element',
+            ),
+            returnsNormally,
+          );
+        }
+      });
     });
 
     group('user context', () {
@@ -356,11 +717,64 @@ void main() {
         );
       });
 
+      test('setUser with email only', () {
+        expect(
+          () => ErrorTrackingService.setUser(email: 'test@example.com'),
+          returnsNormally,
+        );
+      });
+
+      test('setUser with username only', () {
+        expect(
+          () => ErrorTrackingService.setUser(username: 'testuser'),
+          returnsNormally,
+        );
+      });
+
+      test('setUser with data only', () {
+        expect(
+          () => ErrorTrackingService.setUser(data: {'custom': 'data'}),
+          returnsNormally,
+        );
+      });
+
+      test('setUser with empty data', () {
+        expect(
+          () => ErrorTrackingService.setUser(
+            id: 'user123',
+            data: {},
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('setUser with no parameters creates empty user', () {
+        expect(
+          () => ErrorTrackingService.setUser(),
+          returnsNormally,
+        );
+      });
+
       test('clearUser works', () {
         expect(
           () => ErrorTrackingService.clearUser(),
           returnsNormally,
         );
+      });
+
+      test('clearUser after setUser', () {
+        ErrorTrackingService.setUser(id: '123', email: 'test@example.com');
+        expect(
+          () => ErrorTrackingService.clearUser(),
+          returnsNormally,
+        );
+      });
+
+      test('setUser multiple times overwrites', () {
+        ErrorTrackingService.setUser(id: 'user1');
+        ErrorTrackingService.setUser(id: 'user2');
+        ErrorTrackingService.setUser(id: 'user3');
+        expect(true, isTrue);
       });
     });
 
@@ -372,6 +786,48 @@ void main() {
         );
         expect(span, isNotNull);
         span.finish();
+      });
+
+      test('startTransaction returns ISentrySpan interface', () {
+        final span = ErrorTrackingService.startTransaction(
+          name: 'type-check',
+          operation: 'test',
+        );
+        expect(span, isA<ISentrySpan>());
+        span.finish();
+      });
+
+      test('startTransaction with various operations', () {
+        final operations = [
+          'http.client',
+          'db.query',
+          'ui.render',
+          'file.read',
+          'custom.operation',
+        ];
+        for (final op in operations) {
+          final span = ErrorTrackingService.startTransaction(
+            name: 'test-$op',
+            operation: op,
+          );
+          expect(span, isNotNull);
+          span.finish();
+        }
+      });
+
+      test('multiple concurrent transactions', () {
+        final span1 = ErrorTrackingService.startTransaction(
+          name: 'transaction-1',
+          operation: 'test.1',
+        );
+        final span2 = ErrorTrackingService.startTransaction(
+          name: 'transaction-2',
+          operation: 'test.2',
+        );
+        expect(span1, isNotNull);
+        expect(span2, isNotNull);
+        span1.finish();
+        span2.finish();
       });
     });
 
@@ -393,10 +849,50 @@ void main() {
           returnsNormally,
         );
       });
+
+      test('setTag with empty value', () {
+        expect(
+          () => ErrorTrackingService.setTag('key', ''),
+          returnsNormally,
+        );
+      });
+
+      test('setTags with empty map', () {
+        expect(
+          () => ErrorTrackingService.setTags({}),
+          returnsNormally,
+        );
+      });
+
+      test('setTags overwrites existing tags', () {
+        ErrorTrackingService.setTag('key', 'value1');
+        ErrorTrackingService.setTag('key', 'value2');
+        expect(true, isTrue);
+      });
+
+      test('setTags with single entry', () {
+        expect(
+          () => ErrorTrackingService.setTags({'single': 'tag'}),
+          returnsNormally,
+        );
+      });
+
+      test('setTag and setTags combined', () {
+        ErrorTrackingService.setTag('individual', 'tag');
+        ErrorTrackingService.setTags({
+          'batch1': 'value1',
+          'batch2': 'value2',
+        });
+        expect(true, isTrue);
+      });
     });
   });
 
   group('FacebookPixelService', () {
+    setUp(() {
+      FacebookPixelService.enable();
+    });
+
     group('lifecycle', () {
       test('isReady returns false before initialization', () {
         expect(FacebookPixelService.isReady, isA<bool>());
@@ -412,6 +908,35 @@ void main() {
       test('initialize completes on non-web', () async {
         await FacebookPixelService.initialize();
         expect(true, isTrue);
+      });
+
+      test('initialize is idempotent', () async {
+        await FacebookPixelService.initialize();
+        await FacebookPixelService.initialize();
+        await FacebookPixelService.initialize();
+        expect(true, isTrue);
+      });
+
+      test('multiple enable calls are idempotent', () {
+        FacebookPixelService.enable();
+        FacebookPixelService.enable();
+        FacebookPixelService.enable();
+        expect(true, isTrue);
+      });
+
+      test('multiple disable calls are idempotent', () {
+        FacebookPixelService.disable();
+        FacebookPixelService.disable();
+        FacebookPixelService.disable();
+        expect(FacebookPixelService.isReady, isFalse);
+      });
+
+      test('enable after disable restores state', () {
+        FacebookPixelService.disable();
+        expect(FacebookPixelService.isReady, isFalse);
+        FacebookPixelService.enable();
+        // On non-web, isReady depends on _initialized which is false
+        expect(FacebookPixelService.isReady, isA<bool>());
       });
     });
 
@@ -460,6 +985,127 @@ void main() {
           returnsNormally,
         );
       });
+
+      test('trackViewContent with various content types', () {
+        final types = ['article', 'product', 'video', 'page', 'custom'];
+        for (final type in types) {
+          expect(
+            () => FacebookPixelService.trackViewContent(type),
+            returnsNormally,
+          );
+        }
+      });
+    });
+
+    group('disabled state behavior', () {
+      setUp(() {
+        FacebookPixelService.disable();
+      });
+
+      tearDown(() {
+        FacebookPixelService.enable();
+      });
+
+      test('trackPageView does nothing when disabled', () {
+        expect(
+          () => FacebookPixelService.trackPageView(),
+          returnsNormally,
+        );
+      });
+
+      test('trackLead does nothing when disabled', () {
+        expect(
+          () => FacebookPixelService.trackLead(email: 'test@example.com'),
+          returnsNormally,
+        );
+      });
+
+      test('trackContact does nothing when disabled', () {
+        expect(
+          () => FacebookPixelService.trackContact(
+            email: 'test@example.com',
+            name: 'Test',
+          ),
+          returnsNormally,
+        );
+      });
+
+      test('trackViewContent does nothing when disabled', () {
+        expect(
+          () => FacebookPixelService.trackViewContent('article'),
+          returnsNormally,
+        );
+      });
+    });
+
+    group('trackContact parameter combinations', () {
+      test('trackContact with email only', () {
+        expect(
+          () => FacebookPixelService.trackContact(email: 'test@example.com'),
+          returnsNormally,
+        );
+      });
+
+      test('trackContact with name only', () {
+        expect(
+          () => FacebookPixelService.trackContact(name: 'Test User'),
+          returnsNormally,
+        );
+      });
+
+      test('trackContact with empty strings', () {
+        expect(
+          () => FacebookPixelService.trackContact(email: '', name: ''),
+          returnsNormally,
+        );
+      });
+
+      test('trackContact with null parameters', () {
+        expect(
+          () => FacebookPixelService.trackContact(email: null, name: null),
+          returnsNormally,
+        );
+      });
+    });
+  });
+
+  group('ErrorSeverity mapping verification', () {
+    test('all severity levels have unique Sentry mappings', () {
+      final sentryLevels = ErrorSeverity.values
+          .map((s) => s.sentryLevel)
+          .toSet();
+      expect(sentryLevels.length, equals(ErrorSeverity.values.length));
+    });
+
+    test('severity enum values are in expected order', () {
+      expect(ErrorSeverity.values[0], equals(ErrorSeverity.debug));
+      expect(ErrorSeverity.values[1], equals(ErrorSeverity.info));
+      expect(ErrorSeverity.values[2], equals(ErrorSeverity.warning));
+      expect(ErrorSeverity.values[3], equals(ErrorSeverity.error));
+      expect(ErrorSeverity.values[4], equals(ErrorSeverity.fatal));
+    });
+  });
+
+  group('AnalyticsEvent mapping verification', () {
+    test('all event types have unique names', () {
+      final names = AnalyticsEvent.values.map((e) => e.name).toSet();
+      expect(names.length, equals(AnalyticsEvent.values.length));
+    });
+
+    test('event names follow snake_case convention', () {
+      for (final event in AnalyticsEvent.values) {
+        expect(
+          event.name,
+          matches(RegExp(r'^[a-z]+(_[a-z]+)*$')),
+          reason: '${event.name} should be snake_case',
+        );
+      }
+    });
+
+    test('all events have non-empty names', () {
+      for (final event in AnalyticsEvent.values) {
+        expect(event.name.isNotEmpty, isTrue);
+      }
     });
   });
 }

@@ -4,6 +4,41 @@ All notable changes to the IntegrityStudio.ai Flutter project.
 
 ---
 
+## [2026-01-29] - Test Coverage Improvement Sprint
+
+### Test Coverage
+
+**Overall: 92.1% → 94.0%** (+250 tests, 1933 total)
+
+| File | Before | After |
+|------|--------|-------|
+| `consent_manager.dart` | 35.5% | 93.0% |
+| `landing_controller.dart` | 70.0% | 100% |
+| `app_router.dart` | 74.4% | 100% |
+| `landing_page.dart` | 69.6% | 94.2% |
+| `contact_section.dart` | 67.3% | 87.8% |
+
+### Refactoring
+
+**ConsentManager Dependency Injection:**
+- Added `ConsentStorage`, `PlatformCheck`, `TrackingService`, `AnalyticsAdapter` interfaces
+- Added `configureDependencies()` / `resetDependencies()` for test mocking
+- Enables testing of web-platform consent logic in native tests
+
+### Files Modified
+
+- `lib/services/consent_manager.dart` - DI refactor
+- `test/services/consent_manager_test.dart` - 86 tests
+- `test/controllers/landing_controller_test.dart` - 28 new tests
+- `test/routing/app_router_test.dart` - 28 new tests
+- `test/pages/landing_page_test.dart` - 28 new tests
+- `test/widgets/sections/contact_section_test.dart` - 26 new tests
+- `test/services/analytics_test.dart` - 74 new tests
+- `test/widgets/sections/social_proof_section_test.dart` - layout tests
+- `test/app_test.dart` - 45 tests
+
+---
+
 ## [2026-01-28] - Security Page & Contact Improvements
 
 ### New Features
@@ -272,6 +307,7 @@ All notable changes to the IntegrityStudio.ai Flutter project.
 
 | Date | Version | Changes |
 |------|---------|---------|
+| 2026-01-29 | 1.6 | Test coverage sprint: 92.1%→94.0%, consent_manager DI refactor |
 | 2026-01-28 | 1.5 | Security page, contact improvements, TypeScript fixes |
 | 2025-12-26 | 1.4 | WhyLabs migration guide, team members, LinkedIn post, blog fixes |
 | 2024-12-24 | 1.3 | Brand assets (logo, favicon, og-image), legal pages, infrastructure |

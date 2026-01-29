@@ -7,6 +7,101 @@ import 'tracking.dart';
 // Re-export for backward compatibility
 export '../models/consent_preferences.dart';
 
+/// Storage abstraction for consent data.
+///
+/// This interface allows for dependency injection in tests while using
+/// platform-specific storage (localStorage on web) in production.
+abstract class ConsentStorage {
+  String? get(String key);
+  void set(String key, String value);
+  void remove(String key);
+}
+
+/// Default storage implementation using TrackingWeb.
+///
+/// On web: Uses localStorage via TrackingWeb.
+/// On other platforms: Returns null (no storage needed).
+class DefaultConsentStorage implements ConsentStorage {
+  const DefaultConsentStorage();
+
+  @override
+  String? get(String key) {
+    if (!kIsWeb) return null;
+    return TrackingWeb.getFromStorage(key);
+  }
+
+  @override
+  void set(String key, String value) {
+    if (!kIsWeb) return;
+    TrackingWeb.setToStorage(key, value);
+  }
+
+  @override
+  void remove(String key) {
+    if (!kIsWeb) return;
+    TrackingWeb.removeFromStorage(key);
+  }
+}
+
+/// Platform check abstraction for testing.
+///
+/// Allows overriding the kIsWeb check in tests.
+abstract class PlatformCheck {
+  bool get isWeb;
+}
+
+/// Default platform check using kIsWeb constant.
+class DefaultPlatformCheck implements PlatformCheck {
+  const DefaultPlatformCheck();
+
+  @override
+  bool get isWeb => kIsWeb;
+}
+
+/// Tracking service abstraction for testing.
+abstract class TrackingService {
+  void updateConsent({required bool analytics, required bool marketing});
+  void injectFacebookPixel();
+  void sendFBPageView();
+}
+
+/// Default tracking implementation using TrackingWeb.
+class DefaultTrackingService implements TrackingService {
+  const DefaultTrackingService();
+
+  @override
+  void updateConsent({required bool analytics, required bool marketing}) {
+    TrackingWeb.updateConsent(analytics: analytics, marketing: marketing);
+  }
+
+  @override
+  void injectFacebookPixel() {
+    TrackingWeb.injectFacebookPixel();
+  }
+
+  @override
+  void sendFBPageView() {
+    TrackingWeb.sendFBPageView();
+  }
+}
+
+/// Analytics service abstraction for testing.
+abstract class AnalyticsAdapter {
+  Future<void> initialize();
+  void disable();
+}
+
+/// Default analytics implementation using AnalyticsService.
+class DefaultAnalyticsAdapter implements AnalyticsAdapter {
+  const DefaultAnalyticsAdapter();
+
+  @override
+  Future<void> initialize() => AnalyticsService.initialize();
+
+  @override
+  void disable() => AnalyticsService.disable();
+}
+
 /// GDPR-compliant consent management
 ///
 /// This service manages user consent for cookies and analytics.
@@ -22,13 +117,44 @@ class ConsentManager {
 
   static const String _storageKey = 'integrity_cookie_consent';
 
+  // Dependency injection for testing
+  static PlatformCheck _platform = const DefaultPlatformCheck();
+  static ConsentStorage _storage = const DefaultConsentStorage();
+  static TrackingService _tracking = const DefaultTrackingService();
+  static AnalyticsAdapter _analytics = const DefaultAnalyticsAdapter();
+
+  /// Configure dependencies for testing.
+  ///
+  /// This method allows injecting mock implementations in tests.
+  @visibleForTesting
+  static void configureDependencies({
+    PlatformCheck? platform,
+    ConsentStorage? storage,
+    TrackingService? tracking,
+    AnalyticsAdapter? analytics,
+  }) {
+    if (platform != null) _platform = platform;
+    if (storage != null) _storage = storage;
+    if (tracking != null) _tracking = tracking;
+    if (analytics != null) _analytics = analytics;
+  }
+
+  /// Reset dependencies to defaults.
+  @visibleForTesting
+  static void resetDependencies() {
+    _platform = const DefaultPlatformCheck();
+    _storage = const DefaultConsentStorage();
+    _tracking = const DefaultTrackingService();
+    _analytics = const DefaultAnalyticsAdapter();
+  }
+
   /// Check if user has already given consent (any level)
   static bool hasConsent() {
-    if (!kIsWeb) return true; // Non-web platforms don't need consent banner
+    if (!_platform.isWeb) return true; // Non-web platforms don't need consent banner
 
     try {
       // Access localStorage via dart:html on web
-      final stored = _getFromStorage(_storageKey);
+      final stored = _storage.get(_storageKey);
       return stored != null;
     } catch (e) {
       return false;
@@ -37,7 +163,7 @@ class ConsentManager {
 
   /// Get stored consent preferences
   static Future<ConsentPreferences?> getStoredConsent() async {
-    if (!kIsWeb) {
+    if (!_platform.isWeb) {
       return ConsentPreferences(
         analytics: true,
         marketing: true,
@@ -45,7 +171,7 @@ class ConsentManager {
     }
 
     try {
-      final stored = _getFromStorage(_storageKey);
+      final stored = _storage.get(_storageKey);
       if (stored == null) return null;
       return ConsentPreferences.fromJson(jsonDecode(stored));
     } catch (e) {
@@ -55,16 +181,16 @@ class ConsentManager {
 
   /// Save consent and initialize services accordingly
   static Future<void> saveConsent(ConsentPreferences prefs) async {
-    if (kIsWeb) {
+    if (_platform.isWeb) {
       try {
-        _setToStorage(_storageKey, jsonEncode(prefs.toJson()));
+        _storage.set(_storageKey, jsonEncode(prefs.toJson()));
       } catch (e) {
         // Storage might be unavailable in private browsing
         debugPrint('Failed to save consent to storage: $e');
       }
 
       // Update GTM Consent Mode with user's choices
-      TrackingWeb.updateConsent(
+      _tracking.updateConsent(
         analytics: prefs.analytics,
         marketing: prefs.marketing,
       );
@@ -72,7 +198,7 @@ class ConsentManager {
 
     // Initialize analytics ONLY if consent was given
     if (prefs.analytics) {
-      await AnalyticsService.initialize();
+      await _analytics.initialize();
     }
 
     if (prefs.marketing) {
@@ -82,9 +208,9 @@ class ConsentManager {
 
   /// Revoke all consent (for "Manage Preferences" -> "Reject All")
   static Future<void> revokeConsent() async {
-    if (kIsWeb) {
+    if (_platform.isWeb) {
       try {
-        _removeFromStorage(_storageKey);
+        _storage.remove(_storageKey);
       } catch (e) {
         debugPrint('Failed to remove consent from storage: $e');
       }
@@ -92,32 +218,16 @@ class ConsentManager {
 
     // Note: We can't truly "uninitialize" analytics scripts that are already loaded
     // But we can stop tracking new events
-    AnalyticsService.disable();
+    _analytics.disable();
   }
 
   /// Initialize Facebook Pixel (only after marketing consent)
   static Future<void> _initializeMarketing() async {
-    if (!kIsWeb) return;
+    if (!_platform.isWeb) return;
 
     // Inject Facebook Pixel script
-    TrackingWeb.injectFacebookPixel();
-    TrackingWeb.sendFBPageView();
+    _tracking.injectFacebookPixel();
+    _tracking.sendFBPageView();
     debugPrint('Marketing tracking initialized with consent');
-  }
-
-  // Platform-specific storage methods using TrackingWeb
-  static String? _getFromStorage(String key) {
-    if (!kIsWeb) return null;
-    return TrackingWeb.getFromStorage(key);
-  }
-
-  static void _setToStorage(String key, String value) {
-    if (!kIsWeb) return;
-    TrackingWeb.setToStorage(key, value);
-  }
-
-  static void _removeFromStorage(String key) {
-    if (!kIsWeb) return;
-    TrackingWeb.removeFromStorage(key);
   }
 }
