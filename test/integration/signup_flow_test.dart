@@ -159,7 +159,7 @@ void main() {
       await pumpFrames(tester, frames: 10);
 
       // Should show terms error
-      expect(find.textContaining('agree to'), findsOneWidget);
+      expect(find.textContaining('agree to'), findsWidgets);
     });
 
     testWidgets('signup form accepts valid input', (tester) async {

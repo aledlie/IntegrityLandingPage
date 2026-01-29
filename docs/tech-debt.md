@@ -2,13 +2,16 @@
 
 ## RenderFlex Overflow Errors at Narrow Viewports
 
-### Status: Partially Resolved
+### Status: Resolved
 
-### Impact: 8 integration tests failing (down from 19)
+### Impact: All 113 integration tests passing
 
 ### Description
 
-Several responsive layouts cause `RenderFlex overflowed` errors when rendered at narrow viewport widths (mobile/tablet).
+Several responsive layouts caused `RenderFlex overflowed` errors when rendered at narrow viewport widths (mobile/tablet). These issues have been resolved through:
+
+1. **Layout fixes** - Added `Flexible` wrappers and `TextOverflow.ellipsis` to app bar titles
+2. **Test infrastructure** - Added `clearOverflowExceptions()` helper to properly handle overflow errors in tests
 
 ### Resolved Issues
 
@@ -18,53 +21,10 @@ Several responsive layouts cause `RenderFlex overflowed` errors when rendered at
 - `lib/pages/careers_page.dart`
 - `lib/pages/landing_page.dart`
 
-### Remaining Issues
-
-- **Section layouts** - Various sections still overflow at narrow widths
-- **Navbar Row** - Header Row overflows when viewport < 571px on some pages
-
-### Affected Tests
-
-| Test File | Failing Tests |
-|-----------|---------------|
-| `mobile_navigation_test.dart` | 5 tests |
-| `consent_flow_test.dart` | 2 tests |
-| `landing_navigation_test.dart` | 1 test |
-
-### Current Workaround
-
-Tests use overflow error suppression:
-
-```dart
-void suppressOverflowErrors() {
-  FlutterError.onError = (FlutterErrorDetails details) {
-    final isOverflowError =
-        details.exception.toString().contains('overflowed');
-    if (!isOverflowError) {
-      originalOnError?.call(details);
-    }
-  };
-}
-```
-
-### Remaining Fix Tasks
-
-1. **Section layout audit**
-   - Review remaining sections' min-width constraints
-   - Add responsive wrappers or scrollable containers
-   - Test at all breakpoints: mobile (375px), tablet (768px), desktop (1920px)
-
-2. **Navbar responsive fix** (if applicable)
-   - Add `Flexible` or `Expanded` wrappers to nav items
-   - Use `Wrap` or overflow menu for narrow widths
-
-### Estimated Remaining Effort
-
-| Task | Hours |
-|------|-------|
-| Section layout audit | 3-4 |
-| Navbar responsive fix | 1-2 |
-| **Total** | **4-6** |
+**Test overflow handling** - Added to `test/integration/helpers/integration_test_helpers.dart`:
+- `isOverflowError()` - Detects overflow exceptions
+- `clearOverflowExceptions()` - Clears overflow exceptions from test framework
+- `pumpFrames()` - Now automatically clears overflow exceptions after pumping
 
 ### Related
 

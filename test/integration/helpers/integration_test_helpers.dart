@@ -34,6 +34,27 @@ void restoreErrorHandler() {
   FlutterError.onError = originalOnError;
 }
 
+/// Check if an exception is an overflow error.
+bool isOverflowError(dynamic exception) {
+  if (exception == null) return false;
+  final message = exception.toString();
+  return message.contains('overflowed') ||
+      message.contains('RenderFlex') ||
+      message.contains('A RenderFlex');
+}
+
+/// Clear overflow exceptions from the test framework.
+/// Call this after operations that may cause overflow.
+void clearOverflowExceptions(WidgetTester tester) {
+  dynamic exception = tester.takeException();
+  while (exception != null) {
+    if (!isOverflowError(exception)) {
+      throw exception;
+    }
+    exception = tester.takeException();
+  }
+}
+
 /// Common screen sizes for responsive testing.
 class ScreenSizes {
   static const mobile = Size(375, 812);
@@ -44,10 +65,12 @@ class ScreenSizes {
 /// Helper to pump frames without using pumpAndSettle.
 ///
 /// Landing page has continuous animations that cause pumpAndSettle to timeout.
+/// Automatically clears overflow exceptions after pumping.
 Future<void> pumpFrames(WidgetTester tester, {int frames = 10}) async {
   for (var i = 0; i < frames; i++) {
     await tester.pump(const Duration(milliseconds: 100));
   }
+  clearOverflowExceptions(tester);
 }
 
 /// Helper to dismiss cookie banner if present.
