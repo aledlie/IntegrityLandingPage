@@ -40,6 +40,7 @@ GoRouter createAppRouter({
       if (path == '/docs/compliance') return '/docs';
       if (path == '/docs/agents') return '/docs';
       if (path == '/docs/security/audit-trails') return '/docs/tracing';
+      if (path == '/docs/claude-code-observability') return '/docs/llm-observability';
       if (path.startsWith('/reports/')) return '/docs';
       return null;
     },
