@@ -36,8 +36,8 @@ abstract final class SecurityContent {
 
   static const stats = [
     SecurityStatItem(value: '256-bit', label: 'SSL/TLS Encryption'),
-    SecurityStatItem(value: '~10/100', label: 'Security Risk Score'),
     SecurityStatItem(value: 'SOC 2', label: 'Type II Audit Ready'),
+    SecurityStatItem(value: '99.9%', label: 'Uptime SLA'),
   ];
 
   // Authentication Section
