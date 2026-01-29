@@ -22,6 +22,37 @@ import 'package:integrity_studio_ai/pages/docs_quickstart_page.dart';
 import 'package:integrity_studio_ai/pages/docs_alerts_page.dart';
 import '../helpers/test_helpers.dart';
 
+/// Routes with back buttons that should navigate to home
+const _pagesWithBackButton = [
+  (route: '/blog', name: 'BlogPage'),
+  (route: '/sources', name: 'SourcesPage'),
+  (route: '/about', name: 'AboutPage'),
+  (route: '/pricing', name: 'PricingPage'),
+  (route: '/contact', name: 'ContactPage'),
+  (route: '/careers', name: 'CareersPage'),
+  (route: '/security', name: 'SecurityPage'),
+  (route: '/signup', name: 'SignupPage'),
+  (route: '/whylabs-alternative', name: 'ComparisonPage (WhyLabs)'),
+  (route: '/compare/arize-ai-alternative', name: 'ComparisonPage (Arize)'),
+];
+
+const _legalPagesWithBackButton = [
+  (route: '/privacy', name: 'PrivacyPage'),
+  (route: '/terms', name: 'TermsPage'),
+  (route: '/cookies', name: 'CookiesPage'),
+  (route: '/accessibility', name: 'AccessibilityPage'),
+];
+
+const _docsPagesWithBackButton = [
+  (route: '/docs', name: 'DocsIndexPage'),
+  (route: '/docs/llm-observability', name: 'DocsObservabilityPage'),
+  (route: '/docs/tracing', name: 'DocsTracingPage'),
+  (route: '/docs/integrations', name: 'DocsInteroperabilityPage'),
+  (route: '/api', name: 'DocsApiPage'),
+  (route: '/docs/quickstart', name: 'DocsQuickstartPage'),
+  (route: '/docs/alerts', name: 'DocsAlertsPage'),
+];
+
 void main() {
   // Suppress overflow errors in layout tests
   final originalOnError = FlutterError.onError;
@@ -91,11 +122,28 @@ void main() {
         ),
       ),
     );
-    await tester.pump(const Duration(milliseconds: 100));
-    clearOverflowExceptions(tester);
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pumpAndSettle();
     clearOverflowExceptions(tester);
     return testRouter;
+  }
+
+  /// Helper to test back button navigation to home
+  Future<void> testBackButtonNavigatesToHome(
+    WidgetTester tester,
+    String route,
+  ) async {
+    final router = await pumpRouterApp(tester, initialLocation: route);
+
+    final backButton = find.byType(IconButton);
+    if (backButton.evaluate().isNotEmpty) {
+      await tester.tap(backButton.first);
+      await tester.pumpAndSettle();
+      clearOverflowExceptions(tester);
+      expect(
+        router.routerDelegate.currentConfiguration.uri.path,
+        equals('/'),
+      );
+    }
   }
 
   group('createAppRouter', () {
@@ -133,8 +181,6 @@ void main() {
 
     testWidgets('/support path resolves to /contact', (tester) async {
       final router = await pumpRouterApp(tester, initialLocation: '/support');
-      await tester.pump(const Duration(milliseconds: 200));
-      clearOverflowExceptions(tester);
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
           equals('/contact'));
@@ -142,8 +188,6 @@ void main() {
 
     testWidgets('/eu-ai-act redirects to /docs', (tester) async {
       final router = await pumpRouterApp(tester, initialLocation: '/eu-ai-act');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
           equals('/docs'));
@@ -152,8 +196,6 @@ void main() {
     testWidgets('/docs/compliance redirects to /docs', (tester) async {
       final router =
           await pumpRouterApp(tester, initialLocation: '/docs/compliance');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
           equals('/docs'));
@@ -162,8 +204,6 @@ void main() {
     testWidgets('/docs/agents redirects to /docs', (tester) async {
       final router =
           await pumpRouterApp(tester, initialLocation: '/docs/agents');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
           equals('/docs'));
@@ -173,8 +213,6 @@ void main() {
         (tester) async {
       final router = await pumpRouterApp(tester,
           initialLocation: '/docs/security/audit-trails');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
           equals('/docs/tracing'));
@@ -183,8 +221,6 @@ void main() {
     testWidgets('/reports/anything redirects to /docs', (tester) async {
       final router =
           await pumpRouterApp(tester, initialLocation: '/reports/soc2-2024');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
           equals('/docs'));
@@ -368,8 +404,6 @@ void main() {
     testWidgets('unknown route handled by errorBuilder', (tester) async {
       final router = await pumpRouterApp(tester,
           initialLocation: '/this-route-does-not-exist');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       // errorBuilder renders a page (path stays the same for errors)
       expect(router, isNotNull);
@@ -379,8 +413,6 @@ void main() {
         (tester) async {
       final router =
           await pumpRouterApp(tester, initialLocation: '/foo/bar/baz/qux');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       expect(router, isNotNull);
     });
@@ -432,379 +464,27 @@ void main() {
   });
 
   group('onBack callbacks navigate to home', () {
-    testWidgets('BlogPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/blog');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      // Find and tap the first IconButton (usually the back button in leading position)
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('SourcesPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/sources');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('AboutPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/about');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('PricingPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/pricing');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('ContactPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/contact');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('CareersPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/careers');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('SecurityPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/security');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('SignupPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/signup');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('ComparisonPage (WhyLabs) onBack navigates to home',
-        (tester) async {
-      final router =
-          await pumpRouterApp(tester, initialLocation: '/whylabs-alternative');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('ComparisonPage (Arize) onBack navigates to home',
-        (tester) async {
-      final router = await pumpRouterApp(tester,
-          initialLocation: '/compare/arize-ai-alternative');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
+    for (final page in _pagesWithBackButton) {
+      testWidgets('${page.name} onBack navigates to home', (tester) async {
+        await testBackButtonNavigatesToHome(tester, page.route);
+      });
+    }
   });
 
   group('legal pages onBack callbacks', () {
-    testWidgets('PrivacyPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/privacy');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('TermsPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/terms');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('CookiesPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/cookies');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('AccessibilityPage onBack navigates to home', (tester) async {
-      final router =
-          await pumpRouterApp(tester, initialLocation: '/accessibility');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
+    for (final page in _legalPagesWithBackButton) {
+      testWidgets('${page.name} onBack navigates to home', (tester) async {
+        await testBackButtonNavigatesToHome(tester, page.route);
+      });
+    }
   });
 
   group('documentation pages onBack callbacks', () {
-    testWidgets('DocsIndexPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/docs');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('DocsObservabilityPage onBack navigates to home',
-        (tester) async {
-      final router =
-          await pumpRouterApp(tester, initialLocation: '/docs/llm-observability');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('DocsTracingPage onBack navigates to home', (tester) async {
-      final router =
-          await pumpRouterApp(tester, initialLocation: '/docs/tracing');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('DocsInteroperabilityPage onBack navigates to home',
-        (tester) async {
-      final router =
-          await pumpRouterApp(tester, initialLocation: '/docs/integrations');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('DocsApiPage onBack navigates to home', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/api');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('DocsQuickstartPage onBack navigates to home', (tester) async {
-      final router =
-          await pumpRouterApp(tester, initialLocation: '/docs/quickstart');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
-
-    testWidgets('DocsAlertsPage onBack navigates to home', (tester) async {
-      final router =
-          await pumpRouterApp(tester, initialLocation: '/docs/alerts');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-
-      final backButton = find.byType(IconButton);
-      if (backButton.evaluate().isNotEmpty) {
-        await tester.tap(backButton.first);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        await tester.pump(const Duration(milliseconds: 100));
-        clearOverflowExceptions(tester);
-        expect(router.routerDelegate.currentConfiguration.uri.path,
-            equals('/'));
-      }
-    });
+    for (final page in _docsPagesWithBackButton) {
+      testWidgets('${page.name} onBack navigates to home', (tester) async {
+        await testBackButtonNavigatesToHome(tester, page.route);
+      });
+    }
   });
 
   group('onShowCookieSettings callbacks', () {
@@ -832,9 +512,7 @@ void main() {
           ),
         ),
       );
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
-      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
       clearOverflowExceptions(tester);
 
       // The callback should be accessible to the page
@@ -876,7 +554,7 @@ void main() {
           ),
         ),
       );
-      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
       clearOverflowExceptions(tester);
 
       // The CookieBannerShell should show the banner
@@ -889,8 +567,6 @@ void main() {
   group('redirect returns null for non-matching paths', () {
     testWidgets('path /about does not redirect', (tester) async {
       final router = await pumpRouterApp(tester, initialLocation: '/about');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       expect(
           router.routerDelegate.currentConfiguration.uri.path, equals('/about'));
@@ -898,8 +574,6 @@ void main() {
 
     testWidgets('path /pricing does not redirect', (tester) async {
       final router = await pumpRouterApp(tester, initialLocation: '/pricing');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
           equals('/pricing'));
@@ -908,8 +582,6 @@ void main() {
     testWidgets('path with /reports prefix redirects to /docs', (tester) async {
       final router =
           await pumpRouterApp(tester, initialLocation: '/reports/annual-2024');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       expect(
           router.routerDelegate.currentConfiguration.uri.path, equals('/docs'));
@@ -919,8 +591,6 @@ void main() {
         (tester) async {
       // Note: /reports/ must have a trailing slash to match the startsWith check
       final router = await pumpRouterApp(tester, initialLocation: '/reports');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       // /reports does not start with '/reports/' so it goes to error handler
       expect(router, isNotNull);
@@ -931,8 +601,6 @@ void main() {
     testWidgets('errorBuilder renders LandingPage for unknown routes',
         (tester) async {
       await pumpRouterApp(tester, initialLocation: '/nonexistent-page-12345');
-      await tester.pump(const Duration(milliseconds: 100));
-      clearOverflowExceptions(tester);
 
       // The errorBuilder should render LandingPage
       expect(find.byType(LandingPage), findsOneWidget);
