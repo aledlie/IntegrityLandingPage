@@ -30,6 +30,9 @@ dependencies:
   # State Management
   provider: ^6.1.1
 
+  # Routing
+  go_router: ^14.6.0
+
   # Error Tracking
   sentry_flutter: ^9.9.2
 
