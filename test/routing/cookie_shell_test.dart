@@ -13,6 +13,8 @@ void main() {
   });
 
   setUp(() {
+    // Reset notifier before each test
+    cookieBannerNotifier.value = false;
     FlutterError.onError = (FlutterErrorDetails details) {
       final isOverflowError =
           details.exception.toString().contains('overflowed');
@@ -24,6 +26,7 @@ void main() {
 
   tearDown(() {
     FlutterError.onError = originalOnError;
+    cookieBannerNotifier.value = false;
   });
 
   // Helper to check if an error is an overflow error
@@ -51,23 +54,11 @@ void main() {
       test('creates with required parameters', () {
         const shell = CookieBannerShell(
           child: Text('Content'),
-          showBanner: false,
           onConsentGiven: _noopCallback,
         );
 
-        expect(shell.showBanner, isFalse);
         expect(shell.child, isA<Text>());
         expect(shell.onConsentGiven, isNotNull);
-      });
-
-      test('showBanner can be true', () {
-        const shell = CookieBannerShell(
-          child: Text('Content'),
-          showBanner: true,
-          onConsentGiven: _noopCallback,
-        );
-
-        expect(shell.showBanner, isTrue);
       });
     });
 
@@ -76,7 +67,6 @@ void main() {
         await tester.pumpWidget(testableWidget(
           const CookieBannerShell(
             child: Text('Page Content'),
-            showBanner: false,
             onConsentGiven: _noopCallback,
           ),
         ));
@@ -84,12 +74,13 @@ void main() {
         expect(find.text('Page Content'), findsOneWidget);
       });
 
-      testWidgets('does not show banner when showBanner is false',
+      testWidgets('does not show banner when notifier is false',
           (tester) async {
+        cookieBannerNotifier.value = false;
+
         await tester.pumpWidget(testableWidget(
           const CookieBannerShell(
             child: Text('Content'),
-            showBanner: false,
             onConsentGiven: _noopCallback,
           ),
         ));
@@ -97,11 +88,12 @@ void main() {
         expect(find.byType(CookieBanner), findsNothing);
       });
 
-      testWidgets('shows banner when showBanner is true', (tester) async {
+      testWidgets('shows banner when notifier is true', (tester) async {
+        cookieBannerNotifier.value = true;
+
         await tester.pumpWidget(testableWidget(
           CookieBannerShell(
             child: const Text('Content'),
-            showBanner: true,
             onConsentGiven: () {},
           ),
         ));
@@ -113,7 +105,6 @@ void main() {
         await tester.pumpWidget(testableWidget(
           const CookieBannerShell(
             child: Text('Content'),
-            showBanner: false,
             onConsentGiven: _noopCallback,
           ),
         ));
@@ -130,10 +121,11 @@ void main() {
       });
 
       testWidgets('child is in Stack with banner overlay', (tester) async {
+        cookieBannerNotifier.value = true;
+
         await tester.pumpWidget(testableWidget(
           CookieBannerShell(
             child: const Text('Main Content'),
-            showBanner: true,
             onConsentGiven: () {},
           ),
         ));
@@ -148,30 +140,24 @@ void main() {
     });
 
     group('banner visibility toggle', () {
-      testWidgets('banner visibility changes with showBanner prop',
+      testWidgets('banner visibility changes with notifier value',
           (tester) async {
-        var showBanner = false;
+        cookieBannerNotifier.value = false;
 
-        await tester.pumpWidget(
-          StatefulBuilder(
-            builder: (context, setState) {
-              return testableWidget(
-                CookieBannerShell(
-                  child: ElevatedButton(
-                    onPressed: () => setState(() => showBanner = !showBanner),
-                    child: const Text('Toggle'),
-                  ),
-                  showBanner: showBanner,
-                  onConsentGiven: () {},
-                ),
-              );
-            },
+        await tester.pumpWidget(testableWidget(
+          CookieBannerShell(
+            child: ElevatedButton(
+              onPressed: () =>
+                  cookieBannerNotifier.value = !cookieBannerNotifier.value,
+              child: const Text('Toggle'),
+            ),
+            onConsentGiven: () {},
           ),
-        );
+        ));
 
         expect(find.byType(CookieBanner), findsNothing);
 
-        // Toggle banner
+        // Toggle banner via notifier
         await tester.tap(find.text('Toggle'));
         await tester.pump();
         clearOverflowExceptions(tester);
@@ -185,11 +171,11 @@ void main() {
     group('callback handling', () {
       testWidgets('passes onConsentGiven to CookieBanner', (tester) async {
         var consentGiven = false;
+        cookieBannerNotifier.value = true;
 
         await tester.pumpWidget(testableWidget(
           CookieBannerShell(
             child: const Text('Content'),
-            showBanner: true,
             onConsentGiven: () {
               consentGiven = true;
             },
@@ -219,7 +205,6 @@ void main() {
                 Text('Footer'),
               ],
             ),
-            showBanner: false,
             onConsentGiven: () {},
           ),
         ));
@@ -238,7 +223,6 @@ void main() {
                 (i) => ListTile(title: Text('Item $i')),
               ),
             ),
-            showBanner: false,
             onConsentGiven: () {},
           ),
         ));
@@ -253,7 +237,6 @@ void main() {
         await tester.pumpWidget(testableWidget(
           const CookieBannerShell(
             child: Text('Content'),
-            showBanner: false,
             onConsentGiven: _noopCallback,
           ),
         ));
@@ -267,11 +250,24 @@ void main() {
         const child = Text('Test');
         const shell = CookieBannerShell(
           child: child,
-          showBanner: false,
           onConsentGiven: _noopCallback,
         );
 
         expect(shell.child, equals(child));
+      });
+    });
+
+    group('cookieBannerNotifier', () {
+      test('is a ValueNotifier<bool>', () {
+        expect(cookieBannerNotifier, isA<ValueNotifier<bool>>());
+      });
+
+      test('can be set to true and false', () {
+        cookieBannerNotifier.value = true;
+        expect(cookieBannerNotifier.value, isTrue);
+
+        cookieBannerNotifier.value = false;
+        expect(cookieBannerNotifier.value, isFalse);
       });
     });
   });

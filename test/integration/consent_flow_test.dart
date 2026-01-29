@@ -9,7 +9,7 @@ import 'helpers/mock_services.dart';
 /// Integration tests for the cookie consent flow.
 ///
 /// Tests the complete user journey:
-/// 1. Load app with showCookieBanner: true
+/// 1. Load app with cookieBannerNotifier.value = true
 /// 2. Verify banner appears
 /// 3. Click "Accept All" or "Customize"
 /// 4. Verify consent saved
@@ -22,21 +22,23 @@ void main() {
   setUp(() {
     suppressOverflowErrors();
     IntegrationMocks.resetAll();
+    cookieBannerNotifier.value = false;
   });
 
   tearDown(() {
     restoreErrorHandler();
+    cookieBannerNotifier.value = false;
   });
 
   group('Cookie Banner Display', () {
-    testWidgets('cookie banner appears when showBanner is true',
+    testWidgets('cookie banner appears when notifier is true',
         (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () {},
             child: const Scaffold(body: Center(child: Text('App Content'))),
           ),
@@ -53,14 +55,14 @@ void main() {
           isTrue);
     });
 
-    testWidgets('cookie banner does not appear when showBanner is false',
+    testWidgets('cookie banner does not appear when notifier is false',
         (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = false;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: false,
             onConsentGiven: () {},
             child: const Scaffold(body: Center(child: Text('App Content'))),
           ),
@@ -74,13 +76,13 @@ void main() {
 
     testWidgets('accept all button dismisses banner', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       var consentGiven = false;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () => consentGiven = true,
             child: const Scaffold(body: Center(child: Text('App Content'))),
           ),
@@ -100,11 +102,11 @@ void main() {
 
     testWidgets('essential only option exists', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () {},
             child: const Scaffold(body: Center(child: Text('App Content'))),
           ),
@@ -134,11 +136,11 @@ void main() {
 
     testWidgets('customize preferences option exists', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () {},
             child: const Scaffold(body: Center(child: Text('App Content'))),
           ),
@@ -170,11 +172,11 @@ void main() {
   group('Consent Flow Interactions', () {
     testWidgets('page is scrollable with banner showing', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () {},
             child: LandingPage(onShowCookieSettings: () {}),
           ),
@@ -196,11 +198,11 @@ void main() {
 
     testWidgets('content is fully interactive after consent', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () {},
             child: LandingPage(onShowCookieSettings: () {}),
           ),
@@ -227,11 +229,11 @@ void main() {
 
     testWidgets('forms work after consent given', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () {},
             child: LandingPage(onShowCookieSettings: () {}),
           ),
@@ -268,11 +270,11 @@ void main() {
   group('Privacy Link Navigation', () {
     testWidgets('privacy policy link is accessible in banner', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () {},
             child: const Scaffold(body: Center(child: Text('Content'))),
           ),
@@ -302,11 +304,11 @@ void main() {
   group('Banner UI/UX', () {
     testWidgets('banner has proper styling', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () {},
             child: const Scaffold(body: Center(child: Text('Content'))),
           ),
@@ -324,11 +326,11 @@ void main() {
 
     testWidgets('banner does not block critical hero content', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () {},
             child: LandingPage(onShowCookieSettings: () {}),
           ),
@@ -356,13 +358,13 @@ void main() {
 
     testWidgets('banner is properly dismissed after accept', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: StatefulBuilder(
             builder: (context, setState) {
               return CookieBannerShell(
-                showBanner: true,
                 onConsentGiven: () {},
                 child: const Scaffold(body: Center(child: Text('Content'))),
               );
@@ -386,11 +388,11 @@ void main() {
   group('Consent State Management', () {
     testWidgets('page functions normally after consent', (tester) async {
       setDesktopSize(tester);
+      cookieBannerNotifier.value = true;
 
       await tester.pumpWidget(
         MaterialApp(
           home: CookieBannerShell(
-            showBanner: true,
             onConsentGiven: () {},
             child: LandingPage(onShowCookieSettings: () {}),
           ),
