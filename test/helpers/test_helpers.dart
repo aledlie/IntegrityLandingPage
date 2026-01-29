@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:integrity_studio_ai/theme/colors.dart';
 import 'package:integrity_studio_ai/controllers/landing_controller.dart';
 import 'package:integrity_studio_ai/services/content_loader.dart';
-import 'mocks.dart';
 import 'test_content.dart';
 
 // Re-export test content helpers for convenience
@@ -74,7 +73,6 @@ Widget testableSection(Widget section, {ThemeData? theme}) {
 Widget testableWidgetWithProviders(
   Widget child, {
   LandingController? landingController,
-  MockConsentManager? consentManager,
 }) {
   _ensureContentLoaded();
   return MaterialApp(
@@ -85,10 +83,6 @@ Widget testableWidgetWithProviders(
         if (landingController != null)
           ChangeNotifierProvider<LandingController>.value(
             value: landingController,
-          ),
-        if (consentManager != null)
-          ChangeNotifierProvider<MockConsentManager>.value(
-            value: consentManager,
           ),
       ],
       child: Scaffold(body: child),
@@ -117,13 +111,11 @@ extension WidgetTesterX on WidgetTester {
   Future<void> pumpAppWithProviders(
     Widget widget, {
     LandingController? landingController,
-    MockConsentManager? consentManager,
   }) async {
     await pumpWidget(
       testableWidgetWithProviders(
         widget,
         landingController: landingController,
-        consentManager: consentManager,
       ),
     );
     await pumpAndSettle();
