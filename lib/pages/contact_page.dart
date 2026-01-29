@@ -82,30 +82,29 @@ class _ContactPageState extends State<ContactPage> {
         onPressed: widget.onBack ?? () => Navigator.of(context).pop(),
         tooltip: 'Back',
       ),
-      title: Row(
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.of(context).pushReplacementNamed('/'),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  LucideIcons.shield,
-                  color: AppColors.blue500,
-                  size: isMobile ? 24 : 28,
-                ),
-                const SizedBox(width: AppSpacing.sm),
-                Text(
-                  CompanyInfo.name,
-                  style: (isMobile
-                          ? AppTypography.headingSM
-                          : AppTypography.headingMD)
-                      .copyWith(color: Colors.white),
-                ),
-              ],
+      title: GestureDetector(
+        onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              LucideIcons.shield,
+              color: AppColors.blue500,
+              size: isMobile ? 24 : 28,
             ),
-          ),
-        ],
+            const SizedBox(width: AppSpacing.sm),
+            Flexible(
+              child: Text(
+                CompanyInfo.name,
+                style: (isMobile
+                        ? AppTypography.headingSM
+                        : AppTypography.headingMD)
+                    .copyWith(color: Colors.white),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
       ),
       actions: [
         if (!isMobile) ...[

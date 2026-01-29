@@ -208,34 +208,32 @@ class _LandingPageState extends State<LandingPage> {
       pinned: true,
       elevation: 0,
       toolbarHeight: isMobile ? 56 : 64,
-      title: Row(
-        children: [
-          // Logo/Brand
-          GestureDetector(
-            onTap: () => _scrollController.animateTo(
-              0,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut,
+      title: GestureDetector(
+        onTap: () => _scrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              LucideIcons.shield,
+              color: AppColors.blue500,
+              size: isMobile ? 24 : 28,
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  LucideIcons.shield,
-                  color: AppColors.blue500,
-                  size: isMobile ? 24 : 28,
+            const SizedBox(width: AppSpacing.sm),
+            Flexible(
+              child: Text(
+                CompanyInfo.name,
+                style: (isMobile ? AppTypography.headingSM : AppTypography.headingMD).copyWith(
+                  color: Colors.white,
                 ),
-                const SizedBox(width: AppSpacing.sm),
-                Text(
-                  CompanyInfo.name,
-                  style: (isMobile ? AppTypography.headingSM : AppTypography.headingMD).copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       actions: isMobile
           ? [
