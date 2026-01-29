@@ -268,6 +268,24 @@ class _SecurityContent extends StatelessWidget {
           ),
         ),
 
+        // Observability Pipeline Security
+        _SecurityCard(
+          icon: LucideIcons.activity,
+          title: SecurityContent.observabilitySecurityTitle,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                SecurityContent.observabilitySecurityDescription,
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              ...SecurityContent.observabilityFeatures
+                  .map((f) => _ChecklistItem(title: f.title, desc: f.desc)),
+            ],
+          ),
+        ),
+
         // Access Control
         _SecurityCard(
           icon: LucideIcons.key,

@@ -36,8 +36,8 @@ abstract final class SecurityContent {
 
   static const stats = [
     SecurityStatItem(value: '256-bit', label: 'SSL/TLS Encryption'),
+    SecurityStatItem(value: '~10/100', label: 'Security Risk Score'),
     SecurityStatItem(value: 'SOC 2', label: 'Type II Audit Ready'),
-    SecurityStatItem(value: '99%', label: 'Compliance Score'),
   ];
 
   // Authentication Section
@@ -91,6 +91,38 @@ abstract final class SecurityContent {
       'Never commit sensitive data to version control. '
       'All credentials, API keys, and secrets are stored securely via a best in class, '
       'multi-layer and triple-factor authentication system.';
+
+  // Observability Security Section
+  static const observabilitySecurityTitle = 'Observability Pipeline Security';
+  static const observabilitySecurityDescription =
+      'Your telemetry data flows through multiple layers of protection, from collection to storage.';
+
+  static const observabilityFeatures = [
+    SecurityFeatureItem(
+      title: 'Query Injection Prevention',
+      desc: 'All filter values are escaped to prevent injection attacks on trace and log queries',
+    ),
+    SecurityFeatureItem(
+      title: 'Path Traversal Protection',
+      desc: 'File system operations are validated to prevent unauthorized directory access',
+    ),
+    SecurityFeatureItem(
+      title: 'Bounds Checking',
+      desc: 'All numeric inputs (limits, offsets, span kinds) are validated within safe ranges',
+    ),
+    SecurityFeatureItem(
+      title: 'Format Validation',
+      desc: 'Trace IDs, span IDs, and other identifiers are validated against expected formats',
+    ),
+    SecurityFeatureItem(
+      title: 'Streaming with Limits',
+      desc: 'Large data files are streamed with configurable limits to prevent memory exhaustion',
+    ),
+    SecurityFeatureItem(
+      title: 'Retention Management',
+      desc: 'Configurable data retention policies with automatic cleanup of expired telemetry',
+    ),
+  ];
 
   // Access Control Section
   static const accessControlTitle = 'Access Control';
@@ -199,7 +231,23 @@ abstract final class SecurityContent {
     ),
     SecurityFeatureItem(
       title: 'Rate Limiting',
-      desc: 'Protection against abuse and denial-of-service attacks',
+      desc: 'Configurable request throttling to prevent abuse and denial-of-service attacks',
+    ),
+    SecurityFeatureItem(
+      title: 'Query Injection Protection',
+      desc: 'Filter value escaping prevents injection attacks on observability queries',
+    ),
+    SecurityFeatureItem(
+      title: 'Path Traversal Protection',
+      desc: 'Strict path validation prevents unauthorized file system access',
+    ),
+    SecurityFeatureItem(
+      title: 'Input Validation',
+      desc: 'Bounds checking, format validation (traceId, spanId), and type coercion on all inputs',
+    ),
+    SecurityFeatureItem(
+      title: 'Sanitized Error Messages',
+      desc: 'Error responses designed to not expose sensitive system information or stack traces',
     ),
     SecurityFeatureItem(
       title: 'CSRF Protection',
@@ -208,18 +256,6 @@ abstract final class SecurityContent {
     SecurityFeatureItem(
       title: 'Content Security Policy',
       desc: 'Strict CSP headers preventing XSS and injection attacks',
-    ),
-    SecurityFeatureItem(
-      title: 'Input Validation',
-      desc: 'All inputs sanitized and validated before processing',
-    ),
-    SecurityFeatureItem(
-      title: 'CORS Configuration',
-      desc: 'Dynamic origin allowlist restricting cross-origin requests',
-    ),
-    SecurityFeatureItem(
-      title: 'Error Handling',
-      desc: 'Error messages designed to not expose sensitive system information',
     ),
   ];
 
@@ -232,7 +268,9 @@ abstract final class SecurityContent {
     'Code reviews required for all changes',
     'Automated security scanning in CI/CD pipeline',
     'Dependency vulnerability monitoring',
-    'Regular security audits and penetration testing',
+    'Regular security audits with full remediation tracking',
+    'Strict type validation using Zod schemas',
+    '815+ automated tests covering security paths',
   ];
 
   static const opsPractices = [
