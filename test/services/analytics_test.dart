@@ -48,10 +48,9 @@ void main() {
 
       test('initialize completes without error on non-web', () async {
         // On non-web platforms, initialize returns early but should not throw
-        await AnalyticsService.initialize();
+        await expectLater(AnalyticsService.initialize(), completes);
         // Calling initialize again should be idempotent
-        await AnalyticsService.initialize();
-        expect(true, isTrue);
+        await expectLater(AnalyticsService.initialize(), completes);
       });
 
       test('isReady is false when disabled regardless of initialization', () {
@@ -60,11 +59,11 @@ void main() {
       });
 
       test('multiple enable calls are idempotent', () {
-        AnalyticsService.enable();
-        AnalyticsService.enable();
-        AnalyticsService.enable();
-        // Should not throw
-        expect(true, isTrue);
+        expect(() {
+          AnalyticsService.enable();
+          AnalyticsService.enable();
+          AnalyticsService.enable();
+        }, returnsNormally);
       });
 
       test('multiple disable calls are idempotent', () {
@@ -393,158 +392,183 @@ void main() {
   group('ErrorTrackingService', () {
     group('exception capture', () {
       test('captureException accepts exception', () async {
-        await ErrorTrackingService.captureException(
-          Exception('Test exception'),
+        await expectLater(
+          ErrorTrackingService.captureException(Exception('Test exception')),
+          completes,
         );
-        // Should not throw
-        expect(true, isTrue);
       });
 
       test('captureException accepts context', () async {
-        await ErrorTrackingService.captureException(
-          Exception('Test'),
-          context: 'test.dart:testMethod',
+        await expectLater(
+          ErrorTrackingService.captureException(
+            Exception('Test'),
+            context: 'test.dart:testMethod',
+          ),
+          completes,
         );
-        expect(true, isTrue);
       });
 
       test('captureException accepts extra data', () async {
-        await ErrorTrackingService.captureException(
-          Exception('Test'),
-          extra: {'user_id': '123', 'action': 'test'},
+        await expectLater(
+          ErrorTrackingService.captureException(
+            Exception('Test'),
+            extra: {'user_id': '123', 'action': 'test'},
+          ),
+          completes,
         );
-        expect(true, isTrue);
       });
 
       test('captureException accepts stack trace', () async {
         try {
           throw Exception('Test error');
         } catch (e, stackTrace) {
-          await ErrorTrackingService.captureException(
-            e,
-            stackTrace: stackTrace,
+          await expectLater(
+            ErrorTrackingService.captureException(e, stackTrace: stackTrace),
+            completes,
           );
         }
-        expect(true, isTrue);
       });
 
       test('captureException with all parameters', () async {
         try {
           throw Exception('Full test error');
         } catch (e, stackTrace) {
-          await ErrorTrackingService.captureException(
-            e,
-            stackTrace: stackTrace,
-            context: 'test.location',
-            extra: {'key': 'value', 'number': 42},
+          await expectLater(
+            ErrorTrackingService.captureException(
+              e,
+              stackTrace: stackTrace,
+              context: 'test.location',
+              extra: {'key': 'value', 'number': 42},
+            ),
+            completes,
           );
         }
-        expect(true, isTrue);
       });
 
       test('captureException with null exception', () async {
-        await ErrorTrackingService.captureException(null);
-        expect(true, isTrue);
+        await expectLater(
+          ErrorTrackingService.captureException(null),
+          completes,
+        );
       });
 
       test('captureException with string error', () async {
-        await ErrorTrackingService.captureException('String error');
-        expect(true, isTrue);
+        await expectLater(
+          ErrorTrackingService.captureException('String error'),
+          completes,
+        );
       });
 
       test('captureException with Error type', () async {
-        await ErrorTrackingService.captureException(
-          StateError('State error message'),
+        await expectLater(
+          ErrorTrackingService.captureException(
+            StateError('State error message'),
+          ),
+          completes,
         );
-        expect(true, isTrue);
       });
 
       test('captureException with empty extra map', () async {
-        await ErrorTrackingService.captureException(
-          Exception('Test'),
-          extra: {},
+        await expectLater(
+          ErrorTrackingService.captureException(Exception('Test'), extra: {}),
+          completes,
         );
-        expect(true, isTrue);
       });
 
       test('captureException with context only', () async {
-        await ErrorTrackingService.captureException(
-          Exception('Test'),
-          context: 'SomeClass.someMethod',
+        await expectLater(
+          ErrorTrackingService.captureException(
+            Exception('Test'),
+            context: 'SomeClass.someMethod',
+          ),
+          completes,
         );
-        expect(true, isTrue);
       });
     });
 
     group('message capture', () {
       test('captureMessage accepts message', () async {
-        await ErrorTrackingService.captureMessage('Test message');
-        expect(true, isTrue);
+        await expectLater(
+          ErrorTrackingService.captureMessage('Test message'),
+          completes,
+        );
       });
 
       test('captureMessage accepts severity', () async {
-        await ErrorTrackingService.captureMessage(
-          'Test warning',
-          severity: ErrorSeverity.warning,
+        await expectLater(
+          ErrorTrackingService.captureMessage(
+            'Test warning',
+            severity: ErrorSeverity.warning,
+          ),
+          completes,
         );
-        expect(true, isTrue);
       });
 
       test('captureMessage accepts extra data', () async {
-        await ErrorTrackingService.captureMessage(
-          'Test message',
-          extra: {'context': 'unit_test'},
+        await expectLater(
+          ErrorTrackingService.captureMessage(
+            'Test message',
+            extra: {'context': 'unit_test'},
+          ),
+          completes,
         );
-        expect(true, isTrue);
       });
 
       test('captureMessage with all severity levels', () async {
         for (final severity in ErrorSeverity.values) {
-          await ErrorTrackingService.captureMessage(
-            'Test ${severity.name}',
-            severity: severity,
+          await expectLater(
+            ErrorTrackingService.captureMessage(
+              'Test ${severity.name}',
+              severity: severity,
+            ),
+            completes,
           );
         }
-        expect(true, isTrue);
       });
 
       test('captureMessage with empty extra map', () async {
-        await ErrorTrackingService.captureMessage(
-          'Test message',
-          extra: {},
+        await expectLater(
+          ErrorTrackingService.captureMessage('Test message', extra: {}),
+          completes,
         );
-        expect(true, isTrue);
       });
 
       test('captureMessage with severity and extra combined', () async {
-        await ErrorTrackingService.captureMessage(
-          'Combined test',
-          severity: ErrorSeverity.error,
-          extra: {'key1': 'value1', 'key2': 123},
+        await expectLater(
+          ErrorTrackingService.captureMessage(
+            'Combined test',
+            severity: ErrorSeverity.error,
+            extra: {'key1': 'value1', 'key2': 123},
+          ),
+          completes,
         );
-        expect(true, isTrue);
       });
 
       test('captureMessage default severity is info', () async {
-        // Calling without severity uses default info level
-        await ErrorTrackingService.captureMessage('Default severity test');
-        expect(true, isTrue);
+        await expectLater(
+          ErrorTrackingService.captureMessage('Default severity test'),
+          completes,
+        );
       });
 
       test('captureMessage with debug severity', () async {
-        await ErrorTrackingService.captureMessage(
-          'Debug message',
-          severity: ErrorSeverity.debug,
+        await expectLater(
+          ErrorTrackingService.captureMessage(
+            'Debug message',
+            severity: ErrorSeverity.debug,
+          ),
+          completes,
         );
-        expect(true, isTrue);
       });
 
       test('captureMessage with fatal severity', () async {
-        await ErrorTrackingService.captureMessage(
-          'Fatal message',
-          severity: ErrorSeverity.fatal,
+        await expectLater(
+          ErrorTrackingService.captureMessage(
+            'Fatal message',
+            severity: ErrorSeverity.fatal,
+          ),
+          completes,
         );
-        expect(true, isTrue);
       });
     });
 
@@ -771,10 +795,11 @@ void main() {
       });
 
       test('setUser multiple times overwrites', () {
-        ErrorTrackingService.setUser(id: 'user1');
-        ErrorTrackingService.setUser(id: 'user2');
-        ErrorTrackingService.setUser(id: 'user3');
-        expect(true, isTrue);
+        expect(() {
+          ErrorTrackingService.setUser(id: 'user1');
+          ErrorTrackingService.setUser(id: 'user2');
+          ErrorTrackingService.setUser(id: 'user3');
+        }, returnsNormally);
       });
     });
 
@@ -865,9 +890,10 @@ void main() {
       });
 
       test('setTags overwrites existing tags', () {
-        ErrorTrackingService.setTag('key', 'value1');
-        ErrorTrackingService.setTag('key', 'value2');
-        expect(true, isTrue);
+        expect(() {
+          ErrorTrackingService.setTag('key', 'value1');
+          ErrorTrackingService.setTag('key', 'value2');
+        }, returnsNormally);
       });
 
       test('setTags with single entry', () {
@@ -878,12 +904,13 @@ void main() {
       });
 
       test('setTag and setTags combined', () {
-        ErrorTrackingService.setTag('individual', 'tag');
-        ErrorTrackingService.setTags({
-          'batch1': 'value1',
-          'batch2': 'value2',
-        });
-        expect(true, isTrue);
+        expect(() {
+          ErrorTrackingService.setTag('individual', 'tag');
+          ErrorTrackingService.setTags({
+            'batch1': 'value1',
+            'batch2': 'value2',
+          });
+        }, returnsNormally);
       });
     });
   });
@@ -906,22 +933,21 @@ void main() {
       });
 
       test('initialize completes on non-web', () async {
-        await FacebookPixelService.initialize();
-        expect(true, isTrue);
+        await expectLater(FacebookPixelService.initialize(), completes);
       });
 
       test('initialize is idempotent', () async {
-        await FacebookPixelService.initialize();
-        await FacebookPixelService.initialize();
-        await FacebookPixelService.initialize();
-        expect(true, isTrue);
+        await expectLater(FacebookPixelService.initialize(), completes);
+        await expectLater(FacebookPixelService.initialize(), completes);
+        await expectLater(FacebookPixelService.initialize(), completes);
       });
 
       test('multiple enable calls are idempotent', () {
-        FacebookPixelService.enable();
-        FacebookPixelService.enable();
-        FacebookPixelService.enable();
-        expect(true, isTrue);
+        expect(() {
+          FacebookPixelService.enable();
+          FacebookPixelService.enable();
+          FacebookPixelService.enable();
+        }, returnsNormally);
       });
 
       test('multiple disable calls are idempotent', () {

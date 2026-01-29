@@ -18,164 +18,166 @@ void main() {
       });
 
       test('initialize can be called multiple times safely', () async {
-        await AnalyticsService.initialize();
-        await AnalyticsService.initialize();
-
-        // Should not throw
-        expect(true, isTrue);
+        await expectLater(AnalyticsService.initialize(), completes);
+        await expectLater(AnalyticsService.initialize(), completes);
       });
     });
 
     group('enable/disable', () {
       test('disable can be called', () {
-        AnalyticsService.disable();
-
-        // Should not throw
-        expect(true, isTrue);
+        expect(() => AnalyticsService.disable(), returnsNormally);
       });
 
       test('enable can be called', () {
-        AnalyticsService.enable();
-
-        expect(true, isTrue);
+        expect(() => AnalyticsService.enable(), returnsNormally);
       });
 
       test('enable and disable can be toggled', () {
-        AnalyticsService.disable();
-        AnalyticsService.enable();
-        AnalyticsService.disable();
-
-        expect(true, isTrue);
+        expect(() {
+          AnalyticsService.disable();
+          AnalyticsService.enable();
+          AnalyticsService.disable();
+        }, returnsNormally);
       });
     });
 
     group('page tracking', () {
       test('trackPageView does not throw when not ready', () {
-        AnalyticsService.trackPageView('test_page');
-
-        expect(true, isTrue);
+        expect(() => AnalyticsService.trackPageView('test_page'), returnsNormally);
       });
 
       test('trackScrollDepth only fires at 25% intervals', () {
-        // These should not throw
-        AnalyticsService.trackScrollDepth(25);
-        AnalyticsService.trackScrollDepth(50);
-        AnalyticsService.trackScrollDepth(75);
-        AnalyticsService.trackScrollDepth(100);
+        // Valid 25% intervals should not throw
+        expect(() => AnalyticsService.trackScrollDepth(25), returnsNormally);
+        expect(() => AnalyticsService.trackScrollDepth(50), returnsNormally);
+        expect(() => AnalyticsService.trackScrollDepth(75), returnsNormally);
+        expect(() => AnalyticsService.trackScrollDepth(100), returnsNormally);
 
-        // Non-25% intervals should be ignored
-        AnalyticsService.trackScrollDepth(30);
-        AnalyticsService.trackScrollDepth(60);
-
-        expect(true, isTrue);
+        // Non-25% intervals should be silently ignored
+        expect(() => AnalyticsService.trackScrollDepth(30), returnsNormally);
+        expect(() => AnalyticsService.trackScrollDepth(60), returnsNormally);
       });
     });
 
     group('interaction tracking', () {
       test('trackCTAClick does not throw when not ready', () {
-        AnalyticsService.trackCTAClick(
-          buttonName: 'test_button',
-          location: 'hero',
+        expect(
+          () => AnalyticsService.trackCTAClick(
+            buttonName: 'test_button',
+            location: 'hero',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('trackCTAClick accepts optional ctaType', () {
-        AnalyticsService.trackCTAClick(
-          buttonName: 'test_button',
-          location: 'hero',
-          ctaType: 'primary',
+        expect(
+          () => AnalyticsService.trackCTAClick(
+            buttonName: 'test_button',
+            location: 'hero',
+            ctaType: 'primary',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('trackFeatureInteraction does not throw', () {
-        AnalyticsService.trackFeatureInteraction('monitoring');
-
-        expect(true, isTrue);
+        expect(
+          () => AnalyticsService.trackFeatureInteraction('monitoring'),
+          returnsNormally,
+        );
       });
 
       test('trackExternalLink does not throw', () {
-        AnalyticsService.trackExternalLink('https://example.com');
-
-        expect(true, isTrue);
+        expect(
+          () => AnalyticsService.trackExternalLink('https://example.com'),
+          returnsNormally,
+        );
       });
     });
 
     group('conversion tracking', () {
       test('trackFormSubmission does not throw', () {
-        AnalyticsService.trackFormSubmission(
-          formType: 'contact',
-          success: true,
+        expect(
+          () => AnalyticsService.trackFormSubmission(
+            formType: 'contact',
+            success: true,
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('trackFormSubmission accepts error message', () {
-        AnalyticsService.trackFormSubmission(
-          formType: 'contact',
-          success: false,
-          errorMessage: 'Validation failed',
+        expect(
+          () => AnalyticsService.trackFormSubmission(
+            formType: 'contact',
+            success: false,
+            errorMessage: 'Validation failed',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('trackPricingView does not throw', () {
-        AnalyticsService.trackPricingView('enterprise');
-
-        expect(true, isTrue);
+        expect(
+          () => AnalyticsService.trackPricingView('enterprise'),
+          returnsNormally,
+        );
       });
 
       test('trackPricingToggle does not throw', () {
-        AnalyticsService.trackPricingToggle(isAnnual: true);
-        AnalyticsService.trackPricingToggle(isAnnual: false);
-
-        expect(true, isTrue);
+        expect(
+          () => AnalyticsService.trackPricingToggle(isAnnual: true),
+          returnsNormally,
+        );
+        expect(
+          () => AnalyticsService.trackPricingToggle(isAnnual: false),
+          returnsNormally,
+        );
       });
 
       test('trackDemoRequest does not throw', () {
-        AnalyticsService.trackDemoRequest();
-
-        expect(true, isTrue);
+        expect(() => AnalyticsService.trackDemoRequest(), returnsNormally);
       });
 
       test('trackLeadMagnetDownload does not throw', () {
-        AnalyticsService.trackLeadMagnetDownload('eu-ai-act-checklist');
-
-        expect(true, isTrue);
+        expect(
+          () => AnalyticsService.trackLeadMagnetDownload('eu-ai-act-checklist'),
+          returnsNormally,
+        );
       });
 
       test('trackBlogPostClick does not throw', () {
-        AnalyticsService.trackBlogPostClick('ai-observability-guide');
-
-        expect(true, isTrue);
+        expect(
+          () => AnalyticsService.trackBlogPostClick('ai-observability-guide'),
+          returnsNormally,
+        );
       });
 
       test('trackFormSubmit simplified wrapper does not throw', () {
-        AnalyticsService.trackFormSubmit('demo_request');
-
-        expect(true, isTrue);
+        expect(
+          () => AnalyticsService.trackFormSubmit('demo_request'),
+          returnsNormally,
+        );
       });
     });
 
     group('custom event tracking', () {
       test('trackEvent does not throw when not ready', () {
-        AnalyticsService.trackEvent(
-          eventName: 'custom_event',
-          parameters: {'key': 'value'},
+        expect(
+          () => AnalyticsService.trackEvent(
+            eventName: 'custom_event',
+            parameters: {'key': 'value'},
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('trackEvent accepts empty parameters', () {
-        AnalyticsService.trackEvent(eventName: 'simple_event');
-
-        expect(true, isTrue);
+        expect(
+          () => AnalyticsService.trackEvent(eventName: 'simple_event'),
+          returnsNormally,
+        );
       });
     });
   });
@@ -256,77 +258,70 @@ void main() {
       });
 
       test('initialize can be called multiple times', () async {
-        await FacebookPixelService.initialize();
-        await FacebookPixelService.initialize();
-
-        expect(true, isTrue);
+        await expectLater(FacebookPixelService.initialize(), completes);
+        await expectLater(FacebookPixelService.initialize(), completes);
       });
     });
 
     group('enable/disable', () {
       test('disable can be called', () {
-        FacebookPixelService.disable();
-
-        expect(true, isTrue);
+        expect(() => FacebookPixelService.disable(), returnsNormally);
       });
 
       test('enable can be called', () {
-        FacebookPixelService.enable();
-
-        expect(true, isTrue);
+        expect(() => FacebookPixelService.enable(), returnsNormally);
       });
     });
 
     group('tracking methods', () {
       test('trackPageView does not throw when not ready', () {
-        FacebookPixelService.trackPageView();
-
-        expect(true, isTrue);
+        expect(() => FacebookPixelService.trackPageView(), returnsNormally);
       });
 
       test('trackLead does not throw when not ready', () {
-        FacebookPixelService.trackLead();
-
-        expect(true, isTrue);
+        expect(() => FacebookPixelService.trackLead(), returnsNormally);
       });
 
       test('trackLead accepts optional email', () {
-        FacebookPixelService.trackLead(email: 'test@example.com');
-
-        expect(true, isTrue);
+        expect(
+          () => FacebookPixelService.trackLead(email: 'test@example.com'),
+          returnsNormally,
+        );
       });
 
       test('trackContact does not throw when not ready', () {
-        FacebookPixelService.trackContact();
-
-        expect(true, isTrue);
+        expect(() => FacebookPixelService.trackContact(), returnsNormally);
       });
 
       test('trackContact accepts optional email and name', () {
-        FacebookPixelService.trackContact(
-          email: 'test@example.com',
-          name: 'Test User',
+        expect(
+          () => FacebookPixelService.trackContact(
+            email: 'test@example.com',
+            name: 'Test User',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('trackContact accepts only email', () {
-        FacebookPixelService.trackContact(email: 'test@example.com');
-
-        expect(true, isTrue);
+        expect(
+          () => FacebookPixelService.trackContact(email: 'test@example.com'),
+          returnsNormally,
+        );
       });
 
       test('trackContact accepts only name', () {
-        FacebookPixelService.trackContact(name: 'Test User');
-
-        expect(true, isTrue);
+        expect(
+          () => FacebookPixelService.trackContact(name: 'Test User'),
+          returnsNormally,
+        );
       });
 
       test('trackViewContent does not throw when not ready', () {
-        FacebookPixelService.trackViewContent('product');
-
-        expect(true, isTrue);
+        expect(
+          () => FacebookPixelService.trackViewContent('product'),
+          returnsNormally,
+        );
       });
     });
   });
@@ -458,91 +453,98 @@ void main() {
 
     group('breadcrumbs', () {
       test('addBreadcrumb does not throw', () {
-        ErrorTrackingService.addBreadcrumb(
-          message: 'User clicked button',
+        expect(
+          () => ErrorTrackingService.addBreadcrumb(
+            message: 'User clicked button',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('addBreadcrumb accepts category', () {
-        ErrorTrackingService.addBreadcrumb(
-          message: 'Button click',
-          category: 'ui.click',
+        expect(
+          () => ErrorTrackingService.addBreadcrumb(
+            message: 'Button click',
+            category: 'ui.click',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('addBreadcrumb accepts data', () {
-        ErrorTrackingService.addBreadcrumb(
-          message: 'API call',
-          category: 'http',
-          data: {'url': '/api/users', 'method': 'GET'},
+        expect(
+          () => ErrorTrackingService.addBreadcrumb(
+            message: 'API call',
+            category: 'http',
+            data: {'url': '/api/users', 'method': 'GET'},
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('addNavigationBreadcrumb does not throw', () {
-        ErrorTrackingService.addNavigationBreadcrumb(
-          from: '/home',
-          to: '/profile',
+        expect(
+          () => ErrorTrackingService.addNavigationBreadcrumb(
+            from: '/home',
+            to: '/profile',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('addUserActionBreadcrumb does not throw', () {
-        ErrorTrackingService.addUserActionBreadcrumb(
-          action: 'Submit form',
+        expect(
+          () => ErrorTrackingService.addUserActionBreadcrumb(
+            action: 'Submit form',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('addUserActionBreadcrumb accepts target', () {
-        ErrorTrackingService.addUserActionBreadcrumb(
-          action: 'Click',
-          target: 'submit_button',
+        expect(
+          () => ErrorTrackingService.addUserActionBreadcrumb(
+            action: 'Click',
+            target: 'submit_button',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
     });
 
     group('user context', () {
       test('setUser does not throw', () {
-        ErrorTrackingService.setUser(
-          id: 'user_123',
-          email: 'test@example.com',
+        expect(
+          () => ErrorTrackingService.setUser(
+            id: 'user_123',
+            email: 'test@example.com',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('setUser accepts username', () {
-        ErrorTrackingService.setUser(
-          id: 'user_123',
-          username: 'testuser',
+        expect(
+          () => ErrorTrackingService.setUser(
+            id: 'user_123',
+            username: 'testuser',
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('setUser accepts custom data', () {
-        ErrorTrackingService.setUser(
-          id: 'user_123',
-          data: {'plan': 'enterprise', 'role': 'admin'},
+        expect(
+          () => ErrorTrackingService.setUser(
+            id: 'user_123',
+            data: {'plan': 'enterprise', 'role': 'admin'},
+          ),
+          returnsNormally,
         );
-
-        expect(true, isTrue);
       });
 
       test('clearUser does not throw', () {
-        ErrorTrackingService.clearUser();
-
-        expect(true, isTrue);
+        expect(() => ErrorTrackingService.clearUser(), returnsNormally);
       });
     });
 
@@ -559,18 +561,20 @@ void main() {
 
     group('tags', () {
       test('setTag does not throw', () {
-        ErrorTrackingService.setTag('environment', 'test');
-
-        expect(true, isTrue);
+        expect(
+          () => ErrorTrackingService.setTag('environment', 'test'),
+          returnsNormally,
+        );
       });
 
       test('setTags does not throw', () {
-        ErrorTrackingService.setTags({
-          'version': '1.0.0',
-          'platform': 'web',
-        });
-
-        expect(true, isTrue);
+        expect(
+          () => ErrorTrackingService.setTags({
+            'version': '1.0.0',
+            'platform': 'web',
+          }),
+          returnsNormally,
+        );
       });
     });
   });

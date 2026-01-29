@@ -43,27 +43,17 @@ void main() {
 
       test('accepts acceptAll preferences', () async {
         final prefs = ConsentPreferences.acceptAll();
-
-        await ConsentManager.saveConsent(prefs);
-
-        // Verify no exception was thrown
-        expect(true, isTrue);
+        await expectLater(ConsentManager.saveConsent(prefs), completes);
       });
 
       test('accepts essentialOnly preferences', () async {
         final prefs = ConsentPreferences.essentialOnly();
-
-        await ConsentManager.saveConsent(prefs);
-
-        expect(true, isTrue);
+        await expectLater(ConsentManager.saveConsent(prefs), completes);
       });
 
       test('accepts analyticsOnly preferences', () async {
         final prefs = ConsentPreferences.analyticsOnly();
-
-        await ConsentManager.saveConsent(prefs);
-
-        expect(true, isTrue);
+        await expectLater(ConsentManager.saveConsent(prefs), completes);
       });
 
       test('accepts custom preferences', () async {
@@ -71,10 +61,7 @@ void main() {
           analytics: true,
           marketing: false,
         );
-
-        await ConsentManager.saveConsent(prefs);
-
-        expect(true, isTrue);
+        await expectLater(ConsentManager.saveConsent(prefs), completes);
       });
     });
 
@@ -87,10 +74,8 @@ void main() {
       });
 
       test('can be called multiple times', () async {
-        await ConsentManager.revokeConsent();
-        await ConsentManager.revokeConsent();
-
-        expect(true, isTrue);
+        await expectLater(ConsentManager.revokeConsent(), completes);
+        await expectLater(ConsentManager.revokeConsent(), completes);
       });
     });
 
