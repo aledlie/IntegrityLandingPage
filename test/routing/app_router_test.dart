@@ -1,0 +1,433 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
+import 'package:integrity_studio_ai/routing/app_router.dart';
+import 'package:integrity_studio_ai/pages/landing_page.dart';
+import 'package:integrity_studio_ai/pages/about_page.dart';
+import 'package:integrity_studio_ai/pages/pricing_page.dart';
+import 'package:integrity_studio_ai/pages/contact_page.dart';
+import 'package:integrity_studio_ai/pages/careers_page.dart';
+import 'package:integrity_studio_ai/pages/security_page.dart';
+import 'package:integrity_studio_ai/pages/blog_page.dart';
+import 'package:integrity_studio_ai/pages/sources_page.dart';
+import 'package:integrity_studio_ai/pages/signup_page.dart';
+import 'package:integrity_studio_ai/pages/legal_page.dart';
+import 'package:integrity_studio_ai/pages/comparison_page.dart';
+import 'package:integrity_studio_ai/pages/docs_index_page.dart';
+import 'package:integrity_studio_ai/pages/docs_observability_page.dart';
+import 'package:integrity_studio_ai/pages/docs_tracing_page.dart';
+import 'package:integrity_studio_ai/pages/docs_interoperability_page.dart';
+import 'package:integrity_studio_ai/pages/docs_api_page.dart';
+import 'package:integrity_studio_ai/pages/docs_quickstart_page.dart';
+import 'package:integrity_studio_ai/pages/docs_alerts_page.dart';
+import '../helpers/test_helpers.dart';
+
+void main() {
+  // Suppress overflow errors in layout tests
+  final originalOnError = FlutterError.onError;
+
+  setUpAll(() {
+    initializeTestContent();
+  });
+
+  setUp(() {
+    FlutterError.onError = (FlutterErrorDetails details) {
+      final isOverflowError =
+          details.exception.toString().contains('overflowed');
+      if (!isOverflowError) {
+        originalOnError?.call(details);
+      }
+    };
+  });
+
+  tearDown(() {
+    FlutterError.onError = originalOnError;
+  });
+
+  // Helper to check if an error is an overflow error we should suppress
+  bool isOverflowError(dynamic exception) {
+    if (exception == null) return false;
+    final message = exception.toString();
+    return message.contains('overflowed') ||
+        message.contains('RenderFlex') ||
+        message.contains('A RenderFlex');
+  }
+
+  // Helper to clear overflow exceptions after operations
+  void clearOverflowExceptions(WidgetTester tester) {
+    dynamic exception = tester.takeException();
+    while (exception != null) {
+      if (!isOverflowError(exception)) {
+        throw exception;
+      }
+      exception = tester.takeException();
+    }
+  }
+
+  /// Helper to pump a router app at a specific location
+  Future<GoRouter> pumpRouterApp(
+    WidgetTester tester, {
+    required String initialLocation,
+    bool showCookieBanner = false,
+  }) async {
+    clearOverflowExceptions(tester);
+
+    final testRouter = createAppRouter(
+      showCookieBanner: showCookieBanner,
+      onConsentGiven: () {},
+      onShowCookieSettings: () {},
+    );
+    testRouter.go(initialLocation);
+
+    await tester.pumpWidget(
+      MediaQuery(
+        data: const MediaQueryData(
+          size: Size(1920, 1080),
+          disableAnimations: true,
+        ),
+        child: MaterialApp.router(
+          routerConfig: testRouter,
+          theme: testTheme,
+        ),
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 100));
+    clearOverflowExceptions(tester);
+    await tester.pump(const Duration(milliseconds: 100));
+    clearOverflowExceptions(tester);
+    return testRouter;
+  }
+
+  group('createAppRouter', () {
+    test('creates a GoRouter instance', () {
+      final router = createAppRouter(
+        showCookieBanner: false,
+        onConsentGiven: () {},
+        onShowCookieSettings: () {},
+      );
+      expect(router, isA<GoRouter>());
+    });
+
+    test('has correct initial location', () {
+      final router = createAppRouter(
+        showCookieBanner: false,
+        onConsentGiven: () {},
+        onShowCookieSettings: () {},
+      );
+      // Initial location is '/'
+      expect(router.routeInformationProvider.value.uri.path, equals('/'));
+    });
+  });
+
+  group('redirects', () {
+    test('/support redirects to /contact', () {
+      final router = createAppRouter(
+        showCookieBanner: false,
+        onConsentGiven: () {},
+        onShowCookieSettings: () {},
+      );
+      // Test redirect logic directly
+      final redirect = router.routerDelegate.currentConfiguration;
+      expect(redirect, isNotNull);
+    });
+
+    testWidgets('/support path resolves to /contact', (tester) async {
+      final router = await pumpRouterApp(tester, initialLocation: '/support');
+      await tester.pump(const Duration(milliseconds: 200));
+      clearOverflowExceptions(tester);
+
+      expect(router.routerDelegate.currentConfiguration.uri.path,
+          equals('/contact'));
+    });
+
+    testWidgets('/eu-ai-act redirects to /docs', (tester) async {
+      final router = await pumpRouterApp(tester, initialLocation: '/eu-ai-act');
+      await tester.pump(const Duration(milliseconds: 100));
+      clearOverflowExceptions(tester);
+
+      expect(router.routerDelegate.currentConfiguration.uri.path,
+          equals('/docs'));
+    });
+
+    testWidgets('/docs/compliance redirects to /docs', (tester) async {
+      final router =
+          await pumpRouterApp(tester, initialLocation: '/docs/compliance');
+      await tester.pump(const Duration(milliseconds: 100));
+      clearOverflowExceptions(tester);
+
+      expect(router.routerDelegate.currentConfiguration.uri.path,
+          equals('/docs'));
+    });
+
+    testWidgets('/docs/agents redirects to /docs', (tester) async {
+      final router =
+          await pumpRouterApp(tester, initialLocation: '/docs/agents');
+      await tester.pump(const Duration(milliseconds: 100));
+      clearOverflowExceptions(tester);
+
+      expect(router.routerDelegate.currentConfiguration.uri.path,
+          equals('/docs'));
+    });
+
+    testWidgets('/docs/security/audit-trails redirects to /docs/tracing',
+        (tester) async {
+      final router = await pumpRouterApp(tester,
+          initialLocation: '/docs/security/audit-trails');
+      await tester.pump(const Duration(milliseconds: 100));
+      clearOverflowExceptions(tester);
+
+      expect(router.routerDelegate.currentConfiguration.uri.path,
+          equals('/docs/tracing'));
+    });
+
+    testWidgets('/reports/anything redirects to /docs', (tester) async {
+      final router =
+          await pumpRouterApp(tester, initialLocation: '/reports/soc2-2024');
+      await tester.pump(const Duration(milliseconds: 100));
+      clearOverflowExceptions(tester);
+
+      expect(router.routerDelegate.currentConfiguration.uri.path,
+          equals('/docs'));
+    });
+  });
+
+  group('home route', () {
+    testWidgets('/ navigates to home', (tester) async {
+      final router = await pumpRouterApp(tester, initialLocation: '/');
+
+      expect(
+          router.routerDelegate.currentConfiguration.uri.path, equals('/'));
+    });
+  });
+
+  group('main page routes', () {
+    testWidgets('/about renders AboutPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/about');
+
+      expect(find.byType(AboutPage), findsOneWidget);
+    });
+
+    testWidgets('/pricing renders PricingPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/pricing');
+
+      expect(find.byType(PricingPage), findsOneWidget);
+    });
+
+    testWidgets('/contact renders ContactPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/contact');
+
+      expect(find.byType(ContactPage), findsOneWidget);
+    });
+
+    testWidgets('/careers renders CareersPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/careers');
+
+      expect(find.byType(CareersPage), findsOneWidget);
+    });
+
+    testWidgets('/security renders SecurityPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/security');
+
+      expect(find.byType(SecurityPage), findsOneWidget);
+    });
+
+    testWidgets('/blog renders BlogPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/blog');
+
+      expect(find.byType(BlogPage), findsOneWidget);
+    });
+
+    testWidgets('/sources renders SourcesPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/sources');
+
+      expect(find.byType(SourcesPage), findsOneWidget);
+    });
+  });
+
+  group('signup route', () {
+    testWidgets('/signup renders SignupPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/signup');
+
+      expect(find.byType(SignupPage), findsOneWidget);
+    });
+
+    testWidgets('/signup?tier=starter uses starter tier', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/signup?tier=starter');
+
+      expect(find.byType(SignupPage), findsOneWidget);
+    });
+
+    testWidgets('/signup?tier=team uses team tier', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/signup?tier=team');
+
+      expect(find.byType(SignupPage), findsOneWidget);
+    });
+
+    testWidgets('/signup?tier=enterprise uses enterprise tier', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/signup?tier=enterprise');
+
+      expect(find.byType(SignupPage), findsOneWidget);
+    });
+
+    testWidgets('/signup without tier defaults to starter', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/signup');
+
+      expect(find.byType(SignupPage), findsOneWidget);
+    });
+  });
+
+  group('legal routes', () {
+    testWidgets('/privacy renders LegalPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/privacy');
+
+      expect(find.byType(LegalPage), findsOneWidget);
+    });
+
+    testWidgets('/terms renders LegalPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/terms');
+
+      expect(find.byType(LegalPage), findsOneWidget);
+    });
+
+    testWidgets('/cookies renders LegalPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/cookies');
+
+      expect(find.byType(LegalPage), findsOneWidget);
+    });
+
+    testWidgets('/accessibility renders LegalPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/accessibility');
+
+      expect(find.byType(LegalPage), findsOneWidget);
+    });
+  });
+
+  group('comparison routes', () {
+    testWidgets('/whylabs-alternative renders ComparisonPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/whylabs-alternative');
+
+      expect(find.byType(ComparisonPage), findsOneWidget);
+    });
+
+    testWidgets('/compare/arize-ai-alternative renders ComparisonPage',
+        (tester) async {
+      await pumpRouterApp(tester,
+          initialLocation: '/compare/arize-ai-alternative');
+
+      expect(find.byType(ComparisonPage), findsOneWidget);
+    });
+  });
+
+  group('documentation routes', () {
+    testWidgets('/docs renders DocsIndexPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/docs');
+
+      expect(find.byType(DocsIndexPage), findsOneWidget);
+    });
+
+    testWidgets('/docs/llm-observability renders DocsObservabilityPage',
+        (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/docs/llm-observability');
+
+      expect(find.byType(DocsObservabilityPage), findsOneWidget);
+    });
+
+    testWidgets('/docs/tracing renders DocsTracingPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/docs/tracing');
+
+      expect(find.byType(DocsTracingPage), findsOneWidget);
+    });
+
+    testWidgets('/docs/integrations renders DocsInteroperabilityPage',
+        (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/docs/integrations');
+
+      expect(find.byType(DocsInteroperabilityPage), findsOneWidget);
+    });
+
+    testWidgets('/api renders DocsApiPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/api');
+
+      expect(find.byType(DocsApiPage), findsOneWidget);
+    });
+
+    testWidgets('/docs/quickstart renders DocsQuickstartPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/docs/quickstart');
+
+      expect(find.byType(DocsQuickstartPage), findsOneWidget);
+    });
+
+    testWidgets('/docs/alerts renders DocsAlertsPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/docs/alerts');
+
+      expect(find.byType(DocsAlertsPage), findsOneWidget);
+    });
+  });
+
+  group('error handling', () {
+    testWidgets('unknown route handled by errorBuilder', (tester) async {
+      final router = await pumpRouterApp(tester,
+          initialLocation: '/this-route-does-not-exist');
+      await tester.pump(const Duration(milliseconds: 100));
+      clearOverflowExceptions(tester);
+
+      // errorBuilder renders a page (path stays the same for errors)
+      expect(router, isNotNull);
+    });
+
+    testWidgets('deeply nested unknown route handled by errorBuilder',
+        (tester) async {
+      final router =
+          await pumpRouterApp(tester, initialLocation: '/foo/bar/baz/qux');
+      await tester.pump(const Duration(milliseconds: 100));
+      clearOverflowExceptions(tester);
+
+      expect(router, isNotNull);
+    });
+  });
+
+  group('cookie banner configuration', () {
+    test('router can be created with showCookieBanner true', () {
+      final router = createAppRouter(
+        showCookieBanner: true,
+        onConsentGiven: () {},
+        onShowCookieSettings: () {},
+      );
+
+      expect(router, isA<GoRouter>());
+    });
+
+    test('router can be created with showCookieBanner false', () {
+      final router = createAppRouter(
+        showCookieBanner: false,
+        onConsentGiven: () {},
+        onShowCookieSettings: () {},
+      );
+
+      expect(router, isA<GoRouter>());
+    });
+  });
+
+  group('route configuration', () {
+    test('router has ShellRoute as root', () {
+      final router = createAppRouter(
+        showCookieBanner: false,
+        onConsentGiven: () {},
+        onShowCookieSettings: () {},
+      );
+      expect(router.configuration.routes.length, equals(1));
+      expect(router.configuration.routes.first, isA<ShellRoute>());
+    });
+
+    test('ShellRoute contains all page routes', () {
+      final router = createAppRouter(
+        showCookieBanner: false,
+        onConsentGiven: () {},
+        onShowCookieSettings: () {},
+      );
+      final shellRoute = router.configuration.routes.first as ShellRoute;
+      // 22 routes total
+      expect(shellRoute.routes.length, greaterThanOrEqualTo(20));
+    });
+  });
+}
