@@ -20,6 +20,7 @@ import '../pages/docs_quickstart_page.dart';
 import '../pages/docs_alerts_page.dart';
 import '../pages/docs_index_page.dart';
 import '../pages/features_page.dart';
+import '../pages/status_page.dart';
 
 /// Creates the application router with all routes and redirects.
 ///
@@ -102,6 +103,13 @@ GoRouter createAppRouter({
           GoRoute(
             path: '/features',
             builder: (context, state) => FeaturesPage(
+              onBack: () => context.go('/'),
+              onShowCookieSettings: onShowCookieSettings,
+            ),
+          ),
+          GoRoute(
+            path: '/status',
+            builder: (context, state) => StatusPage(
               onBack: () => context.go('/'),
               onShowCookieSettings: onShowCookieSettings,
             ),
