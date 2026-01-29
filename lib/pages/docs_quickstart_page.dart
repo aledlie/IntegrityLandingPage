@@ -632,6 +632,151 @@ export OTEL_RESOURCE_ATTRIBUTES="deployment.environment=production"''',
           ),
         ),
 
+        // Health Monitoring Section
+        _DocSection(
+          icon: LucideIcons.heartPulse,
+          title: 'Health Monitoring',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Monitor the health of your observability pipeline with built-in metrics:',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _HealthMetricsGrid(),
+              const SizedBox(height: AppSpacing.lg),
+              const _CodeBlock(
+                title: 'Health Check Endpoint',
+                code: '''# Check pipeline health
+curl https://api.integritystudio.ai/v1/health \\
+  -H "Authorization: Bearer \$INTEGRITY_API_KEY"
+
+# Response includes:
+{
+  "status": "ok",
+  "backends": {
+    "traces": { "status": "operational" },
+    "logs": { "status": "operational" },
+    "metrics": { "status": "operational" }
+  },
+  "cache": {
+    "hitRate": 0.87,
+    "size": 45,
+    "evictions": 0
+  }
+}''',
+              ),
+            ],
+          ),
+        ),
+
+        // Cache Performance Section
+        _DocSection(
+          icon: LucideIcons.database,
+          title: 'Cache Performance',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Query results are cached to improve performance. Understanding cache metrics helps optimize your queries:',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _SimpleTable(
+                headers: ['Hit Rate', 'Interpretation', 'Action'],
+                rows: [
+                  ['>80%', 'Excellent', 'Cache is working effectively'],
+                  ['50-80%', 'Good', 'Normal operation'],
+                  ['20-50%', 'Fair', 'Consider increasing TTL'],
+                  ['<20%', 'Poor', 'Review query patterns'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _SimpleTable(
+                headers: ['Metric', 'Description'],
+                rows: [
+                  ['hits', 'Successful cache lookups'],
+                  ['misses', 'Cache misses (key not found or TTL expired)'],
+                  ['evictions', 'Entries removed due to max size limit'],
+                  ['size', 'Current number of cached entries'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              _InfoCallout(
+                title: 'Cache Configuration',
+                message:
+                    'Default TTL is 60 seconds with max 100 entries. Configure via CACHE_TTL_MS environment variable.',
+              ),
+            ],
+          ),
+        ),
+
+        // Query Performance Section
+        _DocSection(
+          icon: LucideIcons.timer,
+          title: 'Query Performance',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Monitor query latency to identify performance bottlenecks:',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _SimpleTable(
+                headers: ['Duration', 'Status', 'Action'],
+                rows: [
+                  ['<500ms', 'Normal', 'No action needed'],
+                  ['500ms-1s', 'Moderate', 'Monitor for patterns'],
+                  ['1s-5s', 'Slow', 'Investigate file size or filters'],
+                  ['>5s', 'Very Slow', 'Consider indexing or narrower date ranges'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _TroubleshootItem(
+                problem: 'Frequent slow queries',
+                solutions: [
+                  'Narrow date range filters to reduce data scanned',
+                  'Enable file-level indexing for frequently queried data',
+                  'Review regex patterns that may cause backtracking',
+                  'Check telemetry file sizes and consider retention policies',
+                ],
+              ),
+            ],
+          ),
+        ),
+
+        // Circuit Breaker Section
+        _DocSection(
+          icon: LucideIcons.shield,
+          title: 'Circuit Breaker',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'The circuit breaker protects against cascading failures when external services are unavailable:',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _SimpleTable(
+                headers: ['State', 'Description'],
+                rows: [
+                  ['Closed', 'Normal operation - requests flow through'],
+                  ['Open', 'Failing over - requests blocked after 3 consecutive failures'],
+                  ['Half-Open', 'Testing recovery - limited requests to check if service recovered'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              _InfoCallout(
+                title: 'Recovery Time',
+                message:
+                    'After opening, the circuit breaker attempts recovery after 30 seconds. Successful requests close the circuit.',
+              ),
+            ],
+          ),
+        ),
+
         // Next Steps Section
         _DocSection(
           icon: LucideIcons.arrowRight,
@@ -1232,6 +1377,113 @@ class _InfoCallout extends StatelessWidget {
           Text(
             message,
             style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HealthMetricsGrid extends StatelessWidget {
+  const _HealthMetricsGrid();
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: AppSpacing.md,
+      runSpacing: AppSpacing.md,
+      children: const [
+        _HealthMetricCard(
+          icon: LucideIcons.activity,
+          title: 'Trace Backend',
+          value: 'Operational',
+          isHealthy: true,
+        ),
+        _HealthMetricCard(
+          icon: LucideIcons.fileText,
+          title: 'Log Backend',
+          value: 'Operational',
+          isHealthy: true,
+        ),
+        _HealthMetricCard(
+          icon: LucideIcons.barChart2,
+          title: 'Metrics Backend',
+          value: 'Operational',
+          isHealthy: true,
+        ),
+        _HealthMetricCard(
+          icon: LucideIcons.database,
+          title: 'Query Cache',
+          value: '87% Hit Rate',
+          isHealthy: true,
+        ),
+        _HealthMetricCard(
+          icon: LucideIcons.timer,
+          title: 'Query Latency',
+          value: '<500ms P95',
+          isHealthy: true,
+        ),
+        _HealthMetricCard(
+          icon: LucideIcons.shield,
+          title: 'Circuit Breaker',
+          value: 'Closed',
+          isHealthy: true,
+        ),
+      ],
+    );
+  }
+}
+
+class _HealthMetricCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String value;
+  final bool isHealthy;
+
+  const _HealthMetricCard({
+    required this.icon,
+    required this.title,
+    required this.value,
+    required this.isHealthy,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isHealthy ? AppColors.success : AppColors.error;
+
+    return Container(
+      width: 160,
+      padding: const EdgeInsets.all(AppSpacing.md),
+      decoration: BoxDecoration(
+        color: AppColors.gray700,
+        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: color, size: 16),
+              const SizedBox(width: AppSpacing.xs),
+              Expanded(
+                child: Text(
+                  title,
+                  style: AppTypography.bodySM.copyWith(
+                    color: AppColors.gray400,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            value,
+            style: AppTypography.bodyMD.copyWith(
+              color: color,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
