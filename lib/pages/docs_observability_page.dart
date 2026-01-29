@@ -280,51 +280,20 @@ class _DocsContent extends StatelessWidget {
           ),
         ),
 
-        // Quick Start Section
+        // TODO: Add Quick Start section once API key access is configured
+        // Command: claude mcp add observability-toolkit -- npx -y observability-toolkit
         _DocSection(
           icon: LucideIcons.rocket,
           title: 'Quick Start',
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                '1. Environment Setup',
-                style: AppTypography.headingSM.copyWith(color: Colors.white),
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              Text(
-                'Add to ~/.claude/.envrc:',
-                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              const _CodeBlock(
-                code: '''# Enable telemetry
-export OTEL_ENABLED="true"
-export SIGNOZ_ENABLED="true"
-
-# SigNoz Cloud endpoint
-export OTEL_EXPORTER_OTLP_ENDPOINT="https://ingest.us.signoz.cloud"
-export OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
-
-# Service identification
-export OTEL_SERVICE_NAME="claude-code-hooks"''',
-              ),
-              const SizedBox(height: AppSpacing.lg),
-              Text(
-                '2. Basic Usage',
-                style: AppTypography.headingSM.copyWith(color: Colors.white),
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              const _CodeBlock(
-                code: '''import { initTelemetry, withSpan, logger } from './lib/otel';
-
-// Initialize at startup
-initTelemetry();
-
-// Wrap operations in spans
-await withSpan('my-operation', { key: 'value' }, async (span) => {
-  logger.info('Processing item', { itemId: 123 });
-});''',
+              _InfoCallout(
+                title: 'Coming Soon',
+                items: const [
+                  'One-command setup via MCP toolkit',
+                  'Automatic configuration with API key',
+                ],
               ),
             ],
           ),
@@ -516,7 +485,7 @@ await withSpan('my-operation', { key: 'value' }, async (span) => {
               ),
               const SizedBox(height: AppSpacing.md),
               const _SimpleTable(
-                headers: ['Metric', 'Before (Dec)', 'After (Jan)', 'Change'],
+                headers: ['Metric', 'Before', 'After', 'Change'],
                 rows: [
                   ['Avg Sessions/Day', '7.3', '26.2', '+259%'],
                   ['Tokens/Session', '40,246', '6,503', '-84%'],
@@ -528,8 +497,8 @@ await withSpan('my-operation', { key: 'value' }, async (span) => {
               _InfoCallout(
                 title: 'The Pattern',
                 items: const [
-                  'December: Fewer, longer sessions (avg 40K tokens) \u2192 expensive',
-                  'January: More, shorter sessions (avg 6.5K tokens) \u2192 efficient',
+                  'Before: Fewer, longer sessions (avg 40K tokens) \u2192 expensive',
+                  'After: More, shorter sessions (avg 6.5K tokens) \u2192 efficient',
                 ],
               ),
             ],

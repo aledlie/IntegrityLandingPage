@@ -92,7 +92,7 @@ lib/
 | `/docs/integrations` | Implemented (Interoperability) |
 | `/docs/alerts` | Implemented (Alerts Guide) |
 | `/docs/tracing` | Implemented (Tracing Guide) |
-| `/docs/claude-code-observability` | Implemented (Observability Guide) |
+| `/docs/llm-observability` | Implemented (Observability Guide) |
 | `/api` | Implemented (API Reference) |
 | `/docs/compliance` | Redirects to `/docs` (Coming Soon) |
 | `/docs/agents` | Redirects to `/docs` (Coming Soon) |
@@ -103,6 +103,7 @@ lib/
 |-------|--------------|
 | `/support` | `/contact` |
 | `/eu-ai-act` | `/docs` |
+| `/reports/*` | `/docs` |
 
 ### Footer Links
 

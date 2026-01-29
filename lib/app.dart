@@ -315,7 +315,7 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
         }
 
         // Handle Docs Observability page
-        if (settings.name == '/docs/claude-code-observability') {
+        if (settings.name == '/docs/llm-observability') {
           return MaterialPageRoute(
             builder: (context) => Stack(
               children: [
@@ -452,6 +452,21 @@ class _IntegrityStudioAppState extends State<IntegrityStudioApp> {
 
         // Redirect /docs/agents to /docs (coming soon)
         if (settings.name == '/docs/agents') {
+          return MaterialPageRoute(
+            builder: (context) => Stack(
+              children: [
+                DocsIndexPage(
+                  onBack: () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                if (_showCookieBanner)
+                  CookieBanner(onConsentGiven: _handleConsentGiven),
+              ],
+            ),
+          );
+        }
+
+        // Redirect /reports/* to /docs (coming soon)
+        if (settings.name?.startsWith('/reports/') ?? false) {
           return MaterialPageRoute(
             builder: (context) => Stack(
               children: [

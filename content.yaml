@@ -889,16 +889,17 @@ resources:
       slug: "end-to-end-agentic-observability-lifecycle"
       author: "Alyshia Ledlie"
 
-    - title: "EU AI Act: What Engineering Teams Need to Know"
-      excerpt: >-
-        A practical guide to EU AI Act compliance for AI engineering teams.
-        Understand Article 12 traceability requirements, risk classifications,
-        and how to prepare your systems before enforcement begins.
-      category: "Compliance"
-      publish_date: "2024-12-15"
-      read_time: "12 min read"
-      slug: "eu-ai-act-engineering-guide"
-      author: "Alyshia Ledlie"
+    # TODO: Create HTML file web/blog/eu-ai-act-engineering-guide.html
+    # - title: "EU AI Act: What Engineering Teams Need to Know"
+    #   excerpt: >-
+    #     A practical guide to EU AI Act compliance for AI engineering teams.
+    #     Understand Article 12 traceability requirements, risk classifications,
+    #     and how to prepare your systems before enforcement begins.
+    #   category: "Compliance"
+    #   publish_date: "2024-12-15"
+    #   read_time: "12 min read"
+    #   slug: "eu-ai-act-engineering-guide"
+    #   author: "Alyshia Ledlie"
 
     - title: "LLM Cost Calculator & Optimization Guide (2025)"
       excerpt: >-
@@ -911,15 +912,16 @@ resources:
       slug: "llm-cost-optimization-guide"
       author: "Alyshia Ledlie"
 
-    - title: "Complete Guide to AI Agent Observability"
-      excerpt: >-
-        As autonomous AI agents become more complex, observability becomes critical.
-        Learn how to trace multi-step workflows, debug tool calls, and monitor agent performance.
-      category: "Best Practices"
-      publish_date: "2024-12-05"
-      read_time: "15 min read"
-      slug: "ai-agent-observability-guide"
-      author: "Alyshia Ledlie"
+    # TODO: Create HTML file web/blog/ai-agent-observability-guide.html
+    # - title: "Complete Guide to AI Agent Observability"
+    #   excerpt: >-
+    #     As autonomous AI agents become more complex, observability becomes critical.
+    #     Learn how to trace multi-step workflows, debug tool calls, and monitor agent performance.
+    #   category: "Best Practices"
+    #   publish_date: "2024-12-05"
+    #   read_time: "15 min read"
+    #   slug: "ai-agent-observability-guide"
+    #   author: "Alyshia Ledlie"
 
   lead_magnets:
     - icon: "clipboard-check"
@@ -949,3 +951,435 @@ resources:
       format: "Report"
       cta_text: "Get the Report"
       url: "/reports/state-of-ai-observability-2025"
+
+# =============================================================================
+# LLM OBSERVABILITY DOCUMENTATION
+# =============================================================================
+llm_observability:
+  meta:
+    title: "LLM Observability Guide | Integrity Studio"
+    description: "Integrity Studio's complete guide to context management, token optimization, and observability."
+    canonical_url: "https://www.integritystudio.ai/docs/llm-observability"
+
+  hero:
+    badge: "Production-Ready Framework"
+    title: "Claude Code Observability & Context Management"
+    subtitle: "Integrity Studio's complete guide to token optimization, distributed tracing, and cost efficiency."
+    stats:
+      - value: "81%"
+        label: "Cost Reduction"
+      - value: "12"
+        label: "Instrumented Hooks"
+      - value: "8"
+        label: "Dashboards"
+      - value: "85%"
+        label: "MCP Token Savings"
+
+  sidebar:
+    sections:
+      - title: "Getting Started"
+        items:
+          - label: "Overview"
+            anchor: "overview"
+          - label: "Quick Start"
+            anchor: "quick-start"
+          - label: "Architecture"
+            anchor: "architecture"
+      - title: "Context Management"
+        items:
+          - label: "Token Optimization"
+            anchor: "token-optimization"
+          - label: "Efficient Tool Usage"
+            anchor: "tool-usage"
+          - label: "Context Window"
+            anchor: "context-window"
+          - label: "MCP Optimization"
+            anchor: "mcp-optimization"
+      - title: "Observability"
+        items:
+          - label: "OpenTelemetry Setup"
+            anchor: "otel-setup"
+          - label: "Instrumented Hooks"
+            anchor: "instrumented-hooks"
+          - label: "Metrics Reference"
+            anchor: "metrics-reference"
+          - label: "SigNoz Dashboards"
+            anchor: "dashboards"
+      - title: "Cost Analysis"
+        items:
+          - label: "Cost Optimization"
+            anchor: "cost-optimization"
+          - label: "Usage Patterns"
+            anchor: "usage-patterns"
+          - label: "Recommendations"
+            anchor: "recommendations"
+
+  sections:
+    overview:
+      title: "Overview"
+      intro: >-
+        Context management is "effectively the #1 job" for engineers building AI agents.
+        As Anthropic emphasizes: "Claude is already smart enough—intelligence is not the bottleneck, context is."
+      description: "This framework provides full visibility into Claude Code operations through:"
+      features:
+        - icon: "activity"
+          title: "Distributed Tracing"
+          description: "Track operations across hook invocations with OpenTelemetry spans and trace correlation."
+        - icon: "bar-chart-3"
+          title: "Metrics Collection"
+          description: "Monitor performance, token usage, and cost patterns with real-time dashboards."
+        - icon: "file-text"
+          title: "Structured Logging"
+          description: "Debug issues with logs correlated to trace context for full observability."
+        - icon: "bot"
+          title: "LLM Instrumentation"
+          description: "Track token usage, costs, and model performance with Langtrace auto-instrumentation."
+      key_results:
+        title: "Key Results from Optimization"
+        items:
+          - metric: "81%"
+            description: "reduction in cost per session"
+          - metric: "84%"
+            description: "reduction in tokens per session"
+          - metric: "85%"
+            description: "reduction in MCP tool overhead"
+          - metric: "3x"
+            description: "more work completed with same daily spend"
+
+    quick_start:
+      title: "Quick Start"
+      # TODO: Add "claude mcp add observability-toolkit -- npx -y observability-toolkit" once API key access is configured
+      coming_soon:
+        title: "Coming Soon"
+        items:
+          - "One-command setup via MCP toolkit"
+          - "Automatic configuration with API key"
+
+    architecture:
+      title: "Architecture"
+      diagram: |
+        Claude Code Hooks
+                |
+                v
+          HookMonitor (otel-monitor.ts)
+          - Initializes OTel SDK
+          - Creates root span
+          - Records metrics/logs
+                |
+                v
+        +-------------------------------------------+
+        |         Dual Export Pattern               |
+        +-------------------------------------------+
+        |  Local File Export    |   Remote OTLP     |
+        |  (FileSpanExporter)   |   (SigNoz Cloud)  |
+        |  JSONL Format         |   TLS + Auth      |
+        |  ~/.claude/telemetry/ |   ingestion key   |
+        +-------------------------------------------+
+                |                       |
+                v                       v
+           Local Cache           SigNoz Dashboard
+           (JSONL files)         (traces, metrics, logs)
+      output_locations:
+        title: "Output Locations"
+        headers: ["Signal", "Local File", "Remote Endpoint"]
+        rows:
+          - ["Traces", "telemetry/traces-YYYY-MM-DD.jsonl", "/v1/traces"]
+          - ["Metrics", "N/A (remote only)", "/v1/metrics"]
+          - ["Logs", "telemetry/logs-YYYY-MM-DD.jsonl", "/v1/logs"]
+          - ["LLM Events", "telemetry/llm-events-YYYY-MM-DD.jsonl", "Langtrace spans"]
+
+    token_optimization:
+      title: "Token Optimization Strategies"
+      token_efficient_tools:
+        title: "Token-Efficient Tool Use"
+        description: "Claude 4 models have built-in token-efficient tool use that saves an average of 14% in output tokens (up to 70%) while reducing latency."
+        code: "anthropic-beta: token-efficient-tools-2025-02-19"
+        note: "For Claude Sonnet 3.7, enable with header"
+      lazy_loading:
+        title: "Dynamic/Lazy Context Loading"
+        description: "Instead of loading verbose documentation upfront, use triggers to load detailed context on-demand."
+        results:
+          title: "Results from Lazy Loading"
+          items:
+            - "Initial context reduced from 7,584 to 3,434 tokens (54% reduction)"
+            - "Monthly cost for 5 developers doing 100 sessions/day: $72 (62% savings)"
+      hybrid_model:
+        title: "Hybrid Model Approach"
+        headers: ["Model", "Use For"]
+        rows:
+          - ["Opus 4.5", "High-level planning, architectural design, final code review"]
+          - ["Sonnet/Haiku", "Implementation work, syntax validation, data parsing, quick checks"]
+
+    tool_usage:
+      title: "Efficient Tool Usage"
+      tool_recommendations:
+        title: "When to Use Each Tool"
+        headers: ["Scenario", "Recommended Tool"]
+        rows:
+          - ["Find files by name pattern", "Glob"]
+          - ["Search file contents", "Grep"]
+          - ["Read known file", "Read (with offset/limit for large files)"]
+          - ["Execute commands", "Bash (with output truncation)"]
+          - ["Open-ended exploration", "Task/Subagent"]
+          - ["Verbose operations", "Delegate to subagent"]
+      bash_limiting:
+        title: "Bash Output Limiting"
+        code: |
+          # Truncate test output
+          npm test 2>&1 | tail -30
+
+          # Filter for errors/warnings only
+          npm run build 2>&1 | grep -i "error\|warning" || echo "Build succeeded"
+
+          # Limit output to N lines
+          command | head -100
+      memory_warning:
+        type: "warning"
+        message: "Claude Code stores all bash output in memory for the entire session. Large outputs (90GB+ reported) can crash the application. Always truncate verbose commands."
+      subagent_delegation:
+        title: "Subagent Delegation"
+        description: "Use subagents when:"
+        items:
+          - "The task produces verbose output you don't need in your main context"
+          - "You want to enforce specific tool restrictions"
+          - "The work is self-contained and can return a summary"
+          - "Running tests, fetching documentation, or processing log files"
+
+    context_window:
+      title: "Context Window Management"
+      limits:
+        title: "Understanding Context Limits"
+        headers: ["Tier", "Context Window", "Notes"]
+        rows:
+          - ["Standard", "200,000 tokens", "Default for most users"]
+          - ["Advanced (Tier 4+)", "1,000,000 tokens", "Premium pricing applies"]
+          - ["Premium threshold", ">200K tokens", "2x input, 1.5x output pricing"]
+      critical_insight:
+        type: "danger"
+        message: "Avoid using the final 20% of your context window for complex tasks. Quality notably declines for memory-intensive operations."
+      commands:
+        title: "Built-in Commands"
+        headers: ["Command", "Purpose", "When to Use"]
+        rows:
+          - ["/context", "Visualizes context usage", "Before deciding to compact"]
+          - ["/clear", "Wipes conversation history", "Between tasks; when <50% context is relevant"]
+          - ["/compact", "Summarizes conversation", "At 70% capacity; at logical breakpoints"]
+          - ["/cost", "Shows token usage stats", "To understand patterns"]
+      visualization: |
+        Context: 45K tokens (22.5%)
+           [████░░░░░░░░░░░░░░░░] 🟢  (green < 50%)
+           [██████████░░░░░░░░░░] 🟡  (yellow 50-70%)
+           [██████████████░░░░░░] 🔴  (red > 70%)
+
+    mcp_optimization:
+      title: "MCP Server Optimization"
+      problem:
+        title: "The Problem"
+        description: "MCP tool definitions can consume massive context:"
+        items:
+          - "5-server setup: ~55K tokens before conversation starts"
+          - "Jira alone: ~17K tokens"
+          - "One reported case: 134K tokens of tool definitions"
+      solution:
+        title: "MCP Tool Search"
+        description: "Reduces token overhead by 85% by loading tools on-demand rather than upfront."
+        code: |
+          # Auto mode (default) - activates when tools exceed threshold
+          ENABLE_TOOL_SEARCH=auto
+
+          # Custom threshold (5%)
+          ENABLE_TOOL_SEARCH=auto:5
+
+          # Disable entirely
+          ENABLE_TOOL_SEARCH=false
+      performance:
+        title: "Performance Improvements"
+        items:
+          - "Opus 4: 49% to 74% accuracy"
+          - "Opus 4.5: 79.5% to 88.1% accuracy"
+          - "46.9% reduction in total agent tokens (51K to 8.5K)"
+      manual_optimization:
+        title: "Manual Optimization"
+        steps:
+          - "Use /context to identify consumption"
+          - "Disable unused servers with @server-name disable or /mcp"
+          - "Re-enable only when needed"
+
+    otel_setup:
+      title: "OpenTelemetry Setup"
+      components:
+        title: "Core Components"
+        headers: ["Component", "File", "Purpose"]
+        rows:
+          - ["OTel Core", "hooks/lib/otel.ts", "SDK initialization, tracing, metrics, logging"]
+          - ["Hook Monitor", "hooks/lib/otel-monitor.ts", "Simplified hook instrumentation"]
+          - ["Langtrace", "hooks/lib/langtrace.ts", "Auto-instrument LLM API calls"]
+          - ["Token Metrics", "hooks/lib/token-metrics.ts", "Cost and token tracking"]
+      functions:
+        title: "Key Functions"
+        headers: ["Function", "Purpose"]
+        rows:
+          - ["initTelemetry()", "Initialize SDK with exporters"]
+          - ["withSpan(name, attrs, fn)", "Wrap async function in a span"]
+          - ["recordMetric(name, value, attrs)", "Record counter metric"]
+          - ["recordGauge(name, value, attrs)", "Record gauge metric"]
+          - ["logger.info/warn/error()", "Structured logging"]
+          - ["getTraceUrl()", "Get SigNoz trace link"]
+          - ["shutdown()", "Graceful cleanup"]
+      pii_redaction:
+        title: "Langtrace PII Redaction"
+        description: "Auto-redacted patterns for sensitive data protection:"
+        headers: ["Pattern", "Replacement"]
+        rows:
+          - ["Email addresses", "[EMAIL]"]
+          - ["Phone numbers", "[PHONE]"]
+          - ["SSN", "[SSN]"]
+          - ["Credit card numbers", "[CREDIT_CARD]"]
+          - ["API keys", "[API_KEY]"]
+          - ["AWS access keys", "[AWS_KEY]"]
+          - ["JWT tokens", "[JWT_TOKEN]"]
+
+    instrumented_hooks:
+      title: "Instrumented Hooks"
+      headers: ["Hook", "Event", "Description"]
+      rows:
+        - ["session-start-otel.ts", "SessionStart", "Session initialization"]
+        - ["mcp-pre-tool-otel.ts", "PreToolUse", "MCP tool invocation start"]
+        - ["mcp-post-tool-otel.ts", "PostToolUse", "MCP tool completion"]
+        - ["agent-pre-tool-otel.ts", "PreToolUse", "Subagent spawn"]
+        - ["agent-post-tool-otel.ts", "PostToolUse", "Subagent completion"]
+        - ["skill-activation-prompt-otel.ts", "UserPromptSubmit", "Skill detection"]
+        - ["tsc-check-otel.ts", "PostToolUse", "TypeScript checks"]
+        - ["stop-build-check-otel.ts", "Stop", "Build verification"]
+
+    metrics_reference:
+      title: "Metrics Reference"
+      hook_metrics:
+        title: "Hook Metrics"
+        headers: ["Metric", "Type", "Description"]
+        rows:
+          - ["hook.duration", "Histogram", "Execution time distribution"]
+          - ["hook.executions", "Counter", "Total invocations"]
+          - ["mcp.invocations", "Counter", "MCP tool calls"]
+          - ["agent.invocations", "Counter", "Subagent spawns"]
+      genai_metrics:
+        title: "GenAI Metrics"
+        headers: ["Metric", "Type", "Description"]
+        rows:
+          - ["gen_ai.client.token.usage", "Counter", "Tokens consumed"]
+          - ["gen_ai.client.cost", "Counter", "Cost in USD"]
+          - ["gen_ai.client.operation.duration", "Histogram", "LLM call latency"]
+      context_metrics:
+        title: "Context Metrics"
+        headers: ["Metric", "Description"]
+        rows:
+          - ["session.context.size", "Tokens at session start"]
+          - ["session.context.utilization", "% of 200K window used"]
+          - ["session.starts", "Session start counter"]
+
+    dashboards:
+      title: "SigNoz Dashboards"
+      headers: ["Dashboard", "Purpose"]
+      rows:
+        - ["Claude Code Hooks Observability", "Core hook performance"]
+        - ["Claude Code Hooks Performance", "Duration and status distribution"]
+        - ["Token Usage & Cost Efficiency", "LLM consumption and costs"]
+        - ["Tool & MCP Usage Analytics", "MCP server/tool usage"]
+        - ["Error & Anomaly Detection", "Error monitoring"]
+        - ["Build & Type Check Performance", "TSC/Python metrics"]
+        - ["Subagent Analytics", "Agent invocations"]
+        - ["Session Health Overview", "Session activity"]
+
+    cost_optimization:
+      title: "Cost Optimization"
+      session_comparison:
+        title: "Session Strategy Comparison"
+        headers: ["Metric", "Before", "After", "Change"]
+        rows:
+          - ["Avg Sessions/Day", "7.3", "26.2", "+259%"]
+          - ["Tokens/Session", "40,246", "6,503", "-84%"]
+          - ["Cost/Session", "$22.17", "$3.64", "-84%"]
+          - ["Cost/Message", "$0.067", "$0.021", "-69%"]
+      pattern:
+        title: "The Pattern"
+        items:
+          - "Before: Fewer, longer sessions (avg 40K tokens each) → Context grows large → expensive"
+          - "After: More, shorter sessions (avg 6.5K tokens each) → Context stays small → efficient"
+      cost_by_category:
+        title: "Cost by Category"
+        headers: ["Category", "Cost", "% of Total"]
+        rows:
+          - ["Cache Read", "$1,916.70", "52.2%"]
+          - ["Cache Write", "$1,649.57", "44.9%"]
+          - ["Output", "$94.16", "2.6%"]
+          - ["Input", "$13.94", "0.4%"]
+        insight: "Cache operations = 97% of cost. Without caching, input would cost ~$19,600 (5.3x more expensive)."
+
+    usage_patterns:
+      title: "Usage Patterns"
+      research_vs_implementation:
+        title: "Research vs Implementation"
+        headers: ["Activity", "Tokens/Message", "Cost Efficiency"]
+        rows:
+          - ["Research", "100-150", "Low"]
+          - ["Implementation", "4-5", "High"]
+      spike_analysis:
+        title: "Spike Day Analysis"
+        headers: ["Day", "Type", "Sessions", "Tokens", "Tokens/Session"]
+        rows:
+          - ["Dec 14", "Research", "27", "1.08M", "39,922"]
+          - ["Jan 11", "Research", "22", "1.38M", "62,533"]
+          - ["Jan 17", "Implementation", "16", "104K", "6,517"]
+          - ["Jan 19", "Rapid iteration", "83", "499K", "6,008"]
+
+    recommendations:
+      title: "Recommendations"
+      maintain_gains:
+        title: "Maintain the Gains"
+        items:
+          - "Keep sessions short — Target <10K tokens/session"
+          - "Reset frequently — New session after major task completion"
+          - "Compact at 70% — Don't let context hit limits"
+          - "Monitor trends — Watch session.context.utilization in SigNoz"
+      optimize_further:
+        title: "Optimize Further"
+        items:
+          - "Batch research — Dedicate specific sessions to exploration"
+          - "Use subagents — Delegate verbose operations"
+          - "Truncate output — | tail -30 for logs, use offset/limit for files"
+      daily_workflow:
+        title: "Daily Workflow"
+        code: |
+          1. Start session
+             - /context to check baseline
+             - Disable unused MCP servers
+
+          2. During work
+             - Use subagents for verbose operations
+             - Truncate bash output
+             - Read files with offset/limit for large files
+             - Use Grep output_mode: "files_with_matches"
+
+          3. Between tasks
+             - /clear if <50% context is relevant
+             - /compact at 70% capacity
+
+          4. End of session
+             - Document progress in .md file
+             - /cost to review usage
+      config_cleanup:
+        title: "Config Cleanup Impact"
+        headers: ["File", "Before", "After", "Reduction"]
+        rows:
+          - ["settings.local.json", "1.8 KB", "303 bytes", "83%"]
+          - ["settings.json", "2.8 KB", "2.2 KB", "21%"]
+          - ["skill-rules.json", "14.4 KB", "13.8 KB", "4%"]
+          - ["marketplaces.json", "3.6 KB", "2.8 KB", "23%"]
+
+  footer:
+    built_with:
+      - name: "OpenTelemetry"
+        url: "https://opentelemetry.io"
+      - name: "SigNoz"
+        url: "https://signoz.io"
+    copyright: "© 2026 Integrity Studio. All rights reserved."

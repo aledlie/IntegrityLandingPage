@@ -516,7 +516,7 @@ await shutdown();''',
             children: [
               _BulletList(items: const [
                 'Distributed Tracing Guide \u2014 /docs/tracing',
-                'Claude Code Observability \u2014 /docs/claude-code-observability',
+                'LLM Observability \u2014 /docs/llm-observability',
                 'OpenTelemetry Documentation \u2014 opentelemetry.io',
                 'SigNoz Documentation \u2014 signoz.io/docs',
               ]),

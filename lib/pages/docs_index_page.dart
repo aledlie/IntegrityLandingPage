@@ -304,7 +304,7 @@ class _DocsGrid extends StatelessWidget {
         icon: LucideIcons.activity,
         title: 'Observability Guide',
         description: 'Context management, token optimization, and cost efficiency strategies.',
-        url: '/docs/claude-code-observability',
+        url: '/docs/llm-observability',
         color: AppColors.blue400,
         topics: ['Tokens', 'Cost', 'Context', 'Metrics'],
       ),

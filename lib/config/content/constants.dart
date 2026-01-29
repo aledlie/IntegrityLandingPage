@@ -95,7 +95,7 @@ abstract final class Routes {
   static const String demo = '#demo';
 
   // Documentation
-  static const String docsObservability = '/docs/claude-code-observability';
+  static const String docsObservability = '/docs/llm-observability';
   static const String docsTracing = '/docs/tracing';
   static const String docsQuickstart = '/docs/quickstart';
   static const String docsApi = '/api';
