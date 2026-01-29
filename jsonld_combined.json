@@ -516,7 +516,27 @@
           "description": "Market size, growth projections, and enterprise budget trends for AI observability platforms"
         }
       ],
-      "keywords": "AI observability market analysis, market size validation, enterprise budget allocation, MLOps funding, AI governance market"
+      "keywords": "AI observability market analysis, market size validation, enterprise budget allocation, MLOps funding, AI governance market",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".article-summary",
+          ".key-findings"
+        ]
+      },
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "name": "Grand View Research - AI Observability Market Report 2024",
+          "url": "https://www.grandviewresearch.com/"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "Gartner Magic Quadrant for AIOps 2024",
+          "url": "https://www.gartner.com/"
+        }
+      ]
     },
     {
       "@context": "https://schema.org",
@@ -754,7 +774,27 @@
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://integritystudio.ai/blog/ai-observability-platform-strategy.html"
-      }
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".executive-summary",
+          ".strategic-recommendations"
+        ]
+      },
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "name": "EU AI Act Official Text",
+          "url": "https://eur-lex.europa.eu/"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+        }
+      ]
     },
     {
       "@context": "https://schema.org",
@@ -971,7 +1011,27 @@
       "keywords": "LLM monitoring tools 2025, Langfuse vs LangSmith, best AI observability tools, Phoenix, Helicone, Arize AI, Datadog LLM, Fiddler AI",
       "wordCount": 3500,
       "timeRequired": "PT18M",
-      "inLanguage": "en-US"
+      "inLanguage": "en-US",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".tool-comparison-summary",
+          ".recommendations"
+        ]
+      },
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "name": "Langfuse Documentation",
+          "url": "https://langfuse.com/docs"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "LangSmith Documentation",
+          "url": "https://docs.smith.langchain.com/"
+        }
+      ]
     },
     {
       "@context": "https://schema.org",
@@ -1528,7 +1588,27 @@
       "audience": {
         "@type": "Audience",
         "audienceType": "AI Engineers, DevOps Engineers, Technical Leaders"
-      }
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".lifecycle-overview",
+          ".implementation-guide"
+        ]
+      },
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "name": "OpenTelemetry Specification",
+          "url": "https://opentelemetry.io/docs/specs/"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "Anthropic Claude Documentation",
+          "url": "https://docs.anthropic.com/"
+        }
+      ]
     },
     {
       "@context": "https://schema.org",
@@ -1799,7 +1879,27 @@
       ],
       "proficiencyLevel": "Expert",
       "dependencies": "Python 3.8+, Node.js 18+, TypeScript 4.5+",
-      "timeRequired": "PT45M"
+      "timeRequired": "PT45M",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "h1",
+          ".compliance-checklist",
+          ".implementation-steps"
+        ]
+      },
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "name": "EU AI Act - Article 12: Record-keeping",
+          "url": "https://eur-lex.europa.eu/"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "European Commission AI Act Guidelines",
+          "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+        }
+      ]
     },
     {
       "@context": "https://schema.org",
@@ -2146,6 +2246,7 @@
           "height": 512
         }
       },
+      "inLanguage": "en-US",
       "potentialAction": {
         "@type": "SearchAction",
         "target": {
@@ -2396,7 +2497,25 @@
         "ratingCount": "127",
         "bestRating": "5",
         "worstRating": "1"
-      }
+      },
+      "downloadUrl": "https://integritystudio.ai/signup",
+      "countriesSupported": [
+        "US",
+        "CA",
+        "GB",
+        "DE",
+        "FR",
+        "NL",
+        "AU",
+        "JP",
+        "SG",
+        "IN"
+      ],
+      "availableOnDevice": [
+        "Desktop",
+        "Mobile",
+        "Tablet"
+      ]
     },
     {
       "@context": "https://schema.org",
@@ -2510,6 +2629,46 @@
         "https://www.linkedin.com/company/integrity-studio-ai",
         "https://github.com/aledlie"
       ],
+      "founder": [
+        {
+          "@type": "Person",
+          "@id": "https://integritystudio.ai/team/alyshia-ledlie#person",
+          "name": "Alyshia Ledlie",
+          "jobTitle": "CEO & Founder"
+        },
+        {
+          "@type": "Person",
+          "@id": "https://integritystudio.ai/team/chase-hoffman#person",
+          "name": "Chase Hoffman",
+          "jobTitle": "Co-Founder and President"
+        }
+      ],
+      "employee": [
+        {
+          "@id": "https://integritystudio.ai/team/alyshia-ledlie#person"
+        },
+        {
+          "@id": "https://integritystudio.ai/team/chase-hoffman#person"
+        },
+        {
+          "@id": "https://www.chandrasrivastava.com/#person"
+        },
+        {
+          "@id": "http://www.micahlindsey.com/#person"
+        },
+        {
+          "@id": "https://integritystudio.ai/team/john-skelton#person"
+        },
+        {
+          "@id": "https://integritystudio.ai/team/isabel-budenz#person"
+        }
+      ],
+      "numberOfEmployees": {
+        "@type": "QuantitativeValue",
+        "minValue": 5,
+        "maxValue": 10
+      },
+      "naics": "541512",
       "knowsAbout": [
         "AI Observability",
         "LLM Monitoring",
@@ -2517,7 +2676,18 @@
         "OpenTelemetry",
         "Machine Learning Operations",
         "AI Trust and Safety"
-      ]
+      ],
+      "slogan": "AI Observability That Proves Compliance",
+      "legalName": "Integrity Studio LLC",
+      "hasCertification": {
+        "@type": "Certification",
+        "name": "SOC 2 Type II (In Review)",
+        "description": "SOC 2 Type II compliance assessment in progress. Expected completion Q2 2026.",
+        "issuedBy": {
+          "@type": "Organization",
+          "name": "AICPA"
+        }
+      }
     },
     {
       "@context": "https://schema.org",
@@ -2866,6 +3036,7 @@
       "name": "Chandra Srivastava",
       "givenName": "Chandra",
       "familyName": "Srivastava",
+      "honorificSuffix": "PhD",
       "url": "https://www.chandrasrivastava.com/",
       "description": "Marketing leader with experience driving growth at early stage B2B technology companies. Expert in positioning AI products for enterprise adoption and building category-defining brands.",
       "jobTitle": "Co-founder & Chief Marketing Officer",
@@ -2934,6 +3105,7 @@
       "name": "John Skelton",
       "givenName": "John",
       "familyName": "Skelton",
+      "honorificSuffix": "M.A.",
       "description": "Regulatory and compliance expert specializing in AI governance frameworks. Advises enterprises on EU AI Act preparation and responsible AI deployment.",
       "jobTitle": "Head of Policy",
       "worksFor": {
@@ -3101,7 +3273,12 @@
         "@type": "ContactPoint",
         "contactType": "professional",
         "email": "isa@integritystudio.ai",
-        "availableLanguage": ["English", "German", "Spanish", "French"]
+        "availableLanguage": [
+          "English",
+          "German",
+          "Spanish",
+          "French"
+        ]
       },
       "image": {
         "@type": "ImageObject",
@@ -3182,6 +3359,27 @@
         "name": "Global"
       },
       "serviceType": "AI Observability Platform",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
+      ],
+      "paymentAccepted": [
+        "Credit Card",
+        "ACH",
+        "Wire Transfer"
+      ],
+      "currenciesAccepted": "USD",
+      "hasMap": "https://maps.google.com/?q=248+Addie+Roy+Road,+Austin,+TX+78746",
       "sameAs": [
         "https://linkedin.com/company/integrity-studio-ai",
         "https://twitter.com/integritystudio",
@@ -3302,7 +3500,23 @@
             }
           }
         ]
-      }
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "ML Engineers, AI Platform Teams, DevOps"
+      },
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "Real-time LLM performance dashboards, cost reports, and trace data"
+      },
+      "slogan": "Every LLM call, fully traced",
+      "brand": {
+        "@id": "https://integritystudio.ai/#organization"
+      },
+      "isRelatedTo": [
+        {"@id": "https://integritystudio.ai/services/agent-observability#service"},
+        {"@id": "https://integritystudio.ai/services/analytics-dashboards#service"}
+      ]
     },
     {
       "@type": "Service",
@@ -3389,7 +3603,23 @@
             }
           }
         ]
-      }
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "AI Engineers, Agent Developers, Research Teams"
+      },
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "Agent execution traces, tool call logs, and reasoning chain visualizations"
+      },
+      "slogan": "Debug autonomous AI with full visibility",
+      "brand": {
+        "@id": "https://integritystudio.ai/#organization"
+      },
+      "isRelatedTo": [
+        {"@id": "https://integritystudio.ai/services/llm-monitoring#service"},
+        {"@id": "https://integritystudio.ai/services/alerting-incident-management#service"}
+      ]
     },
     {
       "@type": "Service",
@@ -3476,7 +3706,23 @@
             }
           }
         ]
-      }
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Compliance Officers, Legal Teams, Risk Managers"
+      },
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "EU AI Act compliance reports, audit logs, and governance documentation"
+      },
+      "slogan": "Compliance that proves itself",
+      "brand": {
+        "@id": "https://integritystudio.ai/#organization"
+      },
+      "isRelatedTo": [
+        {"@id": "https://integritystudio.ai/services/llm-monitoring#service"},
+        {"@id": "https://integritystudio.ai/services/analytics-dashboards#service"}
+      ]
     },
     {
       "@type": "Service",
@@ -3563,7 +3809,23 @@
             }
           }
         ]
-      }
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Engineering Managers, Product Leaders, Data Teams"
+      },
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "Custom dashboards, usage analytics, and performance insights"
+      },
+      "slogan": "Insights that drive decisions",
+      "brand": {
+        "@id": "https://integritystudio.ai/#organization"
+      },
+      "isRelatedTo": [
+        {"@id": "https://integritystudio.ai/services/llm-monitoring#service"},
+        {"@id": "https://integritystudio.ai/services/compliance-governance#service"}
+      ]
     },
     {
       "@type": "Service",
@@ -3650,7 +3912,61 @@
             }
           }
         ]
-      }
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "SREs, On-call Engineers, Platform Teams"
+      },
+      "serviceOutput": [
+        {
+          "@type": "Message",
+          "name": "Slack Notifications",
+          "description": "Real-time AI observability alerts delivered to Slack channels"
+        },
+        {
+          "@type": "Message",
+          "name": "Email Alerts",
+          "description": "Configurable email notifications for anomalies, thresholds, and compliance events"
+        },
+        {
+          "@type": "Report",
+          "name": "Tracking Dashboards",
+          "description": "Interactive dashboards for monitoring AI system health and performance"
+        },
+        {
+          "@type": "Dataset",
+          "name": "Metrics Aggregation",
+          "description": "Aggregated metrics for cost, latency, token usage, and error rates"
+        },
+        {
+          "@type": "Message",
+          "name": "Discord Notifications",
+          "description": "Real-time AI observability alerts delivered to Discord servers"
+        },
+        {
+          "@type": "Report",
+          "name": "Compliance Report",
+          "description": "EU AI Act and regulatory compliance documentation and audit reports"
+        },
+        {
+          "@type": "CreativeWork",
+          "name": "Analysis Results",
+          "description": "AI system performance analysis and insights"
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          "name": "Auto-Generated Reports",
+          "description": "Programmatically generated compliance and observability reports"
+        }
+      ],
+      "slogan": "Know before it breaks",
+      "brand": {
+        "@id": "https://integritystudio.ai/#organization"
+      },
+      "isRelatedTo": [
+        {"@id": "https://integritystudio.ai/services/agent-observability#service"},
+        {"@id": "https://integritystudio.ai/services/llm-monitoring#service"}
+      ]
     },
     {
       "@type": "Service",
@@ -3737,7 +4053,23 @@
             }
           }
         ]
-      }
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Software Developers, Full-stack Engineers, API Integrators"
+      },
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "SDKs, API access, debugging tools, and integration guides"
+      },
+      "slogan": "From zero to traces in 5 minutes",
+      "brand": {
+        "@id": "https://integritystudio.ai/#organization"
+      },
+      "isRelatedTo": [
+        {"@id": "https://integritystudio.ai/services/llm-monitoring#service"},
+        {"@id": "https://integritystudio.ai/services/agent-observability#service"}
+      ]
     },
     {
       "@type": "Person",
@@ -3810,7 +4142,13 @@
       "eventSchedule": {
         "@type": "Schedule",
         "repeatFrequency": "P1D",
-        "byDay": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "byDay": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
         "startTime": "09:00",
         "endTime": "17:00",
         "scheduleTimezone": "America/Chicago"
@@ -4426,7 +4764,26 @@
         "@type": "Organization",
         "@id": "https://integritystudio.ai/#organization"
       },
-      "documentation": "https://integritystudio.ai/docs/integrations/slack"
+      "documentation": "https://integritystudio.ai/docs/integrations/slack",
+      "serviceType": "Webhook Integration",
+      "category": "Alerting & Notifications",
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "Slack Notifications",
+        "description": "Real-time alerts for anomalies, cost spikes, and compliance issues"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "ML Engineers, DevOps Teams, Platform Engineers"
+      },
+      "offers": [
+        {
+          "@id": "https://integritystudio.ai/pricing#team"
+        },
+        {
+          "@id": "https://integritystudio.ai/pricing#enterprise"
+        }
+      ]
     },
     {
       "@type": "WebAPI",
@@ -4438,7 +4795,26 @@
         "@type": "Organization",
         "@id": "https://integritystudio.ai/#organization"
       },
-      "documentation": "https://integritystudio.ai/docs/integrations/pagerduty"
+      "documentation": "https://integritystudio.ai/docs/integrations/pagerduty",
+      "serviceType": "Incident Management Integration",
+      "category": "Alerting & Incident Response",
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "PagerDuty Incidents",
+        "description": "Automated incident creation for critical AI system failures and anomalies"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "On-Call Engineers, SRE Teams, DevOps"
+      },
+      "offers": [
+        {
+          "@id": "https://integritystudio.ai/pricing#team"
+        },
+        {
+          "@id": "https://integritystudio.ai/pricing#enterprise"
+        }
+      ]
     },
     {
       "@type": "WebAPI",
@@ -4450,7 +4826,26 @@
         "@type": "Organization",
         "@id": "https://integritystudio.ai/#organization"
       },
-      "documentation": "https://integritystudio.ai/docs/integrations/datadog"
+      "documentation": "https://integritystudio.ai/docs/integrations/datadog",
+      "serviceType": "Data Export Integration",
+      "category": "Observability & Monitoring",
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "Datadog Metrics & Traces",
+        "description": "AI observability metrics and distributed traces exported to Datadog dashboards"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Platform Engineers, DevOps Teams, Observability Engineers"
+      },
+      "offers": [
+        {
+          "@id": "https://integritystudio.ai/pricing#team"
+        },
+        {
+          "@id": "https://integritystudio.ai/pricing#enterprise"
+        }
+      ]
     },
     {
       "@type": "WebAPI",
@@ -4462,7 +4857,26 @@
         "@type": "Organization",
         "@id": "https://integritystudio.ai/#organization"
       },
-      "documentation": "https://integritystudio.ai/docs/integrations/grafana"
+      "documentation": "https://integritystudio.ai/docs/integrations/grafana",
+      "serviceType": "Visualization Integration",
+      "category": "Dashboards & Analytics",
+      "serviceOutput": {
+        "@type": "Thing",
+        "name": "Grafana Dashboards",
+        "description": "Custom AI observability dashboards with real-time metrics visualization"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Data Engineers, Platform Teams, Analytics Engineers"
+      },
+      "offers": [
+        {
+          "@id": "https://integritystudio.ai/pricing#team"
+        },
+        {
+          "@id": "https://integritystudio.ai/pricing#enterprise"
+        }
+      ]
     },
     {
       "@type": "DataCatalog",
