@@ -5,267 +5,164 @@ import 'package:integrity_studio_ai/widgets/sections/footer_section.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
-
   group('FooterSection', () {
-    group('footer link data', () {
-      test('footer structure is defined correctly', () {
-        // Footer sections are defined statically in the widget
-        // These tests verify the expected structure exists
-        const productLinks = ['Features', 'Pricing', 'Documentation', 'API Reference'];
-        const companyLinks = ['About', 'Blog', 'Sources', 'Careers', 'Contact'];
-        const resourceLinks = ['Help Center', 'Status', 'Security'];
+    // =======================================================================
+    // Footer Link Data
+    // =======================================================================
 
-        expect(productLinks, hasLength(4));
-        expect(companyLinks, hasLength(5)); // Updated: now includes Sources
-        expect(resourceLinks, hasLength(3));
-      });
+    test('footer link structure and social platforms are defined correctly', () {
+      // Footer sections are defined statically in the widget
+      const productLinks = ['Features', 'Pricing', 'Documentation', 'API Reference'];
+      const companyLinks = ['About', 'Blog', 'Sources', 'Careers', 'Contact'];
+      const resourceLinks = ['Help Center', 'Status', 'Security'];
+      const socialPlatforms = ['Twitter', 'LinkedIn', 'GitHub'];
 
-      test('company links include Sources for transparency', () {
-        const companyLinks = ['About', 'Blog', 'Sources', 'Careers', 'Contact'];
-        expect(companyLinks.contains('Sources'), isTrue);
-      });
-
-      test('social links are defined', () {
-        const socialPlatforms = ['Twitter', 'LinkedIn', 'GitHub'];
-        expect(socialPlatforms, hasLength(3));
-      });
+      expect(productLinks, hasLength(4));
+      expect(companyLinks, hasLength(5));
+      expect(companyLinks.contains('Sources'), isTrue); // Transparency link
+      expect(resourceLinks, hasLength(3));
+      expect(socialPlatforms, hasLength(3));
     });
 
-    group('copyright', () {
-      test('current year is calculated correctly', () {
-        final currentYear = DateTime.now().year;
-        expect(currentYear, greaterThanOrEqualTo(2024));
-      });
+    // =======================================================================
+    // Copyright and Legal Links
+    // =======================================================================
+
+    test('copyright year and legal links are valid', () {
+      final currentYear = DateTime.now().year;
+      expect(currentYear, greaterThanOrEqualTo(2024));
+
+      const legalLinks = ['Privacy Policy', 'Terms of Service', 'Cookie Settings'];
+      expect(legalLinks.contains('Privacy Policy'), isTrue);
+      expect(legalLinks.contains('Terms of Service'), isTrue);
+      expect(legalLinks.contains('Cookie Settings'), isTrue);
     });
 
-    group('legal links', () {
-      test('required legal links exist', () {
-        const legalLinks = ['Privacy Policy', 'Terms of Service', 'Cookie Settings'];
+    // =======================================================================
+    // Widget Rendering - All Link Sections
+    // =======================================================================
 
-        expect(legalLinks.contains('Privacy Policy'), isTrue);
-        expect(legalLinks.contains('Terms of Service'), isTrue);
-        expect(legalLinks.contains('Cookie Settings'), isTrue);
-      });
+    testWidgets('renders all footer link sections and content', (tester) async {
+      setDesktopSize(tester);
+
+      await tester.pumpWidget(
+        testableSection(const FooterSection()),
+      );
+      await tester.pumpAndSettle();
+
+      // Footer section exists
+      expect(find.byType(FooterSection), findsOneWidget);
+      expect(find.text('IntegrityStudio'), findsOneWidget);
+
+      // Product section
+      expect(find.text('Product'), findsOneWidget);
+      expect(find.text('Features'), findsOneWidget);
+      expect(find.text('Pricing'), findsOneWidget);
+      expect(find.text('Documentation'), findsOneWidget);
+
+      // Company section (includes Sources for transparency)
+      expect(find.text('Company'), findsOneWidget);
+      expect(find.text('About'), findsOneWidget);
+      expect(find.text('Blog'), findsOneWidget);
+      expect(find.text('Sources'), findsOneWidget);
+      expect(find.text('Careers'), findsOneWidget);
+      expect(find.text('Contact'), findsOneWidget);
+
+      // Resources section
+      expect(find.text('Resources'), findsOneWidget);
+      expect(find.text('Help Center'), findsOneWidget);
+      expect(find.text('Status'), findsOneWidget);
+      expect(find.text('Security'), findsOneWidget);
+
+      // Legal links
+      expect(find.text('Privacy Policy'), findsOneWidget);
+      expect(find.text('Terms of Service'), findsOneWidget);
+      expect(find.text('Cookie Settings'), findsOneWidget);
+
+      // Compliance disclaimer
+      expect(
+        find.textContaining('AI governance and observability'),
+        findsOneWidget,
+      );
+
+      // Sources link is tappable (wrapped in GestureDetector)
+      final sourcesLink = find.text('Sources');
+      final gestureDetector = find.ancestor(
+        of: sourcesLink,
+        matching: find.byType(GestureDetector),
+      );
+      expect(gestureDetector, findsWidgets);
     });
 
-    group('widget rendering', () {
-      testWidgets('renders footer section on desktop', (tester) async {
-        setDesktopSize(tester);
+    // =======================================================================
+    // Widget Rendering - Social Icons
+    // =======================================================================
 
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
+    testWidgets('renders social media icons with icon buttons', (tester) async {
+      setDesktopSize(tester);
 
-        expect(find.byType(FooterSection), findsOneWidget);
-        expect(find.text('IntegrityStudio'), findsOneWidget);
-      });
+      await tester.pumpWidget(
+        testableSection(const FooterSection()),
+      );
+      await tester.pumpAndSettle();
 
-      testWidgets('renders company section links', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.text('Company'), findsOneWidget);
-        expect(find.text('About'), findsOneWidget);
-        expect(find.text('Blog'), findsOneWidget);
-        expect(find.text('Sources'), findsOneWidget);
-        expect(find.text('Careers'), findsOneWidget);
-        expect(find.text('Contact'), findsOneWidget);
-      });
-
-      testWidgets('renders Sources link in footer', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.text('Sources'), findsOneWidget);
-      });
-
-      testWidgets('renders social media icons', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.byIcon(LucideIcons.twitter), findsOneWidget);
-        expect(find.byIcon(LucideIcons.linkedin), findsOneWidget);
-        expect(find.byIcon(LucideIcons.github), findsOneWidget);
-      });
-
-      testWidgets('renders compliance disclaimer', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
-
-        expect(
-          find.textContaining('AI governance and observability'),
-          findsOneWidget,
-        );
-      });
-
-      testWidgets('renders legal links', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.text('Privacy Policy'), findsOneWidget);
-        expect(find.text('Terms of Service'), findsOneWidget);
-        expect(find.text('Cookie Settings'), findsOneWidget);
-      });
-
-      testWidgets('renders product section links', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.text('Product'), findsOneWidget);
-        expect(find.text('Features'), findsOneWidget);
-        expect(find.text('Pricing'), findsOneWidget);
-        expect(find.text('Documentation'), findsOneWidget);
-      });
-
-      testWidgets('renders resource section links', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.text('Resources'), findsOneWidget);
-        expect(find.text('Help Center'), findsOneWidget);
-        expect(find.text('Status'), findsOneWidget);
-        expect(find.text('Security'), findsOneWidget);
-      });
+      expect(find.byIcon(LucideIcons.twitter), findsOneWidget);
+      expect(find.byIcon(LucideIcons.linkedin), findsOneWidget);
+      expect(find.byIcon(LucideIcons.github), findsOneWidget);
+      expect(find.byType(IconButton), findsWidgets);
     });
 
-    group('responsive design', () {
-      testWidgets('renders correctly on mobile', (tester) async {
-        setMobileSize(tester);
+    // =======================================================================
+    // Responsive and Widget Structure
+    // =======================================================================
 
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
+    testWidgets('renders correctly on mobile with gesture detectors', (tester) async {
+      setMobileSize(tester);
 
-        expect(find.byType(FooterSection), findsOneWidget);
-        expect(find.text('Sources'), findsOneWidget);
-      });
+      await tester.pumpWidget(
+        testableSection(const FooterSection()),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(FooterSection), findsOneWidget);
+      expect(find.text('Sources'), findsOneWidget);
+      expect(find.byType(GestureDetector), findsWidgets);
 
       // Note: Tablet test skipped due to pre-existing footer layout issue at 768-900px widths
     });
 
-    group('callbacks', () {
-      testWidgets('calls onCookieSettings when Cookie Settings tapped', (tester) async {
-        setDesktopSize(tester);
-        var cookieSettingsCalled = false;
+    // =======================================================================
+    // Callbacks
+    // =======================================================================
 
-        await tester.pumpWidget(
-          testableSection(
-            FooterSection(onCookieSettings: () => cookieSettingsCalled = true),
-          ),
-        );
-        await tester.pumpAndSettle();
+    testWidgets('calls onCookieSettings when Cookie Settings tapped', (tester) async {
+      setDesktopSize(tester);
+      var cookieSettingsCalled = false;
 
-        await tester.tap(find.text('Cookie Settings'));
-        await tester.pumpAndSettle();
+      await tester.pumpWidget(
+        testableSection(
+          FooterSection(onCookieSettings: () => cookieSettingsCalled = true),
+        ),
+      );
+      await tester.pumpAndSettle();
 
-        expect(cookieSettingsCalled, isTrue);
-      });
+      await tester.tap(find.text('Cookie Settings'));
+      await tester.pumpAndSettle();
+
+      expect(cookieSettingsCalled, isTrue);
     });
 
-    group('Sources link navigation', () {
-      testWidgets('Sources link is tappable', (tester) async {
-        setDesktopSize(tester);
+    testWidgets('Blog link accepts onNavigateToBlog callback', (tester) async {
+      setDesktopSize(tester);
 
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
+      await tester.pumpWidget(
+        testableSection(
+          FooterSection(onNavigateToBlog: () {}),
+        ),
+      );
+      await tester.pumpAndSettle();
 
-        // Find the Sources link text
-        final sourcesLink = find.text('Sources');
-        expect(sourcesLink, findsOneWidget);
-
-        // Verify it's wrapped in a tappable widget (GestureDetector)
-        final gestureDetector = find.ancestor(
-          of: sourcesLink,
-          matching: find.byType(GestureDetector),
-        );
-        expect(gestureDetector, findsWidgets);
-
-        // Note: Actual tap navigation requires GoRouter context
-        // This test verifies the link structure is correct
-      });
-    });
-
-    group('navigation callbacks', () {
-      testWidgets('Blog link uses onNavigateToBlog callback when provided', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(
-            FooterSection(onNavigateToBlog: () {}),
-          ),
-        );
-        await tester.pumpAndSettle();
-
-        // Find Blog link by looking for GestureDetector widgets
-        expect(find.byType(GestureDetector), findsWidgets);
-      });
-    });
-
-    group('widget structure', () {
-      testWidgets('footer renders on mobile', (tester) async {
-        setMobileSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.byType(FooterSection), findsOneWidget);
-      });
-
-      testWidgets('footer has gesture detectors for links', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.byType(GestureDetector), findsWidgets);
-      });
-
-      testWidgets('footer has icon buttons for social links', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(
-          testableSection(const FooterSection()),
-        );
-        await tester.pumpAndSettle();
-
-        expect(find.byType(IconButton), findsWidgets);
-      });
+      expect(find.byType(GestureDetector), findsWidgets);
     });
   });
 }

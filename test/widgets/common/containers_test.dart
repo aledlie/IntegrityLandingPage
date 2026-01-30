@@ -4,11 +4,15 @@ import 'package:integrity_studio_ai/widgets/common/containers.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+  // =======================================================================
+  // ResponsiveContainer Tests
+  // =======================================================================
 
   group('ResponsiveContainer', () {
-    testWidgets('constrains width with ConstrainedBox', (tester) async {
+    testWidgets('renders with all configurations', (tester) async {
       setDesktopSize(tester);
 
+      // Test with maxWidth, Center, and ConstrainedBox
       await tester.pumpWidget(
         testableWidget(
           ResponsiveContainer(
@@ -18,7 +22,6 @@ void main() {
         ),
       );
 
-      // Verify ResponsiveContainer renders and contains a ConstrainedBox
       expect(find.byType(ResponsiveContainer), findsOneWidget);
       expect(
         find.descendant(
@@ -27,20 +30,6 @@ void main() {
         ),
         findsWidgets,
       );
-    });
-
-    testWidgets('uses Center for horizontal centering', (tester) async {
-      setDesktopSize(tester);
-
-      await tester.pumpWidget(
-        testableWidget(
-          ResponsiveContainer(
-            child: Container(color: Colors.blue),
-          ),
-        ),
-      );
-
-      // Verify ResponsiveContainer uses Center widget
       expect(
         find.descendant(
           of: find.byType(ResponsiveContainer),
@@ -48,34 +37,26 @@ void main() {
         ),
         findsOneWidget,
       );
-    });
 
-    testWidgets('wraps with SafeArea when useSafeArea is true', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          ResponsiveContainer(
-            useSafeArea: true,
-            child: Container(color: Colors.blue),
+      // Test SafeArea configurations
+      for (final useSafeArea in [true, false]) {
+        await tester.pumpWidget(
+          testableWidget(
+            ResponsiveContainer(
+              useSafeArea: useSafeArea,
+              child: Container(color: Colors.blue),
+            ),
           ),
-        ),
-      );
+        );
 
-      expect(find.byType(SafeArea), findsOneWidget);
-    });
+        if (useSafeArea) {
+          expect(find.byType(SafeArea), findsOneWidget);
+        } else {
+          expect(find.byType(SafeArea), findsNothing);
+        }
+      }
 
-    testWidgets('does not wrap with SafeArea by default', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          ResponsiveContainer(
-            child: Container(color: Colors.blue),
-          ),
-        ),
-      );
-
-      expect(find.byType(SafeArea), findsNothing);
-    });
-
-    testWidgets('applies additional padding', (tester) async {
+      // Test additional padding
       await tester.pumpWidget(
         testableWidget(
           ResponsiveContainer(
@@ -85,13 +66,17 @@ void main() {
         ),
       );
 
-      // Should have Padding widget present
       expect(find.byType(Padding), findsWidgets);
     });
   });
 
+  // =======================================================================
+  // SectionContainer Tests
+  // =======================================================================
+
   group('SectionContainer', () {
-    testWidgets('renders with background color', (tester) async {
+    testWidgets('renders with all configurations', (tester) async {
+      // Test background color
       await tester.pumpWidget(
         testableWidget(
           const SectionContainer(
@@ -101,14 +86,11 @@ void main() {
         ),
       );
 
-      // SectionContainer should render and contain DecoratedBox or Container
       expect(find.byType(SectionContainer), findsOneWidget);
       expect(find.byType(Container), findsWidgets);
-    });
 
-    testWidgets('renders with background gradient', (tester) async {
+      // Test background gradient
       const gradient = LinearGradient(colors: [Colors.blue, Colors.purple]);
-
       await tester.pumpWidget(
         testableWidget(
           const SectionContainer(
@@ -118,12 +100,10 @@ void main() {
         ),
       );
 
-      // SectionContainer should render with gradient
       expect(find.byType(SectionContainer), findsOneWidget);
       expect(find.byType(Container), findsWidgets);
-    });
 
-    testWidgets('adds semantic label when id is provided', (tester) async {
+      // Test semantic label with id
       await tester.pumpWidget(
         testableWidget(
           const SectionContainer(
@@ -134,34 +114,26 @@ void main() {
       );
 
       expect(find.byType(Semantics), findsWidgets);
-    });
 
-    testWidgets('uses ResponsiveContainer by default', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          const SectionContainer(
-            child: Text('Content'),
+      // Test ResponsiveContainer configurations
+      for (final useResponsive in [true, false]) {
+        await tester.pumpWidget(
+          testableWidget(
+            SectionContainer(
+              useResponsiveContainer: useResponsive,
+              child: const Text('Content'),
+            ),
           ),
-        ),
-      );
+        );
 
-      expect(find.byType(ResponsiveContainer), findsOneWidget);
-    });
+        if (useResponsive) {
+          expect(find.byType(ResponsiveContainer), findsOneWidget);
+        } else {
+          expect(find.byType(ResponsiveContainer), findsNothing);
+        }
+      }
 
-    testWidgets('skips ResponsiveContainer when useResponsiveContainer is false', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          const SectionContainer(
-            useResponsiveContainer: false,
-            child: Text('Content'),
-          ),
-        ),
-      );
-
-      expect(find.byType(ResponsiveContainer), findsNothing);
-    });
-
-    testWidgets('applies custom padding', (tester) async {
+      // Test custom padding
       await tester.pumpWidget(
         testableWidget(
           const SectionContainer(
@@ -175,8 +147,13 @@ void main() {
     });
   });
 
+  // =======================================================================
+  // SectionTitle Tests
+  // =======================================================================
+
   group('SectionTitle', () {
-    testWidgets('renders title text', (tester) async {
+    testWidgets('renders title with optional subtitle and semantics', (tester) async {
+      // Test title only
       await tester.pumpWidget(
         testableWidget(
           const SectionTitle(title: 'Test Title'),
@@ -184,9 +161,11 @@ void main() {
       );
 
       expect(find.text('Test Title'), findsOneWidget);
-    });
+      var texts = tester.widgetList<Text>(find.byType(Text));
+      expect(texts.length, equals(1));
+      expect(find.byType(Semantics), findsWidgets);
 
-    testWidgets('renders subtitle when provided', (tester) async {
+      // Test with subtitle
       await tester.pumpWidget(
         testableWidget(
           const SectionTitle(
@@ -196,34 +175,19 @@ void main() {
         ),
       );
 
+      expect(find.text('Title'), findsOneWidget);
       expect(find.text('Subtitle text'), findsOneWidget);
-    });
-
-    testWidgets('does not render subtitle when not provided', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          const SectionTitle(title: 'Title'),
-        ),
-      );
-
-      // Only title should be present
-      final texts = tester.widgetList<Text>(find.byType(Text));
-      expect(texts.length, equals(1));
-    });
-
-    testWidgets('has semantic header attribute on title', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          const SectionTitle(title: 'Title'),
-        ),
-      );
-
-      expect(find.byType(Semantics), findsWidgets);
+      texts = tester.widgetList<Text>(find.byType(Text));
+      expect(texts.length, equals(2));
     });
   });
 
+  // =======================================================================
+  // ResponsiveGrid Tests
+  // =======================================================================
+
   group('ResponsiveGrid', () {
-    testWidgets('renders all children', (tester) async {
+    testWidgets('renders children with Wrap and LayoutBuilder', (tester) async {
       setDesktopSize(tester);
 
       await tester.pumpWidget(
@@ -238,42 +202,24 @@ void main() {
         ),
       );
 
+      // Verify all children render
       expect(find.byKey(const Key('1')), findsOneWidget);
       expect(find.byKey(const Key('2')), findsOneWidget);
       expect(find.byKey(const Key('3')), findsOneWidget);
-    });
 
-    testWidgets('uses Wrap for layout', (tester) async {
-      setDesktopSize(tester);
-
-      await tester.pumpWidget(
-        testableWidget(
-          ResponsiveGrid(
-            children: [Container()],
-          ),
-        ),
-      );
-
+      // Verify layout widgets
       expect(find.byType(Wrap), findsOneWidget);
-    });
-
-    testWidgets('uses LayoutBuilder for responsive sizing', (tester) async {
-      setDesktopSize(tester);
-
-      await tester.pumpWidget(
-        testableWidget(
-          ResponsiveGrid(
-            children: [Container()],
-          ),
-        ),
-      );
-
       expect(find.byType(LayoutBuilder), findsOneWidget);
     });
   });
 
+  // =======================================================================
+  // GradientBackground Tests
+  // =======================================================================
+
   group('GradientBackground', () {
-    testWidgets('renders child widget', (tester) async {
+    testWidgets('renders child with orbs and Stack layout', (tester) async {
+      // Test basic rendering with child
       await tester.pumpWidget(
         testableWidget(
           GradientBackground(
@@ -283,51 +229,34 @@ void main() {
       );
 
       expect(find.byKey(const Key('child')), findsOneWidget);
-    });
-
-    testWidgets('shows orbs when showOrbs is true', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          const GradientBackground(
-            showOrbs: true,
-            child: SizedBox(),
-          ),
-        ),
-      );
-
-      // Should have Positioned widgets for orbs
-      expect(find.byType(Positioned), findsWidgets);
-    });
-
-    testWidgets('renders without showOrbs', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          const GradientBackground(
-            showOrbs: false,
-            child: SizedBox(),
-          ),
-        ),
-      );
-
-      // Should render GradientBackground
-      expect(find.byType(GradientBackground), findsOneWidget);
-    });
-
-    testWidgets('uses Stack for layered content', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          const GradientBackground(
-            child: SizedBox(),
-          ),
-        ),
-      );
-
       expect(find.byType(Stack), findsWidgets);
+
+      // Test orbs configurations
+      for (final showOrbs in [true, false]) {
+        await tester.pumpWidget(
+          testableWidget(
+            GradientBackground(
+              showOrbs: showOrbs,
+              child: const SizedBox(),
+            ),
+          ),
+        );
+
+        expect(find.byType(GradientBackground), findsOneWidget);
+        if (showOrbs) {
+          expect(find.byType(Positioned), findsWidgets);
+        }
+      }
     });
   });
 
+  // =======================================================================
+  // LabeledDivider Tests
+  // =======================================================================
+
   group('LabeledDivider', () {
-    testWidgets('renders simple divider when no label', (tester) async {
+    testWidgets('renders divider with and without label', (tester) async {
+      // Test without label - single divider
       await tester.pumpWidget(
         testableWidget(
           const LabeledDivider(),
@@ -335,9 +264,8 @@ void main() {
       );
 
       expect(find.byType(Divider), findsOneWidget);
-    });
 
-    testWidgets('renders label when provided', (tester) async {
+      // Test with label - two dividers with Row layout
       await tester.pumpWidget(
         testableWidget(
           const LabeledDivider(label: 'or'),
@@ -345,25 +273,7 @@ void main() {
       );
 
       expect(find.text('or'), findsOneWidget);
-    });
-
-    testWidgets('renders two dividers when label is present', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          const LabeledDivider(label: 'or'),
-        ),
-      );
-
       expect(find.byType(Divider), findsNWidgets(2));
-    });
-
-    testWidgets('uses Row layout when label is present', (tester) async {
-      await tester.pumpWidget(
-        testableWidget(
-          const LabeledDivider(label: 'or'),
-        ),
-      );
-
       expect(find.byType(Row), findsOneWidget);
     });
   });
