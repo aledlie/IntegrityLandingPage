@@ -5,39 +5,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  final originalOnError = FlutterError.onError;
-
-  setUp(() {
-    FlutterError.onError = (FlutterErrorDetails details) {
-      final isOverflowError =
-          details.exception.toString().contains('overflowed');
-      if (!isOverflowError) {
-        originalOnError?.call(details);
-      }
-    };
-  });
-
-  tearDown(() {
-    FlutterError.onError = originalOnError;
-  });
-
-  bool isOverflowError(dynamic exception) {
-    if (exception == null) return false;
-    final message = exception.toString();
-    return message.contains('overflowed') ||
-        message.contains('RenderFlex') ||
-        message.contains('A RenderFlex');
-  }
-
-  void clearOverflowExceptions(WidgetTester tester) {
-    dynamic exception = tester.takeException();
-    while (exception != null) {
-      if (!isOverflowError(exception)) {
-        throw exception;
-      }
-      exception = tester.takeException();
-    }
-  }
+  setUp(setUpOverflowErrorSuppression);
+  tearDown(tearDownOverflowErrorSuppression);
 
   Future<void> pumpEuAiActPage(
     WidgetTester tester, {

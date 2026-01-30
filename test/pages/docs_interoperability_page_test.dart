@@ -6,23 +6,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  // Suppress overflow errors in layout tests (visual-only, not functional)
-  final originalOnError = FlutterError.onError;
-
-  setUp(() {
-    FlutterError.onError = (FlutterErrorDetails details) {
-      final exception = details.exception.toString();
-      final isOverflowError = exception.contains('overflowed') ||
-          exception.contains('RenderFlex');
-      if (!isOverflowError) {
-        originalOnError?.call(details);
-      }
-    };
-  });
-
-  tearDown(() {
-    FlutterError.onError = originalOnError;
-  });
+  setUp(setUpOverflowErrorSuppression);
+  tearDown(tearDownOverflowErrorSuppression);
 
   /// Helper to pump the DocsInteroperabilityPage widget
   Future<void> pumpInteroperabilityPage(

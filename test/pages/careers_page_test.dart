@@ -7,44 +7,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  // Suppress overflow errors in layout tests (visual-only, not functional)
-  final originalOnError = FlutterError.onError;
-
-  setUp(() {
-    FlutterError.onError = (FlutterErrorDetails details) {
-      final message = details.exception.toString();
-      final isOverflowError = message.contains('overflowed') ||
-          message.contains('RenderFlex') ||
-          message.contains('A RenderFlex');
-      if (!isOverflowError) {
-        originalOnError?.call(details);
-      }
-    };
-  });
-
-  tearDown(() {
-    FlutterError.onError = originalOnError;
-  });
-
-  // Helper to check if an error is an overflow error we should suppress
-  bool isOverflowError(dynamic exception) {
-    if (exception == null) return false;
-    final message = exception.toString();
-    return message.contains('overflowed') ||
-        message.contains('RenderFlex') ||
-        message.contains('A RenderFlex');
-  }
-
-  // Helper to clear overflow exceptions after operations
-  void clearOverflowExceptions(WidgetTester tester) {
-    dynamic exception = tester.takeException();
-    while (exception != null) {
-      if (!isOverflowError(exception)) {
-        throw exception;
-      }
-      exception = tester.takeException();
-    }
-  }
+  setUp(setUpOverflowErrorSuppression);
+  tearDown(tearDownOverflowErrorSuppression);
 
   /// Helper to pump the CareersPage widget with larger viewport to avoid overflow
   Future<void> pumpCareersPage(

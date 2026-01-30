@@ -250,6 +250,57 @@ void expectContainerDecoration(
 }
 
 // =============================================================================
+// Overflow Error Suppression
+// =============================================================================
+
+/// Check if an exception is an overflow error (visual-only, not functional).
+bool isOverflowError(dynamic exception) {
+  if (exception == null) return false;
+  final message = exception.toString();
+  return message.contains('overflowed') ||
+      message.contains('RenderFlex') ||
+      message.contains('A RenderFlex');
+}
+
+/// Check if FlutterErrorDetails represents an overflow error.
+bool _isOverflowErrorDetails(FlutterErrorDetails details) {
+  final exceptionMsg = details.exception.toString();
+  final detailsMsg = details.toString();
+  return exceptionMsg.contains('overflowed') ||
+      exceptionMsg.contains('RenderFlex') ||
+      exceptionMsg.contains('A RenderFlex') ||
+      detailsMsg.contains('overflowed');
+}
+
+/// Clear overflow exceptions from the tester. Rethrows non-overflow exceptions.
+void clearOverflowExceptions(WidgetTester tester) {
+  dynamic exception = tester.takeException();
+  while (exception != null) {
+    if (!isOverflowError(exception)) {
+      throw exception;
+    }
+    exception = tester.takeException();
+  }
+}
+
+void Function(FlutterErrorDetails)? _originalOnError;
+
+/// Set up overflow error suppression. Call in setUp().
+void setUpOverflowErrorSuppression() {
+  _originalOnError = FlutterError.onError;
+  FlutterError.onError = (FlutterErrorDetails details) {
+    if (!_isOverflowErrorDetails(details)) {
+      _originalOnError?.call(details);
+    }
+  };
+}
+
+/// Tear down overflow error suppression. Call in tearDown().
+void tearDownOverflowErrorSuppression() {
+  FlutterError.onError = _originalOnError;
+}
+
+// =============================================================================
 // Test Data Generators
 // =============================================================================
 

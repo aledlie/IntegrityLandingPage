@@ -7,21 +7,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  // Suppress overflow errors in layout tests (visual-only, not functional)
-  final originalOnError = FlutterError.onError;
-
-  setUp(() {
-    FlutterError.onError = (FlutterErrorDetails details) {
-      final isOverflowError = details.exception.toString().contains('overflowed');
-      if (!isOverflowError) {
-        originalOnError?.call(details);
-      }
-    };
-  });
-
-  tearDown(() {
-    FlutterError.onError = originalOnError;
-  });
+  setUp(setUpOverflowErrorSuppression);
+  tearDown(tearDownOverflowErrorSuppression);
 
   group('AboutPage', () {
     Future<void> pumpAboutPage(
@@ -30,17 +17,8 @@ void main() {
       VoidCallback? onShowCookieSettings,
       bool setSize = true,
     }) async {
-      // Suppress overflow errors during pump
-      final oldHandler = FlutterError.onError;
-      FlutterError.onError = (FlutterErrorDetails details) {
-        if (!details.toString().contains('overflowed')) {
-          oldHandler?.call(details);
-        }
-      };
-
+      clearOverflowExceptions(tester);
       if (setSize) setDesktopSize(tester);
-      // Don't wrap in MediaQuery - let MaterialApp pick up the view size
-      // set by setDesktopSize(). MediaQuery wrapper overrides viewport size.
       await tester.pumpWidget(
         MaterialApp(
           theme: testTheme,
@@ -52,8 +30,7 @@ void main() {
       );
       await tester.pump();
       await tester.pump();
-
-      FlutterError.onError = oldHandler;
+      clearOverflowExceptions(tester);
     }
 
     group('constructor', () {
