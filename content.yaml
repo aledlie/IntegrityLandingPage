@@ -106,13 +106,12 @@ trust_indicators:
 # PLATFORM METRICS
 # =============================================================================
 platform_metrics:
-  uptime: "99.9%"
-  uptime_sla: "SLA Guaranteed"
-  traces_processed: "10M+"
-  traces_processed_period: "Daily"
-  ai_teams: "500+"
-  setup_time: "15 min"
-  setup_time_label: "Average"
+  uptime: &uptime "99.9%"
+  uptime_sla: &uptime_sla "SLA Guaranteed"
+  traces_processed: &traces_processed "10M+ (Jan 2026)"
+  traces_processed_period: &traces_period "Daily"
+  setup_time: &setup_time "15 min"
+  setup_time_label: &setup_label "Average"
 
 # =============================================================================
 # PRICING CONSTANTS
@@ -208,15 +207,15 @@ statistics:
       source: "Metrics-tracked savings, 2025"
   platform:
     traces_processed:
-      value: "10M+"
+      value: *traces_processed
       label: "traces processed"
       source: "Platform metrics, January 2026"
     setup_time:
-      value: "15 min"
+      value: *setup_time
       label: "setup time"
       source: "Average onboarding time, 2025"
     uptime_target:
-      value: "99.9%"
+      value: *uptime
       label: "uptime SLA"
       source: "Service Level Agreement target"
   source_disclaimer: >-
@@ -499,9 +498,9 @@ social_proof:
   stats_headline: "Enterprise-Grade Performance"
 
   stats:
-    traces_processed: "10M+"
-    uptime: "99.9%"
-    setup_time: " 15 min"
+    traces_processed: *traces_processed
+    uptime: *uptime
+    setup_time: *setup_time
 
   # Placeholder logos (to be replaced with real customers)
   logos:
@@ -554,17 +553,14 @@ status:
 
   metrics:
     - label: "Uptime"
-      value: "99.9%"
-      sublabel: "SLA Guaranteed"
+      value: *uptime
+      sublabel: *uptime_sla
     - label: "Traces Processed"
-      value: "10M+"
-      sublabel: "Daily"
-    - label: "AI Teams"
-      value: "500+"
-      sublabel: "Trusted By"
+      value: *traces_processed
+      sublabel: *traces_period
     - label: "Setup Time"
-      value: "15 min"
-      sublabel: "Average"
+      value: *setup_time
+      sublabel: *setup_label
 
   services:
     - name: "Trace Ingestion API"
@@ -885,7 +881,7 @@ resources:
         I tested 11 platforms so you can skip the free trial hamster wheel.
         Includes pricing, features, and honest recommendations—from Phoenix (free)
         to Arize ($50k+/year). Plus EU AI Act compliance considerations.
-      category: "Comparison Guide"
+      category: "Comparison"
       publish_date: "2024-12-24"
       read_time: "18 min read"
       slug: "best-llm-monitoring-tools-2025"
@@ -960,7 +956,7 @@ resources:
       title: "State of AI Observability 2025"
       description: >-
         Original research on AI observability trends, challenges, and best practices.
-        Data from 500+ AI teams on monitoring, compliance, and cost management.
+        Insights on monitoring, compliance, and cost management.
       format: "Report"
       cta_text: "Get the Report"
       url: "/reports/state-of-ai-observability-2025"
@@ -1472,7 +1468,7 @@ blog:
         Covers Langfuse, LangSmith, Helicone, Arize, Datadog, and more.
       date: "December 15, 2025"
       read_time: "18 min read"
-      category: "Guide"
+      category: "Comparison"
       url: "/blog/best-llm-monitoring-tools-2025.html"
       stats:
         - "11 tools compared"
