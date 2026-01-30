@@ -236,8 +236,8 @@ void main() {
       testWidgets('is a StatelessWidget', (tester) async {
         await tester.pumpWidget(testableWidget(
           const CookieBannerShell(
-            child: Text('Content'),
             onConsentGiven: _noopCallback,
+            child: Text('Content'),
           ),
         ));
 
@@ -249,8 +249,8 @@ void main() {
       test('child property is accessible', () {
         const child = Text('Test');
         const shell = CookieBannerShell(
-          child: child,
           onConsentGiven: _noopCallback,
+          child: child,
         );
 
         expect(shell.child, equals(child));

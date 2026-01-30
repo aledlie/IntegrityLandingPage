@@ -21,6 +21,7 @@ import 'package:integrity_studio_ai/pages/docs_api_page.dart';
 import 'package:integrity_studio_ai/pages/docs_quickstart_page.dart';
 import 'package:integrity_studio_ai/pages/docs_alerts_page.dart';
 import 'package:integrity_studio_ai/pages/docs_agents_page.dart';
+import 'package:integrity_studio_ai/pages/help_center_page.dart';
 import 'package:integrity_studio_ai/routing/cookie_shell.dart';
 import 'package:integrity_studio_ai/routing/app_router.dart';
 import 'package:integrity_studio_ai/theme/theme.dart';
@@ -38,139 +39,21 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
   }
 
-  /// Helper to build a test app with GoRouter at a specific location.
+  /// Helper to build a test app using the real production router.
   Widget buildTestApp({String initialLocation = '/'}) {
-    final testRouter = GoRouter(
-      initialLocation: initialLocation,
-      redirect: (context, state) {
-        final path = state.uri.path;
-        if (path == '/docs/security/audit-trails') return '/docs/tracing';
-        if (path.startsWith('/reports/')) return '/docs';
-        return null;
-      },
-      routes: [
-        ShellRoute(
-          builder: (context, state, child) => child,
-          routes: [
-            GoRoute(
-              path: '/',
-              builder: (context, state) => LandingPage(onShowCookieSettings: () {}),
-            ),
-            GoRoute(
-              path: '/blog',
-              builder: (context, state) => BlogPage(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/whylabs-alternative',
-              builder: (context, state) => ComparisonPage.whylabs(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/compare/arize-ai-alternative',
-              builder: (context, state) => ComparisonPage.arize(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/sources',
-              builder: (context, state) => SourcesPage(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/about',
-              builder: (context, state) => AboutPage(
-                onBack: () => context.go('/'),
-                onShowCookieSettings: () {},
-              ),
-            ),
-            GoRoute(
-              path: '/pricing',
-              builder: (context, state) => PricingPage(
-                onBack: () => context.go('/'),
-                onShowCookieSettings: () {},
-              ),
-            ),
-            GoRoute(
-              path: '/careers',
-              builder: (context, state) => CareersPage(
-                onBack: () => context.go('/'),
-                onShowCookieSettings: () {},
-              ),
-            ),
-            GoRoute(
-              path: '/signup',
-              builder: (context, state) {
-                final tier = state.uri.queryParameters['tier'] ?? 'starter';
-                return SignupPage(tier: tier, onBack: () => context.go('/'));
-              },
-            ),
-            GoRoute(
-              path: '/privacy',
-              builder: (context, state) => LegalPage.privacy(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/terms',
-              builder: (context, state) => LegalPage.terms(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/cookies',
-              builder: (context, state) => LegalPage.cookies(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/accessibility',
-              builder: (context, state) => LegalPage.accessibility(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/contact',
-              builder: (context, state) => ContactPage(
-                onBack: () => context.go('/'),
-                onShowCookieSettings: () {},
-              ),
-            ),
-            GoRoute(
-              path: '/security',
-              builder: (context, state) => SecurityPage(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/docs',
-              builder: (context, state) => DocsIndexPage(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/docs/tracing',
-              builder: (context, state) => DocsTracingPage(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/docs/llm-observability',
-              builder: (context, state) => DocsObservabilityPage(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/docs/integrations',
-              builder: (context, state) => DocsInteroperabilityPage(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/api',
-              builder: (context, state) => DocsApiPage(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/docs/quickstart',
-              builder: (context, state) => DocsQuickstartPage(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/docs/alerts',
-              builder: (context, state) => DocsAlertsPage(onBack: () => context.go('/')),
-            ),
-            GoRoute(
-              path: '/docs/agents',
-              builder: (context, state) => DocsAgentsPage(onBack: () => context.go('/')),
-            ),
-          ],
-        ),
-      ],
-      errorBuilder: (context, state) => LandingPage(onShowCookieSettings: () {}),
+    final router = createAppRouter(
+      onConsentGiven: () {},
+      onShowCookieSettings: () {},
     );
+    router.go(initialLocation);
+
     return MediaQuery(
       data: const MediaQueryData(disableAnimations: true),
       child: MaterialApp.router(
         title: 'Integrity Studio - Enterprise AI Observability',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.darkTheme,
-        routerConfig: testRouter,
+        routerConfig: router,
       ),
     );
   }
@@ -585,6 +468,24 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.byType(DocsAgentsPage), findsOneWidget);
+      });
+
+      testWidgets('navigates to help center page', (tester) async {
+        setDesktopSize(tester);
+
+        await tester.pumpWidget(buildTestApp(initialLocation: '/help-center'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(HelpCenterPage), findsOneWidget);
+      });
+
+      testWidgets('redirects /support to /help-center', (tester) async {
+        setDesktopSize(tester);
+
+        await tester.pumpWidget(buildTestApp(initialLocation: '/support'));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(HelpCenterPage), findsOneWidget);
       });
 
       testWidgets('redirects /reports/any-path to /docs', (tester) async {
