@@ -126,7 +126,7 @@ abstract final class SecurityContent {
     SecurityFeatureItem(
       title: 'Symlink & Path Traversal Protection',
       desc: 'Symlinks resolved and validated against allowed base directories. '
-          'Paths outside working directory or ~/.claude/ are rejected with security warnings.',
+          'Paths outside authorized directories are rejected with security warnings.',
     ),
   ];
 
