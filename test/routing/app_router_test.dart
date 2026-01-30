@@ -21,6 +21,8 @@ import 'package:integrity_studio_ai/pages/docs_interoperability_page.dart';
 import 'package:integrity_studio_ai/pages/docs_api_page.dart';
 import 'package:integrity_studio_ai/pages/docs_quickstart_page.dart';
 import 'package:integrity_studio_ai/pages/docs_alerts_page.dart';
+import 'package:integrity_studio_ai/pages/compliance_page.dart';
+import 'package:integrity_studio_ai/pages/eu_ai_act_page.dart';
 import '../helpers/test_helpers.dart';
 
 /// Routes with back buttons that should navigate to home
@@ -378,6 +380,20 @@ void main() {
       await pumpRouterApp(tester, initialLocation: '/docs/alerts');
 
       expect(find.byType(DocsAlertsPage), findsOneWidget);
+    });
+  });
+
+  group('compliance routes', () {
+    testWidgets('/compliance renders CompliancePage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/compliance');
+
+      expect(find.byType(CompliancePage), findsOneWidget);
+    });
+
+    testWidgets('/eu-ai-act renders EuAiActPage', (tester) async {
+      await pumpRouterApp(tester, initialLocation: '/eu-ai-act');
+
+      expect(find.byType(EuAiActPage), findsOneWidget);
     });
   });
 

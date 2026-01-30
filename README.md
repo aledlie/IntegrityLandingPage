@@ -97,6 +97,7 @@ lib/
 | `/api` | Implemented (API Reference) |
 | `/api/toolkit` | Implemented (API Toolkit) |
 | `/compliance` | Implemented (Compliance & Governance) |
+| `/eu-ai-act` | Implemented (EU AI Act Requirements) |
 | `/features` | Implemented (Features Overview) |
 | `/status` | Implemented (Status Dashboard) |
 | `/support` | Implemented (Help Center) |
@@ -107,7 +108,6 @@ lib/
 |------|-----|
 | `/docs/security/audit-trails` | `/docs/tracing` |
 | `/reports/*` | `/docs` |
-| `/eu-ai-act` | `/compliance` |
 
 ### Reports
 

@@ -21,6 +21,7 @@ import '../pages/docs_alerts_page.dart';
 import '../pages/docs_index_page.dart';
 import '../pages/docs_agents_page.dart';
 import '../pages/compliance_page.dart';
+import '../pages/eu_ai_act_page.dart';
 import '../pages/api_toolkit_page.dart';
 import '../pages/help_center_page.dart';
 import '../pages/features_page.dart';
@@ -44,7 +45,6 @@ GoRouter createAppRouter({
       final path = state.uri.path;
       if (path == '/docs/security/audit-trails') return '/docs/tracing';
       if (path.startsWith('/reports/')) return '/docs';
-      if (path == '/eu-ai-act') return '/compliance';
       return null;
     },
     routes: [
@@ -248,6 +248,12 @@ GoRouter createAppRouter({
           GoRoute(
             path: '/compliance',
             builder: (context, state) => CompliancePage(
+              onBack: () => context.go('/'),
+            ),
+          ),
+          GoRoute(
+            path: '/eu-ai-act',
+            builder: (context, state) => EuAiActPage(
               onBack: () => context.go('/'),
             ),
           ),
