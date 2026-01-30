@@ -93,26 +93,36 @@ lib/
 | `/docs/alerts` | Implemented (Alerts Guide) |
 | `/docs/tracing` | Implemented (Tracing Guide) |
 | `/docs/llm-observability` | Implemented (Observability Guide) |
+| `/docs/agents` | Implemented (AI Agents Guide) |
 | `/api` | Implemented (API Reference) |
-| `/docs/compliance` | Redirects to `/docs` (Coming Soon) |
-| `/docs/agents` | Redirects to `/docs` (Coming Soon) |
+| `/api/toolkit` | Implemented (API Toolkit) |
+| `/compliance` | Implemented (Compliance & Governance) |
+| `/features` | Implemented (Features Overview) |
+| `/status` | Implemented (Status Dashboard) |
+| `/help-center` | Implemented (Help Center) |
 
 ### Redirect Routes
 
-| Route | Redirects To |
-|-------|--------------|
-| `/support` | `/contact` |
-| `/eu-ai-act` | `/docs` |
+| From | To |
+|------|-----|
+| `/support` | `/help-center` |
+| `/docs/security/audit-trails` | `/docs/tracing` |
 | `/reports/*` | `/docs` |
+
+### Reports
+
+| Report | URL | Source |
+|--------|-----|--------|
+| SOC 2 Type II Compliance | `/reports/soc2-2026` | [SOC2-COMPLIANCE-REPORT.md](./SOC2-COMPLIANCE-REPORT.md) |
 
 ### Footer Links
 
 | Link | Target | Status |
 |------|--------|--------|
-| Features | `/` | Navigates to home |
+| Features | `/features` | Implemented |
 | Documentation | `/docs` | Implemented |
 | API Reference | `/api` | Implemented |
-| Help Center | `/contact` | Implemented |
+| Help Center | `/help-center` | Implemented |
 | Security | `/security` | Implemented |
 
 ## Test Coverage

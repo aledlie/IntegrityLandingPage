@@ -201,7 +201,7 @@ void main() {
 
     testWidgets('/reports/anything redirects to /docs', (tester) async {
       final router =
-          await pumpRouterApp(tester, initialLocation: '/reports/soc2-2024');
+          await pumpRouterApp(tester, initialLocation: '/reports/soc2-2026');
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
           equals('/docs'));
