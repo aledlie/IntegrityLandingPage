@@ -4,6 +4,72 @@ Chronological record of development sessions for IntegrityStudio.ai Flutter proj
 
 ---
 
+## 2026-01-29: Service Test Consolidation Analysis
+
+### Summary
+Analyzed remaining test consolidation opportunities after theme test consolidation. Identified `content_loader_test.dart` as the highest-impact target.
+
+### Analysis Results
+
+**Test Suite Status**: 2073 passing, 23 skipped
+
+**Largest Test Files (consolidation candidates)**:
+| File | Lines | Tests | Consolidation Potential |
+|------|-------|-------|------------------------|
+| content_loader_test.dart | 1324 | 156 | **HIGH** - 170 `isA<Function>` checks |
+| analytics_test.dart | 1137 | 124 | MODERATE - `returnsNormally` patterns |
+| consent_manager_test.dart | 949 | TBD | Need inspection |
+| contact_section_test.dart | 976 | TBD | Widget tests (lower) |
+
+**Tests per Directory**:
+- pages/: 650 tests (already using shared helpers)
+- unit/: 370 tests
+- services/: 366 tests
+- widgets/: 285 tests
+- integration/: 113 tests
+- routing/: 64 tests
+- controllers/: 63 tests
+
+### content_loader_test.dart Analysis (Priority 1)
+
+**Current Structure**:
+1. **API Surface Verification** (lines 450-733): ~170 `expect(() => loader.property, isA<Function>())` checks
+   - Duplicated for both `ContentLoader` and `Content` classes
+   - Perfect for parameterized loop consolidation
+
+2. **Value Tests** (lines 735-1216): ~80 individual getter value assertions
+   - Pattern: `expect(ContentLoader.instance.companyName, equals('Test Company'))`
+   - Can use table-driven maps like theme tests
+
+**Proposed Consolidation**:
+```dart
+// API Surface - convert to:
+final loaderApiMethods = ['companyName', 'companyTagline', 'companyEmail', ...];
+for (final method in loaderApiMethods) {
+  test('$method getter exists', () {
+    expect(() => loader.$method, isA<Function>()); // Won't work directly
+  });
+}
+
+// Value tests - convert to:
+final stringGetters = <String, (String Function(), String)>{
+  'companyName': (() => loader.companyName, 'Test Company'),
+  'companyTagline': (() => loader.companyTagline, 'Test Tagline'),
+  // ...
+};
+```
+
+**Estimated Reduction**: 1324 → ~600 lines (55%)
+
+### Next Steps (Not Started)
+1. Consolidate content_loader_test.dart API surface tests
+2. Consolidate content_loader_test.dart value tests
+3. Consider analytics_test.dart consolidation
+
+### Status: 🔄 Analysis Complete, Implementation Not Started
+
+---
+
 ## 2026-01-29: Theme Test Consolidation
 
 ### Summary
