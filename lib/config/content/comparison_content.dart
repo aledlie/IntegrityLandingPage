@@ -7,7 +7,7 @@ import 'constants.dart';
 /// Competitor comparison page content.
 abstract final class ComparisonPageVariants {
   /// WhyLabs migration page content
-  /// Context: WhyLabs announced closure December 2024, open-sourcing platform
+  /// Context: WhyLabs announced closure March 9, 2025, open-sourcing platform
   /// Target: Privacy-conscious orgs, healthcare/finance, data quality users
   static const whylabs = ComparisonPageContent(
     competitorName: 'WhyLabs',
@@ -22,7 +22,7 @@ abstract final class ComparisonPageVariants {
         'with WhyLabs, plus EU AI Act compliance built-in. Migrate your data quality '
         'and LLM monitoring in under an hour.',
     heroCtaText: 'Start Free Migration',
-    competitorStatus: 'WhyLabs announced shutdown December 2024',
+    competitorStatus: 'WhyLabs announced shutdown March 9, 2025',
     keyDifferentiators: _whylabsDifferentiators,
     featureComparison: _whylabsFeatures,
     whyChooseUs: _whylabsWhyUs,
