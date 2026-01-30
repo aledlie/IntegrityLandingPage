@@ -40,7 +40,7 @@ GoRouter createAppRouter({
   required VoidCallback onShowCookieSettings,
 }) {
   return GoRouter(
-    initialLocation: '/',
+    // Note: Don't set initialLocation - let GoRouter use browser URL for deep linking
     redirect: (context, state) {
       final path = state.uri.path;
       if (path == '/docs/security/audit-trails') return '/docs/tracing';
