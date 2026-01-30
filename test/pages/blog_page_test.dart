@@ -6,6 +6,9 @@ import 'package:integrity_studio_ai/pages/blog_page.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
+  setUpAll(() {
+    initializeTestContent();
+  });
 
   group('BlogPage', () {
     group('BlogPost model', () {
@@ -182,7 +185,7 @@ void main() {
         expect(find.text('WhyLabs Alternative: Migrate to Integrity Studio'),
             findsOneWidget);
         expect(find.text('Migration'), findsOneWidget);
-        expect(find.text('January 2025'), findsWidgets); // Both new posts have Jan 2025
+        expect(find.text('January 15, 2025'), findsOneWidget);
         expect(find.text('8 min read'), findsOneWidget);
       });
 

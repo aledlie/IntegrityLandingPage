@@ -288,6 +288,14 @@ class ContentLoader {
   String get statisticsSourceDisclaimer => _getString('statistics.source_disclaimer');
 
   // ===========================================================================
+  // BLOG CONTENT
+  // ===========================================================================
+
+  String get blogPageTitle => _getString('blog.page_title');
+  String get blogPageSubtitle => _getString('blog.page_subtitle');
+  List<Map<String, dynamic>> get blogPosts => _getMapList('blog.posts');
+
+  // ===========================================================================
   // HELPER METHODS
   // ===========================================================================
 
@@ -586,4 +594,9 @@ class Content {
   static String get statisticsUptimeSource => _loader.statisticsUptimeSource;
 
   static String get statisticsSourceDisclaimer => _loader.statisticsSourceDisclaimer;
+
+  // Blog
+  static String get blogPageTitle => _loader.blogPageTitle;
+  static String get blogPageSubtitle => _loader.blogPageSubtitle;
+  static List<Map<String, dynamic>> get blogPosts => _loader.blogPosts;
 }
