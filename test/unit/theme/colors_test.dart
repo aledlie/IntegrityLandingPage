@@ -4,200 +4,89 @@ import 'package:integrity_studio_ai/theme/colors.dart';
 
 void main() {
   group('AppColors', () {
-    group('Primary Brand Colors', () {
-      test('blue400 has correct hex value', () {
-        expect(AppColors.blue400, equals(const Color(0xFF60A5FA)));
-      });
+    group('hex color values', () {
+      final colorValues = <String, (Color, int)>{
+        // Primary brand colors
+        'blue400': (AppColors.blue400, 0xFF60A5FA),
+        'blue500': (AppColors.blue500, 0xFF3B82F6),
+        'blue600': (AppColors.blue600, 0xFF2563EB),
+        'blue900': (AppColors.blue900, 0xFF1E3A8A),
+        // Secondary colors
+        'indigo400': (AppColors.indigo400, 0xFF818CF8),
+        'indigo500': (AppColors.indigo500, 0xFF6366F1),
+        'indigo600': (AppColors.indigo600, 0xFF4F46E5),
+        // Accent colors
+        'purple400': (AppColors.purple400, 0xFFC084FC),
+        'purple500': (AppColors.purple500, 0xFFA855F7),
+        'purple600': (AppColors.purple600, 0xFF9333EA),
+        // Neutral colors
+        'gray100': (AppColors.gray100, 0xFFF3F4F6),
+        'gray200': (AppColors.gray200, 0xFFE5E7EB),
+        'gray300': (AppColors.gray300, 0xFFD1D5DB),
+        'gray400': (AppColors.gray400, 0xFF9CA3AF),
+        'gray500': (AppColors.gray500, 0xFF6B7280),
+        'gray600': (AppColors.gray600, 0xFF4B5563),
+        'gray700': (AppColors.gray700, 0xFF374151),
+        'gray800': (AppColors.gray800, 0xFF1F2937),
+        'gray900': (AppColors.gray900, 0xFF111827),
+        // Semantic colors
+        'success': (AppColors.success, 0xFF22C55E),
+        'successLight': (AppColors.successLight, 0xFF4ADE80),
+        'warning': (AppColors.warning, 0xFFF59E0B),
+        'warningLight': (AppColors.warningLight, 0xFFFBBF24),
+        'error': (AppColors.error, 0xFFEF4444),
+        'errorLight': (AppColors.errorLight, 0xFFF87171),
+        'info': (AppColors.info, 0xFF3B82F6),
+        // Background card
+        'backgroundCard': (AppColors.backgroundCard, 0xF2111827),
+        // Border colors with alpha
+        'borderDefault': (AppColors.borderDefault, 0x80374151),
+        'borderHover': (AppColors.borderHover, 0x803B82F6),
+      };
 
-      test('blue500 has correct hex value', () {
-        expect(AppColors.blue500, equals(const Color(0xFF3B82F6)));
-      });
-
-      test('blue600 has correct hex value', () {
-        expect(AppColors.blue600, equals(const Color(0xFF2563EB)));
-      });
-
-      test('blue900 has correct hex value', () {
-        expect(AppColors.blue900, equals(const Color(0xFF1E3A8A)));
-      });
+      for (final entry in colorValues.entries) {
+        test('${entry.key} has correct value', () {
+          expect(entry.value.$1, equals(Color(entry.value.$2)));
+        });
+      }
     });
 
-    group('Secondary Colors', () {
-      test('indigo400 has correct hex value', () {
-        expect(AppColors.indigo400, equals(const Color(0xFF818CF8)));
-      });
+    group('color aliases', () {
+      final aliases = <String, (Color, Color)>{
+        'textPrimary': (AppColors.textPrimary, Colors.white),
+        'textSecondary': (AppColors.textSecondary, AppColors.gray300),
+        'textTertiary': (AppColors.textTertiary, AppColors.gray300),
+        'textDisabled': (AppColors.textDisabled, AppColors.gray500),
+        'textLink': (AppColors.textLink, AppColors.blue400),
+        'backgroundPrimary': (AppColors.backgroundPrimary, AppColors.gray900),
+        'backgroundSecondary': (AppColors.backgroundSecondary, AppColors.gray800),
+        'backgroundElevated': (AppColors.backgroundElevated, AppColors.gray800),
+        'borderFocus': (AppColors.borderFocus, AppColors.blue500),
+        'borderError': (AppColors.borderError, AppColors.error),
+      };
 
-      test('indigo500 has correct hex value', () {
-        expect(AppColors.indigo500, equals(const Color(0xFF6366F1)));
-      });
-
-      test('indigo600 has correct hex value', () {
-        expect(AppColors.indigo600, equals(const Color(0xFF4F46E5)));
-      });
+      for (final entry in aliases.entries) {
+        test('${entry.key} equals expected color', () {
+          expect(entry.value.$1, equals(entry.value.$2));
+        });
+      }
     });
 
-    group('Accent Colors', () {
-      test('purple400 has correct hex value', () {
-        expect(AppColors.purple400, equals(const Color(0xFFC084FC)));
-      });
-
-      test('purple500 has correct hex value', () {
-        expect(AppColors.purple500, equals(const Color(0xFFA855F7)));
-      });
-
-      test('purple600 has correct hex value', () {
-        expect(AppColors.purple600, equals(const Color(0xFF9333EA)));
-      });
-    });
-
-    group('Neutral Colors', () {
-      test('gray900 has correct hex value', () {
-        expect(AppColors.gray900, equals(const Color(0xFF111827)));
-      });
-
-      test('gray800 has correct hex value', () {
-        expect(AppColors.gray800, equals(const Color(0xFF1F2937)));
-      });
-
-      test('gray700 has correct hex value', () {
-        expect(AppColors.gray700, equals(const Color(0xFF374151)));
-      });
-
-      test('gray600 has correct hex value', () {
-        expect(AppColors.gray600, equals(const Color(0xFF4B5563)));
-      });
-
-      test('gray500 has correct hex value', () {
-        expect(AppColors.gray500, equals(const Color(0xFF6B7280)));
-      });
-
-      test('gray400 has correct hex value', () {
-        expect(AppColors.gray400, equals(const Color(0xFF9CA3AF)));
-      });
-
-      test('gray300 has correct hex value', () {
-        expect(AppColors.gray300, equals(const Color(0xFFD1D5DB)));
-      });
-
-      test('gray200 has correct hex value', () {
-        expect(AppColors.gray200, equals(const Color(0xFFE5E7EB)));
-      });
-
-      test('gray100 has correct hex value', () {
-        expect(AppColors.gray100, equals(const Color(0xFFF3F4F6)));
-      });
-    });
-
-    group('Semantic Colors', () {
-      test('success has correct hex value', () {
-        expect(AppColors.success, equals(const Color(0xFF22C55E)));
-      });
-
-      test('successLight has correct hex value', () {
-        expect(AppColors.successLight, equals(const Color(0xFF4ADE80)));
-      });
-
-      test('warning has correct hex value', () {
-        expect(AppColors.warning, equals(const Color(0xFFF59E0B)));
-      });
-
-      test('warningLight has correct hex value', () {
-        expect(AppColors.warningLight, equals(const Color(0xFFFBBF24)));
-      });
-
-      test('error has correct hex value', () {
-        expect(AppColors.error, equals(const Color(0xFFEF4444)));
-      });
-
-      test('errorLight has correct hex value', () {
-        expect(AppColors.errorLight, equals(const Color(0xFFF87171)));
-      });
-
-      test('info has correct hex value', () {
-        expect(AppColors.info, equals(const Color(0xFF3B82F6)));
-      });
-    });
-
-    group('Text Colors', () {
-      test('textPrimary is white', () {
-        expect(AppColors.textPrimary, equals(Colors.white));
-      });
-
-      test('textSecondary is gray300', () {
-        expect(AppColors.textSecondary, equals(AppColors.gray300));
-      });
-
-      test('textTertiary is gray300', () {
-        expect(AppColors.textTertiary, equals(AppColors.gray300));
-      });
-
-      test('textDisabled is gray500', () {
-        expect(AppColors.textDisabled, equals(AppColors.gray500));
-      });
-
-      test('textLink is blue400', () {
-        expect(AppColors.textLink, equals(AppColors.blue400));
-      });
-    });
-
-    group('Background Colors', () {
-      test('backgroundPrimary is gray900', () {
-        expect(AppColors.backgroundPrimary, equals(AppColors.gray900));
-      });
-
-      test('backgroundSecondary is gray800', () {
-        expect(AppColors.backgroundSecondary, equals(AppColors.gray800));
-      });
-
-      test('backgroundElevated is gray800', () {
-        expect(AppColors.backgroundElevated, equals(AppColors.gray800));
-      });
-
-      test('backgroundCard has correct value', () {
-        expect(AppColors.backgroundCard, equals(const Color(0xF2111827)));
-      });
-    });
-
-    group('Border Colors', () {
-      test('borderDefault has correct value', () {
-        expect(AppColors.borderDefault, equals(const Color(0x80374151)));
-      });
-
-      test('borderHover has correct value', () {
-        expect(AppColors.borderHover, equals(const Color(0x803B82F6)));
-      });
-
-      test('borderFocus is blue500', () {
-        expect(AppColors.borderFocus, equals(AppColors.blue500));
-      });
-
-      test('borderError is error color', () {
-        expect(AppColors.borderError, equals(AppColors.error));
-      });
-    });
-
-    group('Gradients', () {
-      test('primaryGradient has correct colors', () {
+    group('gradients', () {
+      test('primaryGradient has correct colors and alignment', () {
         expect(
           AppColors.primaryGradient.colors,
           equals([AppColors.blue500, AppColors.indigo600]),
         );
-      });
-
-      test('primaryGradient has correct alignment', () {
         expect(AppColors.primaryGradient.begin, equals(Alignment.topLeft));
         expect(AppColors.primaryGradient.end, equals(Alignment.bottomRight));
       });
 
-      test('accentGradient has three colors', () {
-        expect(AppColors.accentGradient.colors.length, equals(3));
+      test('accentGradient has correct colors and alignment', () {
         expect(
           AppColors.accentGradient.colors,
           equals([AppColors.blue500, AppColors.indigo500, AppColors.purple600]),
         );
-      });
-
-      test('accentGradient has correct alignment', () {
         expect(AppColors.accentGradient.begin, equals(Alignment.topLeft));
         expect(AppColors.accentGradient.end, equals(Alignment.bottomRight));
       });
@@ -217,45 +106,50 @@ void main() {
       });
     });
 
-    group('Orb Colors', () {
-      test('orbBlue is blue500 with 15% opacity', () {
-        expect((AppColors.orbBlue.a * 255.0).round().clamp(0, 255), closeTo(0.15 * 255, 1));
-      });
+    group('orb colors (15% opacity)', () {
+      final orbColors = <String, Color>{
+        'orbBlue': AppColors.orbBlue,
+        'orbIndigo': AppColors.orbIndigo,
+        'orbPurple': AppColors.orbPurple,
+      };
 
-      test('orbIndigo is indigo500 with 15% opacity', () {
-        expect((AppColors.orbIndigo.a * 255.0).round().clamp(0, 255), closeTo(0.15 * 255, 1));
-      });
-
-      test('orbPurple is purple500 with 15% opacity', () {
-        expect((AppColors.orbPurple.a * 255.0).round().clamp(0, 255), closeTo(0.15 * 255, 1));
-      });
+      for (final entry in orbColors.entries) {
+        test('${entry.key} has ~15% opacity', () {
+          final alpha = (entry.value.a * 255.0).round().clamp(0, 255);
+          expect(alpha, closeTo(0.15 * 255, 1));
+        });
+      }
     });
 
-    group('Shadow Colors', () {
-      test('shadowDefault is gray900 with 30% opacity', () {
-        expect((AppColors.shadowDefault.a * 255.0).round().clamp(0, 255), closeTo(0.3 * 255, 1));
-      });
+    group('shadow colors (30% opacity)', () {
+      final shadowColors = <String, Color>{
+        'shadowDefault': AppColors.shadowDefault,
+        'shadowBlue': AppColors.shadowBlue,
+      };
 
-      test('shadowBlue is blue500 with 30% opacity', () {
-        expect((AppColors.shadowBlue.a * 255.0).round().clamp(0, 255), closeTo(0.3 * 255, 1));
-      });
+      for (final entry in shadowColors.entries) {
+        test('${entry.key} has ~30% opacity', () {
+          final alpha = (entry.value.a * 255.0).round().clamp(0, 255);
+          expect(alpha, closeTo(0.3 * 255, 1));
+        });
+      }
     });
 
-    group('WCAG Compliance', () {
-      test('textPrimary has highest contrast on dark background', () {
-        // White text on gray900 has 21:1 contrast
+    group('WCAG compliance documentation', () {
+      test('textPrimary (white) provides highest contrast on dark backgrounds', () {
+        // White text on gray900 has 21:1 contrast ratio
         expect(AppColors.textPrimary, equals(Colors.white));
       });
 
-      test('textSecondary is gray300 for WCAG compliance', () {
-        // gray300 on gray900 has 4.8:1 contrast (passes AA)
+      test('textSecondary (gray300) meets WCAG AA requirements', () {
+        // gray300 on gray900 has 4.8:1 contrast (passes AA for normal text)
         expect(AppColors.textSecondary, equals(AppColors.gray300));
       });
 
-      test('gray400 exists but should not be used for body text', () {
-        // This test documents that gray400 exists but has insufficient contrast
+      test('gray400 exists but has insufficient contrast for body text', () {
+        // gray400 on gray900 has 3.2:1 contrast (fails WCAG AA)
+        // Use for decorative elements only, not body text
         expect(AppColors.gray400, isNotNull);
-        // Contrast ratio is 3.2:1 which fails WCAG AA
       });
     });
   });

@@ -4,173 +4,67 @@ import 'package:integrity_studio_ai/theme/spacing.dart';
 
 void main() {
   group('AppSpacing', () {
-    group('base values', () {
-      test('xs is 4', () {
-        expect(AppSpacing.xs, equals(4));
-      });
+    group('spacing values', () {
+      final spacingValues = <String, (double, double)>{
+        // Base spacing
+        'xs': (AppSpacing.xs, 4),
+        'sm': (AppSpacing.sm, 8),
+        'md': (AppSpacing.md, 16),
+        'lg': (AppSpacing.lg, 24),
+        'xl': (AppSpacing.xl, 32),
+        'xxl': (AppSpacing.xxl, 48),
+        'xxxl': (AppSpacing.xxxl, 64),
+        'section': (AppSpacing.section, 80),
+        // Container constraints
+        'containerMaxWidth': (AppSpacing.containerMaxWidth, 1280),
+        'containerPaddingMobile': (AppSpacing.containerPaddingMobile, 16),
+        'containerPaddingTablet': (AppSpacing.containerPaddingTablet, 24),
+        'containerPaddingDesktop': (AppSpacing.containerPaddingDesktop, 32),
+        // Section spacing
+        'sectionVertical': (AppSpacing.sectionVertical, 80),
+        'sectionVerticalMobile': (AppSpacing.sectionVerticalMobile, 48),
+        // Card spacing
+        'cardPadding': (AppSpacing.cardPadding, 24),
+        'cardPaddingMobile': (AppSpacing.cardPaddingMobile, 16),
+        'cardGap': (AppSpacing.cardGap, 24),
+        'cardGapMobile': (AppSpacing.cardGapMobile, 16),
+        // Form spacing
+        'formFieldGap': (AppSpacing.formFieldGap, 16),
+        'formSectionGap': (AppSpacing.formSectionGap, 32),
+        // Border radius
+        'radiusSM': (AppSpacing.radiusSM, 4),
+        'radiusMD': (AppSpacing.radiusMD, 8),
+        'radiusLG': (AppSpacing.radiusLG, 12),
+        'radiusXL': (AppSpacing.radiusXL, 16),
+        'radiusFull': (AppSpacing.radiusFull, 9999),
+      };
 
-      test('sm is 8', () {
-        expect(AppSpacing.sm, equals(8));
-      });
-
-      test('md is 16', () {
-        expect(AppSpacing.md, equals(16));
-      });
-
-      test('lg is 24', () {
-        expect(AppSpacing.lg, equals(24));
-      });
-
-      test('xl is 32', () {
-        expect(AppSpacing.xl, equals(32));
-      });
-
-      test('xxl is 48', () {
-        expect(AppSpacing.xxl, equals(48));
-      });
-
-      test('xxxl is 64', () {
-        expect(AppSpacing.xxxl, equals(64));
-      });
-
-      test('section is 80', () {
-        expect(AppSpacing.section, equals(80));
-      });
-    });
-
-    group('container constraints', () {
-      test('containerMaxWidth is 1280', () {
-        expect(AppSpacing.containerMaxWidth, equals(1280));
-      });
-
-      test('containerPaddingMobile is 16', () {
-        expect(AppSpacing.containerPaddingMobile, equals(16));
-      });
-
-      test('containerPaddingTablet is 24', () {
-        expect(AppSpacing.containerPaddingTablet, equals(24));
-      });
-
-      test('containerPaddingDesktop is 32', () {
-        expect(AppSpacing.containerPaddingDesktop, equals(32));
-      });
-    });
-
-    group('section spacing', () {
-      test('sectionVertical is 80', () {
-        expect(AppSpacing.sectionVertical, equals(80));
-      });
-
-      test('sectionVerticalMobile is 48', () {
-        expect(AppSpacing.sectionVerticalMobile, equals(48));
-      });
-    });
-
-    group('card spacing', () {
-      test('cardPadding is 24', () {
-        expect(AppSpacing.cardPadding, equals(24));
-      });
-
-      test('cardPaddingMobile is 16', () {
-        expect(AppSpacing.cardPaddingMobile, equals(16));
-      });
-
-      test('cardGap is 24', () {
-        expect(AppSpacing.cardGap, equals(24));
-      });
-
-      test('cardGapMobile is 16', () {
-        expect(AppSpacing.cardGapMobile, equals(16));
-      });
-    });
-
-    group('form spacing', () {
-      test('formFieldGap is 16', () {
-        expect(AppSpacing.formFieldGap, equals(16));
-      });
-
-      test('formSectionGap is 32', () {
-        expect(AppSpacing.formSectionGap, equals(32));
-      });
-    });
-
-    group('border radius', () {
-      test('radiusSM is 4', () {
-        expect(AppSpacing.radiusSM, equals(4));
-      });
-
-      test('radiusMD is 8', () {
-        expect(AppSpacing.radiusMD, equals(8));
-      });
-
-      test('radiusLG is 12', () {
-        expect(AppSpacing.radiusLG, equals(12));
-      });
-
-      test('radiusXL is 16', () {
-        expect(AppSpacing.radiusXL, equals(16));
-      });
-
-      test('radiusFull is 9999', () {
-        expect(AppSpacing.radiusFull, equals(9999));
-      });
+      for (final entry in spacingValues.entries) {
+        test('${entry.key} equals ${entry.value.$2}', () {
+          expect(entry.value.$1, equals(entry.value.$2));
+        });
+      }
     });
 
     group('EdgeInsets helpers', () {
-      test('paddingXS returns correct EdgeInsets', () {
-        expect(AppSpacing.paddingXS, equals(const EdgeInsets.all(4)));
-      });
+      final edgeInsetsValues = <String, (EdgeInsets, EdgeInsets)>{
+        'paddingXS': (AppSpacing.paddingXS, const EdgeInsets.all(4)),
+        'paddingSM': (AppSpacing.paddingSM, const EdgeInsets.all(8)),
+        'paddingMD': (AppSpacing.paddingMD, const EdgeInsets.all(16)),
+        'paddingLG': (AppSpacing.paddingLG, const EdgeInsets.all(24)),
+        'paddingXL': (AppSpacing.paddingXL, const EdgeInsets.all(32)),
+        'horizontalMD': (AppSpacing.horizontalMD, const EdgeInsets.symmetric(horizontal: 16)),
+        'horizontalLG': (AppSpacing.horizontalLG, const EdgeInsets.symmetric(horizontal: 24)),
+        'verticalMD': (AppSpacing.verticalMD, const EdgeInsets.symmetric(vertical: 16)),
+        'verticalLG': (AppSpacing.verticalLG, const EdgeInsets.symmetric(vertical: 24)),
+        'verticalSection': (AppSpacing.verticalSection, const EdgeInsets.symmetric(vertical: 80)),
+      };
 
-      test('paddingSM returns correct EdgeInsets', () {
-        expect(AppSpacing.paddingSM, equals(const EdgeInsets.all(8)));
-      });
-
-      test('paddingMD returns correct EdgeInsets', () {
-        expect(AppSpacing.paddingMD, equals(const EdgeInsets.all(16)));
-      });
-
-      test('paddingLG returns correct EdgeInsets', () {
-        expect(AppSpacing.paddingLG, equals(const EdgeInsets.all(24)));
-      });
-
-      test('paddingXL returns correct EdgeInsets', () {
-        expect(AppSpacing.paddingXL, equals(const EdgeInsets.all(32)));
-      });
-
-      test('horizontalMD returns correct EdgeInsets', () {
-        expect(
-          AppSpacing.horizontalMD,
-          equals(const EdgeInsets.symmetric(horizontal: 16)),
-        );
-      });
-
-      test('horizontalLG returns correct EdgeInsets', () {
-        expect(
-          AppSpacing.horizontalLG,
-          equals(const EdgeInsets.symmetric(horizontal: 24)),
-        );
-      });
-
-      test('verticalMD returns correct EdgeInsets', () {
-        expect(
-          AppSpacing.verticalMD,
-          equals(const EdgeInsets.symmetric(vertical: 16)),
-        );
-      });
-
-      test('verticalLG returns correct EdgeInsets', () {
-        expect(
-          AppSpacing.verticalLG,
-          equals(const EdgeInsets.symmetric(vertical: 24)),
-        );
-      });
-
-      test('verticalSection returns correct EdgeInsets', () {
-        expect(
-          AppSpacing.verticalSection,
-          equals(const EdgeInsets.symmetric(vertical: 80)),
-        );
-      });
+      for (final entry in edgeInsetsValues.entries) {
+        test('${entry.key} returns correct EdgeInsets', () {
+          expect(entry.value.$1, equals(entry.value.$2));
+        });
+      }
     });
 
     group('responsive helpers', () {
@@ -183,8 +77,7 @@ void main() {
           MaterialApp(
             home: Builder(
               builder: (context) {
-                final padding = AppSpacing.containerPadding(context);
-                expect(padding, equals(AppSpacing.containerPaddingMobile));
+                expect(AppSpacing.containerPadding(context), equals(AppSpacing.containerPaddingMobile));
                 return const SizedBox();
               },
             ),
@@ -201,8 +94,7 @@ void main() {
           MaterialApp(
             home: Builder(
               builder: (context) {
-                final padding = AppSpacing.containerPadding(context);
-                expect(padding, equals(AppSpacing.containerPaddingTablet));
+                expect(AppSpacing.containerPadding(context), equals(AppSpacing.containerPaddingTablet));
                 return const SizedBox();
               },
             ),
@@ -219,8 +111,7 @@ void main() {
           MaterialApp(
             home: Builder(
               builder: (context) {
-                final padding = AppSpacing.containerPadding(context);
-                expect(padding, equals(AppSpacing.containerPaddingDesktop));
+                expect(AppSpacing.containerPadding(context), equals(AppSpacing.containerPaddingDesktop));
                 return const SizedBox();
               },
             ),
@@ -237,8 +128,7 @@ void main() {
           MaterialApp(
             home: Builder(
               builder: (context) {
-                final padding = AppSpacing.sectionPadding(context);
-                expect(padding, equals(AppSpacing.sectionVerticalMobile));
+                expect(AppSpacing.sectionPadding(context), equals(AppSpacing.sectionVerticalMobile));
                 return const SizedBox();
               },
             ),
@@ -255,8 +145,7 @@ void main() {
           MaterialApp(
             home: Builder(
               builder: (context) {
-                final padding = AppSpacing.sectionPadding(context);
-                expect(padding, equals(AppSpacing.sectionVertical));
+                expect(AppSpacing.sectionPadding(context), equals(AppSpacing.sectionVertical));
                 return const SizedBox();
               },
             ),
@@ -273,8 +162,7 @@ void main() {
           MaterialApp(
             home: Builder(
               builder: (context) {
-                final padding = AppSpacing.cardPaddingResponsive(context);
-                expect(padding, equals(AppSpacing.cardPaddingMobile));
+                expect(AppSpacing.cardPaddingResponsive(context), equals(AppSpacing.cardPaddingMobile));
                 return const SizedBox();
               },
             ),
@@ -291,8 +179,7 @@ void main() {
           MaterialApp(
             home: Builder(
               builder: (context) {
-                final padding = AppSpacing.cardPaddingResponsive(context);
-                expect(padding, equals(AppSpacing.cardPadding));
+                expect(AppSpacing.cardPaddingResponsive(context), equals(AppSpacing.cardPadding));
                 return const SizedBox();
               },
             ),
@@ -309,8 +196,7 @@ void main() {
           MaterialApp(
             home: Builder(
               builder: (context) {
-                final gap = AppSpacing.cardGapResponsive(context);
-                expect(gap, equals(AppSpacing.cardGapMobile));
+                expect(AppSpacing.cardGapResponsive(context), equals(AppSpacing.cardGapMobile));
                 return const SizedBox();
               },
             ),
@@ -327,8 +213,7 @@ void main() {
           MaterialApp(
             home: Builder(
               builder: (context) {
-                final gap = AppSpacing.cardGapResponsive(context);
-                expect(gap, equals(AppSpacing.cardGap));
+                expect(AppSpacing.cardGapResponsive(context), equals(AppSpacing.cardGap));
                 return const SizedBox();
               },
             ),
@@ -339,33 +224,21 @@ void main() {
   });
 
   group('Breakpoints', () {
-    test('mobile is 0', () {
-      expect(Breakpoints.mobile, equals(0));
-    });
+    final breakpointValues = <String, (double, double)>{
+      'mobile': (Breakpoints.mobile, 0),
+      'mobileLarge': (Breakpoints.mobileLarge, 480),
+      'tablet': (Breakpoints.tablet, 768),
+      'tabletLarge': (Breakpoints.tabletLarge, 900),
+      'desktop': (Breakpoints.desktop, 1024),
+      'wide': (Breakpoints.wide, 1440),
+      'ultraWide': (Breakpoints.ultraWide, 1920),
+    };
 
-    test('mobileLarge is 480', () {
-      expect(Breakpoints.mobileLarge, equals(480));
-    });
-
-    test('tablet is 768', () {
-      expect(Breakpoints.tablet, equals(768));
-    });
-
-    test('tabletLarge is 900', () {
-      expect(Breakpoints.tabletLarge, equals(900));
-    });
-
-    test('desktop is 1024', () {
-      expect(Breakpoints.desktop, equals(1024));
-    });
-
-    test('wide is 1440', () {
-      expect(Breakpoints.wide, equals(1440));
-    });
-
-    test('ultraWide is 1920', () {
-      expect(Breakpoints.ultraWide, equals(1920));
-    });
+    for (final entry in breakpointValues.entries) {
+      test('${entry.key} equals ${entry.value.$2}', () {
+        expect(entry.value.$1, equals(entry.value.$2));
+      });
+    }
   });
 
   group('ResponsiveUtils', () {
@@ -535,60 +408,33 @@ void main() {
       );
     });
 
-    testWidgets('gridColumns returns correct values', (tester) async {
-      // Mobile
-      tester.view.physicalSize = const Size(375, 667);
-      tester.view.devicePixelRatio = 1.0;
+    testWidgets('gridColumns returns correct values for all breakpoints', (tester) async {
+      final screenConfigs = <String, (Size, int)>{
+        'mobile': (const Size(375, 667), 1),
+        'tablet': (const Size(800, 600), 2),
+        'desktop': (const Size(1200, 800), 3),
+        'wide': (const Size(1600, 900), 4),
+      };
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Builder(
-            builder: (context) {
-              expect(ResponsiveUtils.gridColumns(context), equals(1));
-              return const SizedBox();
-            },
-          ),
-        ),
-      );
+      for (final config in screenConfigs.entries) {
+        tester.view.physicalSize = config.value.$1;
+        tester.view.devicePixelRatio = 1.0;
 
-      // Tablet
-      tester.view.physicalSize = const Size(800, 600);
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Builder(
-            builder: (context) {
-              expect(ResponsiveUtils.gridColumns(context), equals(2));
-              return const SizedBox();
-            },
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Builder(
+              builder: (context) {
+                expect(
+                  ResponsiveUtils.gridColumns(context),
+                  equals(config.value.$2),
+                  reason: '${config.key} should have ${config.value.$2} columns',
+                );
+                return const SizedBox();
+              },
+            ),
           ),
-        ),
-      );
-
-      // Desktop
-      tester.view.physicalSize = const Size(1200, 800);
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Builder(
-            builder: (context) {
-              expect(ResponsiveUtils.gridColumns(context), equals(3));
-              return const SizedBox();
-            },
-          ),
-        ),
-      );
-
-      // Wide
-      tester.view.physicalSize = const Size(1600, 900);
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Builder(
-            builder: (context) {
-              expect(ResponsiveUtils.gridColumns(context), equals(4));
-              return const SizedBox();
-            },
-          ),
-        ),
-      );
+        );
+      }
 
       addTearDown(tester.view.resetPhysicalSize);
     });

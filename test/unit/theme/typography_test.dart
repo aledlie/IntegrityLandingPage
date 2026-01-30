@@ -3,17 +3,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integrity_studio_ai/theme/typography.dart';
 import '../../helpers/test_helpers.dart';
 
-// Note: Most AppTypography tests are skipped because all style getters
+// Note: Most AppTypography style getter tests are skipped because they
 // trigger Google Fonts network loading. The fonts would need to be bundled
 // as assets to test in isolation. Typography is tested implicitly via
 // widget tests that render full UI components.
 
 void main() {
-
   group('AppTypography', () {
     group('class structure', () {
       test('AppTypography class exists', () {
-        // Verify the class exists and can be referenced
         expect(AppTypography, isNotNull);
       });
 
@@ -24,131 +22,48 @@ void main() {
       });
     });
 
-    // Note: All style getter tests are skipped due to Google Fonts loading
+    // All style getter tests are skipped due to Google Fonts loading.
     // The styles are tested implicitly through widget tests that render text.
+    group('style getters (skipped - Google Fonts)', () {
+      final styleNames = [
+        'headingXL',
+        'headingLG',
+        'headingMD',
+        'headingSM',
+        'bodyLG',
+        'bodyMD',
+        'bodySM',
+        'buttonText',
+        'caption',
+        'label',
+        'statValue',
+        'statLabel',
+        'link',
+        'linkHover',
+        'code',
+        'codeBlock',
+      ];
 
-    group('style getters', () {
-      test(
-        'headingXL exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'headingLG exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'headingMD exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'headingSM exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'bodyLG exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'bodyMD exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'bodySM exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'buttonText exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'caption exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'label exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'statValue exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'statLabel exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'link exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'linkHover exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'code exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'codeBlock exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
+      for (final name in styleNames) {
+        test('$name exists', () {}, skip: 'Accessing style triggers Google Fonts loading');
+      }
     });
 
-    group('responsive helpers', () {
-      test(
-        'headingXLResponsive exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
+    group('responsive helper getters (skipped - Google Fonts)', () {
+      final responsiveNames = [
+        'headingXLResponsive',
+        'headingLGResponsive',
+        'headingMDResponsive',
+      ];
 
-      test(
-        'headingLGResponsive exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
-
-      test(
-        'headingMDResponsive exists',
-        () {},
-        skip: 'Accessing style triggers Google Fonts loading',
-      );
+      for (final name in responsiveNames) {
+        test('$name exists', () {}, skip: 'Accessing style triggers Google Fonts loading');
+      }
     });
 
-    group('responsive helpers widget tests', () {
-      testWidgets('headingXLResponsive returns mobile size on small screens',
-          (tester) async {
-        setScreenSize(tester, const Size(375, 812)); // iPhone X
+    group('responsive helper widget tests', () {
+      testWidgets('headingXLResponsive returns mobile size on small screens', (tester) async {
+        setScreenSize(tester, const Size(375, 812));
 
         late TextStyle style;
         await tester.pumpWidget(
@@ -165,8 +80,7 @@ void main() {
         expect(style.fontSize, 40);
       });
 
-      testWidgets('headingXLResponsive returns tablet size on medium screens',
-          (tester) async {
+      testWidgets('headingXLResponsive returns tablet size on medium screens', (tester) async {
         setScreenSize(tester, const Size(900, 1024));
 
         late TextStyle style;
@@ -184,8 +98,7 @@ void main() {
         expect(style.fontSize, 52);
       });
 
-      testWidgets('headingXLResponsive returns full size on large screens',
-          (tester) async {
+      testWidgets('headingXLResponsive returns full size on large screens', (tester) async {
         setScreenSize(tester, const Size(1440, 900));
 
         late TextStyle style;
@@ -203,8 +116,7 @@ void main() {
         expect(style.fontSize, 64);
       });
 
-      testWidgets('headingLGResponsive returns mobile size on small screens',
-          (tester) async {
+      testWidgets('headingLGResponsive returns mobile size on small screens', (tester) async {
         setScreenSize(tester, const Size(375, 812));
 
         late TextStyle style;
@@ -222,8 +134,7 @@ void main() {
         expect(style.fontSize, 32);
       });
 
-      testWidgets('headingLGResponsive returns tablet size on medium screens',
-          (tester) async {
+      testWidgets('headingLGResponsive returns tablet size on medium screens', (tester) async {
         setScreenSize(tester, const Size(900, 1024));
 
         late TextStyle style;
@@ -241,8 +152,7 @@ void main() {
         expect(style.fontSize, 40);
       });
 
-      testWidgets('headingLGResponsive returns full size on large screens',
-          (tester) async {
+      testWidgets('headingLGResponsive returns full size on large screens', (tester) async {
         setScreenSize(tester, const Size(1440, 900));
 
         late TextStyle style;
@@ -260,8 +170,7 @@ void main() {
         expect(style.fontSize, 48);
       });
 
-      testWidgets('headingMDResponsive returns mobile size on small screens',
-          (tester) async {
+      testWidgets('headingMDResponsive returns mobile size on small screens', (tester) async {
         setScreenSize(tester, const Size(375, 812));
 
         late TextStyle style;
@@ -279,8 +188,7 @@ void main() {
         expect(style.fontSize, 28);
       });
 
-      testWidgets('headingMDResponsive returns tablet size on medium screens',
-          (tester) async {
+      testWidgets('headingMDResponsive returns tablet size on medium screens', (tester) async {
         setScreenSize(tester, const Size(900, 1024));
 
         late TextStyle style;
@@ -298,8 +206,7 @@ void main() {
         expect(style.fontSize, 32);
       });
 
-      testWidgets('headingMDResponsive returns full size on large screens',
-          (tester) async {
+      testWidgets('headingMDResponsive returns full size on large screens', (tester) async {
         setScreenSize(tester, const Size(1440, 900));
 
         late TextStyle style;
@@ -317,9 +224,7 @@ void main() {
         expect(style.fontSize, 36);
       });
 
-      testWidgets('responsive helpers work at exact breakpoint 768',
-          (tester) async {
-        // At exactly 768, should still be mobile (< 768 condition)
+      testWidgets('responsive helpers work at exact breakpoint 768', (tester) async {
         setScreenSize(tester, const Size(768, 1024));
 
         late TextStyle xlStyle;
@@ -345,8 +250,7 @@ void main() {
         expect(mdStyle.fontSize, 32);
       });
 
-      testWidgets('responsive helpers work at exact breakpoint 1024',
-          (tester) async {
+      testWidgets('responsive helpers work at exact breakpoint 1024', (tester) async {
         setScreenSize(tester, const Size(1024, 768));
 
         late TextStyle xlStyle;
