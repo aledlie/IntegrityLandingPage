@@ -20,6 +20,7 @@ import 'package:integrity_studio_ai/pages/docs_interoperability_page.dart';
 import 'package:integrity_studio_ai/pages/docs_api_page.dart';
 import 'package:integrity_studio_ai/pages/docs_quickstart_page.dart';
 import 'package:integrity_studio_ai/pages/docs_alerts_page.dart';
+import 'package:integrity_studio_ai/pages/docs_agents_page.dart';
 import 'package:integrity_studio_ai/routing/cookie_shell.dart';
 import 'package:integrity_studio_ai/routing/app_router.dart';
 import 'package:integrity_studio_ai/theme/theme.dart';
@@ -43,10 +44,6 @@ void main() {
       initialLocation: initialLocation,
       redirect: (context, state) {
         final path = state.uri.path;
-        if (path == '/support') return '/contact';
-        if (path == '/eu-ai-act') return '/docs';
-        if (path == '/docs/compliance') return '/docs';
-        if (path == '/docs/agents') return '/docs';
         if (path == '/docs/security/audit-trails') return '/docs/tracing';
         if (path.startsWith('/reports/')) return '/docs';
         return null;
@@ -157,6 +154,10 @@ void main() {
             GoRoute(
               path: '/docs/alerts',
               builder: (context, state) => DocsAlertsPage(onBack: () => context.go('/')),
+            ),
+            GoRoute(
+              path: '/docs/agents',
+              builder: (context, state) => DocsAgentsPage(onBack: () => context.go('/')),
             ),
           ],
         ),
@@ -315,33 +316,6 @@ void main() {
       });
 
       // Redirect tests
-      testWidgets('redirects /support to /contact', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(buildTestApp(initialLocation: '/support'));
-        await tester.pumpAndSettle();
-
-        expect(find.byType(ContactPage), findsOneWidget);
-      });
-
-      testWidgets('redirects /eu-ai-act to /docs', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(buildTestApp(initialLocation: '/eu-ai-act'));
-        await tester.pumpAndSettle();
-
-        expect(find.byType(DocsIndexPage), findsOneWidget);
-      });
-
-      testWidgets('redirects /docs/compliance to /docs', (tester) async {
-        setDesktopSize(tester);
-
-        await tester.pumpWidget(buildTestApp(initialLocation: '/docs/compliance'));
-        await tester.pumpAndSettle();
-
-        expect(find.byType(DocsIndexPage), findsOneWidget);
-      });
-
       testWidgets('redirects /docs/security/audit-trails to /docs/tracing', (tester) async {
         setDesktopSize(tester);
 
@@ -604,13 +578,13 @@ void main() {
     });
 
     group('redirects', () {
-      testWidgets('redirects /docs/agents to /docs', (tester) async {
+      testWidgets('navigates to docs agents page', (tester) async {
         setDesktopSize(tester);
 
         await tester.pumpWidget(buildTestApp(initialLocation: '/docs/agents'));
         await tester.pumpAndSettle();
 
-        expect(find.byType(DocsIndexPage), findsOneWidget);
+        expect(find.byType(DocsAgentsPage), findsOneWidget);
       });
 
       testWidgets('redirects /reports/any-path to /docs', (tester) async {

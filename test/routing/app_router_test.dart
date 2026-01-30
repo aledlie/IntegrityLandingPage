@@ -175,34 +175,19 @@ void main() {
       expect(redirect, isNotNull);
     });
 
-    testWidgets('/support path resolves to /contact', (tester) async {
+    testWidgets('/support path resolves to /help-center', (tester) async {
       final router = await pumpRouterApp(tester, initialLocation: '/support');
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
-          equals('/contact'));
+          equals('/help-center'));
     });
 
-    testWidgets('/eu-ai-act redirects to /docs', (tester) async {
-      final router = await pumpRouterApp(tester, initialLocation: '/eu-ai-act');
-
-      expect(router.routerDelegate.currentConfiguration.uri.path,
-          equals('/docs'));
-    });
-
-    testWidgets('/docs/compliance redirects to /docs', (tester) async {
-      final router =
-          await pumpRouterApp(tester, initialLocation: '/docs/compliance');
-
-      expect(router.routerDelegate.currentConfiguration.uri.path,
-          equals('/docs'));
-    });
-
-    testWidgets('/docs/agents redirects to /docs', (tester) async {
+    testWidgets('/docs/agents navigates to agents page', (tester) async {
       final router =
           await pumpRouterApp(tester, initialLocation: '/docs/agents');
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
-          equals('/docs'));
+          equals('/docs/agents'));
     });
 
     testWidgets('/docs/security/audit-trails redirects to /docs/tracing',

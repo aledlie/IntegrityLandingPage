@@ -53,8 +53,8 @@ void main() {
     group('constructor', () {
       test('creates with required parameters', () {
         const shell = CookieBannerShell(
-          child: Text('Content'),
           onConsentGiven: _noopCallback,
+          child: Text('Content'),
         );
 
         expect(shell.child, isA<Text>());
@@ -66,8 +66,8 @@ void main() {
       testWidgets('renders child content', (tester) async {
         await tester.pumpWidget(testableWidget(
           const CookieBannerShell(
-            child: Text('Page Content'),
             onConsentGiven: _noopCallback,
+            child: Text('Page Content'),
           ),
         ));
 
@@ -80,8 +80,8 @@ void main() {
 
         await tester.pumpWidget(testableWidget(
           const CookieBannerShell(
-            child: Text('Content'),
             onConsentGiven: _noopCallback,
+            child: Text('Content'),
           ),
         ));
 
@@ -104,8 +104,8 @@ void main() {
       testWidgets('uses Stack layout', (tester) async {
         await tester.pumpWidget(testableWidget(
           const CookieBannerShell(
-            child: Text('Content'),
             onConsentGiven: _noopCallback,
+            child: Text('Content'),
           ),
         ));
 
