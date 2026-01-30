@@ -886,7 +886,7 @@ resources:
         Includes pricing, features, and honest recommendations—from Phoenix (free)
         to Arize ($50k+/year). Plus EU AI Act compliance considerations.
       category: "Comparison"
-      publish_date: "2024-12-24"
+      publish_date: "2025-11-28"
       read_time: "18 min read"
       slug: "best-llm-monitoring-tools-2025"
       author: "Alyshia Ledlie"
@@ -1470,7 +1470,7 @@ blog:
         The definitive guide to LLM monitoring and observability tools. Includes
         pricing, features, and honest recommendations for startups to enterprises.
         Covers Langfuse, LangSmith, Helicone, Arize, Datadog, and more.
-      date: "December 15, 2025"
+      date: "November 28, 2025"
       read_time: "18 min read"
       category: "Comparison"
       url: "/blog/best-llm-monitoring-tools-2025.html"
