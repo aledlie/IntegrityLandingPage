@@ -10,6 +10,7 @@ void setLargeDesktopSize(WidgetTester tester) {
 }
 
 void main() {
+
   group('TabbedFeaturesSection', () {
     group('section header', () {
       testWidgets('renders section title', (tester) async {

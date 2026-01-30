@@ -9,10 +9,6 @@ void main() {
   // Suppress overflow errors in layout tests (visual-only, not functional)
   final originalOnError = FlutterError.onError;
 
-  setUpAll(() {
-    initializeTestContent();
-  });
-
   setUp(() {
     FlutterError.onError = (FlutterErrorDetails details) {
       final isOverflowError =
@@ -47,8 +43,7 @@ void main() {
         ),
       ),
     );
-    await tester.pump(const Duration(milliseconds: 100));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump();
   }
 
   group('DocsApiPage', () {
@@ -173,7 +168,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Authentication'), findsOneWidget);
         expect(find.byIcon(LucideIcons.key), findsOneWidget);
@@ -184,7 +179,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Base URLs'), findsOneWidget);
         expect(find.byIcon(LucideIcons.globe), findsOneWidget);
@@ -195,7 +190,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -900));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Trace Ingestion API'), findsOneWidget);
         expect(find.byIcon(LucideIcons.upload), findsOneWidget);
@@ -206,7 +201,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Query API'), findsOneWidget);
         expect(find.byIcon(LucideIcons.search), findsOneWidget);
@@ -217,7 +212,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Alerts API'), findsOneWidget);
         expect(find.byIcon(LucideIcons.bell), findsOneWidget);
@@ -228,7 +223,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -5000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('SDKs & Libraries'), findsOneWidget);
         expect(find.byIcon(LucideIcons.package), findsOneWidget);
@@ -239,7 +234,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -6000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Error Handling'), findsOneWidget);
         expect(find.byIcon(LucideIcons.alertCircle), findsOneWidget);
@@ -250,7 +245,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -7000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Related Documentation'), findsOneWidget);
         expect(find.byIcon(LucideIcons.bookOpen), findsOneWidget);
@@ -263,7 +258,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Header Authentication'), findsOneWidget);
       });
@@ -274,7 +269,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Environment Configuration'), findsOneWidget);
       });
@@ -284,7 +279,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Request Body'), findsOneWidget);
       });
@@ -294,7 +289,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Example Request'), findsOneWidget);
       });
@@ -304,7 +299,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Token Metrics Response'), findsOneWidget);
       });
@@ -314,7 +309,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Create Alert Request'), findsOneWidget);
       });
@@ -324,7 +319,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -6500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Error Response Format'), findsOneWidget);
       });
@@ -336,7 +331,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('POST'), findsWidgets);
         expect(find.text('/v1/traces'), findsWidgets);
@@ -348,7 +343,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('GET'), findsWidgets);
         expect(find.text('List traces with filtering'), findsOneWidget);
@@ -359,7 +354,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('/v1/traces/{traceId}'), findsOneWidget);
         expect(
@@ -371,7 +366,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3100));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('/v1/metrics/tokens'), findsOneWidget);
         expect(find.text('Get token usage aggregations'), findsOneWidget);
@@ -382,7 +377,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3700));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('/v1/alerts'), findsWidgets);
         expect(find.text('Create a new alert rule'), findsOneWidget);
@@ -393,7 +388,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('PUT'), findsWidgets);
         expect(find.text('/v1/alerts/{alertId}'), findsWidgets);
@@ -405,7 +400,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4900));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('DELETE'), findsOneWidget);
         expect(find.text('Delete an alert rule'), findsOneWidget);
@@ -418,7 +413,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('API Key Scopes'), findsOneWidget);
         expect(find.text('Scope'), findsOneWidget);
@@ -434,7 +429,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -700));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Environment'), findsOneWidget);
         expect(find.text('Base URL'), findsOneWidget);
@@ -448,7 +443,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Response Code'), findsOneWidget);
         expect(find.text('200 OK'), findsOneWidget);
@@ -462,7 +457,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Query Parameters'), findsOneWidget);
         expect(find.text('Parameter'), findsOneWidget);
@@ -475,7 +470,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Alert Conditions'), findsOneWidget);
         expect(find.text('Operator'), findsOneWidget);
@@ -489,7 +484,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -6700));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Common Error Codes'), findsOneWidget);
         expect(find.text('Code'), findsOneWidget);
@@ -505,7 +500,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -5200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Python SDK'), findsOneWidget);
       });
@@ -515,7 +510,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -5500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('TypeScript SDK'), findsOneWidget);
       });
@@ -525,7 +520,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -5800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Go SDK'), findsOneWidget);
       });
@@ -537,7 +532,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(
           find.textContaining('Never expose API keys'),
@@ -551,7 +546,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Rate Limits'), findsOneWidget);
         expect(find.textContaining('Free tier'), findsOneWidget);
@@ -565,7 +560,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -7200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('Getting Started Guide'), findsOneWidget);
       });
@@ -575,7 +570,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -7200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('Integrations'), findsOneWidget);
       });
@@ -585,7 +580,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -7200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('Distributed Tracing'), findsOneWidget);
       });
@@ -596,7 +591,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -7200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('OpenTelemetry Semantic Conventions'),
             findsOneWidget);
@@ -661,7 +656,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1100));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('OTLP Ingestion (Recommended)'), findsOneWidget);
       });
@@ -671,7 +666,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1250));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('REST API Ingestion'), findsOneWidget);
       });

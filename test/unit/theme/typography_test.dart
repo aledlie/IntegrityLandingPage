@@ -9,9 +9,6 @@ import '../../helpers/test_helpers.dart';
 // widget tests that render full UI components.
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   group('AppTypography', () {
     group('class structure', () {

@@ -15,9 +15,6 @@ import 'helpers/mock_services.dart';
 /// 3. Click conversion CTA
 /// 4. Verify signup navigation
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   setUp(() {
     suppressOverflowErrors();

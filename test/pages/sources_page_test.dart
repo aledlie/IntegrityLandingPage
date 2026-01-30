@@ -17,9 +17,6 @@ final isValidUrl = predicate<String?>(
 );
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   group('SourcesPage', () {
     group('content models', () {

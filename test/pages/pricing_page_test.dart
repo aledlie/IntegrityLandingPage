@@ -9,10 +9,6 @@ void main() {
   // Suppress overflow errors in layout tests (visual-only, not functional)
   final originalOnError = FlutterError.onError;
 
-  setUpAll(() {
-    initializeTestContent();
-  });
-
   setUp(() {
     FlutterError.onError = (FlutterErrorDetails details) {
       final isOverflowError =
@@ -57,8 +53,8 @@ void main() {
         ),
       ),
     );
-    await tester.pump(const Duration(milliseconds: 100));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump();
+    await tester.pump();
   }
 
   group('PricingPage', () {
@@ -170,7 +166,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Monthly'), findsOneWidget);
         expect(find.text('Annual'), findsOneWidget);
@@ -181,7 +177,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Save 20%'), findsOneWidget);
       });
@@ -191,7 +187,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Starter'), findsOneWidget);
         expect(find.text('Team'), findsOneWidget);
@@ -203,7 +199,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Free'), findsWidgets);
         expect(find.text('Custom'), findsWidgets);
@@ -214,7 +210,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Most Popular'), findsOneWidget);
       });
@@ -224,7 +220,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('For individual developers'), findsOneWidget);
         expect(find.text('For growing teams'), findsOneWidget);
@@ -236,7 +232,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Get Started'), findsWidgets);
         expect(find.text('Start Free Trial'), findsOneWidget);
@@ -248,7 +244,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Need custom solutions? '), findsOneWidget);
         expect(find.text('Contact our sales team'), findsOneWidget);
@@ -261,7 +257,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('traces/month'), findsWidgets);
         expect(find.text('7-day retention'), findsOneWidget);
@@ -273,7 +269,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('30-day retention'), findsOneWidget);
         expect(find.text('Advanced analytics'), findsOneWidget);
@@ -284,7 +280,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Unlimited traces'), findsOneWidget);
         expect(find.text('1-year retention'), findsOneWidget);
@@ -296,7 +292,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // PricingCard uses check_circle icons for features
         expect(find.byIcon(Icons.check_circle), findsWidgets);
@@ -310,10 +306,10 @@ void main() {
         // Need to scroll further to reach FAQ section
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Frequently Asked Questions'), findsOneWidget);
       });
@@ -324,10 +320,10 @@ void main() {
         // Scroll to FAQ section
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Can I switch plans at any time?'), findsOneWidget);
       });
@@ -338,10 +334,10 @@ void main() {
         // Scroll to FAQ section
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Do you offer a free trial?'), findsOneWidget);
       });
@@ -352,10 +348,10 @@ void main() {
         // Scroll to FAQ section
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Plus icons indicate collapsed state
         expect(find.byIcon(LucideIcons.plus), findsWidgets);
@@ -368,7 +364,7 @@ void main() {
         for (int i = 0; i < 4; i++) {
           await tester.drag(
               find.byType(CustomScrollView), const Offset(0, -500));
-          await tester.pump(const Duration(milliseconds: 100));
+          await tester.pump();
         }
 
         // Check if we can see the FAQ question
@@ -376,7 +372,7 @@ void main() {
         if (faqQuestionFinder.evaluate().isNotEmpty) {
           // Use ensureVisible to make sure it's properly positioned
           await tester.ensureVisible(faqQuestionFinder);
-          await tester.pump(const Duration(milliseconds: 100));
+          await tester.pump();
 
           // Tap the FAQ item
           await tester.tap(faqQuestionFinder, warnIfMissed: false);
@@ -398,10 +394,10 @@ void main() {
         // Scroll past FAQ to CTA section
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Need a Custom Solution?'), findsOneWidget);
       });
@@ -412,10 +408,10 @@ void main() {
         // Scroll past FAQ to CTA section
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(
           find.textContaining('unlimited tokens'),
@@ -429,10 +425,10 @@ void main() {
         // Scroll past FAQ to CTA section
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // GradientButton with "Contact Sales" text
         expect(find.text('Contact Sales'), findsWidgets);
@@ -446,13 +442,13 @@ void main() {
         // Scroll to bottom
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Footer should contain company copyright
         expect(find.textContaining(CompanyInfo.name), findsWidgets);
@@ -482,7 +478,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Tap on Monthly
         await tester.tap(find.text('Monthly'));
@@ -497,7 +493,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // First switch to monthly
         await tester.tap(find.text('Monthly'));

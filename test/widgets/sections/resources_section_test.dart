@@ -5,9 +5,6 @@ import 'package:integrity_studio_ai/widgets/sections/resources_section.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   group('ResourcesSection', () {
     Widget buildTestWidget() {

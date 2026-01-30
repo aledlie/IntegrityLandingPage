@@ -7,6 +7,7 @@ import 'package:integrity_studio_ai/widgets/common/buttons.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+
   group('CookieBanner', () {
     group('ConsentPreferences integration', () {
       test('acceptAll creates full consent', () {

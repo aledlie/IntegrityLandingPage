@@ -4,9 +4,6 @@ import 'package:integrity_studio_ai/widgets/modals/demo_modal.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   group('DemoModal', () {
     group('rendering', () {

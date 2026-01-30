@@ -6,6 +6,7 @@ import 'package:integrity_studio_ai/theme/colors.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+
   group('Alert', () {
     group('variants', () {
       testWidgets('renders success variant with correct icon', (tester) async {

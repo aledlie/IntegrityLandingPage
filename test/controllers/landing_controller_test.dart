@@ -5,9 +5,6 @@ import 'package:integrity_studio_ai/config/content.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   group('LandingController', () {
     late LandingController controller;

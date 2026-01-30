@@ -60,10 +60,6 @@ void main() {
   // Suppress overflow errors in layout tests
   final originalOnError = FlutterError.onError;
 
-  setUpAll(() {
-    initializeTestContent();
-  });
-
   setUp(() {
     FlutterError.onError = (FlutterErrorDetails details) {
       final isOverflowError =

@@ -21,9 +21,6 @@ import 'helpers/mock_services.dart';
 /// 4. Test breadcrumb navigation
 /// 5. Test back button behavior
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   setUp(() {
     suppressOverflowErrors();

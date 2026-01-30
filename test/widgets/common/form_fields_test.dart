@@ -4,9 +4,6 @@ import 'package:integrity_studio_ai/widgets/common/form_fields.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   group('FormTextFieldType', () {
     test('has all expected values', () {

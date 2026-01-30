@@ -5,6 +5,7 @@ import 'package:integrity_studio_ai/widgets/sections/footer_section.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+
   group('FooterSection', () {
     group('footer link data', () {
       test('footer structure is defined correctly', () {

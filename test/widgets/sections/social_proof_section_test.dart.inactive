@@ -12,6 +12,7 @@ void setLargeDesktopSize(WidgetTester tester) {
 }
 
 void main() {
+
   group('SocialProofSection', () {
     group('stats row', () {
       testWidgets('renders all 4 stat values on desktop', (tester) async {

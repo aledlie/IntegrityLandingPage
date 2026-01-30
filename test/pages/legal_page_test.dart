@@ -8,10 +8,6 @@ void main() {
   // Suppress overflow errors in layout tests (visual-only, not functional)
   final originalOnError = FlutterError.onError;
 
-  setUpAll(() {
-    initializeTestContent();
-  });
-
   setUp(() {
     FlutterError.onError = (FlutterErrorDetails details) {
       final isOverflowError = details.exception.toString().contains('overflowed');
@@ -54,8 +50,8 @@ void main() {
           ),
         ),
       );
-      await tester.pump(const Duration(milliseconds: 100));
-      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pump();
+      await tester.pump();
     }
 
     group('factory constructors', () {
@@ -67,7 +63,7 @@ void main() {
             home: LegalPage.privacy(),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Privacy Policy'), findsWidgets);
       });
@@ -80,7 +76,7 @@ void main() {
             home: LegalPage.terms(),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Terms of Service'), findsWidgets);
       });
@@ -93,7 +89,7 @@ void main() {
             home: LegalPage.cookies(),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Cookie Policy'), findsWidgets);
       });
@@ -107,7 +103,7 @@ void main() {
             home: LegalPage.accessibility(),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Accessibility Statement'), findsWidgets);
       });
@@ -121,7 +117,7 @@ void main() {
             home: LegalPage.privacy(onBack: () => backCalled = true),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         await tester.tap(find.byIcon(LucideIcons.arrowLeft));
         await tester.pump();
@@ -310,7 +306,7 @@ void main() {
             home: const LegalPage(type: LegalPageType.privacy),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(LegalPage), findsOneWidget);
       });
@@ -323,7 +319,7 @@ void main() {
             home: const LegalPage(type: LegalPageType.privacy),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(LegalPage), findsOneWidget);
       });
@@ -336,7 +332,7 @@ void main() {
             home: const LegalPage(type: LegalPageType.privacy),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(LegalPage), findsOneWidget);
       });

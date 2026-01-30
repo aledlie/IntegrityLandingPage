@@ -6,9 +6,6 @@ import 'package:integrity_studio_ai/theme/theme.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   group('DocSection', () {
     testWidgets('renders with icon, title, and child', (tester) async {

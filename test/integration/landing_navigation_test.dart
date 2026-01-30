@@ -16,9 +16,6 @@ import 'helpers/mock_services.dart';
 /// 4. Click "Learn More"
 /// 5. Verify scroll to features section
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   setUp(() {
     suppressOverflowErrors();

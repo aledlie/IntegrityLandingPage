@@ -11,9 +11,6 @@ import 'package:integrity_studio_ai/app.dart';
 import 'helpers/test_helpers.dart';
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   /// Helper to set proper viewport size for full app tests
   void setLargeViewport(WidgetTester tester) {

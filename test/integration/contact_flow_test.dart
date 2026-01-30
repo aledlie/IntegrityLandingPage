@@ -15,9 +15,6 @@ import 'helpers/mock_services.dart';
 /// 3. Submit form
 /// 4. Verify success state
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   setUp(() {
     suppressOverflowErrors();

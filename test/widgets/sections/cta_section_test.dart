@@ -6,6 +6,7 @@ import 'package:integrity_studio_ai/widgets/common/containers.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+
   group('CTASection', () {
     // CTASection may have animations, use pump() with duration
 

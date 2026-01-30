@@ -7,9 +7,6 @@ import 'package:integrity_studio_ai/widgets/common/containers.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   group('PricingSection widget tests', () {
     Widget buildPricingSection({

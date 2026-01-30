@@ -7,6 +7,7 @@ import 'package:integrity_studio_ai/config/content.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+
   group('FeaturesSection', () {
     group('structure', () {
       testWidgets('renders as SectionContainer', (tester) async {

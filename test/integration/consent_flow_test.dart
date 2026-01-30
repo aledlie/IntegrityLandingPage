@@ -15,9 +15,6 @@ import 'helpers/mock_services.dart';
 /// 4. Verify consent saved
 /// 5. Verify analytics enabled/disabled appropriately
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   setUp(() {
     suppressOverflowErrors();

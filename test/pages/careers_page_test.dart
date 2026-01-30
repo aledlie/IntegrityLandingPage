@@ -10,10 +10,6 @@ void main() {
   // Suppress overflow errors in layout tests (visual-only, not functional)
   final originalOnError = FlutterError.onError;
 
-  setUpAll(() {
-    initializeTestContent();
-  });
-
   setUp(() {
     FlutterError.onError = (FlutterErrorDetails details) {
       final message = details.exception.toString();
@@ -83,8 +79,8 @@ void main() {
         ),
       ),
     );
-    await tester.pump(const Duration(milliseconds: 100));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump();
+    await tester.pump();
 
     clearOverflowExceptions(tester);
   }
@@ -92,7 +88,7 @@ void main() {
   /// Helper to scroll and clear overflow exceptions
   Future<void> scrollDown(WidgetTester tester, double offset) async {
     await tester.drag(find.byType(CustomScrollView), Offset(0, -offset));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump();
     clearOverflowExceptions(tester);
   }
 
@@ -361,7 +357,7 @@ void main() {
             ),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         clearOverflowExceptions(tester);
 
         expect(find.byType(CareersPage), findsOneWidget);

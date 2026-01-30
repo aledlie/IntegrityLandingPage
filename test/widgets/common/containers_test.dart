@@ -4,6 +4,7 @@ import 'package:integrity_studio_ai/widgets/common/containers.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+
   group('ResponsiveContainer', () {
     testWidgets('constrains width with ConstrainedBox', (tester) async {
       setDesktopSize(tester);

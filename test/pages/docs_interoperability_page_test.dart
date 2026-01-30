@@ -9,10 +9,6 @@ void main() {
   // Suppress overflow errors in layout tests (visual-only, not functional)
   final originalOnError = FlutterError.onError;
 
-  setUpAll(() {
-    initializeTestContent();
-  });
-
   setUp(() {
     FlutterError.onError = (FlutterErrorDetails details) {
       final exception = details.exception.toString();
@@ -48,8 +44,8 @@ void main() {
         ),
       ),
     );
-    await tester.pump(const Duration(milliseconds: 100));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump();
+    await tester.pump();
   }
 
   group('DocsInteroperabilityPage', () {
@@ -150,7 +146,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Core Architecture'), findsOneWidget);
         expect(find.byIcon(LucideIcons.layers), findsWidgets);
@@ -161,7 +157,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Signal Types Supported'), findsOneWidget);
         expect(find.byIcon(LucideIcons.radio), findsOneWidget);
@@ -172,7 +168,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Dual Export Pattern'), findsOneWidget);
         expect(find.byIcon(LucideIcons.gitFork), findsOneWidget);
@@ -183,7 +179,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Hook-Based Architecture'), findsOneWidget);
         expect(find.byIcon(LucideIcons.webhook), findsOneWidget);
@@ -194,7 +190,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Backend Compatibility'), findsOneWidget);
         expect(find.byIcon(LucideIcons.database), findsOneWidget);
@@ -205,7 +201,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Environment Configuration'), findsOneWidget);
         expect(find.byIcon(LucideIcons.settings), findsOneWidget);
@@ -216,7 +212,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('PII Redaction Bridge'), findsOneWidget);
         expect(find.byIcon(LucideIcons.shield), findsOneWidget);
@@ -227,7 +223,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Quick Start'), findsOneWidget);
         expect(find.byIcon(LucideIcons.rocket), findsOneWidget);
@@ -238,7 +234,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Related Documentation'), findsOneWidget);
         expect(find.byIcon(LucideIcons.bookOpen), findsOneWidget);
@@ -251,7 +247,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('OpenTelemetry Foundation'), findsOneWidget);
         expect(
@@ -265,7 +261,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Langtrace LLM Support'), findsOneWidget);
         expect(
@@ -279,7 +275,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('SigNoz Backend'), findsOneWidget);
         expect(
@@ -293,7 +289,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Local JSONL Backup'), findsOneWidget);
         expect(
@@ -307,7 +303,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(DocFeatureCard), findsWidgets);
       });
@@ -319,7 +315,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -700));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Signal'), findsOneWidget);
         expect(find.text('Description'), findsWidgets);
@@ -331,7 +327,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -700));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Traces'), findsOneWidget);
         expect(find.text('Metrics'), findsOneWidget);
@@ -343,7 +339,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Export Channel'), findsOneWidget);
         expect(find.text('Destination'), findsOneWidget);
@@ -357,7 +353,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Feature'), findsOneWidget);
         expect(find.text('Pre-built Dashboards'), findsOneWidget);
@@ -369,7 +365,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3700));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Pattern'), findsOneWidget);
         expect(find.text('Replacement'), findsOneWidget);
@@ -382,7 +378,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -700));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(DocTable), findsWidgets);
       });
@@ -394,7 +390,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('Claude Code Hooks'), findsOneWidget);
         expect(find.textContaining('HookMonitor'), findsOneWidget);
@@ -405,7 +401,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1900));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('HookContext Interface'), findsOneWidget);
         expect(find.textContaining('context.addAttribute'), findsOneWidget);
@@ -417,7 +413,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3100));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('OTEL_EXPORTER_OTLP_ENDPOINT'), findsOneWidget);
         expect(find.textContaining('SIGNOZ_INGESTION_KEY'), findsOneWidget);
@@ -428,7 +424,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('initTelemetry()'), findsOneWidget);
         expect(find.textContaining('withSpan'), findsOneWidget);
@@ -439,7 +435,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(DocCodeBlock), findsWidgets);
       });
@@ -451,7 +447,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Vendor Neutral'), findsOneWidget);
         expect(
@@ -466,7 +462,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Resilient by Design'), findsOneWidget);
         expect(
@@ -480,7 +476,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Alternative Backends'), findsOneWidget);
         expect(
@@ -494,7 +490,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Security Note'), findsOneWidget);
         expect(
@@ -508,7 +504,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3900));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('GDPR & CCPA Ready'), findsOneWidget);
         expect(
@@ -522,7 +518,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(DocCallout), findsWidgets);
       });
@@ -532,7 +528,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Info callout should have lightbulb icon
         expect(find.byIcon(LucideIcons.lightbulb), findsWidgets);
@@ -545,7 +541,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('GenAI Semantic Conventions'), findsOneWidget);
         expect(find.textContaining('gen_ai.system'), findsOneWidget);
@@ -557,7 +553,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2100));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Hook Event Types'), findsOneWidget);
         expect(find.textContaining('Session lifecycle'), findsOneWidget);
@@ -569,7 +565,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4900));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('Distributed Tracing Guide'), findsOneWidget);
         expect(find.textContaining('LLM Observability'), findsOneWidget);
@@ -580,7 +576,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(DocBulletList), findsWidgets);
       });
@@ -592,7 +588,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(
           find.textContaining('Set environment variables'),
@@ -613,7 +609,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(DocNumberedList), findsOneWidget);
       });
@@ -648,7 +644,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.layers), findsWidgets);
       });
@@ -658,7 +654,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.radio), findsOneWidget);
       });
@@ -668,7 +664,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.gitFork), findsOneWidget);
       });
@@ -678,7 +674,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.webhook), findsOneWidget);
       });
@@ -689,7 +685,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.database), findsOneWidget);
       });
@@ -700,7 +696,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.settings), findsOneWidget);
       });
@@ -710,7 +706,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.shield), findsOneWidget);
       });
@@ -720,7 +716,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.rocket), findsOneWidget);
       });
@@ -731,7 +727,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.bookOpen), findsOneWidget);
       });
@@ -743,7 +739,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(DocSection), findsWidgets);
       });
@@ -753,7 +749,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Verify section title is rendered
         expect(find.text('Core Architecture'), findsOneWidget);
@@ -766,7 +762,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('GenAI Semantic Conventions'), findsOneWidget);
       });
@@ -776,7 +772,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1900));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('HookContext Interface'), findsOneWidget);
       });
@@ -786,7 +782,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2100));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Hook Event Types'), findsOneWidget);
       });

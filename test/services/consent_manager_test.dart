@@ -102,9 +102,6 @@ class MockAnalyticsAdapter implements AnalyticsAdapter {
 }
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   // =============================================================================
   // ConsentManager Tests - Non-Web Platform (Default Behavior)

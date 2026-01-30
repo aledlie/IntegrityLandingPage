@@ -7,10 +7,6 @@ import '../helpers/test_helpers.dart';
 void main() {
   final originalOnError = FlutterError.onError;
 
-  setUpAll(() {
-    initializeTestContent();
-  });
-
   setUp(() {
     FlutterError.onError = (FlutterErrorDetails details) {
       final isOverflowError =
@@ -63,8 +59,8 @@ void main() {
         ),
       ),
     );
-    await tester.pump(const Duration(milliseconds: 100));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump();
+    await tester.pump();
     clearOverflowExceptions(tester);
   }
 
@@ -156,7 +152,7 @@ void main() {
         await pumpEuAiActPage(tester);
 
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Overview'), findsOneWidget);
       });
@@ -165,7 +161,7 @@ void main() {
         await pumpEuAiActPage(tester);
 
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('General-Purpose AI (GPAI) Requirements'), findsOneWidget);
       });
@@ -174,7 +170,7 @@ void main() {
         await pumpEuAiActPage(tester);
 
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -4000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Compliance Checklist'), findsOneWidget);
       });
@@ -183,7 +179,7 @@ void main() {
         await pumpEuAiActPage(tester);
 
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -4500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Penalties'), findsOneWidget);
       });
@@ -194,7 +190,7 @@ void main() {
         await pumpEuAiActPage(tester);
 
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -6000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('Integrity Studio'), findsWidgets);
       });

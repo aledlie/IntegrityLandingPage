@@ -14,9 +14,6 @@ import 'helpers/mock_services.dart';
 /// 2. Click CTA in blog post
 /// 3. Verify navigation to contact with context
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   setUp(() {
     suppressOverflowErrors();

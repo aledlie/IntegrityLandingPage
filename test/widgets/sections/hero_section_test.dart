@@ -6,6 +6,7 @@ import 'package:integrity_studio_ai/config/content.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+
   group('HeroSection', () {
     // HeroSection has continuous animations (DecorativeOrbs), so use pump() with duration
     // instead of pumpAndSettle() which would timeout

@@ -27,9 +27,6 @@ import 'package:integrity_studio_ai/theme/theme.dart';
 import 'helpers/test_helpers.dart';
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   void setDesktopSize(WidgetTester tester) {
     tester.view.physicalSize = const Size(1920, 1080);

@@ -15,9 +15,6 @@ import 'helpers/mock_services.dart';
 /// 3. Click tier CTA
 /// 4. Verify correct tier passed to signup
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   setUp(() {
     suppressOverflowErrors();

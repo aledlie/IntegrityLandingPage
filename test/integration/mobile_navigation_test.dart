@@ -17,9 +17,6 @@ import 'helpers/mock_services.dart';
 /// 4. Navigate to each main section
 /// 5. Verify menu closes after selection
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   setUp(() {
     suppressOverflowErrors();

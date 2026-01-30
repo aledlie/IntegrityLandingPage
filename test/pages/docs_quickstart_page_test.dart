@@ -8,10 +8,6 @@ void main() {
   // Suppress overflow errors in layout tests (visual-only, not functional)
   final originalOnError = FlutterError.onError;
 
-  setUpAll(() {
-    initializeTestContent();
-  });
-
   setUp(() {
     FlutterError.onError = (FlutterErrorDetails details) {
       final isOverflowError =
@@ -46,8 +42,8 @@ void main() {
         ),
       ),
     );
-    await tester.pump(const Duration(milliseconds: 100));
-    await tester.pump(const Duration(milliseconds: 100));
+    await tester.pump();
+    await tester.pump();
   }
 
   group('DocsQuickstartPage', () {
@@ -177,7 +173,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Prerequisites'), findsOneWidget);
       });
@@ -194,7 +190,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(
           find.textContaining('Integrity Studio account'),
@@ -211,7 +207,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('No Account Yet?'), findsOneWidget);
       });
@@ -223,7 +219,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Step 1: Get Your API Key'), findsOneWidget);
       });
@@ -233,7 +229,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.key), findsOneWidget);
       });
@@ -243,7 +239,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -900));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Step 2: Install the SDK'), findsOneWidget);
       });
@@ -253,7 +249,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -900));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.download), findsOneWidget);
       });
@@ -263,7 +259,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Step 3: Initialize the SDK'), findsOneWidget);
       });
@@ -274,7 +270,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Step 4: Instrument Your Code'), findsOneWidget);
       });
@@ -284,7 +280,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Step 5: View Your Traces'), findsOneWidget);
       });
@@ -296,7 +292,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -900));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Python'), findsWidgets);
         expect(find.text('TypeScript'), findsWidgets);
@@ -308,7 +304,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -700));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Set Environment Variable'), findsOneWidget);
       });
@@ -318,12 +314,12 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Find and tap TypeScript tab
         final typescriptTab = find.text('TypeScript').first;
         await tester.tap(typescriptTab);
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Verify TypeScript code is visible
         expect(find.textContaining('npm install'), findsOneWidget);
@@ -336,7 +332,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Trace Explorer'), findsOneWidget);
         expect(find.byIcon(LucideIcons.activity), findsWidgets);
@@ -347,7 +343,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Cost Dashboard'), findsOneWidget);
         expect(find.byIcon(LucideIcons.dollarSign), findsOneWidget);
@@ -358,7 +354,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Latency Metrics'), findsOneWidget);
         expect(find.byIcon(LucideIcons.gauge), findsOneWidget);
@@ -369,7 +365,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Alerting'), findsOneWidget);
         expect(find.byIcon(LucideIcons.bell), findsOneWidget);
@@ -382,7 +378,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text("You're All Set!"), findsOneWidget);
       });
@@ -395,7 +391,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text("What's Captured Automatically"), findsOneWidget);
       });
@@ -405,7 +401,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.database), findsWidgets);
       });
@@ -415,7 +411,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3200));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Attribute'), findsOneWidget);
         // Description appears in multiple tables now (attribute table + cache/query performance)
@@ -428,7 +424,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Cost Tracking'), findsOneWidget);
       });
@@ -441,7 +437,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('OpenTelemetry Configuration'), findsOneWidget);
       });
@@ -452,7 +448,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.plug), findsOneWidget);
       });
@@ -463,7 +459,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3900));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Environment Variables'), findsOneWidget);
       });
@@ -475,7 +471,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Troubleshooting'), findsOneWidget);
       });
@@ -486,7 +482,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.helpCircle), findsOneWidget);
       });
@@ -496,7 +492,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(
           find.text('Traces not appearing in dashboard'),
@@ -509,7 +505,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -4400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.alertCircle), findsWidgets);
       });
@@ -521,7 +517,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -5000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Next Steps'), findsOneWidget);
       });
@@ -531,7 +527,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -5000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.arrowRight), findsOneWidget);
       });
@@ -541,7 +537,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -5100));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('Set up alerts'), findsOneWidget);
       });
@@ -555,10 +551,10 @@ void main() {
         // Scroll to the very bottom (increased for new health monitoring sections)
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -8000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(
           find.text('Built with OpenTelemetry and SigNoz'),
@@ -572,10 +568,10 @@ void main() {
         // Scroll to the very bottom (increased for new health monitoring sections)
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -8000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2000));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(
           find.textContaining('Integrity Studio LLC'),
@@ -627,7 +623,7 @@ void main() {
         // Scroll to see more icons
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.key), findsOneWidget);
       });
@@ -637,7 +633,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.play), findsOneWidget);
       });
@@ -647,7 +643,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -1800));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.code), findsOneWidget);
       });
@@ -657,7 +653,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -2400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.barChart3), findsOneWidget);
       });
@@ -669,7 +665,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -500));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Log in to your dashboard'), findsOneWidget);
       });
@@ -679,7 +675,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -550));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.textContaining('API Keys'), findsWidgets);
       });
@@ -689,7 +685,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -600));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Create a new key'), findsOneWidget);
       });
@@ -699,7 +695,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -650));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('Copy and store securely'), findsOneWidget);
       });
@@ -711,7 +707,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -400));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byIcon(LucideIcons.lightbulb), findsWidgets);
       });
@@ -723,7 +719,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('gen_ai.system'), findsOneWidget);
       });
@@ -733,7 +729,7 @@ void main() {
 
         await tester.drag(
             find.byType(CustomScrollView), const Offset(0, -3300));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.text('gen_ai.request.model'), findsOneWidget);
       });
