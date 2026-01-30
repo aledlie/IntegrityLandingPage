@@ -22,6 +22,7 @@ import '../pages/docs_index_page.dart';
 import '../pages/docs_agents_page.dart';
 import '../pages/compliance_page.dart';
 import '../pages/api_toolkit_page.dart';
+import '../pages/help_center_page.dart';
 import '../pages/features_page.dart';
 import '../pages/status_page.dart';
 
@@ -132,6 +133,12 @@ GoRouter createAppRouter({
             builder: (context, state) => CareersPage(
               onBack: () => context.go('/'),
               onShowCookieSettings: onShowCookieSettings,
+            ),
+          ),
+          GoRoute(
+            path: '/help-center',
+            builder: (context, state) => HelpCenterPage(
+              onBack: () => context.go('/'),
             ),
           ),
 

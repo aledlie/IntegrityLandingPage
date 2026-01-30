@@ -170,14 +170,15 @@ class FooterSection extends StatelessWidget {
                     } else {
                       context.go(Routes.blog);
                     }
-                  } else if (link.isInternal && !link.url.startsWith('#')) {
-                    // Internal routes - navigate directly
-                    context.go(link.url);
+                  } else if (link.url.startsWith('http')) {
+                    // External URLs - launch in browser
+                    _launchUrl(link.url);
                   } else if (link.url.startsWith('#')) {
-                    // Anchor links - navigate to home (features are on landing page)
+                    // Anchor links - navigate to home
                     context.go(Routes.home);
                   } else {
-                    _launchUrl(link.url);
+                    // Internal routes - navigate directly
+                    context.go(link.url);
                   }
                 },
               ),
@@ -372,12 +373,9 @@ class _LinkSection {
 class _LinkItem {
   final String text;
   final String url;
-  final bool isInternal;
-
   const _LinkItem({
     required this.text,
     required this.url,
-    this.isInternal = true,
   });
 }
 
@@ -385,7 +383,7 @@ List<_LinkSection> get _linkSections => [
   _LinkSection(
     title: 'Product',
     links: [
-      _LinkItem(text: 'Features', url: Routes.home),
+      _LinkItem(text: 'Features', url: '/features'),
       _LinkItem(text: 'Pricing', url: Routes.pricing),
       _LinkItem(text: 'Documentation', url: Routes.docs),
       _LinkItem(text: 'API Reference', url: Routes.api),
@@ -404,7 +402,7 @@ List<_LinkSection> get _linkSections => [
   _LinkSection(
     title: 'Resources',
     links: [
-      _LinkItem(text: 'Help Center', url: Routes.contact),
+      _LinkItem(text: 'Help Center', url: '/help-center'),
       _LinkItem(text: 'Status', url: Routes.status),
       _LinkItem(text: 'Security', url: Routes.security),
     ],

@@ -22,8 +22,8 @@ abstract final class FooterContentVariants {
     FooterLinkGroup(
       title: 'Product',
       links: [
-        FooterLink(label: 'Features', url: Routes.features),
-        FooterLink(label: 'Pricing', url: Routes.pricingSection),
+        FooterLink(label: 'Features', url: '/features'),
+        FooterLink(label: 'Pricing', url: Routes.pricing),
         FooterLink(label: 'Documentation', url: Routes.docs),
       ],
     ),
