@@ -183,7 +183,7 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(
-          find.textContaining('shutdown December 2024'),
+          find.textContaining('shutdown March 9, 2025'),
           findsOneWidget,
         );
         expect(find.byIcon(LucideIcons.alertTriangle), findsWidgets);

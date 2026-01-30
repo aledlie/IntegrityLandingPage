@@ -185,7 +185,7 @@ void main() {
         expect(find.text('WhyLabs Alternative: Migrate to Integrity Studio'),
             findsOneWidget);
         expect(find.text('Migration'), findsOneWidget);
-        expect(find.text('January 15, 2025'), findsOneWidget);
+        expect(find.text('September 15, 2025'), findsOneWidget);
         expect(find.text('8 min read'), findsOneWidget);
       });
 
