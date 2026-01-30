@@ -9,7 +9,6 @@ import 'package:integrity_studio_ai/pages/sources_page.dart';
 import 'package:integrity_studio_ai/pages/about_page.dart';
 import 'package:integrity_studio_ai/pages/signup_page.dart';
 import 'package:integrity_studio_ai/pages/legal_page.dart';
-import 'package:integrity_studio_ai/pages/contact_page.dart';
 import 'package:integrity_studio_ai/pages/docs_index_page.dart';
 import 'package:integrity_studio_ai/pages/docs_tracing_page.dart';
 import 'package:integrity_studio_ai/pages/pricing_page.dart';
