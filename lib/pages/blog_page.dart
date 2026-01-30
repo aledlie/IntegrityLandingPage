@@ -23,6 +23,36 @@ class BlogPage extends StatelessWidget {
 
   static const List<BlogPost> _posts = [
     BlogPost(
+      title: 'WhyLabs Alternative: Migrate to Integrity Studio',
+      subtitle: 'WhyLabs Is Shutting Down—Here\'s Your Migration Path',
+      description: 'WhyLabs announced shutdown in December 2024. This guide covers migrating your AI observability to Integrity Studio with privacy-first monitoring, EU AI Act compliance, and seamless data migration—most teams complete it in under an hour.',
+      date: 'January 2025',
+      readTime: '8 min read',
+      category: 'Migration',
+      url: '/whylabs-alternative',
+      isInternal: true,
+      stats: [
+        'Under 1 hour migration',
+        'EU AI Act ready',
+        'Privacy-first',
+      ],
+    ),
+    BlogPost(
+      title: 'Arize AI vs Integrity Studio: Comparison Guide',
+      subtitle: 'A Simpler Path to AI Observability',
+      description: 'Comparing Integrity Studio and Arize AI for AI observability. Learn about transparent pricing, EU AI Act compliance, and developer-friendly integration. Find the right platform for your LLM monitoring needs.',
+      date: 'January 2025',
+      readTime: '6 min read',
+      category: 'Comparison',
+      url: '/compare/arize-ai-alternative',
+      isInternal: true,
+      stats: [
+        '5-minute setup',
+        'Transparent pricing',
+        'Compliance built-in',
+      ],
+    ),
+    BlogPost(
       title: 'Setting Up Compliance Logging for EU AI Act',
       subtitle: 'Technical Guide to Article 12-Compliant Logging',
       description: 'A practical guide to implementing Article 12-compliant logging for LLM systems, with code examples and production-ready patterns. Covers ISO 24970 standards, data schemas, and implementation for high-risk AI compliance.',
@@ -212,6 +242,7 @@ class BlogPost {
   final String category;
   final String url;
   final bool isSeries;
+  final bool isInternal;
   final List<SeriesArticle> seriesArticles;
   final List<String> stats;
 
@@ -224,6 +255,7 @@ class BlogPost {
     required this.category,
     required this.url,
     this.isSeries = false,
+    this.isInternal = false,
     this.seriesArticles = const [],
     this.stats = const [],
   });
@@ -254,9 +286,13 @@ class _BlogPostCardState extends State<_BlogPostCard> {
   bool _isExpanded = false;
   bool _isHovered = false;
 
-  Future<void> _launchUrl(String url) async {
-    final uri = Uri.parse(url);
-    await launchUrl(uri, webOnlyWindowName: '_blank');
+  void _navigateToPost(BuildContext context, String url, bool isInternal) {
+    if (isInternal) {
+      context.go(url);
+    } else {
+      final uri = Uri.parse(url);
+      launchUrl(uri, webOnlyWindowName: '_blank');
+    }
   }
 
   @override
@@ -406,10 +442,13 @@ class _BlogPostCardState extends State<_BlogPostCard> {
                                 color: AppColors.success,
                               ),
                               const SizedBox(width: AppSpacing.xs),
-                              Text(
-                                stat,
-                                style: AppTypography.caption.copyWith(
-                                  color: AppColors.gray300,
+                              Flexible(
+                                child: Text(
+                                  stat,
+                                  style: AppTypography.caption.copyWith(
+                                    color: AppColors.gray300,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
@@ -463,7 +502,7 @@ class _BlogPostCardState extends State<_BlogPostCard> {
                           GradientButton(
                             text: 'Read Article',
                             icon: LucideIcons.arrowRight,
-                            onPressed: () => _launchUrl(widget.post.url),
+                            onPressed: () => _navigateToPost(context, widget.post.url, widget.post.isInternal),
                           ),
                       ],
                     )
@@ -503,7 +542,7 @@ class _BlogPostCardState extends State<_BlogPostCard> {
                           GradientButton(
                             text: 'Read Article',
                             icon: LucideIcons.arrowRight,
-                            onPressed: () => _launchUrl(widget.post.url),
+                            onPressed: () => _navigateToPost(context, widget.post.url, widget.post.isInternal),
                           ),
                       ],
                     ),

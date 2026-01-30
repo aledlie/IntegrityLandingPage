@@ -177,12 +177,12 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        // First post is now "Setting Up Compliance Logging for EU AI Act"
-        expect(find.text('Setting Up Compliance Logging for EU AI Act'),
+        // First post is now "WhyLabs Alternative: Migrate to Integrity Studio"
+        expect(find.text('WhyLabs Alternative: Migrate to Integrity Studio'),
             findsOneWidget);
-        expect(find.text('Compliance'), findsOneWidget);
-        expect(find.text('December 26, 2024'), findsOneWidget);
-        expect(find.text('15 min read'), findsOneWidget);
+        expect(find.text('Migration'), findsOneWidget);
+        expect(find.text('January 2025'), findsWidgets); // Both new posts have Jan 2025
+        expect(find.text('8 min read'), findsOneWidget);
       });
 
       testWidgets('renders series badge for series posts', (tester) async {
@@ -359,7 +359,7 @@ void main() {
         // Blog header should be present
         expect(find.text('Blog'), findsOneWidget);
         // First post title should be visible on tablet
-        expect(find.textContaining('Compliance Logging'), findsWidgets);
+        expect(find.textContaining('WhyLabs Alternative'), findsWidgets);
       });
 
       testWidgets('renders correctly on desktop', (tester) async {
@@ -374,8 +374,8 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.text('Blog'), findsOneWidget);
-        // First post is now Compliance Logging
-        expect(find.text('Setting Up Compliance Logging for EU AI Act'),
+        // First post is WhyLabs Alternative
+        expect(find.text('WhyLabs Alternative: Migrate to Integrity Studio'),
             findsOneWidget);
       });
     });
