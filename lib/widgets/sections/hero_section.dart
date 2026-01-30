@@ -44,7 +44,7 @@ class HeroSection extends StatelessWidget {
         'EU AI Act Ready',
         'Enterprise Security',
         '99.9% Uptime',
-        '5-min Setup',
+        '15-min Setup',
       ],
     ),
     this.onGetStarted,

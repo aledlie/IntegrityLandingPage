@@ -106,7 +106,7 @@ void main() {
 
         expect(find.text('Enterprise Security'), findsOneWidget);
         expect(find.text('99.9% Uptime'), findsOneWidget);
-        expect(find.text('5-min Setup'), findsOneWidget);
+        expect(find.text('15-min Setup'), findsOneWidget);
       });
 
       testWidgets('renders check icons for trust indicators', (tester) async {

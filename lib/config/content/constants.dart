@@ -129,13 +129,14 @@ abstract final class Routes {
 // =============================================================================
 
 /// Standard trust indicators displayed throughout the site.
+/// NOTE: Keep in sync with content.yaml trust_indicators.current
 abstract final class TrustIndicators {
   /// Current production trust indicators (EU AI Act positioning)
   static const List<String> current = [
     'EU AI Act Ready',
     'Enterprise Security',
     '99.9% Uptime',
-    '5-min Setup',
+    '15-min Setup',
   ];
 
   /// Legacy trust indicators (trial-focused)
