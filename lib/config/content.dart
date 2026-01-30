@@ -25,6 +25,7 @@ export 'content/comparison_content.dart';
 export 'content/security_content.dart';
 export 'content/features_content.dart';
 export 'content/status_content.dart';
+export 'content/blog_content.dart';
 
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
