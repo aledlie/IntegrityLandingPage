@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'app.dart';
@@ -57,6 +58,10 @@ abstract final class SentryConfig {
 /// 3. Sentry error tracking (if configured)
 /// 4. The main application widget
 Future<void> main() async {
+  // Use path-based URLs (e.g., /eu-ai-act) instead of hash-based (e.g., /#/eu-ai-act)
+  // This must be called before runApp() for deep linking to work
+  usePathUrlStrategy();
+
   WidgetsFlutterBinding.ensureInitialized();
 
   // Load content from YAML before app starts
