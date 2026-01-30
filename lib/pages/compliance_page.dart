@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../theme/theme.dart';
 import '../widgets/common/containers.dart';
@@ -31,7 +32,7 @@ class CompliancePage extends StatelessWidget {
             pinned: true,
             leading: IconButton(
               icon: const Icon(LucideIcons.arrowLeft, color: Colors.white),
-              onPressed: onBack ?? () => Navigator.of(context).pop(),
+              onPressed: onBack ?? () => context.go('/'),
             ),
             title: Text(
               'EU AI Act Compliance',
@@ -41,7 +42,7 @@ class CompliancePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: AppSpacing.md),
                 child: TextButton(
-                  onPressed: onBack ?? () => Navigator.of(context).pop(),
+                  onPressed: onBack ?? () => context.go('/'),
                   child: Text(
                     'Back to Home',
                     style: AppTypography.bodySM.copyWith(

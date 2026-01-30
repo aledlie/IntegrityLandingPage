@@ -42,7 +42,6 @@ GoRouter createAppRouter({
     initialLocation: '/',
     redirect: (context, state) {
       final path = state.uri.path;
-      if (path == '/support') return '/contact';
       if (path == '/docs/security/audit-trails') return '/docs/tracing';
       if (path.startsWith('/reports/')) return '/docs';
       return null;

@@ -28,7 +28,7 @@ class HelpCenterPage extends StatelessWidget {
             pinned: true,
             leading: IconButton(
               icon: const Icon(LucideIcons.arrowLeft, color: Colors.white),
-              onPressed: onBack ?? () => Navigator.of(context).pop(),
+              onPressed: onBack ?? () => context.go('/'),
             ),
             title: Text(
               'Help Center',
@@ -499,7 +499,10 @@ class _ContactSupportSection extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.xl),
           ElevatedButton.icon(
-            onPressed: () => context.go('/contact'),
+            onPressed: () {
+              if (!context.mounted) return;
+              context.go('/contact');
+            },
             icon: const Icon(LucideIcons.mail, size: 18),
             label: const Text('Contact Support'),
             style: ElevatedButton.styleFrom(

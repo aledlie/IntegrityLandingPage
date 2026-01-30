@@ -106,7 +106,7 @@ abstract final class Routes {
 
   // Resources
   static const String euAiAct = 'https://integritystudio.ai/docs/tracing#eu-ai-act';
-  static const String support = '/support';
+  static const String support = '/contact';
   static const String api = '/api';
   static const String careers = '/careers';
   static const String privacy = '/privacy';
