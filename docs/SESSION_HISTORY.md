@@ -4,6 +4,93 @@ Chronological record of development sessions for IntegrityStudio.ai Flutter proj
 
 ---
 
+## 2026-01-29: Page Test Consolidation - Overflow Error Helpers
+
+### Summary
+Consolidated duplicate overflow error suppression code across 11 page test files into shared helpers in `test_helpers.dart`. This was Priority 1 of a larger consolidation opportunity analysis.
+
+### Consolidation Results
+
+| Metric | Value |
+|--------|-------|
+| Lines added | +75 |
+| Lines removed | -226 |
+| **Net reduction** | **-151 lines** |
+| Files updated | 12 (11 test files + test_helpers.dart) |
+| Tests passing | 723 (all page tests) |
+
+### Helpers Added to `test/helpers/test_helpers.dart`
+
+```dart
+// Check if exception is overflow error
+bool isOverflowError(dynamic exception)
+
+// Check if FlutterErrorDetails is overflow (checks both exception and details.toString())
+bool _isOverflowErrorDetails(FlutterErrorDetails details)
+
+// Clear overflow exceptions from tester (rethrows non-overflow)
+void clearOverflowExceptions(WidgetTester tester)
+
+// setUp/tearDown pair for error suppression
+void setUpOverflowErrorSuppression()
+void tearDownOverflowErrorSuppression()
+```
+
+### Usage Pattern (now standardized)
+```dart
+void main() {
+  setUp(setUpOverflowErrorSuppression);
+  tearDown(tearDownOverflowErrorSuppression);
+  // tests...
+}
+```
+
+### Key Technical Insights
+
+1. **FlutterError.onError timing**: Original code captured `FlutterError.onError` at module load time. Capturing during setUp can cause issues with shared mutable state.
+
+2. **Two-layer error suppression needed**: Some tests (like about_page responsive tests) need both:
+   - Global setUp/tearDown suppression
+   - `clearOverflowExceptions(tester)` calls after pump operations
+
+3. **Check both exception and details**: `_isOverflowErrorDetails()` checks both `details.exception.toString()` AND `details.toString()` to catch all overflow variations.
+
+### Files Modified
+
+**test_helpers.dart** (+51 lines):
+- Added 4 overflow error helper functions
+
+**11 page test files** (each -15 to -40 lines):
+- about_page_test.dart - Added clearOverflowExceptions to pumpAboutPage
+- careers_page_test.dart - Removed local isOverflowError/clearOverflowExceptions
+- docs_alerts_page_test.dart
+- docs_api_page_test.dart
+- docs_interoperability_page_test.dart
+- docs_observability_page_test.dart
+- docs_quickstart_page_test.dart
+- eu_ai_act_page_test.dart - Removed local isOverflowError/clearOverflowExceptions
+- legal_page_test.dart
+- pricing_page_test.dart
+- security_page_test.dart
+
+### Commits Made
+- `00fffa3` refactor(test): consolidate overflow error suppression across page tests
+
+### Remaining Consolidation Opportunities
+
+**Priority 2 - Generic page pumping** (~180 lines potential):
+- 9+ files have nearly identical `pumpXyzPage()` helper functions
+- Could extract to generic `pumpPageWidget(tester, Widget, {bool mobile})`
+
+**Priority 3 - Test patterns** (~300+ lines potential):
+- Responsive layout test groups (12 files)
+- Back button callback tests (8 files)
+- App bar structure tests (8 files)
+
+### Status: ✅ Complete
+
+---
+
 ## 2026-01-29: Widget Test Consolidation (Part 4 - Parallel)
 
 ### Summary
