@@ -19,6 +19,9 @@ import '../pages/docs_api_page.dart';
 import '../pages/docs_quickstart_page.dart';
 import '../pages/docs_alerts_page.dart';
 import '../pages/docs_index_page.dart';
+import '../pages/docs_agents_page.dart';
+import '../pages/compliance_page.dart';
+import '../pages/api_toolkit_page.dart';
 import '../pages/features_page.dart';
 import '../pages/status_page.dart';
 
@@ -39,11 +42,7 @@ GoRouter createAppRouter({
     redirect: (context, state) {
       final path = state.uri.path;
       if (path == '/support') return '/contact';
-      if (path == '/eu-ai-act') return '/docs';
-      if (path == '/docs/compliance') return '/docs';
-      if (path == '/docs/agents') return '/docs';
       if (path == '/docs/security/audit-trails') return '/docs/tracing';
-      if (path == '/docs/claude-code-observability') return '/docs/llm-observability';
       if (path.startsWith('/reports/')) return '/docs';
       return null;
     },
@@ -214,6 +213,12 @@ GoRouter createAppRouter({
             ),
           ),
           GoRoute(
+            path: '/api/toolkit',
+            builder: (context, state) => ApiToolkitPage(
+              onBack: () => context.go('/docs'),
+            ),
+          ),
+          GoRoute(
             path: '/docs/quickstart',
             builder: (context, state) => DocsQuickstartPage(
               onBack: () => context.go('/'),
@@ -222,6 +227,20 @@ GoRouter createAppRouter({
           GoRoute(
             path: '/docs/alerts',
             builder: (context, state) => DocsAlertsPage(
+              onBack: () => context.go('/'),
+            ),
+          ),
+          GoRoute(
+            path: '/docs/agents',
+            builder: (context, state) => DocsAgentsPage(
+              onBack: () => context.go('/'),
+            ),
+          ),
+
+          // Compliance
+          GoRoute(
+            path: '/compliance',
+            builder: (context, state) => CompliancePage(
               onBack: () => context.go('/'),
             ),
           ),

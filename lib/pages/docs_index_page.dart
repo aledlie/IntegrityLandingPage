@@ -316,7 +316,7 @@ class _DocsGrid extends StatelessWidget {
         icon: LucideIcons.shield,
         title: 'Compliance',
         description: 'EU AI Act preparation, audit trails, and governance configuration.',
-        url: '/docs/compliance',
+        url: '/compliance',
         color: const Color(0xFF8B5CF6),
         topics: ['EU AI Act', 'Risk Class', 'Audit Trails', 'GDPR'],
         comingSoon: true,

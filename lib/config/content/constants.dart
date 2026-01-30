@@ -99,13 +99,13 @@ abstract final class Routes {
   static const String docsTracing = '/docs/tracing';
   static const String docsQuickstart = '/docs/quickstart';
   static const String docsApi = '/api';
-  static const String docsCompliance = '/docs/compliance';
+  static const String docsCompliance = '/compliance';
   static const String docsIntegrations = '/docs/integrations';
   static const String docsAgents = '/docs/agents';
   static const String docsAlerts = '/docs/alerts';
 
   // Resources
-  static const String euAiAct = '/eu-ai-act';
+  static const String euAiAct = 'https://integritystudio.ai/docs/tracing#eu-ai-act';
   static const String support = '/support';
   static const String api = '/api';
   static const String careers = '/careers';
@@ -114,6 +114,7 @@ abstract final class Routes {
   static const String cookies = '/cookies';
   static const String accessibility = '/accessibility';
   static const String security = '/security';
+  static const String status = '/status';
 
   // Comparison pages
   static const String whylabsAlternative = '/whylabs-alternative';

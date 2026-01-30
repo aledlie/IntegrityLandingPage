@@ -405,7 +405,7 @@ List<_LinkSection> get _linkSections => [
     title: 'Resources',
     links: [
       _LinkItem(text: 'Help Center', url: Routes.contact),
-      _LinkItem(text: 'Status', url: ExternalUrls.statusPage, isInternal: false),
+      _LinkItem(text: 'Status', url: Routes.status),
       _LinkItem(text: 'Security', url: Routes.security),
     ],
   ),

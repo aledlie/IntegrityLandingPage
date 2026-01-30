@@ -1,0 +1,1006 @@
+import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import '../theme/theme.dart';
+import '../widgets/common/containers.dart';
+
+/// MCP Toolkit API Reference page.
+///
+/// Documents the observability-toolkit MCP server tools, query options,
+/// OTel GenAI semantic conventions, and data types.
+class ApiToolkitPage extends StatelessWidget {
+  final VoidCallback? onBack;
+
+  const ApiToolkitPage({
+    super.key,
+    this.onBack,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = ResponsiveUtils.isMobile(context);
+
+    return Scaffold(
+      backgroundColor: AppColors.gray900,
+      body: CustomScrollView(
+        slivers: [
+          // App bar
+          SliverAppBar(
+            backgroundColor: AppColors.gray900,
+            floating: true,
+            pinned: true,
+            leading: IconButton(
+              icon: const Icon(LucideIcons.arrowLeft, color: Colors.white),
+              onPressed: onBack ?? () => Navigator.of(context).pop(),
+            ),
+            title: Text(
+              'MCP Toolkit API',
+              style: AppTypography.headingSM.copyWith(color: Colors.white),
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: AppSpacing.md),
+                child: TextButton(
+                  onPressed: onBack ?? () => Navigator.of(context).pop(),
+                  child: Text(
+                    'Back to Docs',
+                    style: AppTypography.bodySM.copyWith(
+                      color: AppColors.blue400,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          // Hero Section
+          SliverToBoxAdapter(
+            child: _HeroSection(isMobile: isMobile),
+          ),
+
+          // Content
+          SliverToBoxAdapter(
+            child: SectionContainer(
+              padding: EdgeInsets.symmetric(
+                vertical: isMobile ? AppSpacing.xl : AppSpacing.xxl,
+              ),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 900),
+                child: const _DocsContent(),
+              ),
+            ),
+          ),
+
+          // Footer
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: AppSpacing.xxxl),
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      'Built with OpenTelemetry GenAI Semantic Conventions',
+                      style: AppTypography.bodySM.copyWith(
+                        color: AppColors.gray400,
+                      ),
+                    ),
+                    const SizedBox(height: AppSpacing.xs),
+                    Text(
+                      '\u00A9 2026 Integrity Studio LLC',
+                      style: AppTypography.bodySM.copyWith(
+                        color: AppColors.gray400,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HeroSection extends StatelessWidget {
+  final bool isMobile;
+
+  const _HeroSection({required this.isMobile});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            AppColors.gray900,
+            AppColors.gray800.withValues(alpha: 0.5),
+            AppColors.gray900,
+          ],
+        ),
+      ),
+      child: SectionContainer(
+        padding: EdgeInsets.symmetric(
+          vertical: isMobile ? AppSpacing.xxl : AppSpacing.xxxl,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Badge
+            Container(
+              margin: const EdgeInsets.only(bottom: AppSpacing.lg),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md,
+                vertical: AppSpacing.sm,
+              ),
+              decoration: BoxDecoration(
+                color: const Color(0xFF8B5CF6).withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(AppSpacing.radiusFull),
+                border: Border.all(
+                  color: const Color(0xFF8B5CF6).withValues(alpha: 0.5),
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    LucideIcons.terminal,
+                    size: 16,
+                    color: Color(0xFFA78BFA),
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Text(
+                    'MCP Server Tools',
+                    style: AppTypography.bodySM.copyWith(
+                      color: const Color(0xFFA78BFA),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Headline
+            Text(
+              'Observability Toolkit API',
+              style: isMobile
+                  ? AppTypography.headingLG.copyWith(fontSize: 28)
+                  : AppTypography.headingXL,
+              textAlign: TextAlign.center,
+            ),
+
+            const SizedBox(height: AppSpacing.lg),
+
+            // Subheadline
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 700),
+              child: Text(
+                'Query traces, metrics, logs, and LLM events from local JSONL files or SigNoz Cloud. Full OTel GenAI semantic convention compliance.',
+                style: AppTypography.bodyLG,
+                textAlign: TextAlign.center,
+              ),
+            ),
+
+            const SizedBox(height: AppSpacing.xl),
+
+            // Stats
+            Wrap(
+              spacing: AppSpacing.md,
+              runSpacing: AppSpacing.md,
+              alignment: WrapAlignment.center,
+              children: const [
+                _StatCard(value: '8', label: 'MCP Tools'),
+                _StatCard(value: '10/10', label: 'OTel GenAI'),
+                _StatCard(value: 'v1.8.0', label: 'Version'),
+                _StatCard(value: '939+', label: 'Tests'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StatCard extends StatelessWidget {
+  final String value;
+  final String label;
+
+  const _StatCard({required this.value, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints(minWidth: 140, maxWidth: 160),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.md,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.gray800,
+        borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+        border: Border.all(color: AppColors.gray700),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            value,
+            style: AppTypography.headingMD.copyWith(
+              color: const Color(0xFFA78BFA),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            label,
+            style: AppTypography.bodySM.copyWith(
+              color: AppColors.gray400,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DocsContent extends StatelessWidget {
+  const _DocsContent();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Overview Section
+        _DocSection(
+          icon: LucideIcons.info,
+          title: 'Overview',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'The observability-toolkit is an MCP (Model Context Protocol) server that provides observability tooling for LLM applications. Query traces, metrics, logs, and LLM events from local JSONL files or integrate with SigNoz Cloud.',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _CodeBlock(
+                title: 'Architecture',
+                code: '''src/
+\u251C\u2500\u2500 server.ts              # MCP server entry point
+\u251C\u2500\u2500 backends/
+\u2502   \u251C\u2500\u2500 local-jsonl.ts     # JSONL file backend
+\u2502   \u251C\u2500\u2500 signoz-api.ts      # SigNoz Cloud backend
+\u2502   \u2514\u2500\u2500 multi-directory.ts # Multi-directory aggregation
+\u251C\u2500\u2500 tools/
+\u2502   \u251C\u2500\u2500 query-traces.ts    # obs_query_traces
+\u2502   \u251C\u2500\u2500 query-metrics.ts   # obs_query_metrics
+\u2502   \u251C\u2500\u2500 query-logs.ts      # obs_query_logs
+\u2502   \u251C\u2500\u2500 query-llm-events.ts # obs_query_llm_events
+\u2502   \u251C\u2500\u2500 query-evaluations.ts # obs_query_evaluations
+\u2502   \u251C\u2500\u2500 health-check.ts    # obs_health_check
+\u2502   \u251C\u2500\u2500 context-stats.ts   # obs_context_stats
+\u2502   \u2514\u2500\u2500 get-trace-url.ts   # obs_get_trace_url
+\u2514\u2500\u2500 lib/
+    \u251C\u2500\u2500 file-utils.ts      # JSONL streaming, gzip, pagination
+    \u251C\u2500\u2500 indexer.ts         # File indexing for fast lookups
+    \u2514\u2500\u2500 constants.ts       # OTel constants, status codes''',
+              ),
+            ],
+          ),
+        ),
+
+        // MCP Tools Section
+        _DocSection(
+          icon: LucideIcons.wrench,
+          title: 'MCP Tools',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Eight tools are available for querying observability data.',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _SimpleTable(
+                headers: ['Tool', 'Description'],
+                rows: [
+                  ['obs_query_traces', 'Query distributed traces with filtering'],
+                  ['obs_query_metrics', 'Query metrics with aggregations'],
+                  ['obs_query_logs', 'Search logs with boolean operators'],
+                  ['obs_query_llm_events', 'Query LLM-specific events'],
+                  ['obs_query_evaluations', 'Query evaluation results'],
+                  ['obs_health_check', 'System health and cache stats'],
+                  ['obs_context_stats', 'Context window utilization'],
+                  ['obs_get_trace_url', 'Generate SigNoz trace viewer links'],
+                ],
+              ),
+            ],
+          ),
+        ),
+
+        // Query Traces Section
+        _DocSection(
+          icon: LucideIcons.gitBranch,
+          title: 'obs_query_traces',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Query distributed traces with support for filtering by service, span name, duration, attributes, and agent/tool metadata.',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                'Query Options',
+                style: AppTypography.headingSM.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              const _SimpleTable(
+                headers: ['Parameter', 'Type', 'Description'],
+                rows: [
+                  ['traceId', 'string', 'Filter by specific trace ID'],
+                  ['serviceName', 'string', 'Filter by service name'],
+                  ['spanName', 'string', 'Filter by span name'],
+                  ['minDurationMs', 'number', 'Minimum duration in milliseconds'],
+                  ['maxDurationMs', 'number', 'Maximum duration in milliseconds'],
+                  ['spanNameRegex', 'string', 'Regex pattern for span name'],
+                  ['attributeFilter', 'object', 'Key-value attribute filters'],
+                  ['numericFilter', 'array', 'Numeric comparisons (gt, gte, lt, lte, eq)'],
+                  ['agentId', 'string', 'Filter by agent ID'],
+                  ['agentName', 'string', 'Filter by agent name'],
+                  ['toolName', 'string', 'Filter by tool name'],
+                  ['toolCallId', 'string', 'Filter by tool call ID'],
+                  ['operationName', 'string', 'Filter by gen_ai.operation.name'],
+                  ['startDate', 'string', 'Start date (YYYY-MM-DD)'],
+                  ['endDate', 'string', 'End date (YYYY-MM-DD)'],
+                  ['limit', 'number', 'Max results (default: 100)'],
+                  ['offset', 'number', 'Pagination offset'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _CodeBlock(
+                title: 'Example Query',
+                code: '''{
+  "serviceName": "ai-inference",
+  "operationName": "chat",
+  "minDurationMs": 1000,
+  "attributeFilter": {
+    "gen_ai.request.model": "claude-3-opus"
+  },
+  "startDate": "2026-01-01",
+  "endDate": "2026-01-29",
+  "limit": 50
+}''',
+              ),
+            ],
+          ),
+        ),
+
+        // Query LLM Events Section
+        _DocSection(
+          icon: LucideIcons.messageSquare,
+          title: 'obs_query_llm_events',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Query LLM-specific events with full OTel GenAI semantic convention support (10/10 compliance).',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                'Query Options',
+                style: AppTypography.headingSM.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              const _SimpleTable(
+                headers: ['Parameter', 'Type', 'Description'],
+                rows: [
+                  ['operationName', 'string', 'chat, embeddings, invoke_agent, execute_tool'],
+                  ['provider', 'string', 'Provider name (anthropic, openai, etc.)'],
+                  ['model', 'string', 'Model name filter'],
+                  ['conversationId', 'string', 'Filter by conversation/session ID'],
+                  ['agentId', 'string', 'Filter by agent ID'],
+                  ['agentName', 'string', 'Filter by agent name'],
+                  ['toolName', 'string', 'Filter by tool name'],
+                  ['startDate', 'string', 'Start date (YYYY-MM-DD)'],
+                  ['endDate', 'string', 'End date (YYYY-MM-DD)'],
+                  ['limit', 'number', 'Max results (default: 50)'],
+                  ['offset', 'number', 'Pagination offset'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                'Response Fields',
+                style: AppTypography.headingSM.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              const _CodeBlock(
+                title: 'LLMEventResponse',
+                code: '''{
+  "timestamp": "2026-01-29T10:30:00Z",
+  "operationName": "chat",
+  "provider": "anthropic",
+  "model": "claude-3-opus",
+  "responseModel": "claude-3-opus-20240229",
+  "finishReasons": ["end_turn"],
+  "temperature": 0.7,
+  "maxTokens": 4096,
+  "inputTokens": 1250,
+  "outputTokens": 380,
+  "durationMs": 2340,
+  "conversationId": "conv_abc123",
+  "traceId": "5b8aa5a2d2c872e8321cf37308d69df2",
+  "spanId": "051581bf3cb55c13"
+}''',
+              ),
+            ],
+          ),
+        ),
+
+        // Query Metrics Section
+        _DocSection(
+          icon: LucideIcons.barChart3,
+          title: 'obs_query_metrics',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Query metrics with aggregation support including sum, avg, min, max, count, p50, p95, p99, and rate.',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _SimpleTable(
+                headers: ['Parameter', 'Type', 'Description'],
+                rows: [
+                  ['metricName', 'string', 'Filter by metric name'],
+                  ['aggregation', 'string', 'sum, avg, min, max, count, p50, p95, p99, rate'],
+                  ['groupBy', 'array', 'Group by attribute keys'],
+                  ['timeBucket', 'string', 'Time bucket (1m, 5m, 1h, 1d)'],
+                  ['startDate', 'string', 'Start date (YYYY-MM-DD)'],
+                  ['endDate', 'string', 'End date (YYYY-MM-DD)'],
+                  ['limit', 'number', 'Max results'],
+                  ['offset', 'number', 'Pagination offset'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _CodeBlock(
+                title: 'Example: Token Usage by Model',
+                code: '''{
+  "metricName": "gen_ai.client.token.usage",
+  "aggregation": "sum",
+  "groupBy": ["gen_ai.request.model"],
+  "timeBucket": "1d",
+  "startDate": "2026-01-01",
+  "endDate": "2026-01-29"
+}''',
+              ),
+            ],
+          ),
+        ),
+
+        // Query Logs Section
+        _DocSection(
+          icon: LucideIcons.fileText,
+          title: 'obs_query_logs',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Search logs with boolean operators, severity filtering, and field extraction.',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _SimpleTable(
+                headers: ['Parameter', 'Type', 'Description'],
+                rows: [
+                  ['severity', 'string', 'ERROR, WARN, INFO, DEBUG'],
+                  ['search', 'string', 'Text search in body'],
+                  ['searchTerms', 'array', 'Multiple search terms'],
+                  ['searchOperator', 'string', 'AND or OR (default: AND)'],
+                  ['traceId', 'string', 'Filter by trace ID'],
+                  ['excludeSearch', 'string', 'Exclude logs containing text'],
+                  ['extractFields', 'array', 'JSON paths to extract'],
+                  ['startDate', 'string', 'Start date (YYYY-MM-DD)'],
+                  ['endDate', 'string', 'End date (YYYY-MM-DD)'],
+                  ['limit', 'number', 'Max results'],
+                ],
+              ),
+            ],
+          ),
+        ),
+
+        // Query Evaluations Section
+        _DocSection(
+          icon: LucideIcons.checkCircle2,
+          title: 'obs_query_evaluations',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Query LLM evaluation results (gen_ai.evaluation.result events) for quality assessment.',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _SimpleTable(
+                headers: ['Parameter', 'Type', 'Description'],
+                rows: [
+                  ['evaluationName', 'string', 'Filter by metric (Relevance, Faithfulness)'],
+                  ['scoreMin', 'number', 'Minimum score threshold'],
+                  ['scoreMax', 'number', 'Maximum score threshold'],
+                  ['scoreLabel', 'string', 'Filter by label (pass, fail, relevant)'],
+                  ['responseId', 'string', 'Correlate to specific response'],
+                  ['traceId', 'string', 'All evaluations for a trace'],
+                  ['sessionId', 'string', 'Session-scoped evaluations'],
+                  ['startDate', 'string', 'Start date (YYYY-MM-DD)'],
+                  ['endDate', 'string', 'End date (YYYY-MM-DD)'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _CodeBlock(
+                title: 'Evaluation Result',
+                code: '''{
+  "timestamp": "2026-01-29T10:30:00Z",
+  "evaluationName": "Relevance",
+  "scoreValue": 0.92,
+  "scoreLabel": "relevant",
+  "explanation": "Response directly addresses the query",
+  "responseId": "resp_abc123",
+  "traceId": "5b8aa5a2d2c872e8321cf37308d69df2",
+  "spanId": "051581bf3cb55c13"
+}''',
+              ),
+            ],
+          ),
+        ),
+
+        // OTel GenAI Compliance Section
+        _DocSection(
+          icon: LucideIcons.shield,
+          title: 'OTel GenAI Semantic Conventions',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Full compliance with OpenTelemetry GenAI semantic conventions (10/10 attributes).',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                'Core Attributes',
+                style: AppTypography.headingSM.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              const _SimpleTable(
+                headers: ['Attribute', 'Requirement', 'Description'],
+                rows: [
+                  ['gen_ai.operation.name', 'Required', 'chat, embeddings, invoke_agent, execute_tool'],
+                  ['gen_ai.provider.name', 'Required', 'Provider (anthropic, openai, aws.bedrock)'],
+                  ['gen_ai.request.model', 'Cond. Required', 'Requested model name'],
+                  ['gen_ai.conversation.id', 'Cond. Required', 'Conversation/session ID'],
+                  ['gen_ai.response.model', 'Recommended', 'Actual model that responded'],
+                  ['gen_ai.response.finish_reasons', 'Recommended', 'Why generation stopped'],
+                  ['gen_ai.request.temperature', 'Recommended', 'Sampling temperature'],
+                  ['gen_ai.request.max_tokens', 'Recommended', 'Maximum output tokens'],
+                  ['gen_ai.usage.input_tokens', 'Recommended', 'Prompt token count'],
+                  ['gen_ai.usage.output_tokens', 'Recommended', 'Completion token count'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                'Agent/Tool Attributes',
+                style: AppTypography.headingSM.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              const _SimpleTable(
+                headers: ['Attribute', 'Type', 'Description'],
+                rows: [
+                  ['gen_ai.agent.id', 'string', 'Unique agent identifier'],
+                  ['gen_ai.agent.name', 'string', 'Human-readable agent name'],
+                  ['gen_ai.tool.name', 'string', 'Tool identifier'],
+                  ['gen_ai.tool.type', 'string', 'function, extension, datastore'],
+                  ['gen_ai.tool.call.id', 'string', 'Unique tool call identifier'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                'Provider Identifiers',
+                style: AppTypography.headingSM.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              const _SimpleTable(
+                headers: ['Provider', 'Value'],
+                rows: [
+                  ['Anthropic', 'anthropic'],
+                  ['OpenAI', 'openai'],
+                  ['AWS Bedrock', 'aws.bedrock'],
+                  ['Azure OpenAI', 'azure.ai.openai'],
+                  ['Google Gemini', 'gcp.gemini'],
+                  ['Google Vertex AI', 'gcp.vertex_ai'],
+                  ['Cohere', 'cohere'],
+                  ['Mistral AI', 'mistral_ai'],
+                ],
+              ),
+            ],
+          ),
+        ),
+
+        // Data Types Section
+        _DocSection(
+          icon: LucideIcons.database,
+          title: 'Data Types',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'TraceSpan',
+                style: AppTypography.headingSM.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              const _CodeBlock(
+                title: 'TraceSpan Interface',
+                code: '''{
+  traceId: string;
+  spanId: string;
+  parentSpanId?: string;
+  name: string;
+  kind?: string;
+  startTimeUnixNano: number;
+  endTimeUnixNano?: number;
+  durationMs?: number;
+  status?: { code: number; message?: string };
+  statusCode?: 'UNSET' | 'OK' | 'ERROR';
+  attributes?: Record<string, unknown>;
+  events?: Array<{ name: string; timestamp: number; attributes?: Record<string, unknown> }>;
+  links?: SpanLink[];
+  instrumentationScope?: InstrumentationScope;
+}''',
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                'LogRecord',
+                style: AppTypography.headingSM.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              const _CodeBlock(
+                title: 'LogRecord Interface',
+                code: '''{
+  timestamp: string;
+  severity: string;
+  severityNumber?: number;  // OTel: 1=TRACE, 5=DEBUG, 9=INFO, 13=WARN, 17=ERROR, 21=FATAL
+  body: string;
+  traceId?: string;
+  spanId?: string;
+  attributes?: Record<string, unknown>;
+  extractedFields?: Record<string, unknown>;
+  instrumentationScope?: InstrumentationScope;
+}''',
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              Text(
+                'MetricDataPoint',
+                style: AppTypography.headingSM.copyWith(color: Colors.white),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              const _CodeBlock(
+                title: 'MetricDataPoint Interface',
+                code: '''{
+  timestamp: string;
+  name: string;
+  value: number;
+  unit?: string;
+  attributes?: Record<string, unknown>;
+  histogram?: HistogramData;
+  exemplars?: Exemplar[];
+  aggregationTemporality?: 'UNSPECIFIED' | 'DELTA' | 'CUMULATIVE';
+}''',
+              ),
+            ],
+          ),
+        ),
+
+        // Environment Variables Section
+        _DocSection(
+          icon: LucideIcons.settings,
+          title: 'Environment Variables',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const _SimpleTable(
+                headers: ['Variable', 'Default', 'Description'],
+                rows: [
+                  ['TELEMETRY_DIR', '~/.claude/telemetry', 'Local telemetry directory'],
+                  ['SIGNOZ_URL', '-', 'SigNoz instance URL'],
+                  ['SIGNOZ_API_KEY', '-', 'SigNoz API key'],
+                  ['SIGNOZ_QUERY_URL', '-', 'SigNoz Query API URL'],
+                  ['CACHE_TTL_MS', '60000', 'Query cache TTL in milliseconds'],
+                  ['RETENTION_DAYS', '7', 'Days to retain telemetry files'],
+                ],
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _CodeBlock(
+                title: 'Example Configuration',
+                code: '''# Local-only mode
+export TELEMETRY_DIR=~/.claude/telemetry
+export CACHE_TTL_MS=60000
+export RETENTION_DAYS=7
+
+# With SigNoz Cloud
+export SIGNOZ_URL=https://ingest.us.signoz.cloud
+export SIGNOZ_API_KEY=your-api-key
+export SIGNOZ_QUERY_URL=https://us.signoz.cloud/api/v3''',
+              ),
+            ],
+          ),
+        ),
+
+        // Health Check Section
+        _DocSection(
+          icon: LucideIcons.heartPulse,
+          title: 'obs_health_check',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Returns system health status including backend availability, file counts, and cache statistics.',
+                style: AppTypography.bodyMD.copyWith(color: AppColors.gray300),
+              ),
+              const SizedBox(height: AppSpacing.lg),
+              const _CodeBlock(
+                title: 'Health Check Response',
+                code: '''{
+  "status": "healthy",
+  "backends": {
+    "local": { "available": true, "fileCount": 42 },
+    "signoz": { "available": true, "latencyMs": 45 }
+  },
+  "cache": {
+    "traces": { "hits": 10, "misses": 5, "hitRate": 0.67, "size": 15, "evictions": 0 },
+    "logs": { "hits": 8, "misses": 12, "hitRate": 0.4, "size": 20, "evictions": 2 },
+    "metrics": { "hits": 0, "misses": 0, "hitRate": 0, "size": 0, "evictions": 0 },
+    "llmEvents": { "hits": 0, "misses": 0, "hitRate": 0, "size": 0, "evictions": 0 }
+  },
+  "version": "1.8.0"
+}''',
+              ),
+            ],
+          ),
+        ),
+
+        // Performance Features Section
+        _DocSection(
+          icon: LucideIcons.zap,
+          title: 'Performance Features',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _BulletList(items: const [
+                'LRU Query Caching \u2014 Configurable TTL with hit/miss tracking',
+                'File Indexing \u2014 .idx sidecar files for fast lookups without full scans',
+                'Gzip Compression \u2014 Transparent handling of .gz telemetry files',
+                'Streaming \u2014 Early termination for large JSONL files',
+                'Cursor Pagination \u2014 Efficient pagination for SigNoz queries',
+                'Circuit Breaker \u2014 Automatic failover when SigNoz is unavailable',
+                'OTLP Export \u2014 Export traces, logs, metrics in standard format',
+              ]),
+            ],
+          ),
+        ),
+
+        // Related Docs Section
+        _DocSection(
+          icon: LucideIcons.bookOpen,
+          title: 'Related Documentation',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _BulletList(items: const [
+                'Platform API Reference \u2014 /api',
+                'LLM Observability Guide \u2014 /docs/llm-observability',
+                'Distributed Tracing \u2014 /docs/tracing',
+                'Quickstart Guide \u2014 /docs/quickstart',
+                'OpenTelemetry GenAI Conventions \u2014 opentelemetry.io',
+              ]),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// Reusable Components
+
+class _DocSection extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final Widget child;
+
+  const _DocSection({
+    required this.icon,
+    required this.title,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.xl),
+      decoration: BoxDecoration(
+        color: AppColors.gray800,
+        borderRadius: BorderRadius.circular(AppSpacing.radiusMD),
+        border: Border.all(color: AppColors.gray700),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF8B5CF6),
+                  borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+                ),
+                child: Icon(icon, color: Colors.white, size: 20),
+              ),
+              const SizedBox(width: AppSpacing.md),
+              Expanded(
+                child: Text(
+                  title,
+                  style: AppTypography.headingSM.copyWith(
+                    color: const Color(0xFFA78BFA),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          child,
+        ],
+      ),
+    );
+  }
+}
+
+class _CodeBlock extends StatelessWidget {
+  final String code;
+  final String? title;
+
+  const _CodeBlock({required this.code, this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title != null) ...[
+          Text(
+            title!,
+            style: AppTypography.bodySM.copyWith(
+              color: AppColors.gray400,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+        ],
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(AppSpacing.md),
+          decoration: BoxDecoration(
+            color: AppColors.gray900,
+            borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+            border: Border.all(color: AppColors.gray700),
+          ),
+          child: SelectableText(
+            code,
+            style: TextStyle(
+              fontFamily: 'JetBrains Mono',
+              fontSize: 13,
+              color: AppColors.gray300,
+              height: 1.5,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _SimpleTable extends StatelessWidget {
+  final List<String> headers;
+  final List<List<String>> rows;
+
+  const _SimpleTable({required this.headers, required this.rows});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+        border: Border.all(color: AppColors.gray700),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(AppSpacing.radiusSM),
+        child: Table(
+          border: TableBorder.symmetric(
+            inside: BorderSide(color: AppColors.gray700),
+          ),
+          children: [
+            TableRow(
+              decoration: BoxDecoration(color: AppColors.gray800),
+              children: headers
+                  .map((h) => Padding(
+                        padding: const EdgeInsets.all(AppSpacing.md),
+                        child: Text(
+                          h,
+                          style: AppTypography.bodySM.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ))
+                  .toList(),
+            ),
+            ...rows.map(
+              (row) => TableRow(
+                children: row
+                    .map((cell) => Padding(
+                          padding: const EdgeInsets.all(AppSpacing.md),
+                          child: Text(
+                            cell,
+                            style: AppTypography.bodySM.copyWith(
+                              color: AppColors.gray300,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BulletList extends StatelessWidget {
+  final List<String> items;
+
+  const _BulletList({required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: items
+          .map((item) => Padding(
+                padding: const EdgeInsets.only(bottom: AppSpacing.sm),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '\u2022 ',
+                      style: AppTypography.bodyMD.copyWith(
+                        color: const Color(0xFFA78BFA),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        item,
+                        style: AppTypography.bodyMD.copyWith(
+                          color: AppColors.gray300,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ))
+          .toList(),
+    );
+  }
+}
