@@ -4,6 +4,125 @@ Chronological record of development sessions for IntegrityStudio.ai Flutter proj
 
 ---
 
+## 2026-01-29: Widget Test Analysis & Consolidation
+
+### Summary
+Analyzed widget test performance and consolidated the largest test file (`contact_section_test.dart`) from 70 tests to 33 tests while maintaining coverage.
+
+### Investigation Results
+Widget tests are actually **running efficiently** at ~65ms per test average (476 tests in 31 seconds parallel). The "slowness" perception came from:
+1. **Initial compilation/warm-up**: ~7 seconds before first test runs (unavoidable)
+2. **Confusing expanded reporter**: Shows interleaved output from parallel test files, making it look like tests repeat
+
+### Performance Comparison
+| Configuration | Total Time | Tests | Per-Test Avg |
+|--------------|------------|-------|--------------|
+| Parallel (default) | 31s | 476 | ~65ms |
+| Sequential (-j1) | 101s | 476 | ~212ms |
+
+### Consolidation: contact_section_test.dart
+| Metric | Before | After | Reduction |
+|--------|--------|-------|-----------|
+| Tests | 70 | 33 (32 passing + 1 skipped) | **53%** |
+| Lines | 2,369 | 976 | **59%** |
+| File size | 84 KB | ~30 KB | **64%** |
+
+### Key Patterns Identified for Test Consolidation
+1. **Content-only tests should use `test()` not `testWidgets()`** - no widget rendering needed
+2. **Combine granular structure tests** - "renders title", "renders subtitle", etc. → one test
+3. **Create reusable fixtures** - `minimalFormContent()` and `fillAndSubmitForm()` helpers
+4. **Remove empty skipped tests** - replace with meaningful tests or delete
+5. **Organize by functionality** - clear section headers improve maintainability
+
+### Commits Made
+- `52a2333` refactor(test): consolidate contact section tests
+
+### Recommendations for Other Test Files
+Use `--reporter=compact` for cleaner output, `--reporter=json` for CI pipelines. The parallel execution is already optimal.
+
+### Status: ✅ Complete
+
+---
+
+## 2026-01-29: Test Performance Investigation & Optimization (In Progress)
+
+### Summary
+Investigated slow test execution using bug-detective skill. Identified root cause as excessive `pump(Duration)` calls in test helpers. Implemented fixes but encountered regressions requiring further work.
+
+### Problems Identified
+1. **Total test runtime: 3:11 (191 seconds)** for 2424 tests
+2. **`test/pages/` is the bottleneck** - 144s (56% of total time)
+3. **Root cause**: Each test pumps 200ms+ of explicit delays
+   - `docs_api_page_test.dart`: 41 explicit `pump(Duration(100ms))` calls = 4.1s wasted
+   - `landing_page_test.dart`: 48 explicit pump delays = 4.8s wasted
+4. **Per-test overhead**: 464-711ms per test instead of <100ms
+
+### Slowest Test Files (Before Fix)
+| File | Time | Tests | Per Test |
+|------|------|-------|----------|
+| docs_api_page_test | 37.9s | 61 | 621ms |
+| landing_page_test | 26.9s | 58 | 464ms |
+| about_page_test | 18.5s | 26 | 711ms |
+| docs_alerts_page_test | 16.2s | - | - |
+| docs_quickstart_page_test | 12.2s | - | - |
+
+### Fixes Implemented (UNCOMMITTED)
+1. **Replaced `pump(Duration(100ms))` with `pump()`** across all page tests
+2. **Added `MediaQueryData(disableAnimations: true)`** to pump helpers
+3. **Reduced router initialization pumps** from 4 to 2 frames
+
+### Files Modified (All Uncommitted)
+- `test/pages/docs_api_page_test.dart` - Removed 41 pump delays
+- `test/pages/landing_page_test.dart` - Removed 48 pump delays, added MediaQuery
+- `test/pages/about_page_test.dart` - Removed pump delays, added MediaQuery
+- `test/pages/docs_alerts_page_test.dart` - Removed 65 pump delays
+- `test/pages/docs_quickstart_page_test.dart` - Removed 50 pump delays
+- `test/pages/docs_interoperability_page_test.dart` - Removed 54 pump delays
+- `test/pages/docs_observability_page_test.dart` - Removed 43 pump delays
+- `test/pages/careers_page_test.dart` - Removed pump delays
+- `test/pages/eu_ai_act_page_test.dart` - Removed pump delays
+- `test/pages/legal_page_test.dart` - Removed pump delays
+- `test/pages/pricing_page_test.dart` - Removed pump delays
+- `test/pages/security_page_test.dart` - Removed pump delays
+- `test/pages/signup_page_test.dart` - Removed pump delays
+
+### Current Issues (Need Resolution)
+1. **8 failing tests** in `landing_page_test.dart`:
+   - Navigation tests need router to fully initialize
+   - MediaQuery wrapper was overriding viewport size from `setScreenSize()`
+   - Removed MediaQuery wrapper, but now animations cause slowdown
+2. **Test time increased** from 144s to ~190s due to animation wait
+3. **Need proper solution** to disable animations while respecting viewport size
+
+### Key Technical Insights
+- `setScreenSize(tester)` sets `tester.view.physicalSize`
+- Wrapping in `MediaQuery(data: MediaQueryData(disableAnimations: true))` overrides size
+- Need to merge MediaQuery data to keep size but disable animations
+- Router tests need 2+ pump frames to initialize navigation stack
+
+### Next Steps to Complete
+1. Create proper helper that disables animations without overriding viewport size
+2. Fix the 8 failing navigation tests in landing_page_test.dart
+3. Verify all page tests pass
+4. Measure final performance improvement
+5. Commit the changes
+
+### Commands to Continue
+```bash
+# Run failing tests to see current status
+flutter test test/pages/landing_page_test.dart 2>&1 | grep -E "^\d+:\d+ [+-]"
+
+# Run all page tests to measure timing
+time flutter test test/pages/
+
+# After fixes, run full test suite
+flutter test
+```
+
+### Status: 🔄 In Progress (Uncommitted Changes)
+
+---
+
 ## 2026-01-29: Navigation & Documentation Updates
 
 ### Summary
