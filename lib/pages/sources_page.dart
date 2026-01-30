@@ -324,9 +324,9 @@ class _StatisticCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Value and label
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.end,
+            spacing: AppSpacing.sm,
             children: [
               Text(
                 statistic.value,
@@ -335,13 +335,10 @@ class _StatisticCard extends StatelessWidget {
                   fontSize: 36,
                 ),
               ),
-              const SizedBox(width: AppSpacing.sm),
-              Expanded(
-                child: Text(
-                  statistic.label,
-                  style: AppTypography.bodyMD.copyWith(
-                    color: AppColors.gray300,
-                  ),
+              Text(
+                statistic.label,
+                style: AppTypography.bodyMD.copyWith(
+                  color: AppColors.gray300,
                 ),
               ),
             ],
