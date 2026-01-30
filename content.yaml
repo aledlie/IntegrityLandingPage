@@ -897,7 +897,7 @@ resources:
         at 3 AM. Learn the Build, Test, Monitor, Analyze lifecycle that keeps agents
         reliable, compliant, and not accidentally ordering 10,000 pizzas.
       category: "Best Practices"
-      publish_date: "2024-12-24"
+      publish_date: "2026-01-20"
       read_time: "12 min read"
       slug: "end-to-end-agentic-observability-lifecycle"
       author: "Alyshia Ledlie"
@@ -1486,7 +1486,7 @@ blog:
         database at 3 AM. With a coupon code that doesn't exist. In French.
         Learn the Build, Test, Monitor, Analyze lifecycle that keeps agents
         reliable and compliant.
-      date: "December 24, 2024"
+      date: "January 20, 2026"
       read_time: "12 min read"
       category: "Best Practices"
       url: "/blog/end-to-end-agentic-observability-lifecycle.html"
