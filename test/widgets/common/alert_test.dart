@@ -6,411 +6,276 @@ import 'package:integrity_studio_ai/theme/colors.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+  // ==========================================================================
+  // Alert Widget Tests
+  // ==========================================================================
 
   group('Alert', () {
-    group('variants', () {
-      testWidgets('renders success variant with correct icon', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.success,
-              message: 'Success message',
-            ),
-          ),
-        );
+    testWidgets('renders all variants with correct icons', (tester) async {
+      final variantData = [
+        (AlertVariant.success, LucideIcons.checkCircle, 'Success message'),
+        (AlertVariant.error, LucideIcons.alertCircle, 'Error message'),
+        (AlertVariant.warning, LucideIcons.alertTriangle, 'Warning message'),
+        (AlertVariant.info, LucideIcons.info, 'Info message'),
+      ];
 
-        expect(find.byIcon(LucideIcons.checkCircle), findsOneWidget);
-        expect(find.text('Success message'), findsOneWidget);
-      });
-
-      testWidgets('renders error variant with correct icon', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.error,
-              message: 'Error message',
-            ),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.alertCircle), findsOneWidget);
-        expect(find.text('Error message'), findsOneWidget);
-      });
-
-      testWidgets('renders warning variant with correct icon', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.warning,
-              message: 'Warning message',
-            ),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.alertTriangle), findsOneWidget);
-        expect(find.text('Warning message'), findsOneWidget);
-      });
-
-      testWidgets('renders info variant with correct icon', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.info,
-              message: 'Info message',
-            ),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.info), findsOneWidget);
-        expect(find.text('Info message'), findsOneWidget);
-      });
-    });
-
-    group('factory constructors', () {
-      testWidgets('Alert.success creates success variant', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            Alert.success(message: 'Success!'),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.checkCircle), findsOneWidget);
-        expect(find.text('Success!'), findsOneWidget);
-      });
-
-      testWidgets('Alert.error creates error variant', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            Alert.error(message: 'Error!'),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.alertCircle), findsOneWidget);
-        expect(find.text('Error!'), findsOneWidget);
-      });
-
-      testWidgets('Alert.warning creates warning variant', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            Alert.warning(message: 'Warning!'),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.alertTriangle), findsOneWidget);
-        expect(find.text('Warning!'), findsOneWidget);
-      });
-
-      testWidgets('Alert.info creates info variant', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            Alert.info(message: 'Info!'),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.info), findsOneWidget);
-        expect(find.text('Info!'), findsOneWidget);
-      });
-    });
-
-    group('title', () {
-      testWidgets('renders title when provided', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.success,
-              title: 'Success Title',
-              message: 'Success message',
-            ),
-          ),
-        );
-
-        expect(find.text('Success Title'), findsOneWidget);
-        expect(find.text('Success message'), findsOneWidget);
-      });
-
-      testWidgets('does not render title when not provided', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.success,
-              message: 'Success message',
-            ),
-          ),
-        );
-
-        // Only message should be present, not a title
-        final textWidgets = tester.widgetList<Text>(find.byType(Text));
-        expect(textWidgets.length, equals(1));
-      });
-    });
-
-    group('dismissible', () {
-      testWidgets('shows dismiss button when dismissible', (tester) async {
-        var dismissed = false;
-
+      for (final (variant, expectedIcon, message) in variantData) {
         await tester.pumpWidget(
           testableWidget(
             Alert(
-              variant: AlertVariant.info,
-              message: 'Dismissible alert',
-              dismissible: true,
-              onDismiss: () => dismissed = true,
+              variant: variant,
+              message: message,
             ),
           ),
         );
 
-        expect(find.byIcon(LucideIcons.x), findsOneWidget);
-
-        await tester.tap(find.byIcon(LucideIcons.x));
-        await tester.pump();
-
-        expect(dismissed, isTrue);
-      });
-
-      testWidgets('hides dismiss button when not dismissible', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.info,
-              message: 'Non-dismissible alert',
-              dismissible: false,
-            ),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.x), findsNothing);
-      });
-
-      testWidgets('hides dismiss button when dismissible but no callback',
-          (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.info,
-              message: 'Alert without callback',
-              dismissible: true,
-              onDismiss: null,
-            ),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.x), findsNothing);
-      });
+        expect(find.byIcon(expectedIcon), findsOneWidget,
+            reason: '$variant should show $expectedIcon');
+        expect(find.text(message), findsOneWidget);
+      }
     });
 
-    group('custom icon', () {
-      testWidgets('uses custom icon when provided', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.success,
-              message: 'Custom icon alert',
-              icon: LucideIcons.star,
-            ),
-          ),
-        );
+    testWidgets('factory constructors create correct variants', (tester) async {
+      final factoryData = [
+        (Alert.success(message: 'Success!'), LucideIcons.checkCircle, 'Success!'),
+        (Alert.error(message: 'Error!'), LucideIcons.alertCircle, 'Error!'),
+        (Alert.warning(message: 'Warning!'), LucideIcons.alertTriangle, 'Warning!'),
+        (Alert.info(message: 'Info!'), LucideIcons.info, 'Info!'),
+      ];
 
-        expect(find.byIcon(LucideIcons.star), findsOneWidget);
-        expect(find.byIcon(LucideIcons.checkCircle), findsNothing);
-      });
+      for (final (alert, expectedIcon, message) in factoryData) {
+        await tester.pumpWidget(testableWidget(alert));
+
+        expect(find.byIcon(expectedIcon), findsOneWidget);
+        expect(find.text(message), findsOneWidget);
+      }
     });
 
-    group('accessibility', () {
-      testWidgets('has Semantics container', (tester) async {
+    testWidgets('renders title conditionally', (tester) async {
+      // With title
+      await tester.pumpWidget(
+        testableWidget(
+          const Alert(
+            variant: AlertVariant.success,
+            title: 'Success Title',
+            message: 'Success message',
+          ),
+        ),
+      );
+
+      expect(find.text('Success Title'), findsOneWidget);
+      expect(find.text('Success message'), findsOneWidget);
+
+      // Without title
+      await tester.pumpWidget(
+        testableWidget(
+          const Alert(
+            variant: AlertVariant.success,
+            message: 'Success message only',
+          ),
+        ),
+      );
+
+      final textWidgets = tester.widgetList<Text>(find.byType(Text));
+      expect(textWidgets.length, equals(1));
+    });
+
+    testWidgets('handles dismissible states correctly', (tester) async {
+      var dismissed = false;
+
+      // Dismissible with callback - shows button and calls callback
+      await tester.pumpWidget(
+        testableWidget(
+          Alert(
+            variant: AlertVariant.info,
+            message: 'Dismissible alert',
+            dismissible: true,
+            onDismiss: () => dismissed = true,
+          ),
+        ),
+      );
+
+      expect(find.byIcon(LucideIcons.x), findsOneWidget);
+      await tester.tap(find.byIcon(LucideIcons.x));
+      await tester.pump();
+      expect(dismissed, isTrue);
+
+      // Not dismissible - no button
+      await tester.pumpWidget(
+        testableWidget(
+          const Alert(
+            variant: AlertVariant.info,
+            message: 'Non-dismissible alert',
+            dismissible: false,
+          ),
+        ),
+      );
+
+      expect(find.byIcon(LucideIcons.x), findsNothing);
+
+      // Dismissible but no callback - no button
+      await tester.pumpWidget(
+        testableWidget(
+          const Alert(
+            variant: AlertVariant.info,
+            message: 'Alert without callback',
+            dismissible: true,
+            onDismiss: null,
+          ),
+        ),
+      );
+
+      expect(find.byIcon(LucideIcons.x), findsNothing);
+    });
+
+    testWidgets('uses custom icon when provided', (tester) async {
+      await tester.pumpWidget(
+        testableWidget(
+          const Alert(
+            variant: AlertVariant.success,
+            message: 'Custom icon alert',
+            icon: LucideIcons.star,
+          ),
+        ),
+      );
+
+      expect(find.byIcon(LucideIcons.star), findsOneWidget);
+      expect(find.byIcon(LucideIcons.checkCircle), findsNothing);
+    });
+
+    testWidgets('has proper accessibility and semantics', (tester) async {
+      for (final variant in [AlertVariant.success, AlertVariant.error]) {
         await tester.pumpWidget(
           testableWidget(
-            const Alert(
-              variant: AlertVariant.success,
-              message: 'Accessible alert',
+            Alert(
+              variant: variant,
+              message: '${variant.name} alert',
             ),
           ),
         );
 
         expect(find.byType(Semantics), findsWidgets);
-      });
-
-      testWidgets('has Semantics for screen reader announcements',
-          (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.error,
-              message: 'Error alert',
-            ),
-          ),
-        );
-
-        // Verify Semantics widgets exist for accessibility
-        expect(find.byType(Semantics), findsWidgets);
-      });
+      }
     });
 
-    group('styling', () {
-      testWidgets('has container with proper decoration', (tester) async {
+    testWidgets('applies correct styling and colors per variant', (tester) async {
+      final colorData = [
+        (AlertVariant.success, LucideIcons.checkCircle, AppColors.success),
+        (AlertVariant.error, LucideIcons.alertCircle, AppColors.error),
+      ];
+
+      for (final (variant, icon, expectedColor) in colorData) {
         await tester.pumpWidget(
           testableWidget(
-            const Alert(
-              variant: AlertVariant.success,
-              message: 'Styled alert',
+            Alert(
+              variant: variant,
+              message: '${variant.name} styled',
             ),
           ),
         );
 
         expect(find.byType(Container), findsWidgets);
-      });
-
-      testWidgets('success variant uses success colors', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.success,
-              message: 'Success',
-            ),
-          ),
-        );
-
-        final icon = tester.widget<Icon>(find.byIcon(LucideIcons.checkCircle));
-        expect(icon.color, equals(AppColors.success));
-      });
-
-      testWidgets('error variant uses error colors', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const Alert(
-              variant: AlertVariant.error,
-              message: 'Error',
-            ),
-          ),
-        );
-
-        final icon = tester.widget<Icon>(find.byIcon(LucideIcons.alertCircle));
-        expect(icon.color, equals(AppColors.error));
-      });
+        final iconWidget = tester.widget<Icon>(find.byIcon(icon));
+        expect(iconWidget.color, equals(expectedColor),
+            reason: '$variant should use $expectedColor');
+      }
     });
   });
 
+  // ==========================================================================
+  // AnimatedAlert Widget Tests
+  // ==========================================================================
+
   group('AnimatedAlert', () {
-    group('animation', () {
-      testWidgets('renders animated alert widget', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const AnimatedAlert(
-              variant: AlertVariant.success,
-              message: 'Animated alert',
-            ),
+    testWidgets('renders and animates correctly', (tester) async {
+      await tester.pumpWidget(
+        testableWidget(
+          const AnimatedAlert(
+            variant: AlertVariant.success,
+            message: 'Animated alert',
           ),
-        );
+        ),
+      );
 
-        // Animation widgets should be present
-        expect(find.byType(AnimatedAlert), findsOneWidget);
-      });
+      // Animation widgets should be present
+      expect(find.byType(AnimatedAlert), findsOneWidget);
 
-      testWidgets('animation completes after duration', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const AnimatedAlert(
-              variant: AlertVariant.success,
-              message: 'Animated alert',
-            ),
-          ),
-        );
-
-        // Animation should complete
-        await tester.pumpAndSettle();
-
-        expect(find.text('Animated alert'), findsOneWidget);
-      });
+      // Animation should complete
+      await tester.pumpAndSettle();
+      expect(find.text('Animated alert'), findsOneWidget);
     });
 
-    group('auto dismiss', () {
-      testWidgets('auto dismisses after specified duration', (tester) async {
-        var dismissed = false;
+    testWidgets('handles auto dismiss behavior', (tester) async {
+      var dismissed = false;
 
-        await tester.pumpWidget(
-          testableWidget(
-            AnimatedAlert(
-              variant: AlertVariant.info,
-              message: 'Auto dismiss alert',
-              autoDismissDuration: const Duration(milliseconds: 500),
-              onDismiss: () => dismissed = true,
-            ),
+      // With auto dismiss duration - should dismiss
+      await tester.pumpWidget(
+        testableWidget(
+          AnimatedAlert(
+            variant: AlertVariant.info,
+            message: 'Auto dismiss alert',
+            autoDismissDuration: const Duration(milliseconds: 500),
+            onDismiss: () => dismissed = true,
           ),
-        );
+        ),
+      );
 
-        // Initially visible
-        expect(find.text('Auto dismiss alert'), findsOneWidget);
+      expect(find.text('Auto dismiss alert'), findsOneWidget);
+      await tester.pump(const Duration(milliseconds: 600));
+      await tester.pumpAndSettle();
+      expect(dismissed, isTrue);
 
-        // Wait for auto dismiss
-        await tester.pump(const Duration(milliseconds: 600));
-        await tester.pumpAndSettle();
-
-        expect(dismissed, isTrue);
-      });
-
-      testWidgets('does not auto dismiss when duration is null',
-          (tester) async {
-        var dismissed = false;
-
-        await tester.pumpWidget(
-          testableWidget(
-            AnimatedAlert(
-              variant: AlertVariant.info,
-              message: 'Persistent alert',
-              onDismiss: () => dismissed = true,
-            ),
+      // Without auto dismiss duration - should persist
+      dismissed = false;
+      await tester.pumpWidget(
+        testableWidget(
+          AnimatedAlert(
+            variant: AlertVariant.info,
+            message: 'Persistent alert',
+            onDismiss: () => dismissed = true,
           ),
-        );
+        ),
+      );
 
-        // Wait a while
-        await tester.pump(const Duration(seconds: 2));
-
-        expect(dismissed, isFalse);
-        expect(find.text('Persistent alert'), findsOneWidget);
-      });
+      await tester.pump(const Duration(seconds: 2));
+      expect(dismissed, isFalse);
+      expect(find.text('Persistent alert'), findsOneWidget);
     });
 
-    group('dismissible', () {
-      testWidgets('can be manually dismissed', (tester) async {
-        var dismissed = false;
+    testWidgets('supports manual dismiss and title', (tester) async {
+      var dismissed = false;
 
-        await tester.pumpWidget(
-          testableWidget(
-            AnimatedAlert(
-              variant: AlertVariant.warning,
-              message: 'Dismissible animated alert',
-              dismissible: true,
-              onDismiss: () => dismissed = true,
-            ),
+      // Manual dismiss
+      await tester.pumpWidget(
+        testableWidget(
+          AnimatedAlert(
+            variant: AlertVariant.warning,
+            message: 'Dismissible animated alert',
+            dismissible: true,
+            onDismiss: () => dismissed = true,
           ),
-        );
+        ),
+      );
 
-        await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(LucideIcons.x));
+      await tester.pumpAndSettle();
+      expect(dismissed, isTrue);
 
-        // Find and tap dismiss button
-        await tester.tap(find.byIcon(LucideIcons.x));
-        await tester.pumpAndSettle();
-
-        expect(dismissed, isTrue);
-      });
-    });
-
-    group('title', () {
-      testWidgets('renders title when provided', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            const AnimatedAlert(
-              variant: AlertVariant.success,
-              title: 'Animated Title',
-              message: 'Animated message',
-            ),
+      // With title
+      await tester.pumpWidget(
+        testableWidget(
+          const AnimatedAlert(
+            variant: AlertVariant.success,
+            title: 'Animated Title',
+            message: 'Animated message',
           ),
-        );
+        ),
+      );
 
-        await tester.pumpAndSettle();
-
-        expect(find.text('Animated Title'), findsOneWidget);
-        expect(find.text('Animated message'), findsOneWidget);
-      });
+      await tester.pumpAndSettle();
+      expect(find.text('Animated Title'), findsOneWidget);
+      expect(find.text('Animated message'), findsOneWidget);
     });
   });
 }

@@ -5,477 +5,298 @@ import 'package:integrity_studio_ai/widgets/common/buttons.dart';
 import '../../helpers/test_helpers.dart';
 
 void main() {
+  // ==========================================================================
+  // GradientButton Tests
+  // ==========================================================================
 
   group('GradientButton', () {
-    group('callback handling', () {
-      testWidgets('invokes onPressed when tapped', (tester) async {
-        var pressed = false;
-
-        await tester.pumpWidget(
-          testableWidget(
-            GradientButton(
-              text: 'Test Button',
-              onPressed: () => pressed = true,
-            ),
-          ),
-        );
-
-        await tester.tap(find.text('Test Button'));
-        await tester.pump();
-
-        expect(pressed, isTrue);
-      });
-
-      testWidgets('does not invoke callback when disabled', (tester) async {
-        var pressed = false;
-
-        await tester.pumpWidget(
-          testableWidget(
-            const GradientButton(
-              text: 'Disabled Button',
-              onPressed: null,
-            ),
-          ),
-        );
-
-        // Button should still be visible
-        expect(find.text('Disabled Button'), findsOneWidget);
-        expect(pressed, isFalse);
-      });
-
-      testWidgets('does not invoke callback when loading', (tester) async {
-        var pressed = false;
-
-        await tester.pumpWidget(
-          testableWidget(
-            GradientButton(
-              text: 'Loading',
-              isLoading: true,
-              onPressed: () => pressed = true,
-            ),
-          ),
-        );
-
-        // Text should be replaced with spinner
-        expect(find.text('Loading'), findsNothing);
-        expect(pressed, isFalse);
-      });
-    });
-
-    group('loading state', () {
-      testWidgets('shows spinner when loading', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            GradientButton(
-              text: 'Test',
-              isLoading: true,
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.byType(CircularProgressIndicator), findsOneWidget);
-        expect(find.text('Test'), findsNothing);
-      });
-
-      testWidgets('shows text when not loading', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            GradientButton(
-              text: 'Test',
-              isLoading: false,
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.byType(CircularProgressIndicator), findsNothing);
-        expect(find.text('Test'), findsOneWidget);
-      });
-    });
-
-    group('icon handling', () {
-      testWidgets('shows icon when provided', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            GradientButton(
-              text: 'Test',
-              icon: LucideIcons.arrowRight,
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.arrowRight), findsOneWidget);
-      });
-
-      testWidgets('hides icon when loading', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            GradientButton(
-              text: 'Test',
-              icon: LucideIcons.arrowRight,
-              isLoading: true,
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.arrowRight), findsNothing);
-      });
-    });
-
-    group('structure', () {
-      testWidgets('wraps content in GestureDetector', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            GradientButton(
-              text: 'Test',
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.byType(GestureDetector), findsWidgets);
-      });
-
-      testWidgets('has Semantics widget for accessibility', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            GradientButton(
-              text: 'Test',
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.byType(Semantics), findsWidgets);
-      });
-    });
-  });
-
-  group('OutlineButton', () {
-    group('callback handling', () {
-      testWidgets('invokes onPressed when tapped', (tester) async {
-        var pressed = false;
-
-        await tester.pumpWidget(
-          testableWidget(
-            OutlineButton(
-              text: 'Outline Test',
-              onPressed: () => pressed = true,
-            ),
-          ),
-        );
-
-        await tester.tap(find.text('Outline Test'));
-        await tester.pump();
-
-        expect(pressed, isTrue);
-      });
-
-      testWidgets('does not invoke callback when disabled', (tester) async {
-        var pressed = false;
-
-        await tester.pumpWidget(
-          testableWidget(
-            const OutlineButton(
-              text: 'Disabled',
-              onPressed: null,
-            ),
-          ),
-        );
-
-        expect(find.text('Disabled'), findsOneWidget);
-        expect(pressed, isFalse);
-      });
-    });
-
-    group('loading state', () {
-      testWidgets('shows spinner when loading', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            OutlineButton(
-              text: 'Test',
-              isLoading: true,
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.byType(CircularProgressIndicator), findsOneWidget);
-      });
-    });
-
-    group('icon handling', () {
-      testWidgets('shows icon when provided', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            OutlineButton(
-              text: 'Test',
-              icon: LucideIcons.play,
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.byIcon(LucideIcons.play), findsOneWidget);
-      });
-    });
-
-    group('structure', () {
-      testWidgets('has AnimatedContainer for hover effects', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            OutlineButton(
-              text: 'Test',
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.byType(AnimatedContainer), findsWidgets);
-      });
-    });
-  });
-
-  group('AppTextButton', () {
-    group('callback handling', () {
-      testWidgets('invokes onPressed when tapped', (tester) async {
-        var pressed = false;
-
-        await tester.pumpWidget(
-          testableWidget(
-            AppTextButton(
-              text: 'Link',
-              onPressed: () => pressed = true,
-            ),
-          ),
-        );
-
-        await tester.tap(find.text('Link'));
-        await tester.pump();
-
-        expect(pressed, isTrue);
-      });
-    });
-
-    group('icon handling', () {
-      testWidgets('shows icon when provided', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            AppTextButton(
-              text: 'Link',
-              icon: LucideIcons.externalLink,
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.text('Link'), findsOneWidget);
-        expect(find.byIcon(LucideIcons.externalLink), findsOneWidget);
-      });
-
-      testWidgets('works with iconLeading option', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            AppTextButton(
-              text: 'Back',
-              icon: LucideIcons.arrowLeft,
-              iconLeading: true,
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        expect(find.text('Back'), findsOneWidget);
-        expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
-      });
-    });
-  });
-
-  group('AppIconButton', () {
-    testWidgets('invokes onPressed when tapped', (tester) async {
+    testWidgets('handles callbacks, loading, and icons correctly',
+        (tester) async {
+      // Test 1: Normal state with callback
       var pressed = false;
-
       await tester.pumpWidget(
         testableWidget(
-          AppIconButton(
-            icon: LucideIcons.menu,
+          GradientButton(
+            text: 'Test Button',
+            icon: LucideIcons.arrowRight,
             onPressed: () => pressed = true,
           ),
         ),
       );
 
-      await tester.tap(find.byIcon(LucideIcons.menu));
+      // Verify normal state
+      expect(find.text('Test Button'), findsOneWidget);
+      expect(find.byIcon(LucideIcons.arrowRight), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+
+      // Test tap invokes callback
+      await tester.tap(find.text('Test Button'));
       await tester.pump();
-
       expect(pressed, isTrue);
-    });
 
-    testWidgets('shows tooltip when provided', (tester) async {
+      // Test 2: Loading state - hides text and icon, shows spinner
       await tester.pumpWidget(
         testableWidget(
-          AppIconButton(
-            icon: LucideIcons.menu,
-            tooltip: 'Open menu',
+          GradientButton(
+            text: 'Loading',
+            icon: LucideIcons.arrowRight,
+            isLoading: true,
             onPressed: () {},
           ),
         ),
       );
 
-      expect(find.byType(Tooltip), findsOneWidget);
+      expect(find.text('Loading'), findsNothing);
+      expect(find.byIcon(LucideIcons.arrowRight), findsNothing);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+      // Test 3: Disabled state (onPressed: null)
+      await tester.pumpWidget(
+        testableWidget(
+          const GradientButton(
+            text: 'Disabled Button',
+            onPressed: null,
+          ),
+        ),
+      );
+
+      expect(find.text('Disabled Button'), findsOneWidget);
     });
 
-    testWidgets('uses custom icon size', (tester) async {
+    testWidgets('has proper structure with GestureDetector and Semantics',
+        (tester) async {
+      await tester.pumpWidget(
+        testableWidget(
+          GradientButton(
+            text: 'Test',
+            onPressed: () {},
+          ),
+        ),
+      );
+
+      expect(find.byType(GestureDetector), findsWidgets);
+      expect(find.byType(Semantics), findsWidgets);
+    });
+  });
+
+  // ==========================================================================
+  // OutlineButton Tests
+  // ==========================================================================
+
+  group('OutlineButton', () {
+    testWidgets('handles callbacks, loading, icon, and structure correctly',
+        (tester) async {
+      // Test 1: Normal state with callback and icon
+      var pressed = false;
+      await tester.pumpWidget(
+        testableWidget(
+          OutlineButton(
+            text: 'Outline Test',
+            icon: LucideIcons.play,
+            onPressed: () => pressed = true,
+          ),
+        ),
+      );
+
+      // Verify normal state
+      expect(find.text('Outline Test'), findsOneWidget);
+      expect(find.byIcon(LucideIcons.play), findsOneWidget);
+      expect(find.byType(AnimatedContainer), findsWidgets);
+
+      // Test tap invokes callback
+      await tester.tap(find.text('Outline Test'));
+      await tester.pump();
+      expect(pressed, isTrue);
+
+      // Test 2: Loading state - shows spinner
+      await tester.pumpWidget(
+        testableWidget(
+          OutlineButton(
+            text: 'Test',
+            isLoading: true,
+            onPressed: () {},
+          ),
+        ),
+      );
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+      // Test 3: Disabled state (onPressed: null)
+      await tester.pumpWidget(
+        testableWidget(
+          const OutlineButton(
+            text: 'Disabled',
+            onPressed: null,
+          ),
+        ),
+      );
+
+      expect(find.text('Disabled'), findsOneWidget);
+    });
+  });
+
+  // ==========================================================================
+  // AppTextButton Tests
+  // ==========================================================================
+
+  group('AppTextButton', () {
+    testWidgets('handles callbacks and icons with leading option correctly',
+        (tester) async {
+      // Test 1: Callback and trailing icon
+      var pressed = false;
+      await tester.pumpWidget(
+        testableWidget(
+          AppTextButton(
+            text: 'Link',
+            icon: LucideIcons.externalLink,
+            onPressed: () => pressed = true,
+          ),
+        ),
+      );
+
+      expect(find.text('Link'), findsOneWidget);
+      expect(find.byIcon(LucideIcons.externalLink), findsOneWidget);
+
+      // Test tap invokes callback
+      await tester.tap(find.text('Link'));
+      await tester.pump();
+      expect(pressed, isTrue);
+
+      // Test 2: Leading icon option
+      await tester.pumpWidget(
+        testableWidget(
+          AppTextButton(
+            text: 'Back',
+            icon: LucideIcons.arrowLeft,
+            iconLeading: true,
+            onPressed: () {},
+          ),
+        ),
+      );
+
+      expect(find.text('Back'), findsOneWidget);
+      expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
+    });
+  });
+
+  // ==========================================================================
+  // AppIconButton Tests
+  // ==========================================================================
+
+  group('AppIconButton', () {
+    testWidgets('handles callbacks, tooltip, and custom size correctly',
+        (tester) async {
+      // Test 1: Callback and rendering
+      var pressed = false;
       await tester.pumpWidget(
         testableWidget(
           AppIconButton(
             icon: LucideIcons.menu,
+            tooltip: 'Open menu',
+            onPressed: () => pressed = true,
+          ),
+        ),
+      );
+
+      expect(find.byIcon(LucideIcons.menu), findsOneWidget);
+      expect(find.byType(Tooltip), findsOneWidget);
+
+      // Test tap invokes callback
+      await tester.tap(find.byIcon(LucideIcons.menu));
+      await tester.pump();
+      expect(pressed, isTrue);
+
+      // Test 2: Custom icon size
+      await tester.pumpWidget(
+        testableWidget(
+          AppIconButton(
+            icon: LucideIcons.x,
             size: 32,
             onPressed: () {},
           ),
         ),
       );
 
-      final icon = tester.widget<Icon>(find.byIcon(LucideIcons.menu));
+      final icon = tester.widget<Icon>(find.byIcon(LucideIcons.x));
       expect(icon.size, equals(32));
     });
+  });
 
-    testWidgets('renders icon correctly', (tester) async {
+  // ==========================================================================
+  // AnimatedGradientBorderButton Tests
+  // ==========================================================================
+
+  group('AnimatedGradientBorderButton', () {
+    testWidgets('handles callbacks and loading state correctly',
+        (tester) async {
+      // Test 1: Normal state with callback
+      var pressed = false;
       await tester.pumpWidget(
         testableWidget(
-          AppIconButton(
-            icon: LucideIcons.x,
+          AnimatedGradientBorderButton(
+            text: 'Animated Button',
+            onPressed: () => pressed = true,
+          ),
+        ),
+      );
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(find.text('Animated Button'), findsOneWidget);
+
+      // Test tap invokes callback
+      await tester.tap(find.text('Animated Button'));
+      await tester.pump();
+      expect(pressed, isTrue);
+
+      // Test 2: Loading state - shows spinner, hides text
+      await tester.pumpWidget(
+        testableWidget(
+          AnimatedGradientBorderButton(
+            text: 'Test',
+            isLoading: true,
+            onPressed: () {},
+          ),
+        ),
+      );
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.text('Test'), findsNothing);
+
+      // Test 3: Disabled state (onPressed: null)
+      await tester.pumpWidget(
+        testableWidget(
+          const AnimatedGradientBorderButton(
+            text: 'Disabled Animated',
+            onPressed: null,
+          ),
+        ),
+      );
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(find.text('Disabled Animated'), findsOneWidget);
+    });
+
+    testWidgets('has animation with CustomPaint and proper structure',
+        (tester) async {
+      await tester.pumpWidget(
+        testableWidget(
+          AnimatedGradientBorderButton(
+            text: 'Get Started',
             onPressed: () {},
           ),
         ),
       );
 
-      expect(find.byIcon(LucideIcons.x), findsOneWidget);
-    });
-  });
+      // Animation should be running - pump a few frames
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
 
-  group('AnimatedGradientBorderButton', () {
-    // AnimatedGradientBorderButton has continuous animations, use pump() with duration
-
-    group('callback handling', () {
-      testWidgets('invokes onPressed when tapped', (tester) async {
-        var pressed = false;
-
-        await tester.pumpWidget(
-          testableWidget(
-            AnimatedGradientBorderButton(
-              text: 'Animated Button',
-              onPressed: () => pressed = true,
-            ),
-          ),
-        );
-        await tester.pump(const Duration(milliseconds: 500));
-
-        await tester.tap(find.text('Animated Button'));
-        await tester.pump();
-
-        expect(pressed, isTrue);
-      });
-
-      testWidgets('does not invoke callback when disabled', (tester) async {
-        var pressed = false;
-
-        await tester.pumpWidget(
-          testableWidget(
-            const AnimatedGradientBorderButton(
-              text: 'Disabled Animated',
-              onPressed: null,
-            ),
-          ),
-        );
-        await tester.pump(const Duration(milliseconds: 500));
-
-        expect(find.text('Disabled Animated'), findsOneWidget);
-        expect(pressed, isFalse);
-      });
-    });
-
-    group('loading state', () {
-      testWidgets('shows spinner when loading', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            AnimatedGradientBorderButton(
-              text: 'Test',
-              isLoading: true,
-              onPressed: () {},
-            ),
-          ),
-        );
-        await tester.pump(const Duration(milliseconds: 500));
-
-        expect(find.byType(CircularProgressIndicator), findsOneWidget);
-        expect(find.text('Test'), findsNothing);
-      });
-    });
-
-    group('animation', () {
-      testWidgets('has animation controller running', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            AnimatedGradientBorderButton(
-              text: 'Test',
-              onPressed: () {},
-            ),
-          ),
-        );
-
-        // Animation should be running - pump a few frames
-        await tester.pump(const Duration(seconds: 1));
-        await tester.pump(const Duration(seconds: 1));
-
-        expect(find.byType(AnimatedGradientBorderButton), findsOneWidget);
-      });
-
-      testWidgets('uses CustomPaint for gradient border', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            AnimatedGradientBorderButton(
-              text: 'Test',
-              onPressed: () {},
-            ),
-          ),
-        );
-        await tester.pump(const Duration(milliseconds: 500));
-
-        expect(find.byType(CustomPaint), findsWidgets);
-      });
-    });
-
-    group('structure', () {
-      testWidgets('has Semantics widget for accessibility', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            AnimatedGradientBorderButton(
-              text: 'Start Trial',
-              onPressed: () {},
-            ),
-          ),
-        );
-        await tester.pump(const Duration(milliseconds: 500));
-
-        expect(find.byType(Semantics), findsWidgets);
-      });
-
-      testWidgets('renders text correctly', (tester) async {
-        await tester.pumpWidget(
-          testableWidget(
-            AnimatedGradientBorderButton(
-              text: 'Get Started',
-              onPressed: () {},
-            ),
-          ),
-        );
-        await tester.pump(const Duration(milliseconds: 500));
-
-        expect(find.text('Get Started'), findsOneWidget);
-      });
+      // Verify structure
+      expect(find.byType(AnimatedGradientBorderButton), findsOneWidget);
+      expect(find.byType(CustomPaint), findsWidgets);
+      expect(find.byType(Semantics), findsWidgets);
+      expect(find.text('Get Started'), findsOneWidget);
     });
   });
 }
