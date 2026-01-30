@@ -4,7 +4,42 @@ Chronological record of development sessions for IntegrityStudio.ai Flutter proj
 
 ---
 
-## 2026-01-29: Widget Test Analysis & Consolidation
+## 2026-01-29: Widget Test Consolidation (Part 2)
+
+### Summary
+Continued test consolidation by refactoring `cookie_banner_test.dart`, the second-largest widget test file.
+
+### Consolidation: cookie_banner_test.dart
+| Metric | Before | After | Reduction |
+|--------|--------|-------|-----------|
+| Tests | 44 | 21 | **52%** |
+| Lines | 880 | 384 | **56%** |
+
+### Key Refactoring Applied
+1. **Reusable helpers**: `buildBanner()`, `pumpBannerAndWait()`, `navigateToPreferences()`
+2. **Combined rendering tests**: 6 separate "renders X" tests → 1 comprehensive test per layout
+3. **Consolidated unit tests**: 10 ConsentPreferences tests → 2 tests
+4. **Merged preferences view tests**: 12 tests → 5 tests
+5. **Kept interaction tests separate**: Tests triggering callbacks need isolated state (multi-pump in same test fails)
+
+### Technical Insight
+Tests that pump the widget multiple times to test different interactions fail because `setDesktopSize()`/`setMobileSize()` state isn't persisted after `pumpAndSettle()`. Keep interaction tests separate when they need fresh widget state.
+
+### Commits Made
+- `eda637a` refactor(test): consolidate cookie banner tests
+
+### Cumulative Test Consolidation
+| File | Before | After | Reduction |
+|------|--------|-------|-----------|
+| contact_section_test.dart | 70 | 33 | 53% |
+| cookie_banner_test.dart | 44 | 21 | 52% |
+| **Total** | **114** | **54** | **53%** |
+
+### Status: ✅ Complete
+
+---
+
+## 2026-01-29: Widget Test Analysis & Consolidation (Part 1)
 
 ### Summary
 Analyzed widget test performance and consolidated the largest test file (`contact_section_test.dart`) from 70 tests to 33 tests while maintaining coverage.
