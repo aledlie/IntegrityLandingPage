@@ -336,7 +336,7 @@ class _LandingPageState extends State<LandingPage> {
 
   void _handleSelectTier(String tier) {
     AnalyticsService.trackPricingView(tier);
-    Navigator.of(context).pushNamed('/signup?tier=$tier');
+    context.go('/signup?tier=$tier');
   }
 
   Future<void> _launchCalendly() async {
