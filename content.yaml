@@ -1455,7 +1455,7 @@ blog:
         A practical guide to implementing Article 12-compliant logging for LLM
         systems, with code examples and production-ready patterns. Covers ISO 24970
         standards, data schemas, and implementation for high-risk AI compliance.
-      date: "December 26, 2024"
+      date: "December 15, 2025"
       read_time: "15 min read"
       category: "Compliance"
       url: "/blog/eu-ai-act-compliance-logging-setup.html"
