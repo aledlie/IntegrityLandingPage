@@ -189,7 +189,7 @@ class ResourcesSection extends StatelessWidget {
                 buttonName: _content.docsCtaText,
                 location: 'resources_section',
               );
-              Navigator.of(ctx).pushNamed(_content.docsCtaUrl);
+              ctx.go(_content.docsCtaUrl);
             },
           ),
         ),

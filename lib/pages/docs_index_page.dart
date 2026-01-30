@@ -32,7 +32,7 @@ class DocsIndexPage extends StatelessWidget {
             pinned: true,
             leading: IconButton(
               icon: const Icon(LucideIcons.arrowLeft, color: Colors.white),
-              onPressed: onBack ?? () => Navigator.of(context).pop(),
+              onPressed: onBack ?? () => context.go('/'),
             ),
             title: Text(
               'Documentation',
@@ -42,7 +42,7 @@ class DocsIndexPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: AppSpacing.md),
                 child: TextButton(
-                  onPressed: onBack ?? () => Navigator.of(context).pop(),
+                  onPressed: onBack ?? () => context.go('/'),
                   child: Text(
                     'Back to Home',
                     style: AppTypography.bodySM.copyWith(

@@ -72,7 +72,7 @@ class _CareersPageState extends State<CareersPage> {
       toolbarHeight: isMobile ? 56 : 64,
       leading: IconButton(
         icon: const Icon(LucideIcons.arrowLeft, color: Colors.white),
-        onPressed: widget.onBack ?? () => Navigator.of(context).pop(),
+        onPressed: widget.onBack ?? () => context.go('/'),
         tooltip: 'Back',
       ),
       title: GestureDetector(

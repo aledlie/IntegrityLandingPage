@@ -58,7 +58,7 @@ class ComparisonPage extends StatelessWidget {
             pinned: true,
             leading: IconButton(
               icon: const Icon(LucideIcons.arrowLeft, color: Colors.white),
-              onPressed: onBack ?? () => Navigator.of(context).pop(),
+              onPressed: onBack ?? () => context.go('/'),
             ),
             title: Text(
               '${content.competitorName} Alternative',
@@ -68,7 +68,7 @@ class ComparisonPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: AppSpacing.md),
                 child: TextButton(
-                  onPressed: onBack ?? () => Navigator.of(context).pop(),
+                  onPressed: onBack ?? () => context.go('/'),
                   child: Text(
                     'Back to Home',
                     style: AppTypography.bodySM.copyWith(
@@ -958,7 +958,7 @@ class _FinalCTASection extends StatelessWidget {
                   builder: (ctx) => GradientButton(
                     text: content.heroCtaText,
                     icon: LucideIcons.arrowRight,
-                    onPressed: () => Navigator.of(ctx).pushNamed(
+                    onPressed: () => ctx.go(
                       '/signup?ref=${content.competitorName.toLowerCase()}',
                     ),
                   ),
