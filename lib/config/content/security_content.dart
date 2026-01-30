@@ -35,8 +35,8 @@ abstract final class SecurityContent {
       'your data and the trust you place in us.';
 
   static const stats = [
-    SecurityStatItem(value: '256-bit', label: 'SSL/TLS Encryption'),
-    SecurityStatItem(value: 'SOC 2', label: 'Type II Audit Ready'),
+    SecurityStatItem(value: '9', label: 'Defense Layers'),
+    SecurityStatItem(value: '195+', label: 'Security Tests'),
     SecurityStatItem(value: '99.9%', label: 'Uptime SLA'),
   ];
 
@@ -95,32 +95,38 @@ abstract final class SecurityContent {
   // Observability Security Section
   static const observabilitySecurityTitle = 'Observability Pipeline Security';
   static const observabilitySecurityDescription =
-      'Your telemetry data flows through multiple layers of protection, from collection to storage.';
+      'Defense-in-depth with 9 security layers protecting your telemetry data from collection to storage.';
 
   static const observabilityFeatures = [
     SecurityFeatureItem(
-      title: 'Query Injection Prevention',
-      desc: 'All filter values are escaped to prevent injection attacks on trace and log queries',
+      title: 'Query Escaping & Injection Prevention',
+      desc: 'SQL injection prevention for ClickHouse with 22-pattern blocklist, word boundary detection, '
+          'and 10KB input length limits. All user inputs validated then escaped.',
     ),
     SecurityFeatureItem(
-      title: 'Path Traversal Protection',
-      desc: 'File system operations are validated to prevent unauthorized directory access',
+      title: 'Memory Limits & DoS Prevention',
+      desc: 'Hard caps on results (10K items, 50MB) with streaming aggregation using reservoir sampling '
+          'for percentiles. Binary search finds safe truncation points.',
     ),
     SecurityFeatureItem(
-      title: 'Bounds Checking',
-      desc: 'All numeric inputs (limits, offsets, span kinds) are validated within safe ranges',
+      title: 'SSRF Protection',
+      desc: 'URL validation blocks localhost, private IPs (IPv4/IPv6), link-local, and reserved domains. '
+          'HTTPS-only with comprehensive IPv6 format checking.',
     ),
     SecurityFeatureItem(
-      title: 'Format Validation',
-      desc: 'Trace IDs, span IDs, and other identifiers are validated against expected formats',
+      title: 'Rate Limiting',
+      desc: 'Token bucket rate limiter with configurable burst (60 requests) and refill rate (1/sec). '
+          'Integrated with circuit breaker for dual protection.',
     ),
     SecurityFeatureItem(
-      title: 'Streaming with Limits',
-      desc: 'Large data files are streamed with configurable limits to prevent memory exhaustion',
+      title: 'ReDoS Prevention',
+      desc: 'Regex patterns escaped before use to prevent catastrophic backtracking. '
+          'Maximum pattern length (200 chars) and group count (10) enforced.',
     ),
     SecurityFeatureItem(
-      title: 'Retention Management',
-      desc: 'Configurable data retention policies with automatic cleanup of expired telemetry',
+      title: 'Symlink & Path Traversal Protection',
+      desc: 'Symlinks resolved and validated against allowed base directories. '
+          'Paths outside working directory or ~/.claude/ are rejected with security warnings.',
     ),
   ];
 
@@ -222,32 +228,37 @@ abstract final class SecurityContent {
   // API Security Section
   static const apiSecurityTitle = 'API Security';
   static const apiSecurityDescription =
-      'All API endpoints are protected with multiple layers of security.';
+      'All API endpoints protected with layered security controls and comprehensive validation.';
 
   static const apiFeatures = [
     SecurityFeatureItem(
       title: 'Bearer Token Authentication',
-      desc: 'JWT tokens required for all authenticated API requests',
+      desc: 'JWT tokens required for all authenticated API requests with automatic session expiration',
     ),
     SecurityFeatureItem(
-      title: 'Rate Limiting',
-      desc: 'Configurable request throttling to prevent abuse and denial-of-service attacks',
-    ),
-    SecurityFeatureItem(
-      title: 'Query Injection Protection',
-      desc: 'Filter value escaping prevents injection attacks on observability queries',
-    ),
-    SecurityFeatureItem(
-      title: 'Path Traversal Protection',
-      desc: 'Strict path validation prevents unauthorized file system access',
+      title: 'Token Bucket Rate Limiting',
+      desc: 'Configurable burst capacity (60) and refill rate (1/sec) via environment variables. '
+          'Refund mechanism prevents rate limit bypass through circuit breaker state.',
     ),
     SecurityFeatureItem(
       title: 'Input Validation',
-      desc: 'Bounds checking, format validation (traceId, spanId), and type coercion on all inputs',
+      desc: 'Strict limits enforced: max 1000 results per query, 365-day date range, 200-char regex, '
+          '24-hour max duration. Negative values rejected, excessive values clamped.',
     ),
     SecurityFeatureItem(
-      title: 'Sanitized Error Messages',
-      desc: 'Error responses designed to not expose sensitive system information or stack traces',
+      title: 'Error Sanitization',
+      desc: 'File paths, stack traces, and internal details stripped from responses. '
+          'Unix/Windows paths and node internals removed. Validation errors pass through unchanged.',
+    ),
+    SecurityFeatureItem(
+      title: 'Data Type Safety',
+      desc: 'NaN and Infinity values rejected. String literal unions prevent type coercion. '
+          'Empty strings normalized to undefined where appropriate.',
+    ),
+    SecurityFeatureItem(
+      title: 'URL Path Whitelisting',
+      desc: 'Only safe path prefixes (/v1/, /api/, /signoz/, /query/) preserved. '
+          'Unknown paths stripped, query parameters and fragments always removed.',
     ),
     SecurityFeatureItem(
       title: 'CSRF Protection',
@@ -270,7 +281,7 @@ abstract final class SecurityContent {
     'Dependency vulnerability monitoring',
     'Regular security audits with full remediation tracking',
     'Strict type validation using Zod schemas',
-    '815+ automated tests covering security paths',
+    '993+ automated tests with 195+ security-focused tests',
   ];
 
   static const opsPractices = [
