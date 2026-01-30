@@ -26,6 +26,7 @@ import '../pages/api_toolkit_page.dart';
 import '../pages/help_center_page.dart';
 import '../pages/features_page.dart';
 import '../pages/status_page.dart';
+import '../pages/demo_page.dart';
 
 /// Creates the application router with all routes and redirects.
 ///
@@ -126,6 +127,12 @@ GoRouter createAppRouter({
             builder: (context, state) => ContactPage(
               onBack: () => context.go('/'),
               onShowCookieSettings: onShowCookieSettings,
+            ),
+          ),
+          GoRoute(
+            path: '/demo',
+            builder: (context, state) => DemoPage(
+              onBack: () => context.go('/'),
             ),
           ),
           GoRoute(
