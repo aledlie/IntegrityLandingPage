@@ -14,9 +14,6 @@ import 'package:integrity_studio_ai/widgets/common/buttons.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   group('LandingPage', () {
     // Use pump with duration instead of pumpAndSettle to avoid animation timeouts
@@ -37,11 +34,8 @@ void main() {
           home: LandingPage(onShowCookieSettings: onShowCookieSettings),
         ),
       );
-      // Pump multiple frames to let widget and semantics tree build
-      await tester.pump(const Duration(milliseconds: 100));
-      await tester.pump(const Duration(milliseconds: 100));
-      await tester.pump(const Duration(milliseconds: 100));
-      // Send semantics update
+      // Two pump frames for widget tree to build
+      await tester.pump();
       await tester.pump();
 
       // Restore error handler
@@ -191,7 +185,7 @@ void main() {
         // Scroll down
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -300));
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Get new offset after scroll
         final newOffset = scrollView.controller?.offset ?? 0;
@@ -342,7 +336,7 @@ void main() {
         // Scroll down to trigger scroll listener
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -500));
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Page should still be rendered
         expect(find.byType(LandingPage), findsOneWidget);
@@ -355,7 +349,7 @@ void main() {
         // First scroll down
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -500));
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Find the logo GestureDetector (first one in header)
         final gestureDetectors = find.byType(GestureDetector);
@@ -364,7 +358,7 @@ void main() {
         // Tapping logo should trigger scroll animation
         await tester.tap(gestureDetectors.first);
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(LandingPage), findsOneWidget);
       });
@@ -383,7 +377,7 @@ void main() {
         // Scroll to various positions to trigger _onScroll
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -1000));
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Verify scroll position changed
         expect(controller.offset, greaterThan(0));
@@ -391,7 +385,7 @@ void main() {
         // Scroll more to increase depth percentage
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -2000));
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Page remains functional after scroll tracking
         expect(find.byType(LandingPage), findsOneWidget);
@@ -418,19 +412,21 @@ void main() {
         };
 
         final router = createAppRouter(
-                    onConsentGiven: () {},
+          onConsentGiven: () {},
           onShowCookieSettings: () {},
         );
 
+        // Don't wrap in MediaQuery - let MaterialApp pick up the view size
+        // set by setDesktopSize(). MediaQuery wrapper overrides viewport size.
         await tester.pumpWidget(
           MaterialApp.router(
             routerConfig: router,
             theme: testTheme,
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
-        await tester.pump(const Duration(milliseconds: 100));
-        await tester.pump(const Duration(milliseconds: 100));
+        // Router needs multiple frames to initialize navigation stack
+        await tester.pump();
+        await tester.pump();
         await tester.pump();
 
         FlutterError.onError = oldHandler;
@@ -447,7 +443,7 @@ void main() {
 
         await tester.tap(featuresLink);
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Should still be on landing page (scrolled)
         expect(find.byType(LandingPage), findsOneWidget);
@@ -464,7 +460,7 @@ void main() {
 
         await tester.tap(pricingLink);
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Should still be on landing page (scrolled)
         expect(find.byType(LandingPage), findsOneWidget);
@@ -480,7 +476,7 @@ void main() {
 
         await tester.tap(aboutLink);
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.pump(const Duration(milliseconds: 500));
 
         // Should navigate to about page
@@ -497,7 +493,7 @@ void main() {
 
         await tester.tap(blogLink);
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
         await tester.pump(const Duration(milliseconds: 500));
 
         // Should navigate to blog page
@@ -515,7 +511,7 @@ void main() {
 
         await tester.tap(contactLink);
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Should still be on landing page (scrolled)
         expect(find.byType(LandingPage), findsOneWidget);
@@ -531,7 +527,7 @@ void main() {
 
         await tester.tap(getStartedButton);
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Should still be on landing page (scrolled to pricing)
         expect(find.byType(LandingPage), findsOneWidget);
@@ -553,14 +549,16 @@ void main() {
         );
 
         await tester.pumpWidget(
-          MaterialApp.router(
-            routerConfig: router,
-            theme: testTheme,
+          MediaQuery(
+            data: const MediaQueryData(disableAnimations: true),
+            child: MaterialApp.router(
+              routerConfig: router,
+              theme: testTheme,
+            ),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
-        await tester.pump(const Duration(milliseconds: 100));
-        await tester.pump(const Duration(milliseconds: 100));
+        // Router needs multiple frames to initialize
+        await tester.pump();
         await tester.pump();
 
         FlutterError.onError = oldHandler;
@@ -599,7 +597,7 @@ void main() {
         // Tap Features
         await tester.tap(find.text('Features').last);
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Should still be on landing page
         expect(find.byType(LandingPage), findsOneWidget);
@@ -618,7 +616,7 @@ void main() {
         // Tap Pricing
         await tester.tap(find.text('Pricing').last);
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Should still be on landing page
         expect(find.byType(LandingPage), findsOneWidget);
@@ -688,7 +686,7 @@ void main() {
         // Tap Contact
         await tester.tap(find.text('Contact').last);
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Should still be on landing page
         expect(find.byType(LandingPage), findsOneWidget);
@@ -796,31 +794,33 @@ void main() {
         };
 
         await tester.pumpWidget(
-          MaterialApp(
-            theme: testTheme,
-            initialRoute: '/',
-            onGenerateRoute: (settings) {
-              if (settings.name == '/') {
+          MediaQuery(
+            data: const MediaQueryData(disableAnimations: true),
+            child: MaterialApp(
+              theme: testTheme,
+              initialRoute: '/',
+              onGenerateRoute: (settings) {
+                if (settings.name == '/') {
+                  return MaterialPageRoute(
+                    builder: (context) => const LandingPage(),
+                  );
+                }
+                if (settings.name?.startsWith('/signup') ?? false) {
+                  return MaterialPageRoute(
+                    builder: (context) => Scaffold(
+                      body: Text('Signup: ${settings.name}'),
+                    ),
+                  );
+                }
                 return MaterialPageRoute(
-                  builder: (context) => const LandingPage(),
+                  builder: (context) => const Scaffold(body: Text('Unknown')),
                 );
-              }
-              if (settings.name?.startsWith('/signup') ?? false) {
-                return MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                    body: Text('Signup: ${settings.name}'),
-                  ),
-                );
-              }
-              return MaterialPageRoute(
-                builder: (context) => const Scaffold(body: Text('Unknown')),
-              );
-            },
+              },
+            ),
           ),
         );
-        await tester.pump(const Duration(milliseconds: 100));
-        await tester.pump(const Duration(milliseconds: 100));
-        await tester.pump(const Duration(milliseconds: 100));
+        // Router needs multiple frames to initialize
+        await tester.pump();
         await tester.pump();
 
         FlutterError.onError = oldHandler;
@@ -834,7 +834,7 @@ void main() {
         // Scroll down to pricing section
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -5000));
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Find pricing section
         final pricingSection = find.byType(PricingSection);
@@ -855,7 +855,7 @@ void main() {
         // Scroll down to pricing section
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -5000));
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Try to find and tap any pricing CTA button
         // Pricing cards use ElevatedButton for popular tier or OutlinedButton
@@ -884,7 +884,7 @@ void main() {
         // Scroll down to CTA section
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -6000));
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Find CTA section
         final ctaSection = find.byType(CTASection);
@@ -906,7 +906,7 @@ void main() {
         // Scroll down to CTA section
         await tester.drag(find.byType(CustomScrollView), const Offset(0, -6000));
         await tester.pump();
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Find CTA section
         final ctaSection = find.byType(CTASection);

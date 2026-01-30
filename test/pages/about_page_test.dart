@@ -10,10 +10,6 @@ void main() {
   // Suppress overflow errors in layout tests (visual-only, not functional)
   final originalOnError = FlutterError.onError;
 
-  setUpAll(() {
-    initializeTestContent();
-  });
-
   setUp(() {
     FlutterError.onError = (FlutterErrorDetails details) {
       final isOverflowError = details.exception.toString().contains('overflowed');
@@ -43,6 +39,8 @@ void main() {
       };
 
       if (setSize) setDesktopSize(tester);
+      // Don't wrap in MediaQuery - let MaterialApp pick up the view size
+      // set by setDesktopSize(). MediaQuery wrapper overrides viewport size.
       await tester.pumpWidget(
         MaterialApp(
           theme: testTheme,
@@ -52,8 +50,8 @@ void main() {
           ),
         ),
       );
-      await tester.pump(const Duration(milliseconds: 100));
-      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pump();
+      await tester.pump();
 
       FlutterError.onError = oldHandler;
     }

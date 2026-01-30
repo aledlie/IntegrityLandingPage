@@ -6,9 +6,6 @@ import 'package:integrity_studio_ai/widgets/common/form_fields.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  setUpAll(() {
-    initializeTestContent();
-  });
 
   group('SignupPage', () {
     void setLargeViewport(WidgetTester tester) {
@@ -29,7 +26,7 @@ void main() {
       testWidgets('renders SignupPage', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(SignupPage), findsOneWidget);
       });
@@ -37,7 +34,7 @@ void main() {
       testWidgets('renders Scaffold', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(Scaffold), findsOneWidget);
       });
@@ -45,7 +42,7 @@ void main() {
       testWidgets('renders CustomScrollView', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(CustomScrollView), findsOneWidget);
       });
@@ -53,7 +50,7 @@ void main() {
       testWidgets('renders SliverAppBar', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(SliverAppBar), findsOneWidget);
       });
@@ -63,7 +60,7 @@ void main() {
       testWidgets('renders FormTextField widgets', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Should have 3 form fields: name, email, company
         expect(find.byType(FormTextField), findsNWidgets(3));
@@ -72,7 +69,7 @@ void main() {
       testWidgets('renders Checkbox for terms agreement', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(Checkbox), findsOneWidget);
       });
@@ -80,7 +77,7 @@ void main() {
       testWidgets('renders GradientButton for submit', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(GradientButton), findsOneWidget);
       });
@@ -90,7 +87,7 @@ void main() {
       testWidgets('renders with starter tier', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage(tier: 'starter'));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(SignupPage), findsOneWidget);
       });
@@ -98,7 +95,7 @@ void main() {
       testWidgets('renders with growth tier', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage(tier: 'growth'));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(SignupPage), findsOneWidget);
       });
@@ -106,7 +103,7 @@ void main() {
       testWidgets('renders with scale tier', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage(tier: 'scale'));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(SignupPage), findsOneWidget);
       });
@@ -114,7 +111,7 @@ void main() {
       testWidgets('renders with enterprise tier', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage(tier: 'enterprise'));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(SignupPage), findsOneWidget);
       });
@@ -122,7 +119,7 @@ void main() {
       testWidgets('renders with custom tier', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage(tier: 'custom-tier'));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(SignupPage), findsOneWidget);
       });
@@ -132,7 +129,7 @@ void main() {
       testWidgets('can enter text in name field', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         final textFields = find.byType(TextFormField);
         expect(textFields, findsWidgets);
@@ -144,7 +141,7 @@ void main() {
       testWidgets('can toggle terms checkbox', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         final checkbox = find.byType(Checkbox);
         expect(checkbox, findsOneWidget);
@@ -167,7 +164,7 @@ void main() {
       testWidgets('back button is present', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(IconButton), findsWidgets);
       });
@@ -177,7 +174,7 @@ void main() {
         var backCalled = false;
 
         await tester.pumpWidget(buildSignupPage(onBack: () => backCalled = true));
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Find and tap the back button (first IconButton)
         final iconButtons = find.byType(IconButton);
@@ -194,7 +191,7 @@ void main() {
       testWidgets('renders Wrap widget for features', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(Wrap), findsWidgets);
       });
@@ -204,7 +201,7 @@ void main() {
       testWidgets('renders on mobile viewport', (tester) async {
         setMobileSize(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(SignupPage), findsOneWidget);
       });
@@ -212,7 +209,7 @@ void main() {
       testWidgets('renders on tablet viewport', (tester) async {
         setTabletSize(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(SignupPage), findsOneWidget);
       });
@@ -220,7 +217,7 @@ void main() {
       testWidgets('renders on desktop viewport', (tester) async {
         setDesktopSize(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(SignupPage), findsOneWidget);
       });
@@ -230,7 +227,7 @@ void main() {
       testWidgets('submit button exists', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         expect(find.byType(GradientButton), findsOneWidget);
       });
@@ -238,7 +235,7 @@ void main() {
       testWidgets('tapping submit without filling form shows validation', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Tap submit button
         final submitButton = find.byType(GradientButton);
@@ -254,7 +251,7 @@ void main() {
       testWidgets('disposes without error', (tester) async {
         setLargeViewport(tester);
         await tester.pumpWidget(buildSignupPage());
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump();
 
         // Replace with different widget to trigger dispose
         await tester.pumpWidget(
