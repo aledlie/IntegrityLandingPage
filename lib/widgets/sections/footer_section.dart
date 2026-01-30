@@ -402,7 +402,7 @@ List<_LinkSection> get _linkSections => [
   _LinkSection(
     title: 'Resources',
     links: [
-      _LinkItem(text: 'Help Center', url: '/help-center'),
+      _LinkItem(text: 'Help Center', url: '/support'),
       _LinkItem(text: 'Status', url: Routes.status),
       _LinkItem(text: 'Security', url: Routes.security),
     ],

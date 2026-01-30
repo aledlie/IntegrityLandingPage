@@ -472,15 +472,6 @@ void main() {
       testWidgets('navigates to help center page', (tester) async {
         setDesktopSize(tester);
 
-        await tester.pumpWidget(buildTestApp(initialLocation: '/help-center'));
-        await tester.pumpAndSettle();
-
-        expect(find.byType(HelpCenterPage), findsOneWidget);
-      });
-
-      testWidgets('redirects /support to /help-center', (tester) async {
-        setDesktopSize(tester);
-
         await tester.pumpWidget(buildTestApp(initialLocation: '/support'));
         await tester.pumpAndSettle();
 

@@ -175,11 +175,11 @@ void main() {
       expect(redirect, isNotNull);
     });
 
-    testWidgets('/support path resolves to /help-center', (tester) async {
+    testWidgets('/support path navigates to help center', (tester) async {
       final router = await pumpRouterApp(tester, initialLocation: '/support');
 
       expect(router.routerDelegate.currentConfiguration.uri.path,
-          equals('/help-center'));
+          equals('/support'));
     });
 
     testWidgets('/docs/agents navigates to agents page', (tester) async {

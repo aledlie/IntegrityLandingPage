@@ -42,7 +42,6 @@ GoRouter createAppRouter({
     initialLocation: '/',
     redirect: (context, state) {
       final path = state.uri.path;
-      if (path == '/support') return '/help-center';
       if (path == '/docs/security/audit-trails') return '/docs/tracing';
       if (path.startsWith('/reports/')) return '/docs';
       if (path == '/eu-ai-act') return '/compliance';
@@ -137,7 +136,7 @@ GoRouter createAppRouter({
             ),
           ),
           GoRoute(
-            path: '/help-center',
+            path: '/support',
             builder: (context, state) => HelpCenterPage(
               onBack: () => context.go('/'),
             ),

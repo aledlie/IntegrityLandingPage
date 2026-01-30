@@ -99,15 +99,15 @@ lib/
 | `/compliance` | Implemented (Compliance & Governance) |
 | `/features` | Implemented (Features Overview) |
 | `/status` | Implemented (Status Dashboard) |
-| `/help-center` | Implemented (Help Center) |
+| `/support` | Implemented (Help Center) |
 
 ### Redirect Routes
 
 | From | To |
 |------|-----|
-| `/support` | `/help-center` |
 | `/docs/security/audit-trails` | `/docs/tracing` |
 | `/reports/*` | `/docs` |
+| `/eu-ai-act` | `/compliance` |
 
 ### Reports
 
@@ -122,7 +122,7 @@ lib/
 | Features | `/features` | Implemented |
 | Documentation | `/docs` | Implemented |
 | API Reference | `/api` | Implemented |
-| Help Center | `/help-center` | Implemented |
+| Help Center | `/support` | Implemented |
 | Security | `/security` | Implemented |
 
 ## Test Coverage
