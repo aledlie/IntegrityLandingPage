@@ -64,7 +64,112 @@ Completed widget test consolidation by refactoring the 4 remaining candidate fil
 
 ---
 
-## 2026-01-29: Page Test Consolidation - Overflow Error Helpers
+## 2026-01-29: Page Test Consolidation - Standard Test Patterns (Priority 3)
+
+### Summary
+Consolidated standard page test patterns (page structure, back button callbacks, responsive layout) across 12 page test files into shared helpers in `test_helpers.dart`. This was Priority 3 of the consolidation effort.
+
+### Consolidation Results
+
+| Metric | Value |
+|--------|-------|
+| Lines added | +133 (test_helpers.dart) |
+| Lines removed | -476 (page tests) |
+| **Net reduction** | **-343 lines** |
+| Files updated | 12 (11 test files + test_helpers.dart) |
+| Tests passing | 723 (all page tests) |
+
+### Helpers Added to `test/helpers/test_helpers.dart`
+
+```dart
+/// Type for pump functions with standard page callback signature
+typedef PagePumpFunction = Future<void> Function(
+  WidgetTester tester, {
+  VoidCallback? onBack,
+  bool mobile,
+});
+
+/// Tests Scaffold, CustomScrollView, SliverAppBar, back button
+void testPageStructure(
+  Future<void> Function(WidgetTester) pumpPage, {
+  bool hasBackButton = true,
+})
+
+/// Tests back button triggers onBack callback
+void testBackButtonCallback(PagePumpFunction pumpPage)
+
+/// Tests both back button and "Back to Home" button callbacks
+void testBackButtonCallbacks(PagePumpFunction pumpPage)
+
+/// Tests mobile and desktop viewport rendering
+void testResponsiveLayout<T extends Widget>(
+  PagePumpFunction pumpPage, {
+  String? expectedTitle,
+  bool includeTablet = false,
+})
+```
+
+### Usage Pattern (now standardized)
+```dart
+group('page structure', () {
+  testPageStructure(pumpMyPage);
+  // Additional page-specific tests...
+});
+
+group('navigation', () {
+  testBackButtonCallbacks(pumpMyPage);
+});
+
+group('responsive layout', () {
+  testResponsiveLayout<MyPage>(pumpMyPage, expectedTitle: 'Page Title');
+});
+```
+
+### Files Modified
+
+**test_helpers.dart** (+133 lines):
+- Added `PagePumpFunction` typedef
+- Added `testPageStructure()` helper
+- Added `testBackButtonCallback()` helper
+- Added `testBackButtonCallbacks()` helper
+- Added `testResponsiveLayout<T>()` helper
+- Added LucideIcons import
+
+**12 page test files** (each -20 to -64 lines):
+- about_page_test.dart
+- careers_page_test.dart
+- docs_alerts_page_test.dart
+- docs_api_page_test.dart
+- docs_interoperability_page_test.dart
+- docs_observability_page_test.dart
+- docs_quickstart_page_test.dart
+- eu_ai_act_page_test.dart
+- legal_page_test.dart
+- pricing_page_test.dart
+- security_page_test.dart
+
+### Commits Made
+- `6b19ab2` refactor(test): consolidate standard page test patterns
+
+### Cumulative Page Test Consolidation
+
+| Priority | Description | Net Lines Removed |
+|----------|-------------|-------------------|
+| Priority 1 | Overflow error suppression | -151 lines |
+| Priority 3 | Standard test patterns | -343 lines |
+| **Total** | | **-494 lines** |
+
+### Remaining Consolidation Opportunities
+
+**Priority 2 - Generic page pumping** (~180 lines potential):
+- 9+ files have nearly identical `pumpXyzPage()` helper functions
+- Could extract to generic `pumpPageWidget(tester, Widget, {bool mobile})`
+
+### Status: ✅ Complete
+
+---
+
+## 2026-01-29: Page Test Consolidation - Overflow Error Helpers (Priority 1)
 
 ### Summary
 Consolidated duplicate overflow error suppression code across 11 page test files into shared helpers in `test_helpers.dart`. This was Priority 1 of a larger consolidation opportunity analysis.
