@@ -503,42 +503,46 @@ social_proof:
     setup_time: *setup_time
 
   # Placeholder logos (to be replaced with real customers)
-  logos:
-    - name: "granica.ai"
-      industry: "Cutting Edge Data Services"
-    - name: "DotFun LLC"
-      industry: "SaaS"
-    - name: "Leora Home Health Care"
-      industry: "Healthcare"
+  # TODO: Uncomment when customer logos are approved for use
+  # logos:
+  #   - name: "Granica.ai"
+  #     industry: "Cutting Edge Data Services"
+  #   - name: "DotFun"
+  #     industry: "SaaS"
+  #   - name: "Leora Home Health Care"
+  #     industry: "Healthcare"
+  #   - name: "Hines Financial Group"
+  #     industry: "Financial Services"
 
-  testimonials:
-    - quote: "Integrity Studio reduced our LLM debugging time by 73%. We now catch issues before our users do."
-      author: "Joey Rahman"
-      role: "VP of Engineering"
-      company: "granica.ai"
-      metric: "73% faster"
-      metric_context: "issue resolution"
-
-    - quote: "The EU AI Act compliance tools saved us months of preparation. Audit-ready documentation out of the box."
-      author: "Matthew Gregory"
-      role: "Development VP"
-      company: "Hines Financial Group"
-      metric: "3 months"
-      metric_context: "compliance prep saved"
-
-    - quote: "We cut our LLM and operational overhead costs by 40% within the first month. The cost tracking alone pays for itself."
-      author: "Alvin Cheung"
-      role: "CEO"
-      company: "DotFun"
-      metric: "40%"
-      metric_context: "cost reduction"
-
-    - quote: "Integrity Studio gave us the visibility and guidance we needed to meet regulatory requirements with confidence and ease. The compliance reports alone saved us weeks."
-      author: "Monica Herrera Hernandez"
-      role: "CEO"
-      company: "Leora Health Care"
-      metric: "weeks"
-      metric_context: "compliance time saved"
+  # TODO: Uncomment when testimonials are approved for publication
+  # testimonials:
+  #   - quote: "Integrity Studio reduced our LLM debugging time by 73%. We now catch issues before our users do."
+  #     author: "Joey Rahman"
+  #     role: "VP of Engineering"
+  #     company: "Granica.ai"
+  #     metric: "73% faster"
+  #     metric_context: "issue resolution"
+  #
+  #   - quote: "The EU AI Act compliance tools saved us months of preparation. Audit-ready documentation out of the box."
+  #     author: "Matthew Gregory"
+  #     role: "Development VP"
+  #     company: "Hines Financial Group"
+  #     metric: "3 months"
+  #     metric_context: "compliance prep saved"
+  #
+  #   - quote: "We cut our LLM and operational overhead costs by 40% within the first month. The cost tracking alone pays for itself."
+  #     author: "Alvin Cheung"
+  #     role: "CEO"
+  #     company: "DotFun"
+  #     metric: "40%"
+  #     metric_context: "cost reduction"
+  #
+  #   - quote: "Integrity Studio gave us the visibility and guidance we needed to meet regulatory requirements with confidence and ease. The compliance reports alone saved us weeks."
+  #     author: "Monica Herrera Hernandez"
+  #     role: "CEO"
+  #     company: "Leora Home Health Care"
+  #     metric: "weeks"
+  #     metric_context: "compliance time saved"
 
 # =============================================================================
 # STATUS SECTION
