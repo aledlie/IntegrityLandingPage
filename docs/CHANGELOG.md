@@ -4,6 +4,65 @@ All notable changes to the IntegrityStudio.ai Flutter project.
 
 ---
 
+## [2026-01-29] - Navigation Refactor & New Documentation Pages
+
+### New Pages
+
+**Help Center (`/help-center`):**
+- FAQ section with common questions
+- Support options and contact methods
+- /support now redirects here
+
+**Documentation Pages:**
+- `/docs/agents` - AI agents observability documentation
+- `/api/toolkit` - API toolkit and SDK documentation
+- `/compliance` - Compliance and governance features
+
+### Navigation Refactor
+
+**GoRouter Migration:**
+- Replaced all `Navigator.pushNamed`/`pop` with `context.go()` for proper SPA navigation
+- Fixed issue where Navigator.pop() caused full app refresh
+- Added `cookieBannerNotifier` (ValueNotifier) to control banner visibility without router recreation
+
+### Bug Fixes
+
+- Fixed /support redirect (was /contact, now /help-center)
+- Fixed footer links not navigating correctly
+- Fixed /docs/agents being redirect instead of proper route
+- Removed Enterprise-Grade Capabilities section from security page
+
+### Infrastructure
+
+**CSP Updates:**
+- Added Google Ads and DoubleClick tracking domains
+- Added gstatic.com and cloudflareinsights.com to CSP
+
+**Metadata:**
+- Updated schema.org foundingDate to 2025
+- Updated founded year from 2024 to 2025
+
+### New Pages (Earlier)
+
+- `/features` - Observability audit content and feature showcase
+- `/status` - Observability health dashboard
+
+### Commits
+
+- `f44be63` fix(routing): update /support redirect and add /docs/agents route
+- `d3049dd` fix(nav): use GoRouter context.go() instead of Navigator.pop()
+- `743fc8d` feat(help): add help center page and fix footer links
+- `65657f1` feat(docs): add API toolkit, compliance, and agents pages
+- `a64ccc9` feat(security): remove Enterprise-Grade Capabilities section
+- `192dbea` fix(routing): prevent router recreation from resetting navigation
+- `5b2a392` fix(nav): migrate all Navigator.pushNamed to GoRouter context.go
+- `6cc35db` fix(csp): add Google Ads and DoubleClick tracking domains
+- `2451e1c` fix(csp): add gstatic.com and cloudflareinsights.com to CSP
+- `52c8a6c` feat(status): add /status page with observability health dashboard
+- `1281a69` feat(features): add /features page with observability audit content
+
+---
+
 ## [2026-01-29] - Test Coverage Improvement Sprint
 
 ### Test Coverage
@@ -307,6 +366,7 @@ All notable changes to the IntegrityStudio.ai Flutter project.
 
 | Date | Version | Changes |
 |------|---------|---------|
+| 2026-01-29 | 1.7 | GoRouter migration, help center, docs pages (agents, toolkit, compliance) |
 | 2026-01-29 | 1.6 | Test coverage sprint: 92.1%→94.0%, consent_manager DI refactor |
 | 2026-01-28 | 1.5 | Security page, contact improvements, TypeScript fixes |
 | 2025-12-26 | 1.4 | WhyLabs migration guide, team members, LinkedIn post, blog fixes |

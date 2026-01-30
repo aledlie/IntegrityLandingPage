@@ -4,6 +4,51 @@ Chronological record of development sessions for IntegrityStudio.ai Flutter proj
 
 ---
 
+## 2026-01-29: Navigation & Documentation Updates
+
+### Summary
+Major navigation refactor from Navigator to GoRouter, new documentation pages, and help center implementation.
+
+### Problems Solved
+- Navigator.pop() causing full app refresh instead of in-app navigation
+- Missing /docs/agents, /api/toolkit, /compliance routes
+- /support redirect pointed to wrong page
+- Footer links not working correctly
+
+### Key Technical Decisions
+1. **GoRouter Migration**: Replaced all `Navigator.pushNamed`/`pop` with `context.go()` for proper SPA behavior
+2. **CookieBanner State**: Used `ValueNotifier` pattern to control banner visibility without router recreation
+3. **Route Consolidation**: /support now redirects to /help-center, /docs/agents is proper route (not redirect)
+
+### Files Added
+- `lib/pages/help_center_page.dart` - Help center with FAQ and support options
+- `lib/pages/docs_agents_page.dart` - AI agents observability documentation
+- `lib/pages/api_toolkit_page.dart` - API toolkit documentation
+- `lib/pages/compliance_page.dart` - Compliance and governance documentation
+
+### Files Modified
+- `lib/routing/app_router.dart` - Added new routes, updated redirects
+- `lib/routing/cookie_shell.dart` - Added `cookieBannerNotifier` for state management
+- `lib/pages/security_page.dart` - Removed Enterprise-Grade Capabilities section
+- `lib/widgets/sections/footer_section.dart` - Fixed navigation links
+- Multiple test files - Updated for GoRouter navigation
+
+### Commits Made
+- `f44be63` fix(routing): update /support redirect and add /docs/agents route
+- `d3049dd` fix(nav): use GoRouter context.go() instead of Navigator.pop()
+- `743fc8d` feat(help): add help center page and fix footer links
+- `65657f1` feat(docs): add API toolkit, compliance, and agents pages
+- `a64ccc9` feat(security): remove Enterprise-Grade Capabilities section
+- `192dbea` fix(routing): prevent router recreation from resetting navigation
+- `2177179` fix(test): update tests for GoRouter navigation migration
+- `ec1f8fe` fix(test): remove invalid skip syntax from landing_page_test
+- `5b2a392` fix(nav): migrate all Navigator.pushNamed to GoRouter context.go
+- `54fc607` fix(nav): use GoRouter context.go() for About and Blog links
+
+### Status: ✅ Complete
+
+---
+
 ## 2026-01-29: Test Coverage Improvement Sprint
 
 ### Summary
@@ -50,29 +95,9 @@ Parallel agent sprint to improve test coverage on 8 low-coverage files. Used 8 c
 **Overall: 92.1% → 94.0%** (1933 tests, ~30 skipped)
 
 ### Commits Made
-- None yet - changes uncommitted
+- `63d1a26` test: update consent tests to use cookieBannerNotifier API
 
-### Status: 🔄 In Progress
-
-### Uncommitted Changes
-```
-M lib/services/consent_manager.dart
-M test/app_test.dart
-M test/controllers/landing_controller_test.dart
-M test/pages/landing_page_test.dart
-M test/routing/app_router_test.dart
-M test/services/analytics_test.dart
-M test/services/consent_manager_test.dart
-M test/widgets/sections/contact_section_test.dart
-M test/widgets/sections/social_proof_section_test.dart
-?? docs/fix-plan-routing-refactor.md
-```
-
-### Next Steps
-1. Run full test suite to verify all tests pass
-2. Commit changes with message: `test: improve coverage to 94% with 250 new tests`
-3. Consider removing dead code from `social_proof_section.dart` (unused testimonial classes)
-4. For further coverage: add web integration tests for `kIsWeb` branches
+### Status: ✅ Complete
 
 ### Learnings
 - Parallel agents effective for independent test file work
