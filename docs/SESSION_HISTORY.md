@@ -4,6 +4,84 @@ Chronological record of development sessions for IntegrityStudio.ai Flutter proj
 
 ---
 
+## 2026-01-29: Theme Test Consolidation
+
+### Summary
+Consolidated theme tests using table-driven parameterization patterns, reducing ~197 tests across 5 files to ~165 tests across 4 files (32% line reduction).
+
+### Consolidation Results
+
+| File | Before | After | Reduction |
+|------|--------|-------|-----------|
+| colors_test.dart | 262 lines | 156 lines | 40% |
+| spacing_test.dart | 596 lines | 442 lines | 26% |
+| typography_test.dart | 397 lines | 301 lines | 24% |
+| theme_test.dart | 215 lines | 0 (deleted) | 100% |
+| decorations_test.dart | 315 lines | 315 lines | unchanged |
+| **Total** | **1785 lines** | **1214 lines** | **32%** |
+
+### Key Changes
+
+**Deleted `theme_test.dart`:**
+- Duplicated ~35 color tests from colors_test.dart
+- Duplicated AppSpacing tests from spacing_test.dart
+- No unique value - safe to delete
+
+**Consolidated `colors_test.dart` (52 → ~50 tests, table-driven):**
+```dart
+final colorValues = <String, (Color, int)>{
+  'blue400': (AppColors.blue400, 0xFF60A5FA),
+  'blue500': (AppColors.blue500, 0xFF3B82F6),
+  // ...
+};
+for (final entry in colorValues.entries) {
+  test('${entry.key} has correct value', () {
+    expect(entry.value.$1, equals(Color(entry.value.$2)));
+  });
+}
+```
+
+**Consolidated `spacing_test.dart` (57 → ~67 tests, table-driven):**
+- Parameterized 31 spacing value tests into map-driven loops
+- Parameterized 10 EdgeInsets helper tests into map-driven loop
+- Parameterized 7 breakpoint tests into map-driven loop
+- Combined gridColumns responsive test into single test with all breakpoints
+- Kept responsive helper widget tests as-is (require BuildContext)
+
+**Consolidated `typography_test.dart` (35 → ~25 tests):**
+- Consolidated 16 empty skipped style getter tests into 1 parameterized loop
+- Consolidated 3 empty skipped responsive helper tests into 1 parameterized loop
+- Kept 11 responsive helper widget tests as-is (execute real code)
+
+**Kept `decorations_test.dart` unchanged:**
+- Tests actual behavior with parameter variations
+- Factory methods need coverage for default + custom args
+- Low consolidation value
+
+### Patterns Applied
+
+1. **Dart 3 records for value tables**: `<String, (Color, int)>{}` for color/value pairs
+2. **For-loop test generation**: Generate test from map entries
+3. **Grouped skipped tests**: Single parameterized loop for all skipped tests
+4. **Keep widget tests separate**: Tests requiring BuildContext can't be consolidated
+
+### Files Modified
+- `test/unit/theme/theme_test.dart` - DELETED
+- `test/unit/theme/colors_test.dart` - Refactored to table-driven
+- `test/unit/theme/spacing_test.dart` - Parameterized value tests
+- `test/unit/theme/typography_test.dart` - Consolidated skipped tests
+
+### Commits Made
+- `ba3b0e4` refactor(test): consolidate theme tests with table-driven patterns
+
+### Test Results
+- All 165 theme tests pass (19 skipped for Google Fonts loading)
+- No regressions
+
+### Status: ✅ Complete
+
+---
+
 ## 2026-01-29: Widget Test Consolidation (Part 5 - Final Batch)
 
 ### Summary
