@@ -34,34 +34,12 @@ void main() {
 
   group('DocsAlertsPage', () {
     group('page structure', () {
-      testWidgets('renders Scaffold with correct background', (tester) async {
-        await pumpDocsAlertsPage(tester);
-
-        expect(find.byType(Scaffold), findsOneWidget);
-      });
-
-      testWidgets('renders CustomScrollView', (tester) async {
-        await pumpDocsAlertsPage(tester);
-
-        expect(find.byType(CustomScrollView), findsOneWidget);
-      });
-
-      testWidgets('renders SliverAppBar', (tester) async {
-        await pumpDocsAlertsPage(tester);
-
-        expect(find.byType(SliverAppBar), findsOneWidget);
-      });
+      testPageStructure(pumpDocsAlertsPage);
 
       testWidgets('renders page title in app bar', (tester) async {
         await pumpDocsAlertsPage(tester);
 
         expect(find.text('Alerts Guide'), findsOneWidget);
-      });
-
-      testWidgets('renders back button', (tester) async {
-        await pumpDocsAlertsPage(tester);
-
-        expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
       });
 
       testWidgets('renders Back to Home text button', (tester) async {
@@ -72,26 +50,7 @@ void main() {
     });
 
     group('navigation', () {
-      testWidgets('back button triggers onBack callback', (tester) async {
-        bool backCalled = false;
-        await pumpDocsAlertsPage(tester, onBack: () => backCalled = true);
-
-        await tester.tap(find.byIcon(LucideIcons.arrowLeft));
-        await tester.pump();
-
-        expect(backCalled, isTrue);
-      });
-
-      testWidgets('Back to Home button triggers onBack callback',
-          (tester) async {
-        bool backCalled = false;
-        await pumpDocsAlertsPage(tester, onBack: () => backCalled = true);
-
-        await tester.tap(find.text('Back to Home'));
-        await tester.pump();
-
-        expect(backCalled, isTrue);
-      });
+      testBackButtonCallbacks(pumpDocsAlertsPage);
     });
 
     group('hero section', () {
@@ -714,21 +673,10 @@ void main() {
     });
 
     group('responsive layout', () {
-      testWidgets('renders on mobile viewport', (tester) async {
-        await pumpDocsAlertsPage(tester, mobile: true);
-
-        expect(find.byType(DocsAlertsPage), findsOneWidget);
-        expect(find.text('Alerts Guide'), findsOneWidget);
-        expect(find.text('Alerts & Incident Management'), findsOneWidget);
-      });
-
-      testWidgets('renders on desktop viewport', (tester) async {
-        await pumpDocsAlertsPage(tester, mobile: false);
-
-        expect(find.byType(DocsAlertsPage), findsOneWidget);
-        expect(find.text('Alerts Guide'), findsOneWidget);
-        expect(find.text('Alerts & Incident Management'), findsOneWidget);
-      });
+      testResponsiveLayout<DocsAlertsPage>(
+        pumpDocsAlertsPage,
+        expectedTitle: 'Alerts Guide',
+      );
 
       testWidgets('renders hero section on mobile', (tester) async {
         await pumpDocsAlertsPage(tester, mobile: true);

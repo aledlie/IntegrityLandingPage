@@ -45,23 +45,7 @@ void main() {
 
   group('PricingPage', () {
     group('page structure', () {
-      testWidgets('renders Scaffold with correct background', (tester) async {
-        await pumpPricingPage(tester);
-
-        expect(find.byType(Scaffold), findsOneWidget);
-      });
-
-      testWidgets('renders CustomScrollView', (tester) async {
-        await pumpPricingPage(tester);
-
-        expect(find.byType(CustomScrollView), findsOneWidget);
-      });
-
-      testWidgets('renders SliverAppBar', (tester) async {
-        await pumpPricingPage(tester);
-
-        expect(find.byType(SliverAppBar), findsOneWidget);
-      });
+      testPageStructure(pumpPricingPage);
 
       testWidgets('renders SelectionArea for text selection', (tester) async {
         await pumpPricingPage(tester);
@@ -71,12 +55,6 @@ void main() {
     });
 
     group('app bar', () {
-      testWidgets('renders back button', (tester) async {
-        await pumpPricingPage(tester);
-
-        expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
-      });
-
       testWidgets('renders company name in title', (tester) async {
         await pumpPricingPage(tester);
 
@@ -110,15 +88,7 @@ void main() {
     });
 
     group('navigation', () {
-      testWidgets('back button triggers onBack callback', (tester) async {
-        bool backCalled = false;
-        await pumpPricingPage(tester, onBack: () => backCalled = true);
-
-        await tester.tap(find.byIcon(LucideIcons.arrowLeft));
-        await tester.pump();
-
-        expect(backCalled, isTrue);
-      });
+      testBackButtonCallback(pumpPricingPage);
     });
 
     group('hero section', () {
@@ -450,12 +420,13 @@ void main() {
       });
 
       testWidgets('desktop has larger toolbar height', (tester) async {
-        // Test desktop
         await pumpPricingPage(tester, mobile: false);
         final desktopAppBar =
             tester.widget<SliverAppBar>(find.byType(SliverAppBar));
         expect(desktopAppBar.toolbarHeight, equals(64));
       });
+
+      // Note: Mobile viewport test not included due to PricingPage overflow issues
     });
 
     group('billing toggle interaction', () {

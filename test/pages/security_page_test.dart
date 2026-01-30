@@ -35,34 +35,12 @@ void main() {
 
   group('SecurityPage', () {
     group('page structure', () {
-      testWidgets('renders Scaffold with correct background', (tester) async {
-        await pumpSecurityPage(tester);
-
-        expect(find.byType(Scaffold), findsOneWidget);
-      });
-
-      testWidgets('renders CustomScrollView', (tester) async {
-        await pumpSecurityPage(tester);
-
-        expect(find.byType(CustomScrollView), findsOneWidget);
-      });
-
-      testWidgets('renders SliverAppBar', (tester) async {
-        await pumpSecurityPage(tester);
-
-        expect(find.byType(SliverAppBar), findsOneWidget);
-      });
+      testPageStructure(pumpSecurityPage);
 
       testWidgets('renders page title in app bar', (tester) async {
         await pumpSecurityPage(tester);
 
         expect(find.text(SecurityContent.pageTitle), findsWidgets);
-      });
-
-      testWidgets('renders back button', (tester) async {
-        await pumpSecurityPage(tester);
-
-        expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
       });
 
       testWidgets('renders Back to Home text button', (tester) async {
@@ -73,26 +51,7 @@ void main() {
     });
 
     group('navigation', () {
-      testWidgets('back button triggers onBack callback', (tester) async {
-        bool backCalled = false;
-        await pumpSecurityPage(tester, onBack: () => backCalled = true);
-
-        await tester.tap(find.byIcon(LucideIcons.arrowLeft));
-        await tester.pump();
-
-        expect(backCalled, isTrue);
-      });
-
-      testWidgets('Back to Home button triggers onBack callback',
-          (tester) async {
-        bool backCalled = false;
-        await pumpSecurityPage(tester, onBack: () => backCalled = true);
-
-        await tester.tap(find.text('Back to Home'));
-        await tester.pump();
-
-        expect(backCalled, isTrue);
-      });
+      testBackButtonCallbacks(pumpSecurityPage);
     });
 
     group('hero section', () {
@@ -318,19 +277,10 @@ void main() {
     });
 
     group('responsive layout', () {
-      testWidgets('renders on mobile viewport', (tester) async {
-        await pumpSecurityPage(tester, mobile: true);
-
-        expect(find.byType(SecurityPage), findsOneWidget);
-        expect(find.text(SecurityContent.pageTitle), findsWidgets);
-      });
-
-      testWidgets('renders on desktop viewport', (tester) async {
-        await pumpSecurityPage(tester, mobile: false);
-
-        expect(find.byType(SecurityPage), findsOneWidget);
-        expect(find.text(SecurityContent.pageTitle), findsWidgets);
-      });
+      testResponsiveLayout<SecurityPage>(
+        pumpSecurityPage,
+        expectedTitle: SecurityContent.pageTitle,
+      );
     });
 
     group('section icons', () {

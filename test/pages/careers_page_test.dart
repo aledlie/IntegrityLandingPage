@@ -58,23 +58,7 @@ void main() {
 
   group('CareersPage', () {
     group('page structure', () {
-      testWidgets('renders Scaffold with correct background', (tester) async {
-        await pumpCareersPage(tester);
-
-        expect(find.byType(Scaffold), findsOneWidget);
-      });
-
-      testWidgets('renders CustomScrollView', (tester) async {
-        await pumpCareersPage(tester);
-
-        expect(find.byType(CustomScrollView), findsOneWidget);
-      });
-
-      testWidgets('renders SliverAppBar', (tester) async {
-        await pumpCareersPage(tester);
-
-        expect(find.byType(SliverAppBar), findsOneWidget);
-      });
+      testPageStructure(pumpCareersPage);
 
       testWidgets('renders company name in app bar', (tester) async {
         await pumpCareersPage(tester);
@@ -87,24 +71,10 @@ void main() {
 
         expect(find.byIcon(LucideIcons.shield), findsOneWidget);
       });
-
-      testWidgets('renders back button', (tester) async {
-        await pumpCareersPage(tester);
-
-        expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
-      });
     });
 
     group('navigation', () {
-      testWidgets('back button triggers onBack callback', (tester) async {
-        bool backCalled = false;
-        await pumpCareersPage(tester, onBack: () => backCalled = true);
-
-        await tester.tap(find.byIcon(LucideIcons.arrowLeft));
-        await tester.pump();
-
-        expect(backCalled, isTrue);
-      });
+      testBackButtonCallback(pumpCareersPage);
 
       testWidgets('renders navigation links on desktop', (tester) async {
         await pumpCareersPage(tester, mobile: false);
@@ -276,19 +246,10 @@ void main() {
     });
 
     group('responsive layout', () {
-      testWidgets('renders on mobile viewport', (tester) async {
-        await pumpCareersPage(tester, mobile: true);
-
-        expect(find.byType(CareersPage), findsOneWidget);
-        expect(find.text('Careers at Integrity Studio'), findsOneWidget);
-      });
-
-      testWidgets('renders on desktop viewport', (tester) async {
-        await pumpCareersPage(tester, mobile: false);
-
-        expect(find.byType(CareersPage), findsOneWidget);
-        expect(find.text('Careers at Integrity Studio'), findsOneWidget);
-      });
+      testResponsiveLayout<CareersPage>(
+        pumpCareersPage,
+        expectedTitle: 'Careers at Integrity Studio',
+      );
 
       testWidgets('desktop shows navigation actions', (tester) async {
         await pumpCareersPage(tester, mobile: false);

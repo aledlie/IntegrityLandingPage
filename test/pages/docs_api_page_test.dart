@@ -34,34 +34,12 @@ void main() {
 
   group('DocsApiPage', () {
     group('page structure', () {
-      testWidgets('renders Scaffold with correct background', (tester) async {
-        await pumpDocsApiPage(tester);
-
-        expect(find.byType(Scaffold), findsOneWidget);
-      });
-
-      testWidgets('renders CustomScrollView', (tester) async {
-        await pumpDocsApiPage(tester);
-
-        expect(find.byType(CustomScrollView), findsOneWidget);
-      });
-
-      testWidgets('renders SliverAppBar', (tester) async {
-        await pumpDocsApiPage(tester);
-
-        expect(find.byType(SliverAppBar), findsOneWidget);
-      });
+      testPageStructure(pumpDocsApiPage);
 
       testWidgets('renders page title in app bar', (tester) async {
         await pumpDocsApiPage(tester);
 
         expect(find.text('API Reference'), findsWidgets);
-      });
-
-      testWidgets('renders back button', (tester) async {
-        await pumpDocsApiPage(tester);
-
-        expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
       });
 
       testWidgets('renders Back to Home text button', (tester) async {
@@ -72,26 +50,7 @@ void main() {
     });
 
     group('navigation', () {
-      testWidgets('back button triggers onBack callback', (tester) async {
-        bool backCalled = false;
-        await pumpDocsApiPage(tester, onBack: () => backCalled = true);
-
-        await tester.tap(find.byIcon(LucideIcons.arrowLeft));
-        await tester.pump();
-
-        expect(backCalled, isTrue);
-      });
-
-      testWidgets('Back to Home button triggers onBack callback',
-          (tester) async {
-        bool backCalled = false;
-        await pumpDocsApiPage(tester, onBack: () => backCalled = true);
-
-        await tester.tap(find.text('Back to Home'));
-        await tester.pump();
-
-        expect(backCalled, isTrue);
-      });
+      testBackButtonCallbacks(pumpDocsApiPage);
     });
 
     group('hero section', () {
@@ -598,19 +557,7 @@ void main() {
     });
 
     group('responsive layout', () {
-      testWidgets('renders on mobile viewport', (tester) async {
-        await pumpDocsApiPage(tester, mobile: true);
-
-        expect(find.byType(DocsApiPage), findsOneWidget);
-        expect(find.text('API Reference'), findsWidgets);
-      });
-
-      testWidgets('renders on desktop viewport', (tester) async {
-        await pumpDocsApiPage(tester, mobile: false);
-
-        expect(find.byType(DocsApiPage), findsOneWidget);
-        expect(find.text('API Reference'), findsWidgets);
-      });
+      testResponsiveLayout<DocsApiPage>(pumpDocsApiPage);
 
       testWidgets('mobile viewport renders hero badge', (tester) async {
         await pumpDocsApiPage(tester, mobile: true);

@@ -35,34 +35,12 @@ void main() {
 
   group('EuAiActPage', () {
     group('page structure', () {
-      testWidgets('renders Scaffold with correct background', (tester) async {
-        await pumpEuAiActPage(tester);
-
-        expect(find.byType(Scaffold), findsOneWidget);
-      });
-
-      testWidgets('renders CustomScrollView', (tester) async {
-        await pumpEuAiActPage(tester);
-
-        expect(find.byType(CustomScrollView), findsOneWidget);
-      });
-
-      testWidgets('renders SliverAppBar', (tester) async {
-        await pumpEuAiActPage(tester);
-
-        expect(find.byType(SliverAppBar), findsOneWidget);
-      });
+      testPageStructure(pumpEuAiActPage);
 
       testWidgets('renders page title in app bar', (tester) async {
         await pumpEuAiActPage(tester);
 
         expect(find.text('EU AI Act Compliance'), findsWidgets);
-      });
-
-      testWidgets('renders back button', (tester) async {
-        await pumpEuAiActPage(tester);
-
-        expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
       });
 
       testWidgets('renders Back to Compliance text button', (tester) async {
@@ -73,15 +51,7 @@ void main() {
     });
 
     group('navigation', () {
-      testWidgets('back button triggers onBack callback', (tester) async {
-        bool backCalled = false;
-        await pumpEuAiActPage(tester, onBack: () => backCalled = true);
-
-        await tester.tap(find.byIcon(LucideIcons.arrowLeft));
-        await tester.pump();
-
-        expect(backCalled, isTrue);
-      });
+      testBackButtonCallback(pumpEuAiActPage);
     });
 
     group('hero section', () {
@@ -166,19 +136,7 @@ void main() {
     });
 
     group('responsive layout', () {
-      testWidgets('renders on mobile viewport', (tester) async {
-        await pumpEuAiActPage(tester, mobile: true);
-
-        expect(find.byType(EuAiActPage), findsOneWidget);
-        expect(find.text('EU AI Act Compliance'), findsWidgets);
-      });
-
-      testWidgets('renders on desktop viewport', (tester) async {
-        await pumpEuAiActPage(tester, mobile: false);
-
-        expect(find.byType(EuAiActPage), findsOneWidget);
-        expect(find.text('EU AI Act Compliance'), findsWidgets);
-      });
+      testResponsiveLayout<EuAiActPage>(pumpEuAiActPage);
     });
   });
 }

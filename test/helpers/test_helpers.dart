@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:integrity_studio_ai/theme/colors.dart';
 import 'package:integrity_studio_ai/controllers/landing_controller.dart';
@@ -298,6 +299,138 @@ void setUpOverflowErrorSuppression() {
 /// Tear down overflow error suppression. Call in tearDown().
 void tearDownOverflowErrorSuppression() {
   FlutterError.onError = _originalOnError;
+}
+
+// =============================================================================
+// Test Data Generators
+// =============================================================================
+
+// =============================================================================
+// Standard Page Test Helpers
+// =============================================================================
+
+/// Type for pump functions that create a page widget.
+typedef PagePumpFunction = Future<void> Function(
+  WidgetTester tester, {
+  VoidCallback? onBack,
+  bool mobile,
+});
+
+/// Test standard page structure elements (Scaffold, CustomScrollView, SliverAppBar, back button).
+///
+/// Call within a group() to add these standardized tests:
+/// ```dart
+/// group('page structure', () {
+///   testPageStructure(pumpMyPage);
+/// });
+/// ```
+void testPageStructure(
+  Future<void> Function(WidgetTester) pumpPage, {
+  bool hasBackButton = true,
+}) {
+  testWidgets('renders Scaffold', (tester) async {
+    await pumpPage(tester);
+    expect(find.byType(Scaffold), findsOneWidget);
+  });
+
+  testWidgets('renders CustomScrollView', (tester) async {
+    await pumpPage(tester);
+    expect(find.byType(CustomScrollView), findsOneWidget);
+  });
+
+  testWidgets('renders SliverAppBar', (tester) async {
+    await pumpPage(tester);
+    expect(find.byType(SliverAppBar), findsOneWidget);
+  });
+
+  if (hasBackButton) {
+    testWidgets('renders back button', (tester) async {
+      await pumpPage(tester);
+      expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
+    });
+  }
+}
+
+/// Test back button callback functionality.
+///
+/// Call within a group() to add back button tests:
+/// ```dart
+/// group('navigation', () {
+///   testBackButtonCallback(pumpMyPage);
+/// });
+/// ```
+void testBackButtonCallback(PagePumpFunction pumpPage) {
+  testWidgets('back button triggers onBack callback', (tester) async {
+    bool backCalled = false;
+    await pumpPage(tester, onBack: () => backCalled = true, mobile: false);
+
+    await tester.tap(find.byIcon(LucideIcons.arrowLeft));
+    await tester.pump();
+
+    expect(backCalled, isTrue);
+  });
+}
+
+/// Test back button and "Back to Home" text button callbacks.
+///
+/// Call within a group() to add both back button tests:
+/// ```dart
+/// group('navigation', () {
+///   testBackButtonCallbacks(pumpMyPage);
+/// });
+/// ```
+void testBackButtonCallbacks(PagePumpFunction pumpPage) {
+  testBackButtonCallback(pumpPage);
+
+  testWidgets('Back to Home button triggers onBack callback', (tester) async {
+    bool backCalled = false;
+    await pumpPage(tester, onBack: () => backCalled = true, mobile: false);
+
+    await tester.tap(find.text('Back to Home'));
+    await tester.pump();
+
+    expect(backCalled, isTrue);
+  });
+}
+
+/// Test responsive layout rendering across viewport sizes.
+///
+/// Call within a group() to add responsive tests:
+/// ```dart
+/// group('responsive layout', () {
+///   testResponsiveLayout<MyPage>(pumpMyPage);
+/// });
+/// ```
+void testResponsiveLayout<T extends Widget>(
+  PagePumpFunction pumpPage, {
+  String? expectedTitle,
+  bool includeTablet = false,
+}) {
+  testWidgets('renders on mobile viewport', (tester) async {
+    await pumpPage(tester, mobile: true);
+    expect(find.byType(T), findsOneWidget);
+    if (expectedTitle != null) {
+      expect(find.text(expectedTitle), findsWidgets);
+    }
+  });
+
+  testWidgets('renders on desktop viewport', (tester) async {
+    await pumpPage(tester, mobile: false);
+    expect(find.byType(T), findsOneWidget);
+    if (expectedTitle != null) {
+      expect(find.text(expectedTitle), findsWidgets);
+    }
+  });
+
+  if (includeTablet) {
+    testWidgets('renders on tablet viewport', (tester) async {
+      setTabletSize(tester);
+      clearOverflowExceptions(tester);
+      // Need to call pump manually for tablet since pumpPage uses mobile bool
+      await pumpPage(tester, mobile: false);
+      expect(find.byType(T), findsOneWidget);
+    });
+  }
 }
 
 // =============================================================================

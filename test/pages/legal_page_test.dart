@@ -114,28 +114,12 @@ void main() {
     });
 
     group('layout', () {
-      testWidgets('renders Scaffold', (tester) async {
-        await pumpLegalPage(tester, LegalPageType.privacy);
-        expect(find.byType(Scaffold), findsOneWidget);
-      });
-
-      testWidgets('renders CustomScrollView', (tester) async {
-        await pumpLegalPage(tester, LegalPageType.privacy);
-        expect(find.byType(CustomScrollView), findsOneWidget);
-      });
-
-      testWidgets('renders SliverAppBar', (tester) async {
-        await pumpLegalPage(tester, LegalPageType.privacy);
-        expect(find.byType(SliverAppBar), findsOneWidget);
-      });
+      testPageStructure(
+        (tester) => pumpLegalPage(tester, LegalPageType.privacy),
+      );
     });
 
     group('app bar', () {
-      testWidgets('has back button', (tester) async {
-        await pumpLegalPage(tester, LegalPageType.privacy);
-        expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
-      });
-
       testWidgets('has Back to Home text button', (tester) async {
         await pumpLegalPage(tester, LegalPageType.privacy);
         expect(find.text('Back to Home'), findsOneWidget);

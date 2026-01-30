@@ -51,20 +51,7 @@ void main() {
     });
 
     group('layout', () {
-      testWidgets('renders Scaffold with correct background', (tester) async {
-        await pumpAboutPage(tester);
-        expect(find.byType(Scaffold), findsOneWidget);
-      });
-
-      testWidgets('renders CustomScrollView', (tester) async {
-        await pumpAboutPage(tester);
-        expect(find.byType(CustomScrollView), findsOneWidget);
-      });
-
-      testWidgets('renders SliverAppBar', (tester) async {
-        await pumpAboutPage(tester);
-        expect(find.byType(SliverAppBar), findsOneWidget);
-      });
+      testPageStructure(pumpAboutPage);
 
       testWidgets('renders SelectionArea for text selection', (tester) async {
         await pumpAboutPage(tester);
@@ -76,11 +63,6 @@ void main() {
       testWidgets('displays About Us title', (tester) async {
         await pumpAboutPage(tester);
         expect(find.text('About Us'), findsOneWidget);
-      });
-
-      testWidgets('has back button', (tester) async {
-        await pumpAboutPage(tester);
-        expect(find.byIcon(LucideIcons.arrowLeft), findsOneWidget);
       });
 
       testWidgets('has Back to Home text button', (tester) async {
