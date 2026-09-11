@@ -33,13 +33,13 @@ Rationale: Stripe subscription events are asynchronous and must be handled by we
 
 Core entity groups, all with RLS enabled:
 
-- **Identity**: `users` (mirrors Auth0 via `auth0_id`), `user_profiles`, `user_activity` (audit trail), `user_sessions` (device/geo fingerprinting), `auth_user_links` (bridge table for gradual Supabase Auth → Auth0 migration — set to null once migration completes).
+- **Identity**: `users` (mirrors Auth0 via `auth0_id`), `user_profiles`, `user_activity` (audit trail), `auth_user_links` (bridge table for gradual Supabase Auth → Auth0 migration — set to null once migration completes). `user_sessions` dropped (AUTH-USER-SESSIONS-DROP, migration `20260910000000`).
 - **Organization**: `organizations` (billing_status, current_plan, quota_version), `organization_memberships` (role: owner/admin/member/billing_admin/viewer), `roles` + `user_roles` for finer-grained RBAC than membership role alone.
 - **Billing**: `plans`, `subscriptions` (mirrors Stripe subscription), `entitlements` (feature flags + hard/soft limits per org), `billing_event_log` (raw Stripe webhook payloads, deduped by `stripe_event_id`).
 - **API/usage**: `api_keys` (bcrypt/Argon2 hash, org-scoped prefix uniqueness), `usage_events` (per-request ledger), `usage_buckets_daily` (rollup).
 - **Async work**: `provisioning_jobs` — tracks all cross-system side effects (`user_created`, `membership_changed`, `subscription_changed`, `entitlements_recomputed`, `quota_version_bumped`) with `dedupe_key`, `retry_count`/`max_retries`, and `status`.
 - **Audit**: `audit_log` — actor (user or API key), action, target, old/new values.
-- **Analytics integrations**: `analytics_projects`, `provider_oauth_tokens` (GA4/Facebook Pixel/Google Ads OAuth via Supabase Vault).
+- **Analytics integrations**: `analytics_projects` and `provider_oauth_tokens` dropped (AUTH-IDENTITY-SPLIT, migration `20260910000000`). GA4 edge functions (ga4-list-properties, ga4-select-property, ga4-token-refresh) deleted alongside the migration.
 
 Key design notes:
 - Every mutable table gets a shared `update_updated_at_column()` trigger.

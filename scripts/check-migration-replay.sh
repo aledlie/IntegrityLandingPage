@@ -49,8 +49,8 @@ echo "== asserting rebuilt schema =="
 missing="$(psql "$DB_URL" -tA -c "
   select string_agg(t, ', ')
   from unnest(array[
-    'users','api_keys','roles','analytics_projects','provider_oauth_tokens',
-    'stripe_events','user_activity','user_profiles','user_roles','user_sessions',
+    'users','api_keys','roles',
+    'stripe_events','user_activity','user_profiles','user_roles',
     'organizations','organization_memberships','subscriptions','entitlements',
     'plans','auth_user_links','user_details'
   ]) t
