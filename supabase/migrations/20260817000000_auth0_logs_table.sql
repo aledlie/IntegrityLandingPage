@@ -16,12 +16,17 @@ CREATE TABLE IF NOT EXISTS public.auth0_logs (
   user_agent TEXT,
   scope TEXT,
   description TEXT,
-  details JSONB, -- Full Auth0 log entry for debugging/compliance
-  INDEX idx_auth0_logs_created_at (created_at DESC),
-  INDEX idx_auth0_logs_event_type (event_type),
-  INDEX idx_auth0_logs_user_id (user_id),
-  INDEX idx_auth0_logs_client_id (client_id)
+  details JSONB -- Full Auth0 log entry for debugging/compliance
 );
+
+-- Inline `INDEX ...` clauses inside CREATE TABLE are MySQL syntax; Postgres rejects
+-- them (SQLSTATE 42601), which broke the CR30 replay guard from 2026-08-17 until
+-- 2026-09-11 and left every later migration unproven. Production already has the
+-- table, so these are IF NOT EXISTS to stay idempotent against whatever created it.
+CREATE INDEX IF NOT EXISTS idx_auth0_logs_created_at ON public.auth0_logs (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_auth0_logs_event_type ON public.auth0_logs (event_type);
+CREATE INDEX IF NOT EXISTS idx_auth0_logs_user_id ON public.auth0_logs (user_id);
+CREATE INDEX IF NOT EXISTS idx_auth0_logs_client_id ON public.auth0_logs (client_id);
 
 -- Enable RLS (logs are internal audit data)
 ALTER TABLE public.auth0_logs ENABLE ROW LEVEL SECURITY;
